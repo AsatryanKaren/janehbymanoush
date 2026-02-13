@@ -1,0 +1,52 @@
+.hero {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+}
+
+.heroTitle {
+  font-weight: 300 !important;
+  letter-spacing: 2px;
+}
+
+.heroSubtitle {
+  max-width: 560px;
+  text-align: center;
+  font-size: 1.125rem !important;
+}
+
+.featured {
+  padding: 48px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 48px 16px;
+  }
+
+  .featured {
+    padding: 32px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 32px 12px;
+  }
+
+  .featured {
+    padding: 24px 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .featured {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

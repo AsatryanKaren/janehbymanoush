@@ -1,0 +1,31 @@
+import { App, ConfigProvider, theme } from "antd";
+
+interface AntdProviderProps {
+  children: React.ReactNode;
+}
+
+export const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: "#8b6914",
+        borderRadius: 6,
+        fontFamily: "'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+      },
+      algorithm: theme.defaultAlgorithm,
+      components: {
+        Layout: {
+          headerBg: "#fff",
+          headerPadding: "0 24px",
+          footerBg: "#fafafa",
+          siderBg: "#001529",
+        },
+        Menu: {
+          horizontalLineHeight: "64px",
+        },
+      },
+    }}
+  >
+    <App>{children}</App>
+  </ConfigProvider>
+);

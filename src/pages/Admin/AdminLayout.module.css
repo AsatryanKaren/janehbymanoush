@@ -1,0 +1,27 @@
+.sider {
+  min-height: 100vh;
+}
+
+.logo {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoText {
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.content {
+  padding: 24px;
+  min-height: 360px;
+  overflow-x: auto;
+}
+
+@media (max-width: 992px) {
+  .content {
+    padding: 16px;
+  }
+}

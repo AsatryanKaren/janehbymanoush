@@ -1,0 +1,39 @@
+---
+description: React component and page patterns
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+# Component Patterns
+
+## Page Component Template
+
+```tsx
+import { Typography } from "antd";
+import { useTranslation } from "react-i18next";
+import styles from "./MyPage.module.css";
+
+const { Title, Paragraph } = Typography;
+
+export const MyPage: React.FC = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className={styles.container}>
+      <Title level={1}>{t("section.title")}</Title>
+      <Paragraph type="secondary">{t("section.text")}</Paragraph>
+    </div>
+  );
+};
+```
+
+## Rules
+
+- One component per file, file name matches component name
+- Pages in `src/pages/FeatureName/FeatureNamePage.tsx` with co-located `.module.css`
+- Shared components in `src/components/ComponentName/ComponentName.tsx`
+- Use antd `Typography`, `Flex`, `Space` instead of raw HTML + custom CSS
+- Use antd `Table` with `scroll={{ x: number }}` for responsive admin tables
+- Use antd `Form` with `layout="vertical"` for forms
+- Destructure antd sub-components at module level: `const { Title } = Typography;`
+- Use `formatPrice(amount, currency, i18n.language)` for locale-aware prices

@@ -1,0 +1,73 @@
+---
+description: Core project conventions and coding standards for Janeh by Manoush
+alwaysApply: true
+---
+
+# Project Conventions
+
+## Stack
+
+- React 18 + TypeScript (strict mode) + Vite
+- Ant Design 6 (antd) for all UI — prefer antd components over custom HTML/CSS
+- Axios for API calls via `src/api/http.ts`
+- react-router-dom v6 for routing
+- i18next + react-i18next for translations (EN, RU, HY)
+- Playwright for E2E tests
+- pnpm as package manager — pin exact versions (no `^`)
+
+## File Structure
+
+```
+src/
+  api/          # API client and endpoint modules
+  app/          # App entry, providers, layout, routes
+  components/   # Shared reusable components
+  config/       # Environment config
+  consts/       # Constants, enums, route definitions
+  i18n/         # i18n config + locales/ (en.json, ru.json, hy.json)
+  pages/        # Page components grouped by feature folder
+  styles/       # Global CSS (minimal — antd handles most styling)
+  types/        # Shared TypeScript interfaces and enums
+  utils/        # Pure utility functions
+```
+
+## Code Style
+
+- Use `@/` path alias for all imports from `src/`
+- Named exports only (no default exports except i18n)
+- `React.FC` with explicit props interfaces for components
+- Arrow functions with explicit return types for utilities
+- `as const` for constant objects, derive types with `typeof`
+- Use `void` prefix for fire-and-forget promises
+- Prettier: double quotes, semicolons, 2-space indent, trailing commas, 90-char width
+
+## UI Rules (antd-first)
+
+- Use antd `Typography` (Title, Paragraph, Text) instead of raw `h1`, `p` tags
+- Use antd `Flex`, `Space`, `Row`/`Col` for layout instead of custom CSS
+- Use antd `Result` for error/empty states (e.g., 404 page)
+- Use antd `App.useApp()` for `message`/`notification` (not static imports)
+- Use antd `Dropdown` with `GlobalOutlined` icon for the language switcher
+- Configure antd theme via `ConfigProvider` in `AntdProvider.tsx`
+- CSS modules only for what antd cannot handle (gradients, image sizing, responsive containers)
+- No inline styles — use CSS modules when custom CSS is needed
+
+## Translations (i18n)
+
+- All user-facing text must come from translation files — never hardcode UI strings
+- Translation files: `src/i18n/locales/{en,ru,hy}.json`
+- Keys are nested by section: `nav.*`, `home.*`, `catalog.*`, `product.*`, `about.*`, `contact.*`, `notFound.*`, `admin.*`, `common.*`
+- Use `useTranslation()` hook in components, pass `i18n.language` to locale-aware utils
+- When adding new UI text, add keys to all three locale files
+
+## API Layer
+
+- All HTTP calls go through `src/api/http.ts` (axios-based `http<T>` generic)
+- Endpoint modules in `src/api/*.api.ts` (e.g., `productsApi`, `ordersApi`)
+- Types for API responses live in `src/types/`
+
+## Types
+
+- Shared domain types in `src/types/` (Product, Order, etc.)
+- Component-local props interfaces stay in the component file
+- Enums for domain values (ProductCategory, OrderStatus) in `src/types/`

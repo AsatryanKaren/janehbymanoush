@@ -1,0 +1,59 @@
+.hero {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+}
+
+.heroTitle {
+  font-weight: 300 !important;
+  letter-spacing: 2px;
+}
+
+.heroSubtitle {
+  max-width: 560px;
+  text-align: center;
+  font-size: 1.125rem !important;
+  color: rgba(0, 0, 0, 0.55) !important;
+  margin-bottom: 0 !important;
+}
+
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.sectionTitle {
+  font-weight: 400 !important;
+  letter-spacing: 0.5px;
+}
+
+.divider {
+  width: 40px;
+  min-width: 40px;
+  margin: 12px 0 24px;
+  border-top: 2px solid #c9a96e;
+}
+
+.formSubtitle {
+  margin-bottom: 24px !important;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 48px 16px;
+  }
+
+  .content {
+    padding: 40px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 32px 12px;
+  }
+
+  .content {
+    padding: 32px 12px;
+  }
+}

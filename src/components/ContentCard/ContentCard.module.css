@@ -1,0 +1,65 @@
+.card {
+  height: 100%;
+  min-height: 180px;
+  display: flex;
+  background: #fafafa;
+  border-radius: 12px;
+}
+
+.card.vertical {
+  min-height: 220px;
+}
+
+.card.vertical .content {
+  flex: 1;
+  text-align: center;
+}
+
+.card.horizontal {
+  min-height: 88px;
+}
+
+.card.horizontal .content {
+  flex: 1;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.iconWrap :global(.anticon) {
+  font-size: 1.5rem;
+  color: #c9a96e;
+}
+
+.vertical .iconWrap :global(.anticon) {
+  font-size: 2.5rem;
+}
+
+.title {
+  font-size: 1.125rem !important;
+}
+
+.description {
+  margin-bottom: 0 !important;
+  line-height: 1.7 !important;
+}
+
+@media (max-width: 768px) {
+  .card.vertical {
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card.vertical {
+    min-height: 180px;
+  }
+
+  .card.horizontal {
+    min-height: 80px;
+  }
+}
