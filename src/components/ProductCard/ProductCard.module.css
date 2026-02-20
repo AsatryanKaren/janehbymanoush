@@ -41,6 +41,50 @@
   color: #8b6914;
 }
 
+.compactMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.compactCategory {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.compactCollection {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.compactMeta .price {
+  font-size: 0.875rem;
+}
+
+.compactMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.compactCategory {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.compactCollection {
+  font-size: 0.875rem;
+  display: block;
+}
+
+.compactMeta .price {
+  font-size: 0.875rem;
+}
+
 @media (max-width: 768px) {
   .image {
     height: 220px;

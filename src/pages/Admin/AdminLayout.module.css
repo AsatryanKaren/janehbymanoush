@@ -7,11 +7,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
 }
 
-.logoText {
-  color: #fff;
-  letter-spacing: 1px;
+.logo img {
+  max-height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .content {

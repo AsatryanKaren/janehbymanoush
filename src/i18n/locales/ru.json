@@ -1,25 +1,51 @@
 {
   "common": {
     "appName": "Janeh by Manoush",
-    "footer": "{{appName}} © {{year}}. Все права защищены.",
     "yes": "Да",
-    "no": "Нет",
-    "loading": "Загрузка...",
-    "error": "Что-то пошло не так"
+    "no": "Нет"
   },
   "nav": {
-    "home": "Главная",
-    "women": "Женщинам",
-    "men": "Мужчинам",
+    "collection": "Коллекция",
+    "woman": "Женщина",
+    "man": "Мужчина",
+    "newProducts": "Новые товары",
     "about": "О нас",
     "contact": "Контакты",
     "openMenu": "Открыть меню"
   },
   "home": {
-    "title": "Janeh by Manoush",
-    "subtitle": "Украшения ручной работы, которые рассказывают историю. Откройте для себя вечные изделия, созданные с любовью и точностью.",
-    "shopWomen": "Женская коллекция",
-    "featuredPieces": "Избранные изделия"
+    "tagline": "Серебряные украшения, вдохновлённые природой, культурой и историей",
+    "brandLine1": "JANEH",
+    "brandLine2": "BY MANOUSH",
+    "newCollection": "Новая коллекция",
+    "viewAll": "Смотреть все",
+    "featuredPieces": "Избранные изделия",
+    "bestSellers": "Лучшие продажи",
+    "curatedEdits": {
+      "title": "Коллекция «Гавит»",
+      "subtitle": "Узоры коллекции «Гавит» вдохновлены резными и миниатюрными композициями храма Гандзасар в Арцахе.",
+      "browseAll": "Смотреть все",
+      "collection1": "Серьги «Гавит»",
+      "collection2": "Кольцо «Гавит»",
+      "collection3": "Ожерелье и серьги «Гавит»",
+      "explore": "Explore"
+    },
+    "heritage": {
+      "label": "Наследие",
+      "heading": "Медленное ремесло и чистая этика",
+      "body": "В janehbymanoush мы верим, что украшения должны быть такими же значимыми, как истории, которым они посвящены. Наша философия строится на трёх столпах: ремесленное мастерство, этичные источники и вневременной дизайн.",
+      "ethicalTitle": "Этичные источники",
+      "ethicalDesc": "Мы используем только 100% переработанное золото и бесконфликтные алмазы из сертифицированных источников.",
+      "madeToOrderTitle": "На заказ",
+      "madeToOrderDesc": "Сокращаем отходы, создавая каждое изделие для его будущего владельца в нашей мастерской.",
+      "ourFullStory": "Наша история"
+    },
+    "newsletter": {
+      "title": "Присоединяйтесь",
+      "subtitle": "Узнавайте первыми о новых коллекциях, закрытых мероприятиях и журнале.",
+      "placeholder": "Ваш email",
+      "button": "Подписаться"
+    }
   },
   "catalog": {
     "womenCollection": "Женская коллекция",
@@ -31,7 +57,11 @@
     "notFound": "Товар не найден.",
     "outOfStock": "Нет в наличии",
     "addToCart": "В корзину",
-    "unavailable": "Недоступно"
+    "unavailable": "Недоступно",
+    "categoryEarrings": "Серьги",
+    "categoryNecklaces": "Ожерелья",
+    "categoryRings": "Кольца",
+    "categoryBracelets": "Браслеты"
   },
   "about": {
     "title": "О Janeh by Manoush",
@@ -85,6 +115,7 @@
     "products": "Товары",
     "orders": "Заказы",
     "backToSite": "На сайт",
+    "backToList": "К списку",
     "addProduct": "Добавить товар",
     "editProduct": "Редактировать товар",
     "deleteProduct": "Удалить",
@@ -92,20 +123,25 @@
     "edit": "Редактировать",
     "saveChanges": "Сохранить",
     "cancel": "Отмена",
-    "uploadImage": "Загрузить изображение",
     "productName": "Название товара",
     "productNameRequired": "Пожалуйста, введите название товара",
     "slug": "Слаг",
     "slugRequired": "Пожалуйста, введите слаг",
     "description": "Описание",
-    "descriptionRequired": "Пожалуйста, введите описание",
+    "story": "История",
     "price": "Цена",
     "priceRequired": "Пожалуйста, введите цену",
     "category": "Категория",
     "categoryRequired": "Пожалуйста, выберите категорию",
-    "inStock": "В наличии",
-    "images": "Изображения",
+    "collection": "Коллекция",
+    "collectionRequired": "Пожалуйста, выберите коллекцию",
+    "currency": "Валюта",
+    "gender": "Пол",
+    "mainImageUrl": "URL главного изображения",
+    "inStock": "Активен",
     "loadFailed": "Не удалось загрузить товар",
+    "createSuccess": "Товар успешно создан",
+    "createFailed": "Не удалось создать товар",
     "updateSuccess": "Товар успешно обновлён",
     "updateFailed": "Не удалось обновить товар",
     "columnOrderId": "Номер заказа",
@@ -115,10 +151,58 @@
     "columnTotal": "Итого",
     "columnStatus": "Статус",
     "columnDate": "Дата",
+    "columnImage": "Фото",
     "columnName": "Название",
     "columnCategory": "Категория",
+    "columnCollection": "Коллекция",
     "columnPrice": "Цена",
+    "paginationTotal": "{{total}} шт.",
     "columnInStock": "В наличии",
-    "columnActions": "Действия"
+    "columnActions": "Действия",
+    "create": "Создать",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "collections": {
+      "title": "Коллекции",
+      "add": "Добавить коллекцию",
+      "edit": "Редактировать коллекцию",
+      "columnName": "Название",
+      "columnSlug": "Слаг",
+      "columnSortOrder": "Порядок",
+      "columnCategories": "Категории",
+      "categoriesCount": "{{count}} категорий",
+      "deleteConfirm": "Удалить эту коллекцию?",
+      "fieldName": "Название",
+      "fieldSlug": "Слаг",
+      "fieldSortOrder": "Порядок сортировки",
+      "nameRequired": "Введите название",
+      "slugRequired": "Введите слаг",
+      "notFound": "Коллекция не найдена"
+    }
+  },
+  "footer": {
+    "brandTagline": "Армянское наследие в современной бижутерии.",
+    "purchases": {
+      "title": "Покупки",
+      "ringSizeGuide": "Руководство по размеру колец",
+      "giftCards": "Подарочные карты",
+      "shippingReturns": "Доставка и возврат",
+      "careInstructions": "Инструкции по уходу"
+    },
+    "about": {
+      "title": "О нас",
+      "philosophy": "Наша философия",
+      "heritage": "Наследие",
+      "contactUs": "Связаться с нами"
+    },
+    "addresses": {
+      "title": "Наши адреса",
+      "rio": "Rio Mall, 2 этаж, Папазян 8",
+      "nubar": "Ресторан «Нубар», Вардананц 18/2",
+      "serevn": "SER.EVN, Московян 31"
+    },
+    "copyright": "© {{year}} JANEHBYMANOUSH. Все права защищены.",
+    "privacy": "Политика конфиденциальности",
+    "terms": "Условия использования"
   }
 }

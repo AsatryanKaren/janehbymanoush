@@ -52,6 +52,13 @@ These rules are **not optional**. Every file in this project must follow them.
 | `src/components/*` | Reusable JSX + component logic | Type definitions, API calls, inline styles |
 | `src/pages/*` | Page-level JSX + page logic | Shared types, shared constants |
 
+### Component Export Standard
+
+- **All React components** (pages, layout, providers, `src/components/*`) must:
+  - Be declared as `const ComponentName: React.FC<Props> = ...` (or `const ComponentName = ...`).
+  - Be exported at the end of the file with `export default ComponentName`.
+- Use **default imports** when importing components: `import HomePage from "@/pages/Home/HomePage"`.
+
 ### Forbidden Patterns
 
 - **NO** inline styles (`style={{}}`) — use CSS Modules or `src/styles/`
@@ -135,7 +142,12 @@ playwright.config.ts                 # Playwright configuration
 | Path | Page |
 |---|---|
 | `/admin/products` | Products list |
-| `/admin/products/:id` | Edit product |
+| `/admin/products/new` | New product |
+| `/admin/products/:id` | View product |
+| `/admin/products/:id/edit` | Edit product |
+| `/admin/collections` | Collections list |
+| `/admin/collections/new` | New collection |
+| `/admin/collections/:id/edit` | Edit collection |
 | `/admin/orders` | Orders list |
 
 ## Scripts

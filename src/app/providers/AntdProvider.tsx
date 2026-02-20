@@ -4,7 +4,7 @@ interface AntdProviderProps {
   children: React.ReactNode;
 }
 
-export const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
+const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
   <ConfigProvider
     theme={{
       token: {
@@ -29,3 +29,5 @@ export const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
     <App>{children}</App>
   </ConfigProvider>
 );
+
+export default AntdProvider;

@@ -23,13 +23,14 @@ void i18n
       ru: { translation: ru },
       hy: { translation: hy },
     },
-    fallbackLng: "en",
+    lng: "hy",
+    fallbackLng: "hy",
     supportedLngs: ["en", "ru", "hy"],
     interpolation: {
       escapeValue: false,
     },
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["localStorage"],
       caches: ["localStorage"],
     },
   });

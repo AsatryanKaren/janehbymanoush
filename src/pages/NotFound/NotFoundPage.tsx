@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "@/consts/routes";
 
-export const NotFoundPage: React.FC = () => {
+const NotFoundPage: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -21,3 +21,5 @@ export const NotFoundPage: React.FC = () => {
     />
   );
 };
+
+export default NotFoundPage;

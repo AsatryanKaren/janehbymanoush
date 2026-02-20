@@ -9,10 +9,18 @@ interface RequestOptions {
 }
 
 export const apiClient = axios.create({
-  baseURL: ENV.API_BASE_URL,
+  baseURL: ENV.API_BASE_URL, // {API_ROOT}/api, e.g. http://213.199.46.0/api
   headers: {
     "Content-Type": "application/json",
   },
+});
+
+// Add Bearer token for admin API requests
+apiClient.interceptors.request.use((config) => {
+  if (ENV.ADMIN_BEARER_TOKEN && config.url?.includes("/v1/admin/")) {
+    config.headers.Authorization = `Bearer ${ENV.ADMIN_BEARER_TOKEN}`;
+  }
+  return config;
 });
 
 export async function http<T>(path: string, options: RequestOptions = {}): Promise<T> {

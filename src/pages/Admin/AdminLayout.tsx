@@ -1,18 +1,21 @@
-import { Layout, Menu, Typography } from "antd";
+import { Layout, Menu } from "antd";
 import {
   ShoppingOutlined,
+  FolderOutlined,
   FileTextOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "@/consts/routes";
+import { LOGO_IMAGE } from "@/consts/assets";
+import AdminCategoriesProvider from "@/app/providers/AdminCategoriesProvider";
+import AdminCollectionsProvider from "@/app/providers/AdminCollectionsProvider";
 import styles from "./AdminLayout.module.css";
 
 const { Sider, Content } = Layout;
-const { Text } = Typography;
 
-export const AdminLayout: React.FC = () => {
+const AdminLayout: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +25,11 @@ export const AdminLayout: React.FC = () => {
       key: ROUTES.ADMIN_PRODUCTS,
       icon: <ShoppingOutlined />,
       label: t("admin.products"),
+    },
+    {
+      key: ROUTES.ADMIN_COLLECTIONS,
+      icon: <FolderOutlined />,
+      label: t("admin.collections.title"),
     },
     {
       key: ROUTES.ADMIN_ORDERS,
@@ -40,26 +48,30 @@ export const AdminLayout: React.FC = () => {
   };
 
   return (
-    <Layout>
-      <Sider className={styles.sider} breakpoint="lg" collapsedWidth="0">
-        <div className={styles.logo}>
-          <Text strong className={styles.logoText}>
-            {t("admin.panelTitle")}
-          </Text>
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          selectedKeys={[location.pathname]}
-          items={menuItems}
-          onClick={handleMenuClick}
-        />
-      </Sider>
-      <Layout>
-        <Content className={styles.content}>
-          <Outlet />
-        </Content>
+    <AdminCategoriesProvider>
+      <AdminCollectionsProvider>
+        <Layout>
+        <Sider className={styles.sider} breakpoint="lg" collapsedWidth="0">
+          <Link to={ROUTES.ADMIN_PRODUCTS} className={styles.logo}>
+            <img src={LOGO_IMAGE} alt={t("admin.panelTitle")} />
+          </Link>
+          <Menu
+            theme="dark"
+            mode="inline"
+            selectedKeys={[location.pathname]}
+            items={menuItems}
+            onClick={handleMenuClick}
+          />
+        </Sider>
+        <Layout>
+          <Content className={styles.content}>
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+      </AdminCollectionsProvider>
+    </AdminCategoriesProvider>
   );
 };
+
+export default AdminLayout;

@@ -1,32 +1,21 @@
 import { http } from "@/api/http";
 import type { Product, ProductListParams, ProductListResponse } from "@/types/product";
 
+/** GET/POST /api/v1/products (base URL from env: VITE_API_ROOT + /api) */
+const PRODUCTS_PATH = "/v1/products";
+
 export const productsApi = {
   getAll: (params?: ProductListParams): Promise<ProductListResponse> =>
-    http<ProductListResponse>("/products", {
+    http<ProductListResponse>(PRODUCTS_PATH, {
       params: {
         category: params?.category,
+        collectionId: params?.collectionId,
         page: params?.page,
-        limit: params?.limit,
+        pageSize: params?.pageSize,
         search: params?.search,
       },
     }),
 
   getBySlug: (slug: string): Promise<Product> =>
-    http<Product>(`/products/${slug}`),
-
-  getById: (id: string): Promise<Product> =>
-    http<Product>(`/products/by-id/${id}`),
-
-  create: (data: Omit<Product, "id" | "createdAt" | "updatedAt">): Promise<Product> =>
-    http<Product>("/products", { method: "POST", body: data }),
-
-  update: (
-    id: string,
-    data: Partial<Omit<Product, "id" | "createdAt" | "updatedAt">>,
-  ): Promise<Product> =>
-    http<Product>(`/products/${id}`, { method: "PUT", body: data }),
-
-  delete: (id: string): Promise<void> =>
-    http<void>(`/products/${id}`, { method: "DELETE" }),
+    http<Product>(`${PRODUCTS_PATH}/${slug}`),
 };

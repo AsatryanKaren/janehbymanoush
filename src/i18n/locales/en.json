@@ -1,25 +1,51 @@
 {
   "common": {
     "appName": "Janeh by Manoush",
-    "footer": "{{appName}} © {{year}}. All rights reserved.",
     "yes": "Yes",
-    "no": "No",
-    "loading": "Loading...",
-    "error": "Something went wrong"
+    "no": "No"
   },
   "nav": {
-    "home": "Home",
-    "women": "Women",
-    "men": "Men",
+    "collection": "Collection",
+    "woman": "Woman",
+    "man": "Man",
+    "newProducts": "New products",
     "about": "About",
     "contact": "Contact",
     "openMenu": "Open menu"
   },
   "home": {
-    "title": "Janeh by Manoush",
-    "subtitle": "Handcrafted jewelry that tells a story. Discover timeless pieces designed with passion and precision.",
-    "shopWomen": "Shop Women",
-    "featuredPieces": "Featured Pieces"
+    "tagline": "Silver jewelry inspired by nature, culture, and history",
+    "brandLine1": "JANEH",
+    "brandLine2": "BY MANOUSH",
+    "newCollection": "New Collection",
+    "viewAll": "View All",
+    "featuredPieces": "Featured Pieces",
+    "bestSellers": "Best Sellers",
+    "curatedEdits": {
+      "title": "\"Gavith\" collection",
+      "subtitle": "The patterns of the \"Gavith\" collection are inspired by the carved and miniature compositions of Artsakh's Gandzasar church.",
+      "browseAll": "View all",
+      "collection1": "\"Gavith\" earrings",
+      "collection2": "\"Gavith\" ring",
+      "collection3": "\"Gavith\" necklace and earrings",
+      "explore": "Explore"
+    },
+    "heritage": {
+      "label": "The Heritage",
+      "heading": "Rooted in Slow Craft & Pure Ethics",
+      "body": "At janehbymanoush, we believe that jewelry should be as meaningful as the stories it commemorates. Our philosophy is built upon three pillars: artisanal craftsmanship, ethical sourcing, and timeless design.",
+      "ethicalTitle": "Ethical Sourcing",
+      "ethicalDesc": "We use only 100% recycled gold and conflict-free diamonds from certified sources.",
+      "madeToOrderTitle": "Made To Order",
+      "madeToOrderDesc": "Reducing waste by crafting each piece specifically for its future owner in our local atelier.",
+      "ourFullStory": "Our Full Story"
+    },
+    "newsletter": {
+      "title": "Join the Circle",
+      "subtitle": "Be the first to know about new collection drops, private events, and editorial journals.",
+      "placeholder": "Your email address",
+      "button": "Join"
+    }
   },
   "catalog": {
     "womenCollection": "Women's Collection",
@@ -31,7 +57,11 @@
     "notFound": "Product not found.",
     "outOfStock": "Out of Stock",
     "addToCart": "Add to Cart",
-    "unavailable": "Unavailable"
+    "unavailable": "Unavailable",
+    "categoryEarrings": "Earrings",
+    "categoryNecklaces": "Necklaces",
+    "categoryRings": "Rings",
+    "categoryBracelets": "Bracelets"
   },
   "about": {
     "title": "About Janeh by Manoush",
@@ -85,6 +115,7 @@
     "products": "Products",
     "orders": "Orders",
     "backToSite": "Back to Site",
+    "backToList": "Back to list",
     "addProduct": "Add Product",
     "editProduct": "Edit Product",
     "deleteProduct": "Delete",
@@ -92,20 +123,25 @@
     "edit": "Edit",
     "saveChanges": "Save Changes",
     "cancel": "Cancel",
-    "uploadImage": "Upload Image",
     "productName": "Product Name",
     "productNameRequired": "Please enter the product name",
     "slug": "Slug",
     "slugRequired": "Please enter the slug",
     "description": "Description",
-    "descriptionRequired": "Please enter the description",
+    "story": "Story",
     "price": "Price",
     "priceRequired": "Please enter the price",
     "category": "Category",
     "categoryRequired": "Please select a category",
-    "inStock": "In Stock",
-    "images": "Images",
+    "collection": "Collection",
+    "collectionRequired": "Please select a collection",
+    "currency": "Currency",
+    "gender": "Gender",
+    "mainImageUrl": "Main image URL",
+    "inStock": "Active",
     "loadFailed": "Failed to load product",
+    "createSuccess": "Product created successfully",
+    "createFailed": "Failed to create product",
     "updateSuccess": "Product updated successfully",
     "updateFailed": "Failed to update product",
     "columnOrderId": "Order ID",
@@ -115,10 +151,58 @@
     "columnTotal": "Total",
     "columnStatus": "Status",
     "columnDate": "Date",
+    "columnImage": "Image",
     "columnName": "Name",
     "columnCategory": "Category",
+    "columnCollection": "Collection",
     "columnPrice": "Price",
+    "paginationTotal": "{{total}} items",
     "columnInStock": "In Stock",
-    "columnActions": "Actions"
+    "columnActions": "Actions",
+    "create": "Create",
+    "save": "Save",
+    "delete": "Delete",
+    "collections": {
+      "title": "Collections",
+      "add": "Add Collection",
+      "edit": "Edit Collection",
+      "columnName": "Name",
+      "columnSlug": "Slug",
+      "columnSortOrder": "Sort order",
+      "columnCategories": "Categories",
+      "categoriesCount": "{{count}} categories",
+      "deleteConfirm": "Delete this collection?",
+      "fieldName": "Name",
+      "fieldSlug": "Slug",
+      "fieldSortOrder": "Sort order",
+      "nameRequired": "Please enter the name",
+      "slugRequired": "Please enter the slug",
+      "notFound": "Collection not found"
+    }
+  },
+  "footer": {
+    "brandTagline": "Armenian heritage in modern jewelry.",
+    "purchases": {
+      "title": "Purchases",
+      "ringSizeGuide": "Ring size guide",
+      "giftCards": "Gift cards",
+      "shippingReturns": "Shipping and returns",
+      "careInstructions": "Care instructions"
+    },
+    "about": {
+      "title": "About Us",
+      "philosophy": "Our philosophy",
+      "heritage": "Heritage",
+      "contactUs": "Contact us"
+    },
+    "addresses": {
+      "title": "Our Addresses",
+      "rio": "Rio Mall, 2nd floor, Papazyan 8",
+      "nubar": "Nubar restaurant, Vardanants 18/2",
+      "serevn": "SER.EVN, Moskovyan 31"
+    },
+    "copyright": "© {{year}} JANEHBYMANOUSH. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
   }
 }

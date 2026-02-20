@@ -26,7 +26,7 @@ export type ContentCardProps =
   | ContentCardVerticalProps
   | ContentCardHorizontalProps;
 
-export const ContentCard: React.FC<ContentCardProps> = (props) => {
+const ContentCard: React.FC<ContentCardProps> = (props) => {
   const { icon, title, variant, className } = props;
   const rootClass = [styles.card, styles[variant], className].filter(Boolean).join(" ");
 
@@ -58,3 +58,5 @@ export const ContentCard: React.FC<ContentCardProps> = (props) => {
     </Card>
   );
 };
+
+export default ContentCard;

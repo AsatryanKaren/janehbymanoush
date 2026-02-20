@@ -14,7 +14,7 @@ const STATUS_OPTIONS = Object.values(OrderStatus).map((value) => ({
   value,
 }));
 
-export const AdminOrdersPage: React.FC = () => {
+const AdminOrdersPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -105,3 +105,5 @@ export const AdminOrdersPage: React.FC = () => {
     </>
   );
 };
+
+export default AdminOrdersPage;

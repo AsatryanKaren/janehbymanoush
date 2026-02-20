@@ -6,8 +6,8 @@ import {
   ClockCircleOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { ContentCard } from "@/components/ContentCard/ContentCard";
-import { CardGrid } from "@/components/CardGrid/CardGrid";
+import ContentCard from "@/components/ContentCard/ContentCard";
+import CardGrid from "@/components/CardGrid/CardGrid";
 import styles from "./ContactPage.module.css";
 
 const { Title, Paragraph } = Typography;
@@ -18,7 +18,7 @@ interface ContactFormValues {
   message: string;
 }
 
-export const ContactPage: React.FC = () => {
+const ContactPage: React.FC = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm<ContactFormValues>();
 
@@ -142,3 +142,5 @@ export const ContactPage: React.FC = () => {
     </>
   );
 };
+
+export default ContactPage;

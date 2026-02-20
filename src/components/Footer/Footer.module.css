@@ -1,0 +1,156 @@
+.footer {
+  padding: 0;
+  background: transparent;
+}
+
+.main {
+  padding: 80px 24px 48px;
+  background: #fbfaf8;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.brandTagline {
+  display: block;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.75);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.icons {
+  margin-bottom: 24px;
+}
+
+.iconLink {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.125rem;
+}
+
+.iconLink:hover {
+  color: #8d734a;
+}
+
+.logoWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.logoLine {
+  width: 40px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 8px 0 4px;
+}
+
+.logoBy {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.columnTitle {
+  display: block;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8d734a;
+  margin-bottom: 16px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.linkList,
+.addressList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.linkList li,
+.addressList li {
+  margin-bottom: 12px;
+}
+
+.link {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.link:hover {
+  color: #8d734a;
+}
+
+.addressList {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.6;
+}
+
+.addressItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.addressIcon {
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.bottomBar {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 24px;
+  background: #2b2a29;
+}
+
+.copyright {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.legalLinks {
+  flex-shrink: 0;
+}
+
+.legalLink {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.legalLink:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 48px 16px 32px;
+  }
+
+  .bottomBar {
+    padding: 20px 16px;
+  }
+}

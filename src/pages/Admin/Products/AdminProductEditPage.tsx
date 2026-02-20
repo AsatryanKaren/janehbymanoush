@@ -7,67 +7,117 @@ import {
   Select,
   Switch,
   Button,
-  Upload,
   Spin,
   Space,
   Typography,
   Flex,
   App,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { productsApi } from "@/api/products.api";
+import { adminProductsApi } from "@/api/adminProducts.api";
 import { ROUTES } from "@/consts/routes";
-import { ProductCategory } from "@/types/product";
-import type { Product } from "@/types/product";
+import { useAdminCategories } from "@/app/providers/AdminCategoriesProvider";
+import { useAdminCollections } from "@/app/providers/AdminCollectionsProvider";
 
 const { Title } = Typography;
 
-const CATEGORY_OPTIONS = Object.values(ProductCategory).map((value) => ({
-  label: value.charAt(0).toUpperCase() + value.slice(1),
-  value,
-}));
+const GENDER_OPTIONS = [
+  { label: "Women", value: 0 },
+  { label: "Men", value: 1 },
+];
 
-export const AdminProductEditPage: React.FC = () => {
+const isCreateMode = (id: string | undefined): boolean => id === undefined;
+
+const AdminProductEditPage: React.FC = () => {
   const { t } = useTranslation();
   const { message } = App.useApp();
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
+  const { categories } = useAdminCategories();
+  const { collections } = useAdminCollections();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  const create = isCreateMode(id);
+
+  const categoryOptions = categories.map((c) => ({
+    label: c.title,
+    value: c.id,
+  }));
+
+  const collectionOptions = collections.map((c) => ({
+    label: c.name,
+    value: c.id,
+  }));
+
   useEffect(() => {
-    if (!id) return;
+    if (create) return;
 
     setLoading(true);
-    productsApi
-      .getById(id)
+    adminProductsApi
+      .getById(id!)
       .then((product) => {
-        form.setFieldsValue(product);
+        form.setFieldsValue({
+          ...product,
+          categoryId: product.categoryId,
+          collectionId: product.collectionId,
+        });
       })
       .catch(() => {
         void message.error(t("admin.loadFailed"));
       })
       .finally(() => setLoading(false));
-  }, [id, form, message, t]);
+  }, [id, create, form, message, t]);
 
-  const handleSubmit = async (values: Partial<Product>) => {
-    if (!id) return;
-
+  const handleSubmit = async (values: Record<string, unknown>) => {
     setSubmitting(true);
     try {
-      await productsApi.update(id, values);
-      void message.success(t("admin.updateSuccess"));
+      const categoryId = values.categoryId as string;
+      const selectedCategory = categories.find((c) => c.id === categoryId);
+
+      if (create) {
+        const createPayload = {
+          name: values.name as string,
+          slug: values.slug as string,
+          gender: values.gender as number,
+          category: selectedCategory?.key ?? "",
+          categoryId,
+          price: values.price as number,
+          currency: (values.currency as string) ?? "AMD",
+          description: (values.description as string) || undefined,
+          story: (values.story as string) || undefined,
+          isActive: (values.isActive as boolean) ?? true,
+        };
+        await adminProductsApi.create(createPayload);
+        void message.success(t("admin.createSuccess"));
+      } else {
+        const updatePayload = {
+          name: values.name as string,
+          slug: values.slug as string,
+          gender: values.gender as number,
+          category: selectedCategory?.key ?? (values.category as string) ?? "",
+          categoryId,
+          price: values.price as number,
+          currency: (values.currency as string) ?? "AMD",
+          description: (values.description as string) || undefined,
+          story: (values.story as string) || undefined,
+          isActive: (values.isActive as boolean) ?? true,
+        };
+        await adminProductsApi.update(id!, updatePayload);
+        void message.success(t("admin.updateSuccess"));
+      }
       navigate(ROUTES.ADMIN_PRODUCTS);
     } catch {
-      void message.error(t("admin.updateFailed"));
+      void message.error(
+        create ? t("admin.createFailed") : t("admin.updateFailed"),
+      );
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (loading) {
+  if (!create && loading) {
     return (
       <Flex justify="center" align="center">
         <Spin size="large" />
@@ -77,19 +127,20 @@ export const AdminProductEditPage: React.FC = () => {
 
   return (
     <>
-      <Title level={2}>{t("admin.editProduct")}</Title>
+      <Title level={2}>
+        {create ? t("admin.addProduct") : t("admin.editProduct")}
+      </Title>
       <Form
         form={form}
         layout="vertical"
         onFinish={handleSubmit}
         style={{ maxWidth: 720 }}
+        initialValues={{ currency: "AMD", isActive: true, gender: 0 }}
       >
         <Form.Item
           name="name"
           label={t("admin.productName")}
-          rules={[
-            { required: true, message: t("admin.productNameRequired") },
-          ]}
+          rules={[{ required: true, message: t("admin.productNameRequired") }]}
         >
           <Input />
         </Form.Item>
@@ -102,14 +153,44 @@ export const AdminProductEditPage: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          name="description"
-          label={t("admin.description")}
-          rules={[
-            { required: true, message: t("admin.descriptionRequired") },
-          ]}
-        >
+        <Form.Item name="description" label={t("admin.description")}>
           <Input.TextArea rows={4} />
+        </Form.Item>
+
+        <Form.Item name="story" label={t("admin.story")}>
+          <Input.TextArea rows={3} />
+        </Form.Item>
+
+        <Form.Item
+          name="gender"
+          label={t("admin.gender")}
+          rules={[{ required: true }]}
+        >
+          <Select options={GENDER_OPTIONS} />
+        </Form.Item>
+
+        <Form.Item
+          name="categoryId"
+          label={t("admin.category")}
+          rules={[{ required: true, message: t("admin.categoryRequired") }]}
+        >
+          <Select
+            options={categoryOptions}
+            placeholder={t("admin.categoryRequired")}
+            loading={categoryOptions.length === 0}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="collectionId"
+          label={t("admin.collection")}
+          rules={[{ required: true, message: t("admin.collectionRequired") }]}
+        >
+          <Select
+            options={collectionOptions}
+            placeholder={t("admin.collectionRequired")}
+            loading={collectionOptions.length === 0}
+          />
         </Form.Item>
 
         <Form.Item
@@ -117,29 +198,24 @@ export const AdminProductEditPage: React.FC = () => {
           label={t("admin.price")}
           rules={[{ required: true, message: t("admin.priceRequired") }]}
         >
-          <InputNumber min={0} precision={2} />
+          <InputNumber min={0} precision={2} style={{ width: "100%" }} />
         </Form.Item>
 
-        <Form.Item
-          name="category"
-          label={t("admin.category")}
-          rules={[{ required: true, message: t("admin.categoryRequired") }]}
-        >
-          <Select options={CATEGORY_OPTIONS} />
+        <Form.Item name="currency" label={t("admin.currency")}>
+          <Select
+            options={[
+              { label: "AMD", value: "AMD" },
+              { label: "USD", value: "USD" },
+            ]}
+          />
         </Form.Item>
 
-        <Form.Item
-          name="inStock"
-          label={t("admin.inStock")}
-          valuePropName="checked"
-        >
+        <Form.Item name="mainImageUrl" label={t("admin.mainImageUrl")}>
+          <Input placeholder="https://..." />
+        </Form.Item>
+
+        <Form.Item name="isActive" label={t("admin.inStock")} valuePropName="checked">
           <Switch />
-        </Form.Item>
-
-        <Form.Item label={t("admin.images")}>
-          <Upload listType="picture" beforeUpload={() => false}>
-            <Button icon={<UploadOutlined />}>{t("admin.uploadImage")}</Button>
-          </Upload>
         </Form.Item>
 
         <Form.Item>
@@ -156,3 +232,5 @@ export const AdminProductEditPage: React.FC = () => {
     </>
   );
 };
+
+export default AdminProductEditPage;

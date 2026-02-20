@@ -1,27 +1,133 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.logo {
-  font-size: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  color: #8b6914;
-  white-space: nowrap;
-}
-
-.desktopMenu {
-  flex: 1;
-  justify-content: flex-end;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 72px;
+  background: #fdfaf5;
   border-bottom: none;
+}
+
+.navLink,
+.navLinkActive {
+  color: #805c3c;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.navLink:hover {
+  color: #6b4d32;
+}
+
+.navLinkActive {
+  font-weight: 500;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.contactWithLang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.langButton {
+  color: #805c3c !important;
+  padding: 6px 10px !important;
+  min-width: auto;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.langButton:hover {
+  color: #6b4d32 !important;
+}
+
+.dropdownOverlay {
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 4px 0;
+}
+
+.headerSpacer {
+  display: none;
 }
 
 .menuButton {
   display: none;
+  color: #805c3c !important;
   font-size: 1.25rem;
+}
+
+.drawerLogo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.drawerHeader {
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
+
+.drawerHeader :global(.ant-drawer-header-title) {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.drawerHeader :global(.ant-drawer-close) {
+  margin: 0;
+}
+
+.drawerBody {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.drawerLink,
+.drawerLinkActive {
+  display: block;
+  width: 100%;
+  padding: 20px 24px;
+  color: #805c3c;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.drawerLink:hover {
+  color: #6b4d32;
+  background-color: rgba(128, 92, 60, 0.06);
+}
+
+.drawerLinkActive {
+  font-weight: 500;
+  background-color: rgba(128, 92, 60, 0.08);
 }
 
 .content {
@@ -29,25 +135,59 @@
   min-height: calc(100vh - 128px);
 }
 
-.footer {
-  text-align: center;
-  color: #999;
+.drawerLangButton {
+  margin-top: 8px;
+  padding: 20px 24px;
+  width: 100%;
+  text-align: left;
+  color: #805c3c;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #f5f5f5 !important;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
 }
 
-.drawerLangButton {
-  margin-top: 16px;
+.drawerLangButton:hover {
+  color: #6b4d32;
+  background: #eee !important;
+  border-color: #d9d9d9;
 }
 
 @media (max-width: 768px) {
-  .desktopMenu {
+  .header {
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .headerSpacer {
+    display: none;
+  }
+
+  .header .navLink,
+  .header .navLinkActive {
     display: none;
   }
 
   .menuButton {
     display: inline-flex;
+    order: -1;
+    font-size: 1.25rem;
   }
 
-  .footer {
-    font-size: 0.875rem;
+  .header .langButton {
+    font-size: 1.25rem !important;
+  }
+
+  .logoWrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .logoImg {
+    height: 32px;
   }
 }

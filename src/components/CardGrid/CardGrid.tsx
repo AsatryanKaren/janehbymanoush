@@ -20,7 +20,7 @@ interface CardGridProps {
   gutter?: [number, number];
 }
 
-export const CardGrid: React.FC<CardGridProps> = ({
+const CardGrid: React.FC<CardGridProps> = ({
   children,
   preset = "product",
   gutter = [24, 24],
@@ -47,3 +47,5 @@ export const CardGrid: React.FC<CardGridProps> = ({
     </Row>
   );
 };
+
+export default CardGrid;

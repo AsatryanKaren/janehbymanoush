@@ -1,6 +1,5 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "@/app/App";
+import App from "@/app/App";
 import "@/i18n";
 import "@/styles/global.css";
 
@@ -10,8 +9,4 @@ if (!rootElement) {
   throw new Error("Root element not found");
 }
 
-createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-);
+createRoot(rootElement).render(<App />);

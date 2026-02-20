@@ -6,14 +6,14 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ContentCard } from "@/components/ContentCard/ContentCard";
-import { CardGrid } from "@/components/CardGrid/CardGrid";
+import ContentCard from "@/components/ContentCard/ContentCard";
+import CardGrid from "@/components/CardGrid/CardGrid";
 import { ROUTES } from "@/consts/routes";
 import styles from "./AboutPage.module.css";
 
 const { Title, Paragraph } = Typography;
 
-export const AboutPage: React.FC = () => {
+const AboutPage: React.FC = () => {
   const { t } = useTranslation();
 
   const values = [
@@ -92,3 +92,5 @@ export const AboutPage: React.FC = () => {
     </>
   );
 };
+
+export default AboutPage;

@@ -5,13 +5,12 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { productsApi } from "@/api/products.api";
 import { formatPrice } from "@/utils/formatPrice";
-import { MOCK_PRODUCTS } from "@/mocks/products";
 import type { Product } from "@/types/product";
 import styles from "./ProductPage.module.css";
 
 const { Title, Text, Paragraph } = Typography;
 
-export const ProductPage: React.FC = () => {
+const ProductPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const [product, setProduct] = useState<Product | null>(null);
@@ -24,10 +23,7 @@ export const ProductPage: React.FC = () => {
     productsApi
       .getBySlug(slug)
       .then(setProduct)
-      .catch(() => {
-        const mockProduct = MOCK_PRODUCTS.find((p) => p.slug === slug) ?? null;
-        setProduct(mockProduct);
-      })
+      .catch(() => setProduct(null))
       .finally(() => setLoading(false));
   }, [slug]);
 
@@ -47,7 +43,7 @@ export const ProductPage: React.FC = () => {
     );
   }
 
-  const coverImage = product.images[0] ?? "/placeholder.jpg";
+  const coverImage = product.mainImageUrl ?? "/placeholder.jpg";
 
   return (
     <div className={styles.container}>
@@ -65,19 +61,21 @@ export const ProductPage: React.FC = () => {
             </Text>
             <Flex gap={8}>
               <Tag color="gold">{product.category}</Tag>
-              {!product.inStock && (
+              {!product.isActive && (
                 <Tag color="red">{t("product.outOfStock")}</Tag>
               )}
             </Flex>
-            <Paragraph type="secondary">{product.description}</Paragraph>
+            {product.description != null && product.description !== "" && (
+              <Paragraph type="secondary">{product.description}</Paragraph>
+            )}
             <div>
               <Button
                 type="primary"
                 size="large"
                 icon={<ShoppingCartOutlined />}
-                disabled={!product.inStock}
+                disabled={!product.isActive}
               >
-                {product.inStock
+                {product.isActive
                   ? t("product.addToCart")
                   : t("product.unavailable")}
               </Button>
@@ -88,3 +86,5 @@ export const ProductPage: React.FC = () => {
     </div>
   );
 };
+
+export default ProductPage;

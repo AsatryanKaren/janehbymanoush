@@ -1,25 +1,51 @@
 {
   "common": {
     "appName": "Janeh by Manoush",
-    "footer": "{{appName}} © {{year}}. Բոլոր իրավունքները պաշտպանված են։",
     "yes": "Այո",
-    "no": "Ոչ",
-    "loading": "Բեռնվում է...",
-    "error": "Ինչ-որ բան սխալ գնաց"
+    "no": "Ոչ"
   },
   "nav": {
-    "home": "Գլխավոր",
-    "women": "Կանայք",
-    "men": "Տղամարդիկ",
+    "collection": "Հավաքածուներ",
+    "woman": "Կանանց",
+    "man": "Տղամարդկանց",
+    "newProducts": "Նոր ապրանքներ",
     "about": "Մեր մասին",
     "contact": "Կապ",
-    "openMenu": "Բացել մենյուն"
+    "openMenu": "Բացել մենյու"
   },
   "home": {
-    "title": "Janeh by Manoush",
-    "subtitle": "Ձեռագործ զարդեղեն, որը պատմություն է պատմում։ Բացահայտեք հավերժական կտորներ, ստեղծված կիրքով և ճշգրտությամբ։",
-    "shopWomen": "Կանացի հավաքածու",
-    "featuredPieces": "Ընտրված կտորներ"
+    "tagline": "Արծաթյա զարդեր՝ ներշնչված բնությունից, մշակույթից ու պատմությունից",
+    "brandLine1": "JANEH",
+    "brandLine2": "BY MANOUSH",
+    "newCollection": "ՆՈՐ ՀԱՎԱՔԱԾՈՒ",
+    "viewAll": "ԴԻՏԵԼ ԲՈԼՈՐԸ",
+    "featuredPieces": "Ընտրված կտորներ",
+    "bestSellers": "ԼԱՎԱԳՈՒՅՆ ՎԱՃԱՌՔ",
+    "curatedEdits": {
+      "title": "«Գավիթ» հավաքածու",
+      "subtitle": "«Գավիթ» հավաքածուի նախշերը ներշնչված են Արցախի Գանձասար եկեղեցու քանդակազարդ և մանրակերտ հորինվածքներից։",
+      "browseAll": "դիտել բոլորը",
+      "collection1": "«Գավիթ» ականջօղեր",
+      "collection2": "«Գավիթ» մատանի",
+      "collection3": "«Գավիթ» վզնոց և ականջօղեր",
+      "explore": "Explore"
+    },
+    "heritage": {
+      "label": "Պատմություն",
+      "heading": "Արմատներով դանդաղ արհեստի և մաքուր էթիկայի մեջ",
+      "body": "Janehbymanoush-ում մենք հավատում ենք, որ զարդեղենը պետք է նույնքան իմաստալից լինի, որքան պատմությունները, որոնց այն նվիրված է։ Մեր փիլիսոփայությունը հիմնված է արվեստի, էթիկական աղբյուրների և ժամանակից դուրս դիզայնի վրա։",
+      "ethicalTitle": "Էթիկական աղբյուրներ",
+      "ethicalDesc": "Մենք օգտագործում ենք միայն 100% վերամշակված ոսկի և կոնֆլիկտից ազատ ադամանդներ սերտիֆիկացված աղբյուրներից։",
+      "madeToOrderTitle": "Պատվերով արտադրություն",
+      "madeToOrderDesc": "Կրճատելով թափոնները՝ յուրաքանչյուր կտոր պատրաստելով դրա ապագա սեփականատիրոջ համար մեր ատելյեում։",
+      "ourFullStory": "Մեր ամբողջ պատմությունը"
+    },
+    "newsletter": {
+      "title": "Միացեք շրջանակին",
+      "subtitle": "Լինեք առաջինը, ով կիմանա նոր հավաքածուների, մասնավոր իրադարձությունների և ամսագրերի մասին։",
+      "placeholder": "Ձեր էլ. հասցեն",
+      "button": "Միանալ"
+    }
   },
   "catalog": {
     "womenCollection": "Կանացի հավաքածու",
@@ -31,7 +57,11 @@
     "notFound": "Ապրանքը չի գտնվել։",
     "outOfStock": "Պահեստում չկա",
     "addToCart": "Ավելացնել զամբյուղին",
-    "unavailable": "Անհասանելի"
+    "unavailable": "Անհասանելի",
+    "categoryEarrings": "ԱԿԱՆՋՕՂԵՐ",
+    "categoryNecklaces": "ՎԶՆՈՑՆԵՐ",
+    "categoryRings": "ՄԱՏԱՆԻՆԵՐ",
+    "categoryBracelets": "ԹԵՎՆՈՑՆԵՐ"
   },
   "about": {
     "title": "Janeh by Manoush-ի մասին",
@@ -85,6 +115,7 @@
     "products": "Ապրանքներ",
     "orders": "Պատվերներ",
     "backToSite": "Վերադառնալ կայք",
+    "backToList": "Դեպի ցանկ",
     "addProduct": "Ավելացնել ապրանք",
     "editProduct": "Խմբագրել ապրանքը",
     "deleteProduct": "Ջնջել",
@@ -92,20 +123,25 @@
     "edit": "Խմբագրել",
     "saveChanges": "Պահպանել",
     "cancel": "Չեղարկել",
-    "uploadImage": "Վերբեռնել նկար",
     "productName": "Ապրանքի անունը",
     "productNameRequired": "Խնդրում ենք գրեք ապրանքի անունը",
     "slug": "Սլագ",
     "slugRequired": "Խնդրում ենք գրեք սլագը",
     "description": "Նկարագրություն",
-    "descriptionRequired": "Խնդրում ենք գրեք նկարագրությունը",
+    "story": "Պատմություն",
     "price": "Գին",
     "priceRequired": "Խնդրում ենք գրեք գինը",
     "category": "Կատեգորիա",
     "categoryRequired": "Խնդրում ենք ընտրեք կատեգորիան",
-    "inStock": "Առկա է",
-    "images": "Նկարներ",
+    "collection": "Հավաքածուներ",
+    "collectionRequired": "Խնդրում ենք ընտրեք հավաքածուն",
+    "currency": "Արտարժույթ",
+    "gender": "Սեռ",
+    "mainImageUrl": "Գլխավոր նկարի URL",
+    "inStock": "Ակտիվ",
     "loadFailed": "Չհաջողվեց բեռնել ապրանքը",
+    "createSuccess": "Ապրանքը հաջողությամբ ստեղծվեց",
+    "createFailed": "Չհաջողվեց ստեղծել ապրանքը",
     "updateSuccess": "Ապրանքը հաջողությամբ թարմացվեց",
     "updateFailed": "Չհաջողվեց թարմացնել ապրանքը",
     "columnOrderId": "Պատվերի համար",
@@ -115,10 +151,58 @@
     "columnTotal": "Ընդամենը",
     "columnStatus": "Կարգավիճակ",
     "columnDate": "Ամսաթիվ",
+    "columnImage": "Նկար",
     "columnName": "Անուն",
     "columnCategory": "Կատեգորիա",
+    "columnCollection": "Հավաքածու",
     "columnPrice": "Գին",
+    "paginationTotal": "{{total}} հատ",
     "columnInStock": "Առկա է",
-    "columnActions": "Գործողություններ"
+    "columnActions": "Գործողություններ",
+    "create": "Ստեղծել",
+    "save": "Պահպանել",
+    "delete": "Ջնջել",
+    "collections": {
+      "title": "Հավաքածուներ",
+      "add": "Ավելացնել հավաքածու",
+      "edit": "Խմբագրել հավաքածուն",
+      "columnName": "Անուն",
+      "columnSlug": "Սլագ",
+      "columnSortOrder": "Կարգ",
+      "columnCategories": "Կատեգորիաներ",
+      "categoriesCount": "{{count}} կատեգորիա",
+      "deleteConfirm": "Ջնջե՞լ այս հավաքածուն՞",
+      "fieldName": "Անուն",
+      "fieldSlug": "Սլագ",
+      "fieldSortOrder": "Կարգ",
+      "nameRequired": "Խնդրում ենք մուտքագրել անունը",
+      "slugRequired": "Խնդրում ենք մուտքագրել սլագը",
+      "notFound": "Հավաքածուն չի գտնվել"
+    }
+  },
+  "footer": {
+    "brandTagline": "Հայկական ժառանգության շունչը ժամանակակից զարդերում։",
+    "purchases": {
+      "title": "ԳՆՈՒՄՆԵՐ",
+      "ringSizeGuide": "Մատանիների չափի ուղեցույց",
+      "giftCards": "Նվեր քարտեր",
+      "shippingReturns": "Առաքում և վերադարձ",
+      "careInstructions": "Խնամքի ցուցումներ"
+    },
+    "about": {
+      "title": "ՄԵՐ ՄԱՍԻՆ",
+      "philosophy": "Մեր փիլիսոփայությունը",
+      "heritage": "Ժառանգությունը",
+      "contactUs": "Կապ մեզ հետ"
+    },
+    "addresses": {
+      "title": "ՄԵՐ ՀԱՍՑԵՆԵՐԸ",
+      "rio": "Ռիո մոլ, 2-րդ հարկ՝ Փափազյան 8",
+      "nubar": "«Նուբար» ռեստորան` Վարդանանց 18/2",
+      "serevn": "SER.EVN` Մոսկովյան 31"
+    },
+    "copyright": "© {{year}} JANEHBYMANOUSH. ԲՈԼՈՐ ԻՐԱՎՈՒՆՔՆԵՐԸ ՊԱՇՏՊԱՆՎԱԾ ԵՆ։",
+    "privacy": "ԳԱՂՏՆԻՈՒԹՅԱՆ ՔԱՂԱՔԱԿԱՆՈՒԹՅՈՒՆ",
+    "terms": "ՕԳՏԱԳՈՐԾՄԱՆ ՊԱՅՄԱՆՆԵՐ"
   }
 }
