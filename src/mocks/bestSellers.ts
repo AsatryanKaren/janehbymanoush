@@ -1,4 +1,4 @@
-import type { Product } from "@/types/product";
+import type { Product } from "src/types/product";
 
 /** Mock best sellers for home page (until API is used) */
 export const MOCK_BEST_SELLERS: Product[] = [

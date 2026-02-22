@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
-import AntdProvider from "@/app/providers/AntdProvider";
-import { router } from "@/app/routes";
+import AntdProvider from "src/app/providers/AntdProvider";
+import { router } from "src/app/routes";
 
 const App: React.FC = () => (
   <AntdProvider>

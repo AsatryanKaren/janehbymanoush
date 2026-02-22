@@ -14,10 +14,10 @@ import {
   App,
 } from "antd";
 import { useTranslation } from "react-i18next";
-import { adminProductsApi } from "@/api/adminProducts.api";
-import { ROUTES } from "@/consts/routes";
-import { useAdminCategories } from "@/app/providers/AdminCategoriesProvider";
-import { useAdminCollections } from "@/app/providers/AdminCollectionsProvider";
+import { adminProductsApi } from "src/api/adminProducts.api";
+import { ROUTES } from "src/consts/routes";
+import { useAdminCategories } from "src/app/providers/AdminCategoriesProvider";
+import { useAdminCollections } from "src/app/providers/AdminCollectionsProvider";
 
 const { Title } = Typography;
 

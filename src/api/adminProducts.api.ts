@@ -1,11 +1,11 @@
-import { http } from "@/api/http";
+import { http } from "src/api/http";
 import type {
   CreateProductBody,
   Product,
   ProductListParams,
   ProductListResponse,
   UpdateProductBody,
-} from "@/types/product";
+} from "src/types/product";
 
 /** Admin product API: GET/POST/PUT/DELETE /api/v1/admin/products */
 const ADMIN_PRODUCTS_PATH = "/v1/admin/products";

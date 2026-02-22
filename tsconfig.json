@@ -22,10 +22,10 @@
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
 
-    /* Path aliases */
+    /* Path resolution */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "src/*": ["src/*"]
     }
   },
   "include": ["src", "vite-env.d.ts"]

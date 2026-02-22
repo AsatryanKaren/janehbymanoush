@@ -1,19 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ROUTES } from "@/consts/routes";
-import AppLayout from "@/app/layout/AppLayout";
-import HomePage from "@/pages/Home/HomePage";
-import CatalogPage from "@/pages/Catalog/CatalogPage";
-import ProductPage from "@/pages/Product/ProductPage";
-import AboutPage from "@/pages/About/AboutPage";
-import ContactPage from "@/pages/Contact/ContactPage";
-import NotFoundPage from "@/pages/NotFound/NotFoundPage";
-import AdminLayout from "@/pages/Admin/AdminLayout";
-import AdminProductsListPage from "@/pages/Admin/Products/AdminProductsListPage";
-import AdminProductEditPage from "@/pages/Admin/Products/AdminProductEditPage";
-import AdminProductViewPage from "@/pages/Admin/Products/AdminProductViewPage";
-import AdminOrdersPage from "@/pages/Admin/Orders/AdminOrdersPage";
-import AdminCollectionsListPage from "@/pages/Admin/Collections/AdminCollectionsListPage";
-import AdminCollectionEditPage from "@/pages/Admin/Collections/AdminCollectionEditPage";
+import { ROUTES } from "src/consts/routes";
+import AppLayout from "src/app/layout";
+import HomePage from "src/pages/Home";
+import CatalogPage from "src/pages/Catalog";
+import ProductPage from "src/pages/Product";
+import AboutPage from "src/pages/About";
+import ContactPage from "src/pages/Contact";
+import NotFoundPage from "src/pages/NotFound";
+import AdminLayout from "src/pages/Admin";
+import AdminProductsListPage from "src/pages/Admin/Products/AdminProductsListPage";
+import AdminProductEditPage from "src/pages/Admin/Products/AdminProductEditPage";
+import AdminProductViewPage from "src/pages/Admin/Products/AdminProductViewPage";
+import AdminOrdersPage from "src/pages/Admin/Orders/AdminOrdersPage";
+import AdminCollectionsListPage from "src/pages/Admin/Collections/AdminCollectionsListPage";
+import AdminCollectionEditPage from "src/pages/Admin/Collections/AdminCollectionEditPage";
 
 export const router = createBrowserRouter([
   {

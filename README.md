@@ -14,7 +14,6 @@ Handcrafted jewelry catalog website with an integrated admin panel.
 | **ESLint + Prettier** | Consistent code style enforced automatically |
 | **Husky + lint-staged** | Pre-commit hooks ensure no unformatted or lint-failing code is committed |
 | **Strict TypeScript** | Catches bugs at compile time; `noUncheckedIndexedAccess` and all strict flags enabled |
-| **Path alias `@/*`** | Clean imports (`@/api/products.api`) instead of fragile relative paths |
 
 ## Setup
 
@@ -52,20 +51,34 @@ These rules are **not optional**. Every file in this project must follow them.
 | `src/components/*` | Reusable JSX + component logic | Type definitions, API calls, inline styles |
 | `src/pages/*` | Page-level JSX + page logic | Shared types, shared constants |
 
-### Component Export Standard
+### Imports
 
-- **All React components** (pages, layout, providers, `src/components/*`) must:
-  - Be declared as `const ComponentName: React.FC<Props> = ...` (or `const ComponentName = ...`).
-  - Be exported at the end of the file with `export default ComponentName`.
-- Use **default imports** when importing components: `import HomePage from "@/pages/Home/HomePage"`.
+- **Same folder:** use relative `./file` (e.g. `import { X } from "./types"`).
+- **Elsewhere in project:** use path from project root, e.g. `src/components/ProductCard`, `src/pages/Home`, `src/api/http`. Do not use path aliases (e.g. no `@/`).
+
+### Component folder structure
+
+Every component has a folder whose name is the logical component name. Use these files:
+
+| File | Purpose |
+|------|--------|
+| `index.tsx` | Component implementation; declare as `const ComponentName: React.FC<Props> = ...` and export default. |
+| `styles.module.css` | Component styles (use when custom CSS is needed). |
+| `types.ts` | Optional; props and other types used only by this component. |
+| `utils.ts` | Optional; pure helpers used only by this component. |
+| `consts.ts` | Optional; constants used only by this component. |
+
+- Import components by folder: `import HomePage from "src/pages/Home"`, `import ProductCard from "src/components/ProductCard"`.
+- Do not put types, constants, or utils inside `index.tsx` when a dedicated file exists.
+- Do not write any inline styles — use `styles.module.css` or `src/styles/`.
 
 ### Forbidden Patterns
 
-- **NO** inline styles (`style={{}}`) — use CSS Modules or `src/styles/`
-- **NO** type definitions inside components — move to `src/types/`
-- **NO** constants defined inside components — move to `src/consts/`
-- **NO** API logic inside components — call functions from `src/api/`
-- **NO** mixed concerns in a single file
+- **NO** inline styles (`style={{}}`) — use `styles.module.css` or `src/styles/`; do not write any inline styles.
+- **NO** type definitions inside `index.tsx` when the component has a `types.ts` or type belongs in `src/types/`.
+- **NO** constants inside `index.tsx` when the component has `consts.ts` or constant belongs in `src/consts/`.
+- **NO** API logic inside components — call functions from `src/api/`.
+- **NO** mixed concerns in a single file.
 
 ### If Any Rule Is Violated
 
@@ -83,21 +96,26 @@ src/
     providers/
       AntdProvider.tsx               # Ant Design theme config
   pages/
-    Home/HomePage.tsx                # Landing page
-    Catalog/CatalogPage.tsx          # Women / Men collections
-    Product/ProductPage.tsx          # Single product detail
-    About/AboutPage.tsx              # About the brand
-    Contact/ContactPage.tsx          # Contact form
+    Home/index.tsx                   # Landing page
+    Catalog/index.tsx                # Women / Men collections
+    Product/index.tsx                # Single product detail
+    About/index.tsx                  # About the brand
+    Contact/index.tsx                # Contact form
     Admin/
-      AdminLayout.tsx                # Admin sidebar layout
+      index.tsx                      # Admin sidebar layout
       Products/
-        AdminProductsListPage.tsx    # Product table + CRUD
+        AdminProductsListPage.tsx    # (or index.tsx) Product table + CRUD
         AdminProductEditPage.tsx     # Edit product form
       Orders/
         AdminOrdersPage.tsx          # Orders table
-    NotFound/NotFoundPage.tsx        # 404 page
+    NotFound/index.tsx               # 404 page
   components/
-    ProductCard/ProductCard.tsx      # Reusable product card
+    ProductCard/
+      index.tsx                      # Component entry
+      styles.module.css              # Component styles
+      types.ts                       # Optional: props & local types
+      utils.ts                       # Optional: local helpers
+      consts.ts                      # Optional: local constants
   api/
     http.ts                          # Typed fetch wrapper
     products.api.ts                  # Product API calls
@@ -168,3 +186,10 @@ playwright.config.ts                 # Playwright configuration
 | Variable | Description | Default |
 |---|---|---|
 | `VITE_API_BASE_URL` | Backend API base URL | `http://localhost:3001/api` |
+
+## Changing the app font
+
+The app uses a single font family for the whole UI. To change it:
+
+1. **Edit** `src/styles/global.css`: update the `--app-font-family` variable in the `:root` block (e.g. `--app-font-family: "Your Font", sans-serif;`).
+2. **If using a web font** (e.g. Google Fonts): add the corresponding `<link>` in `index.html` so the font loads. Ant Design and all other components will pick up the font from this one variable.

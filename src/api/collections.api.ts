@@ -1,5 +1,5 @@
-import { http } from "@/api/http";
-import type { CollectionsResponse } from "@/types/collection";
+import { http } from "src/api/http";
+import type { CollectionsResponse } from "src/types/collection";
 
 /** GET /api/v1/collections (base URL from env: VITE_API_ROOT + /api) */
 const COLLECTIONS_PATH = "/v1/collections";

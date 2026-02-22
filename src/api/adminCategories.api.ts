@@ -1,5 +1,5 @@
-import { http } from "@/api/http";
-import type { CategoriesResponse } from "@/types/category";
+import { http } from "src/api/http";
+import type { CategoriesResponse } from "src/types/category";
 
 /** Admin categories: GET /api/v1/admin/categories */
 const ADMIN_CATEGORIES_PATH = "/v1/admin/categories";

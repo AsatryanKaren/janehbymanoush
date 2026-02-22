@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Table, Select, Typography } from "antd";
 import { useTranslation } from "react-i18next";
-import { ordersApi } from "@/api/orders.api";
-import { formatPrice } from "@/utils/formatPrice";
-import { OrderStatus } from "@/types/order";
-import type { Order } from "@/types/order";
+import { ordersApi } from "src/api/orders.api";
+import { formatPrice } from "src/utils/formatPrice";
+import { OrderStatus } from "src/types/order";
+import type { Order } from "src/types/order";
 import type { ColumnsType } from "antd/es/table";
 
 const { Title } = Typography;

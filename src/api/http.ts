@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ENV } from "@/config/env";
+import { ENV } from "src/config/env";
 
 interface RequestOptions {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -9,7 +9,7 @@ interface RequestOptions {
 }
 
 export const apiClient = axios.create({
-  baseURL: ENV.API_BASE_URL, // {API_ROOT}/api, e.g. http://213.199.46.0/api
+  baseURL: ENV.API_BASE_URL, // {API_ROOT}/api, e.g. https://janehbymanoush.com/api
   headers: {
     "Content-Type": "application/json",
   },

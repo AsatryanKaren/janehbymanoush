@@ -31,15 +31,41 @@ src/
   utils/        # Pure utility functions
 ```
 
+## Imports
+
+- **Same folder:** use relative `./file` (e.g. `import { X } from "./types"`).
+- **Elsewhere in project:** use path from project root, e.g. `src/components/ProductCard`, `src/api/http`, `src/types/product`.
+- Do not use path aliases (e.g. no `@/`).
+
 ## Code Style
 
-- Use `@/` path alias for all imports from `src/`
-- Named exports only (no default exports except i18n)
-- `React.FC` with explicit props interfaces for components
-- Arrow functions with explicit return types for utilities
-- `as const` for constant objects, derive types with `typeof`
-- Use `void` prefix for fire-and-forget promises
-- Prettier: double quotes, semicolons, 2-space indent, trailing commas, 90-char width
+- Named exports only (no default exports except i18n and component entry points — see Component folder structure).
+- `React.FC` with explicit props interfaces for components.
+- Arrow functions with explicit return types for utilities.
+- `as const` for constant objects, derive types with `typeof`.
+- Use `void` prefix for fire-and-forget promises.
+- Prettier: double quotes, semicolons, 2-space indent, trailing commas, 90-char width.
+
+## Simplicity (do not overcomplicate)
+
+- Prefer simple, readable code over clever or abstract solutions. Avoid unnecessary abstractions, extra layers, or speculative features.
+- Do not write a lot of CSS. Use antd components and layout (Flex, Space, Row/Col) first; add CSS only when needed (e.g. one-off spacing, image sizing, gradients).
+- Keep `styles.module.css` minimal: target desktop by default and add a small number of responsive breakpoints (e.g. 768px, 576px) only where layout or readability require it. Good responsiveness is important; avoid dozens of media queries or redundant rules.
+
+## Component folder structure
+
+Every component lives in a folder whose name is the logical component name. Use these files:
+
+| File | Purpose |
+|------|--------|
+| `index.tsx` | Component implementation; export the component (default export for the folder). |
+| `styles.module.css` | Component styles (required if custom CSS is needed). |
+| `types.ts` | Optional; props and other types used only by this component. |
+| `utils.ts` | Optional; pure helpers used only by this component. |
+| `consts.ts` | Optional; constants used only by this component. |
+
+- Do not put type definitions, constants, or utils inside `index.tsx` if they can live in the dedicated files above.
+- Do not write any inline styles — use `styles.module.css` or global styles.
 
 ## UI Rules (antd-first)
 
@@ -49,8 +75,9 @@ src/
 - Use antd `App.useApp()` for `message`/`notification` (not static imports)
 - Use antd `Dropdown` with `GlobalOutlined` icon for the language switcher
 - Configure antd theme via `ConfigProvider` in `AntdProvider.tsx`
-- CSS modules only for what antd cannot handle (gradients, image sizing, responsive containers)
-- No inline styles — use CSS modules when custom CSS is needed
+- CSS modules only for what antd cannot handle (gradients, image sizing, responsive containers). Keep CSS minimal; prefer antd for layout and spacing.
+- No inline styles — use CSS modules when custom CSS is needed.
+- Desktop-first layout; add media queries only where needed for good responsiveness (e.g. stacking columns, smaller padding on small screens).
 
 ## Translations (i18n)
 
@@ -69,5 +96,5 @@ src/
 ## Types
 
 - Shared domain types in `src/types/` (Product, Order, etc.)
-- Component-local props interfaces stay in the component file
+- Component-local props and types go in that component’s `types.ts` (or in `src/types/` if shared).
 - Enums for domain values (ProductCategory, OrderStatus) in `src/types/`

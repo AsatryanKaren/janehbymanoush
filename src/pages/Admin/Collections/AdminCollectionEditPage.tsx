@@ -12,9 +12,9 @@ import {
   App,
 } from "antd";
 import { useTranslation } from "react-i18next";
-import { adminCollectionsApi } from "@/api/adminCollections.api";
-import { ROUTES } from "@/consts/routes";
-import type { AdminCollectionBody } from "@/types/collection";
+import { adminCollectionsApi } from "src/api/adminCollections.api";
+import { ROUTES } from "src/consts/routes";
+import type { AdminCollectionBody } from "src/types/collection";
 
 const { Title } = Typography;
 

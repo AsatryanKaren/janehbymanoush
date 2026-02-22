@@ -1,0 +1,165 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 72px;
+  background: #fdfaf5;
+  border-bottom: none;
+}
+
+/* Reserve bold width so active (bold) link doesn’t shift layout */
+.navLink::before,
+.navLinkActive::before {
+  content: attr(data-label);
+  font-weight: 600;
+  height: 0;
+  overflow: hidden;
+  display: block;
+  visibility: hidden;
+}
+
+.navLink,
+.navLinkActive {
+  display: inline-block;
+  width: max-content;
+  position: relative;
+  color: #8D734A;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.12s;
+}
+
+/* Hover: line with offset, animates left to right */
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
+  background-color: #6b5a3d;
+  transition: width 0.2s ease-out;
+}
+
+.navLink:hover::after,
+.navLink:focus::after,
+.navLink:focus-visible::after {
+  width: 100%;
+}
+
+.navLink:hover,
+.navLink:focus,
+.navLink:active,
+.navLink:focus-visible {
+  color: #6b5a3d;
+}
+
+/* Active: bold only */
+.navLinkActive {
+  font-weight: 600;
+  color: #6b5a3d;
+}
+
+.navLinkActive:hover,
+.navLinkActive:focus,
+.navLinkActive:active,
+.navLinkActive:focus-visible {
+  color: #5a4a32;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.contactWithLang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.langButton {
+  color: #8D734A !important;
+  padding: 6px 10px !important;
+  min-width: auto;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.langButton:hover,
+.langButton:focus,
+.langButton:active {
+  color: #6b5a3d !important;
+}
+
+.dropdownOverlay {
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 4px 0;
+}
+
+.headerSpacer {
+  display: none;
+}
+
+.menuButton {
+  display: none;
+  color: #8D734A !important;
+  font-size: 1.25rem;
+}
+
+.menuButton:hover,
+.menuButton:focus,
+.menuButton:active {
+  color: #6b5a3d !important;
+}
+
+/* Prevent antd from applying blue hover/focus to header buttons */
+.header :global(.ant-btn-text:hover),
+.header :global(.ant-btn-text:focus),
+.header :global(.ant-btn-text:active) {
+  color: #6b5a3d !important;
+  background: transparent !important;
+}
+
+@media (max-width: 768px) {
+  .header {
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  .header .navLink,
+  .header .navLinkActive {
+    display: none;
+  }
+
+  .menuButton {
+    display: inline-flex;
+    order: -1;
+  }
+
+  .header .langButton {
+    font-size: 1.25rem !important;
+  }
+
+  .logoWrap {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .logoImg {
+    height: 32px;
+  }
+}

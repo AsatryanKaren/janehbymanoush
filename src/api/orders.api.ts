@@ -1,5 +1,5 @@
-import { http } from "@/api/http";
-import type { Order, OrderListParams, OrderListResponse } from "@/types/order";
+import { http } from "src/api/http";
+import type { Order, OrderListParams, OrderListResponse } from "src/types/order";
 
 export const ordersApi = {
   getAll: (params?: OrderListParams): Promise<OrderListResponse> =>

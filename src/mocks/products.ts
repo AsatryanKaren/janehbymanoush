@@ -1,4 +1,4 @@
-import type { Product } from "@/types/product";
+import type { Product } from "src/types/product";
 
 /** Mock products matching /api/v1/products response shape. Used when API is unavailable. */
 export const MOCK_PRODUCTS: Product[] = [

@@ -12,10 +12,10 @@ import {
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { adminProductsApi } from "@/api/adminProducts.api";
-import { ROUTES, buildAdminProductEditPath, buildAdminProductViewPath } from "@/consts/routes";
-import { formatPrice } from "@/utils/formatPrice";
-import type { Product } from "@/types/product";
+import { adminProductsApi } from "src/api/adminProducts.api";
+import { ROUTES, buildAdminProductEditPath, buildAdminProductViewPath } from "src/consts/routes";
+import { formatPrice } from "src/utils/formatPrice";
+import type { Product } from "src/types/product";
 import type { ColumnsType } from "antd/es/table";
 
 const { Title } = Typography;

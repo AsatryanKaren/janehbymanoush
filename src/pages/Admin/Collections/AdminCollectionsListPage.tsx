@@ -10,13 +10,13 @@ import {
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { adminCollectionsApi } from "@/api/adminCollections.api";
-import { useAdminCollections } from "@/app/providers/AdminCollectionsProvider";
+import { adminCollectionsApi } from "src/api/adminCollections.api";
+import { useAdminCollections } from "src/app/providers/AdminCollectionsProvider";
 import {
   ROUTES,
   buildAdminCollectionEditPath,
-} from "@/consts/routes";
-import type { AdminCollectionItem } from "@/types/collection";
+} from "src/consts/routes";
+import type { AdminCollectionItem } from "src/types/collection";
 import type { ColumnsType } from "antd/es/table";
 
 const { Title } = Typography;

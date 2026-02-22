@@ -13,10 +13,10 @@ import {
 } from "antd";
 import { ArrowLeftOutlined, EditOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { adminProductsApi } from "@/api/adminProducts.api";
-import { ROUTES, buildAdminProductEditPath } from "@/consts/routes";
-import { formatPrice } from "@/utils/formatPrice";
-import type { Product } from "@/types/product";
+import { adminProductsApi } from "src/api/adminProducts.api";
+import { ROUTES, buildAdminProductEditPath } from "src/consts/routes";
+import { formatPrice } from "src/utils/formatPrice";
+import type { Product } from "src/types/product";
 
 const { Title, Text } = Typography;
 

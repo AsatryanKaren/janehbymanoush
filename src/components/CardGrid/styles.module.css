@@ -1,0 +1,20 @@
+.row {
+  width: 100%;
+}
+
+.gridCol {
+  display: flex;
+  min-width: 0;
+}
+
+@media (max-width: 576px) {
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .gridCol {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

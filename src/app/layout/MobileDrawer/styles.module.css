@@ -1,0 +1,83 @@
+.drawerLogo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.drawerHeader {
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
+
+.drawerHeader :global(.ant-drawer-header-title) {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.drawerHeader :global(.ant-drawer-close) {
+  margin: 0;
+}
+
+.drawerBody {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.drawerLink,
+.drawerLinkActive {
+  display: block;
+  width: 100%;
+  padding: 20px 24px;
+  color: #805c3c;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.drawerLink:hover {
+  color: #6b4d32;
+  background-color: rgba(128, 92, 60, 0.06);
+}
+
+.drawerLinkActive {
+  font-weight: 500;
+  background-color: rgba(128, 92, 60, 0.08);
+}
+
+.dropdownOverlay {
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 4px 0;
+}
+
+.drawerLangButton {
+  margin-top: 8px;
+  padding: 20px 24px;
+  width: 100%;
+  text-align: left;
+  color: #805c3c;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #f5f5f5 !important;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+}
+
+.drawerLangButton:hover {
+  color: #6b4d32;
+  background: #eee !important;
+  border-color: #d9d9d9;
+}

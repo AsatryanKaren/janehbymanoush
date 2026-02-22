@@ -1,5 +1,5 @@
-import { http } from "@/api/http";
-import type { Product, ProductListParams, ProductListResponse } from "@/types/product";
+import { http } from "src/api/http";
+import type { Product, ProductListParams, ProductListResponse } from "src/types/product";
 
 /** GET/POST /api/v1/products (base URL from env: VITE_API_ROOT + /api) */
 const PRODUCTS_PATH = "/v1/products";

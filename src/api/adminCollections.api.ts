@@ -1,9 +1,9 @@
-import { http } from "@/api/http";
+import { http } from "src/api/http";
 import type {
   AdminCollectionBody,
   AdminCollectionItem,
   AdminCollectionsListResponse,
-} from "@/types/collection";
+} from "src/types/collection";
 
 /** Admin collections: GET/POST/PUT/DELETE /api/v1/admin/collections */
 const ADMIN_COLLECTIONS_PATH = "/v1/admin/collections";
