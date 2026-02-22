@@ -1,38 +1,49 @@
-/** Public API: GET /api/v1/collections */
-export interface CollectionItem {
+/** Category with value (inside collection) */
+export interface CategoryItemWithValue {
   id: string;
-  key: string;
-  name: string;
+  title?: string | null;
+  titleHy?: string | null;
+  titleEn?: string | null;
+  titleRu?: string | null;
+  value?: number | null;
+}
+
+/** Admin API: GET /v1/admin/collections list item (CollectionItemDto) */
+export interface AdminCollectionItem {
+  id: string;
+  name?: string | null;
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  slug?: string | null;
+  categories?: CategoryItemWithValue[] | null;
 }
 
 export interface CollectionsResponse {
-  items: CollectionItem[];
+  items: AdminCollectionItem[] | null;
 }
 
-/** Admin API: category inside a collection */
-export interface AdminCollectionCategoryItem {
+/** Admin POST /v1/admin/collections */
+export interface CreateCollectionRequest {
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  slug?: string | null;
+}
+
+/** Admin PUT /v1/admin/collections/{id} */
+export interface UpdateCollectionRequest {
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  slug?: string | null;
+}
+
+/** Admin POST response */
+export interface CollectionResponse {
   id: string;
-  key: string;
-  title: string;
-  value: number;
-}
-
-/** Admin API: GET /api/v1/admin/collections list item */
-export interface AdminCollectionItem {
-  id: string;
-  name: string;
-  slug: string;
-  sortOrder: number;
-  categories: AdminCollectionCategoryItem[];
-}
-
-export interface AdminCollectionsListResponse {
-  items: AdminCollectionItem[];
-}
-
-/** Admin API: POST /api/v1/admin/collections and PUT /api/v1/admin/collections/{id} */
-export interface AdminCollectionBody {
-  name: string;
-  slug: string;
-  sortOrder: number;
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  slug?: string | null;
 }

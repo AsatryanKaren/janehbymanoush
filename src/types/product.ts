@@ -1,49 +1,162 @@
-/** Product as returned by /api/v1/products */
-export interface Product {
+/** Gender enum from API (0 = Women, 1 = Men) */
+export type Gender = 0 | 1;
+
+/** Admin list: ProductCardAdmin */
+export interface ProductCardAdmin {
   id: string;
-  slug: string;
-  name: string;
-  gender: number;
-  category: string;
-  categoryId: string;
-  collectionId: string;
-  collectionName: string;
-  price: number;
-  currency: string;
-  mainImageUrl: string;
-  isActive: boolean;
-  /** Optional, e.g. from getById */
-  description?: string;
-  story?: string;
+  name?: string | null;
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  slug?: string | null;
+  gender?: Gender;
+  category?: string | null;
+  categoryName?: string | null;
+  collectionId?: string | null;
+  collectionName?: string | null;
+  price?: number;
+  mainImageUrl?: string | null;
+  tags?: string[] | null;
+  isActive?: boolean;
+  inStock?: boolean;
+  isNew?: boolean;
+  createdAt?: string | null;
 }
 
-/** Body for POST /api/v1/admin/products and PUT /api/v1/admin/products/{id} */
-export interface CreateProductBody {
-  name: string;
-  slug: string;
-  gender: number;
-  category: string;
-  categoryId: string;
-  price: number;
-  currency: string;
-  description?: string;
-  story?: string;
-  isActive: boolean;
-}
-
-export type UpdateProductBody = CreateProductBody;
-
-export interface ProductListParams {
-  category?: string;
-  collectionId?: string;
-  page?: number;
-  pageSize?: number;
-  search?: string;
-}
-
-export interface ProductListResponse {
-  items: Product[];
+export interface PagedProductsAdminResponse {
+  items: ProductCardAdmin[] | null;
   page: number;
   pageSize: number;
   total: number;
 }
+
+/** Admin GET /v1/admin/products/{id} (ProductDetailsPublic) */
+export interface ProductDetailsPublic {
+  id: string;
+  slug?: string | null;
+  name?: string | null;
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  gender?: Gender;
+  category?: string | null;
+  categoryName?: string | null;
+  collectionId?: string | null;
+  collectionName?: string | null;
+  price?: number;
+  mainImageUrl?: string | null;
+  descriptionHy?: string | null;
+  descriptionEn?: string | null;
+  descriptionRu?: string | null;
+  description?: string | null;
+  storyHy?: string | null;
+  storyEn?: string | null;
+  storyRu?: string | null;
+  story?: string | null;
+  images?: ProductImage[] | null;
+  storyImages?: StoryImageDto[] | null;
+  tags?: string[] | null;
+  isActive?: boolean;
+  inStock?: boolean;
+  isNew?: boolean;
+  createdAt?: string | null;
+}
+
+export interface ProductImage {
+  id: string;
+  url?: string | null;
+  isMain?: boolean;
+}
+
+export interface StoryImageDto {
+  id: string;
+  url?: string | null;
+}
+
+/** Admin POST /v1/admin/products (multipart) → CreateProductResponse */
+export interface CreateProductResponse {
+  id: string;
+}
+
+/** Admin PUT /v1/admin/products/{id} (JSON body) */
+export interface CreateProductRequest {
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  slug?: string | null;
+  gender?: Gender;
+  category?: string;
+  price?: number;
+  descriptionHy?: string | null;
+  descriptionEn?: string | null;
+  descriptionRu?: string | null;
+  storyHy?: string | null;
+  storyEn?: string | null;
+  storyRu?: string | null;
+  isActive?: boolean;
+  inStock?: boolean;
+  isNew?: boolean;
+  tags?: string[] | null;
+}
+
+/** Admin PATCH /v1/admin/products/{id}/status */
+export interface UpdateProductStatusRequest {
+  isActive: boolean;
+}
+
+/** Admin GET products query params (exact API names) */
+export interface AdminProductsListParams {
+  Gender?: string;
+  Category?: string;
+  CategoryId?: string;
+  Search?: string;
+  IsActive?: string;
+  Page?: string;
+  PageSize?: string;
+}
+
+/** Public GET /v1/products list item */
+export interface ProductCardPublic {
+  id: string;
+  slug?: string | null;
+  name?: string | null;
+  nameHy?: string | null;
+  nameEn?: string | null;
+  nameRu?: string | null;
+  gender?: Gender;
+  category?: string | null;
+  categoryName?: string | null;
+  collectionId?: string | null;
+  collectionName?: string | null;
+  price?: number;
+  mainImageUrl?: string | null;
+  isActive?: boolean;
+  inStock?: boolean;
+  isNew?: boolean;
+  /** Optional for mocks / backward compat */
+  description?: string | null;
+}
+
+export interface PagedProductsPublicResponse {
+  items: ProductCardPublic[] | null;
+  page: number;
+  pageSize: number;
+  total: number;
+}
+
+/** Public catalog list item; alias for ProductCardPublic */
+export type Product = ProductCardPublic;
+
+/** Public GET /v1/products query params */
+export interface ProductListParams {
+  Gender?: string;
+  Category?: string;
+  CategoryId?: string;
+  Search?: string;
+  MinPrice?: string;
+  MaxPrice?: string;
+  Page?: string;
+  PageSize?: string;
+}
+
+export type ProductListResponse = PagedProductsPublicResponse;

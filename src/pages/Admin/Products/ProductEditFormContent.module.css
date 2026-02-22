@@ -1,0 +1,32 @@
+/* Let product images upload area grow with content so it doesn't overlap story section */
+.imagesSection :global(.ant-upload-wrapper) {
+  display: block !important;
+  width: 100%;
+}
+
+/* Force upload list to grow when cards wrap to two or more rows (override antd fixed height) */
+.imagesSection :global(.ant-upload-list),
+.imagesSection :global(.ant-upload-list-picture-card),
+.imagesSection :global(.ant-upload-list-picture-card-container) {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Product images block: contain all content so "Upload images" box stays inside and Story section is pushed down */
+.productImagesBlock {
+  display: flow-root;
+  min-height: 0;
+  overflow: visible;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* Extra gap so Story images section never sits under product area */
+.storyImagesBlock {
+  min-height: 0;
+  overflow: visible;
+  width: 100%;
+  margin-top: 4px;
+}

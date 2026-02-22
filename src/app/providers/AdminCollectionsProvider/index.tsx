@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { adminCollectionsApi } from "src/api/adminCollections.api";
+import { adminCollectionsApi } from "src/api/adminCollections";
 import type { AdminCollectionItem } from "src/types/collection";
 
 interface AdminCollectionsContextValue {
@@ -20,13 +20,13 @@ const AdminCollectionsContext = createContext<AdminCollectionsContextValue | nul
   null,
 );
 
-export function useAdminCollections(): AdminCollectionsContextValue {
+export const useAdminCollections = (): AdminCollectionsContextValue => {
   const ctx = useContext(AdminCollectionsContext);
   if (!ctx) {
     throw new Error("useAdminCollections must be used within AdminCollectionsProvider");
   }
   return ctx;
-}
+};
 
 interface AdminCollectionsProviderProps {
   children: ReactNode;

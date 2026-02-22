@@ -1,48 +1,53 @@
 import { useEffect, useState } from "react";
-import { Table, Select, Typography } from "antd";
-import { useTranslation } from "react-i18next";
-import { ordersApi } from "src/api/orders.api";
-import { formatPrice } from "src/utils/formatPrice";
-import { OrderStatus } from "src/types/order";
-import type { Order } from "src/types/order";
+import { Table, Typography, Flex, App } from "antd";
+import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
+import { adminOrdersApi } from "src/api/adminOrders";
+import type { OrderListItem, PagedOrdersResponse } from "src/types/order";
 import type { ColumnsType } from "antd/es/table";
 
 const { Title } = Typography;
 
-const STATUS_OPTIONS = Object.values(OrderStatus).map((value) => ({
-  label: value.charAt(0).toUpperCase() + value.slice(1),
-  value,
-}));
-
 const AdminOrdersPage: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const [orders, setOrders] = useState<Order[]>([]);
+  const { t, language } = useAdminTranslation();
+  const { message } = App.useApp();
+  const [data, setData] = useState<PagedOrdersResponse>({
+    items: [],
+    page: 1,
+    pageSize: 10,
+    total: 0,
+  });
   const [loading, setLoading] = useState(true);
 
-  const fetchOrders = () => {
+  const fetchOrders = (pageNum: number, pageSizeNum: number) => {
     setLoading(true);
-    ordersApi
-      .getAll()
-      .then((res) => setOrders(res.data))
-      .catch(() => setOrders([]))
+    adminOrdersApi
+      .getAll({ Page: String(pageNum), PageSize: String(pageSizeNum) })
+      .then((res) =>
+        setData({
+          items: res.items ?? [],
+          page: res.page,
+          pageSize: res.pageSize,
+          total: res.total,
+        }),
+      )
+      .catch(() => {
+        setData({ items: [], page: 1, pageSize: 10, total: 0 });
+        void message.error(t("admin.loadListFailed"));
+      })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
-    fetchOrders();
+    fetchOrders(1, 10);
   }, []);
 
-  const handleStatusChange = async (orderId: string, status: OrderStatus) => {
-    await ordersApi.updateStatus(orderId, status);
-    fetchOrders();
-  };
-
-  const columns: ColumnsType<Order> = [
+  const columns: ColumnsType<OrderListItem> = [
     {
       title: t("admin.columnOrderId"),
       dataIndex: "id",
       key: "id",
       width: 120,
+      render: (id: string) => id?.slice(0, 8) ?? "—",
     },
     {
       title: t("admin.columnCustomer"),
@@ -51,57 +56,63 @@ const AdminOrdersPage: React.FC = () => {
     },
     {
       title: t("admin.columnEmail"),
-      dataIndex: "customerEmail",
-      key: "customerEmail",
+      dataIndex: "email",
+      key: "email",
     },
     {
-      title: t("admin.columnItems"),
-      dataIndex: "items",
-      key: "items",
-      render: (items: Order["items"]) => items.length,
+      title: t("admin.columnPhone"),
+      dataIndex: "phone",
+      key: "phone",
     },
     {
-      title: t("admin.columnTotal"),
-      dataIndex: "totalAmount",
-      key: "totalAmount",
-      render: (amount: number, record: Order) =>
-        formatPrice(amount, record.currency, i18n.language),
-      sorter: (a, b) => a.totalAmount - b.totalAmount,
-    },
-    {
-      title: t("admin.columnStatus"),
-      dataIndex: "status",
-      key: "status",
-      render: (status: OrderStatus, record: Order) => (
-        <Select
-          value={status}
-          options={STATUS_OPTIONS}
-          onChange={(value: OrderStatus) => handleStatusChange(record.id, value)}
-        />
-      ),
-      filters: STATUS_OPTIONS.map((o) => ({ text: o.label, value: o.value })),
-      onFilter: (value, record) => record.status === value,
+      title: t("admin.columnProduct"),
+      key: "product",
+      render: (_: unknown, record: OrderListItem) =>
+        record.product?.name ?? "—",
     },
     {
       title: t("admin.columnDate"),
       dataIndex: "createdAt",
       key: "createdAt",
-      render: (date: string) => new Date(date).toLocaleDateString(),
+      render: (date: string) =>
+        date ? new Date(date).toLocaleDateString(language) : "—",
       sorter: (a, b) =>
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+        new Date(a.createdAt ?? 0).getTime() -
+        new Date(b.createdAt ?? 0).getTime(),
     },
   ];
+
+  const handleTableChange = (pagination: {
+    current?: number;
+    pageSize?: number;
+  }) => {
+    const nextPage = pagination.current ?? 1;
+    const nextSize = pagination.pageSize ?? data.pageSize;
+    fetchOrders(nextPage, nextSize);
+  };
 
   return (
     <>
       <Title level={2}>{t("admin.orders")}</Title>
-      <Table
-        dataSource={orders}
-        columns={columns}
-        rowKey="id"
-        loading={loading}
-        scroll={{ x: 800 }}
-      />
+      <Flex vertical gap="middle">
+        <Table<OrderListItem>
+          dataSource={data.items ?? []}
+          columns={columns}
+          rowKey="id"
+          loading={loading}
+          scroll={{ x: 800 }}
+          pagination={{
+            current: data.page,
+            pageSize: data.pageSize,
+            total: data.total,
+            showSizeChanger: true,
+            pageSizeOptions: ["10", "20", "50"],
+            showTotal: (totalCount) =>
+              t("admin.paginationTotal", { total: totalCount }),
+          }}
+          onChange={handleTableChange}
+        />
+      </Flex>
     </>
   );
 };

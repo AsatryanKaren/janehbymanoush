@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { adminCategoriesApi } from "src/api/adminCategories.api";
+import { adminCategoriesApi } from "src/api/adminCategories";
 import type { CategoryItem } from "src/types/category";
 
 interface AdminCategoriesContextValue {
@@ -20,13 +20,13 @@ const AdminCategoriesContext = createContext<AdminCategoriesContextValue | null>
   null,
 );
 
-export function useAdminCategories(): AdminCategoriesContextValue {
+export const useAdminCategories = (): AdminCategoriesContextValue => {
   const ctx = useContext(AdminCategoriesContext);
   if (!ctx) {
     throw new Error("useAdminCategories must be used within AdminCategoriesProvider");
   }
   return ctx;
-}
+};
 
 interface AdminCategoriesProviderProps {
   children: ReactNode;

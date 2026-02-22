@@ -14,6 +14,9 @@ export const ROUTES = {
   ADMIN_COLLECTIONS: "/admin/collections",
   ADMIN_COLLECTION_EDIT: "/admin/collections/:id/edit",
   ADMIN_COLLECTION_NEW: "/admin/collections/new",
+  ADMIN_CATEGORIES: "/admin/categories",
+  ADMIN_CATEGORY_EDIT: "/admin/categories/:id/edit",
+  ADMIN_CATEGORY_NEW: "/admin/categories/new",
   ADMIN_ORDERS: "/admin/orders",
 } as const;
 
@@ -28,3 +31,6 @@ export const buildAdminProductEditPath = (id: string): string =>
 
 export const buildAdminCollectionEditPath = (id: string): string =>
   `/admin/collections/${id}/edit`;
+
+export const buildAdminCategoryEditPath = (id: string): string =>
+  `/admin/categories/${id}/edit`;

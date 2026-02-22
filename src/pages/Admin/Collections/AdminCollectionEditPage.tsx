@@ -3,30 +3,51 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   Form,
   Input,
-  InputNumber,
   Button,
   Spin,
   Space,
   Typography,
   Flex,
   App,
+  Card,
+  Row,
+  Col,
 } from "antd";
-import { useTranslation } from "react-i18next";
-import { adminCollectionsApi } from "src/api/adminCollections.api";
+import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
+import { adminCollectionsApi } from "src/api/adminCollections";
 import { ROUTES } from "src/consts/routes";
-import type { AdminCollectionBody } from "src/types/collection";
+import type {
+  CreateCollectionRequest,
+  UpdateCollectionRequest,
+} from "src/types/collection";
 
 const { Title } = Typography;
+
+const FormSection: React.FC<{
+  title: string;
+  children: React.ReactNode;
+}> = ({ title, children }) => (
+  <Card size="small" title={title} style={{ marginBottom: 16 }}>
+    {children}
+  </Card>
+);
+
+interface CollectionFormValues {
+  nameHy?: string;
+  nameEn?: string;
+  nameRu?: string;
+  slug?: string;
+}
 
 const isCreateMode = (id: string | undefined): boolean =>
   id === undefined || id === "new";
 
 const AdminCollectionEditPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const { message } = App.useApp();
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
-  const [form] = Form.useForm();
+  const [form] = Form.useForm<CollectionFormValues>();
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -42,9 +63,10 @@ const AdminCollectionEditPage: React.FC = () => {
         const collection = res.items?.find((item) => item.id === id);
         if (collection) {
           form.setFieldsValue({
-            name: collection.name,
-            slug: collection.slug,
-            sortOrder: collection.sortOrder,
+            nameHy: collection.nameHy ?? undefined,
+            nameEn: collection.nameEn ?? undefined,
+            nameRu: collection.nameRu ?? undefined,
+            slug: collection.slug ?? undefined,
           });
         } else {
           void message.error(t("admin.collections.notFound"));
@@ -56,14 +78,20 @@ const AdminCollectionEditPage: React.FC = () => {
       .finally(() => setLoading(false));
   }, [id, create, form, message, t]);
 
-  const handleSubmit = async (values: AdminCollectionBody) => {
+  const handleSubmit = async (values: CollectionFormValues) => {
     setSubmitting(true);
     try {
+      const body: CreateCollectionRequest & UpdateCollectionRequest = {
+        nameHy: values.nameHy ?? null,
+        nameEn: values.nameEn ?? null,
+        nameRu: values.nameRu ?? null,
+        slug: values.slug ?? null,
+      };
       if (create) {
-        await adminCollectionsApi.create(values);
+        await adminCollectionsApi.create(body);
         void message.success(t("admin.createSuccess"));
       } else {
-        await adminCollectionsApi.update(id!, values);
+        await adminCollectionsApi.update(id!, body);
         void message.success(t("admin.updateSuccess"));
       }
       navigate(ROUTES.ADMIN_COLLECTIONS);
@@ -91,33 +119,40 @@ const AdminCollectionEditPage: React.FC = () => {
           ? t("admin.collections.add")
           : t("admin.collections.edit")}
       </Title>
-      <Form<AdminCollectionBody>
+      <Form<CollectionFormValues>
         form={form}
         layout="vertical"
         onFinish={handleSubmit}
-        initialValues={{ sortOrder: 0 }}
+        style={{ maxWidth: 960 }}
       >
-        <Form.Item
-          name="name"
-          label={t("admin.collections.fieldName")}
-          rules={[{ required: true, message: t("admin.collections.nameRequired") }]}
-        >
-          <Input placeholder={t("admin.collections.fieldName")} />
-        </Form.Item>
-        <Form.Item
-          name="slug"
-          label={t("admin.collections.fieldSlug")}
-          rules={[{ required: true, message: t("admin.collections.slugRequired") }]}
-        >
-          <Input placeholder={t("admin.collections.fieldSlug")} />
-        </Form.Item>
-        <Form.Item
-          name="sortOrder"
-          label={t("admin.collections.fieldSortOrder")}
-          rules={[{ required: true }]}
-        >
-          <InputNumber min={0} style={{ width: "100%" }} />
-        </Form.Item>
+        <FormSection title={t("admin.collections.sectionBasic")}>
+          <Row gutter={16}>
+            <Col xs={24} md={8}>
+              <Form.Item name="nameHy" label={t("admin.collections.fieldName") + " (HY)"}>
+                <Input placeholder={t("admin.collections.fieldName")} />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={8}>
+              <Form.Item name="nameEn" label={t("admin.collections.fieldName") + " (EN)"}>
+                <Input placeholder={t("admin.collections.fieldName")} />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={8}>
+              <Form.Item name="nameRu" label={t("admin.collections.fieldName") + " (RU)"}>
+                <Input placeholder={t("admin.collections.fieldName")} />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                name="slug"
+                label={t("admin.collections.fieldSlug")}
+                rules={[{ required: true, message: t("admin.collections.slugRequired") }]}
+              >
+                <Input placeholder={t("admin.collections.fieldSlug")} />
+              </Form.Item>
+            </Col>
+          </Row>
+        </FormSection>
         <Form.Item>
           <Space>
             <Button type="primary" htmlType="submit" loading={submitting}>

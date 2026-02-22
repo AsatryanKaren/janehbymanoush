@@ -15,10 +15,13 @@ export const apiClient = axios.create({
   },
 });
 
-// Add Bearer token for admin API requests
+// Add Bearer token for admin API requests; allow FormData to set Content-Type
 apiClient.interceptors.request.use((config) => {
   if (ENV.ADMIN_BEARER_TOKEN && config.url?.includes("/v1/admin/")) {
     config.headers.Authorization = `Bearer ${ENV.ADMIN_BEARER_TOKEN}`;
+  }
+  if (config.data instanceof FormData) {
+    delete config.headers["Content-Type"];
   }
   return config;
 });

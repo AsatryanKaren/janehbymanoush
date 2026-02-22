@@ -6,11 +6,12 @@ import {
   Typography,
   Flex,
   Tag,
+  App,
 } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { adminCollectionsApi } from "src/api/adminCollections.api";
+import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
+import { adminCollectionsApi } from "src/api/adminCollections";
 import { useAdminCollections } from "src/app/providers/AdminCollectionsProvider";
 import {
   ROUTES,
@@ -21,14 +22,29 @@ import type { ColumnsType } from "antd/es/table";
 
 const { Title } = Typography;
 
+const getCollectionName = (
+  row: AdminCollectionItem,
+  locale: string,
+): string => {
+  if (locale === "hy" && row.nameHy) return row.nameHy;
+  if (locale === "ru" && row.nameRu) return row.nameRu;
+  return row.nameEn ?? row.nameHy ?? row.nameRu ?? row.name ?? "";
+};
+
 const AdminCollectionsListPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, language } = useAdminTranslation();
+  const { message } = App.useApp();
   const navigate = useNavigate();
   const { collections: items, loading, refetch } = useAdminCollections();
 
   const handleDelete = async (id: string) => {
-    await adminCollectionsApi.delete(id);
-    void refetch();
+    try {
+      await adminCollectionsApi.delete(id);
+      void message.success(t("admin.deleteSuccess"));
+      void refetch();
+    } catch {
+      void message.error(t("admin.deleteFailed"));
+    }
   };
 
   const columns: ColumnsType<AdminCollectionItem> = [
@@ -36,19 +52,17 @@ const AdminCollectionsListPage: React.FC = () => {
       title: t("admin.collections.columnName"),
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      sorter: (a, b) =>
+        getCollectionName(a, language).localeCompare(
+          getCollectionName(b, language),
+        ),
+      render: (_: unknown, record: AdminCollectionItem) =>
+        getCollectionName(record, language),
     },
     {
       title: t("admin.collections.columnSlug"),
       dataIndex: "slug",
       key: "slug",
-    },
-    {
-      title: t("admin.collections.columnSortOrder"),
-      dataIndex: "sortOrder",
-      key: "sortOrder",
-      width: 120,
-      sorter: (a, b) => a.sortOrder - b.sortOrder,
     },
     {
       title: t("admin.collections.columnCategories"),

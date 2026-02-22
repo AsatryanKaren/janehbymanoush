@@ -2,11 +2,12 @@ import { Layout, Menu } from "antd";
 import {
   ShoppingOutlined,
   FolderOutlined,
+  TagsOutlined,
   FileTextOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useAdminTranslation } from "./useAdminTranslation";
 import { ROUTES } from "src/consts/routes";
 import { LOGO_IMAGE } from "src/consts/assets";
 import AdminCategoriesProvider from "src/app/providers/AdminCategoriesProvider";
@@ -16,7 +17,7 @@ import styles from "./styles.module.css";
 const { Sider, Content } = Layout;
 
 const AdminLayout: React.FC = () => {
-  const { t } = useTranslation();
+  const { t } = useAdminTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +31,11 @@ const AdminLayout: React.FC = () => {
       key: ROUTES.ADMIN_COLLECTIONS,
       icon: <FolderOutlined />,
       label: t("admin.collections.title"),
+    },
+    {
+      key: ROUTES.ADMIN_CATEGORIES,
+      icon: <TagsOutlined />,
+      label: t("admin.categories.title"),
     },
     {
       key: ROUTES.ADMIN_ORDERS,

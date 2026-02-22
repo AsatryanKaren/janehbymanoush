@@ -1,14 +1,11 @@
 import { http } from "src/api/http";
 import type { Order, OrderListParams, OrderListResponse } from "src/types/order";
+import { toQueryParams } from "src/utils/queryParams";
 
 export const ordersApi = {
   getAll: (params?: OrderListParams): Promise<OrderListResponse> =>
     http<OrderListResponse>("/orders", {
-      params: {
-        status: params?.status,
-        page: params?.page,
-        limit: params?.limit,
-      },
+      params: toQueryParams(params),
     }),
 
   getById: (id: string): Promise<Order> =>

@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { Col, Row, Spin, Tag, Button, Typography, Flex } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { productsApi } from "src/api/products.api";
+import { productsApi } from "src/api/products";
 import { formatPrice } from "src/utils/formatPrice";
-import type { Product } from "src/types/product";
+import type { ProductDetailsPublic } from "src/types/product";
 import styles from "./styles.module.css";
 
 const { Title, Text, Paragraph } = Typography;
@@ -13,7 +13,7 @@ const { Title, Text, Paragraph } = Typography;
 const ProductPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<ProductDetailsPublic | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,30 +43,42 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const coverImage = product.mainImageUrl ?? "/placeholder.jpg";
+  const coverImage =
+    product.images?.find((i) => i.isMain)?.url ??
+    product.images?.[0]?.url ??
+    product.mainImageUrl ??
+    "/placeholder.jpg";
+  const name =
+    product.nameEn ?? product.nameHy ?? product.nameRu ?? product.name ?? "";
+  const description =
+    product.descriptionEn ??
+    product.descriptionHy ??
+    product.descriptionRu ??
+    product.description ??
+    "";
 
   return (
     <div className={styles.container}>
       <Row gutter={[32, 32]}>
         <Col xs={24} md={12}>
           <div className={styles.imageWrapper}>
-            <img className={styles.image} src={coverImage} alt={product.name} />
+            <img className={styles.image} src={coverImage} alt={name} />
           </div>
         </Col>
         <Col xs={24} md={12}>
           <Flex vertical gap={16}>
-            <Title level={2}>{product.name}</Title>
+            <Title level={2}>{name}</Title>
             <Text strong className={styles.price}>
-              {formatPrice(product.price, product.currency, i18n.language)}
+              {formatPrice(product.price ?? 0, "AMD", i18n.language)}
             </Text>
             <Flex gap={8}>
-              <Tag color="gold">{product.category}</Tag>
-              {!product.isActive && (
+              <Tag color="gold">{product.categoryName ?? product.category}</Tag>
+              {product.isActive === false && (
                 <Tag color="red">{t("product.outOfStock")}</Tag>
               )}
             </Flex>
-            {product.description != null && product.description !== "" && (
-              <Paragraph type="secondary">{product.description}</Paragraph>
+            {description !== "" && (
+              <Paragraph type="secondary">{description}</Paragraph>
             )}
             <div>
               <Button

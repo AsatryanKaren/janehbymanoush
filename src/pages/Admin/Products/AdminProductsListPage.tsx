@@ -8,22 +8,34 @@ import {
   Flex,
   Image,
   Tag,
+  App,
 } from "antd";
 import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { adminProductsApi } from "src/api/adminProducts.api";
-import { ROUTES, buildAdminProductEditPath, buildAdminProductViewPath } from "src/consts/routes";
+import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
+import { adminProductsApi } from "src/api/adminProducts";
+import {
+  ROUTES,
+  buildAdminProductEditPath,
+  buildAdminProductViewPath,
+} from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
-import type { Product } from "src/types/product";
+import type { ProductCardAdmin } from "src/types/product";
 import type { ColumnsType } from "antd/es/table";
 
 const { Title } = Typography;
 
+const getProductName = (row: ProductCardAdmin, locale: string): string => {
+  if (locale === "hy" && row.nameHy) return row.nameHy;
+  if (locale === "ru" && row.nameRu) return row.nameRu;
+  return row.nameEn ?? row.nameHy ?? row.nameRu ?? row.name ?? "";
+};
+
 const AdminProductsListPage: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t, language } = useAdminTranslation();
+  const { message } = App.useApp();
   const navigate = useNavigate();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductCardAdmin[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
@@ -32,7 +44,10 @@ const AdminProductsListPage: React.FC = () => {
   const fetchProducts = (pageNum = page, size = pageSize) => {
     setLoading(true);
     adminProductsApi
-      .getAll({ page: pageNum, pageSize: size })
+      .getAll({
+        Page: String(pageNum),
+        PageSize: String(size),
+      })
       .then((res) => {
         setProducts(res.items ?? []);
         setTotal(res.total ?? 0);
@@ -42,6 +57,7 @@ const AdminProductsListPage: React.FC = () => {
       .catch(() => {
         setProducts([]);
         setTotal(0);
+        void message.error(t("admin.loadListFailed"));
       })
       .finally(() => setLoading(false));
   };
@@ -59,11 +75,16 @@ const AdminProductsListPage: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    await adminProductsApi.delete(id);
-    fetchProducts(page, pageSize);
+    try {
+      await adminProductsApi.delete(id);
+      void message.success(t("admin.deleteSuccess"));
+      fetchProducts(page, pageSize);
+    } catch {
+      void message.error(t("admin.deleteFailed"));
+    }
   };
 
-  const columns: ColumnsType<Product> = [
+  const columns: ColumnsType<ProductCardAdmin> = [
     {
       title: t("admin.columnImage"),
       dataIndex: "mainImageUrl",
@@ -71,7 +92,13 @@ const AdminProductsListPage: React.FC = () => {
       width: 80,
       render: (url: string) =>
         url ? (
-          <Image src={url} alt="" width={48} height={48} style={{ objectFit: "cover" }} />
+          <Image
+            src={url}
+            alt=""
+            width={48}
+            height={48}
+            style={{ objectFit: "cover" }}
+          />
         ) : (
           <span style={{ color: "#999" }}>—</span>
         ),
@@ -80,15 +107,20 @@ const AdminProductsListPage: React.FC = () => {
       title: t("admin.columnName"),
       dataIndex: "name",
       key: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-      render: (name: string, record: Product) => (
-        <Link to={buildAdminProductViewPath(record.id)}>{name}</Link>
+      sorter: (a, b) =>
+        getProductName(a, language).localeCompare(
+          getProductName(b, language),
+        ),
+      render: (_: string, record: ProductCardAdmin) => (
+        <Link to={buildAdminProductViewPath(record.id)}>
+          {getProductName(record, language)}
+        </Link>
       ),
     },
     {
       title: t("admin.columnCategory"),
-      dataIndex: "category",
-      key: "category",
+      dataIndex: "categoryName",
+      key: "categoryName",
     },
     {
       title: t("admin.columnCollection"),
@@ -99,12 +131,23 @@ const AdminProductsListPage: React.FC = () => {
       title: t("admin.columnPrice"),
       dataIndex: "price",
       key: "price",
-      render: (price: number, record: Product) =>
-        formatPrice(price, record.currency, i18n.language),
-      sorter: (a, b) => a.price - b.price,
+      render: (price: number) =>
+        formatPrice(price ?? 0, "AMD", language),
+      sorter: (a, b) => (a.price ?? 0) - (b.price ?? 0),
     },
     {
       title: t("admin.columnInStock"),
+      dataIndex: "inStock",
+      key: "inStock",
+      render: (inStock: boolean) =>
+        inStock ? (
+          <Tag color="green">{t("common.yes")}</Tag>
+        ) : (
+          <Tag color="default">{t("common.no")}</Tag>
+        ),
+    },
+    {
+      title: t("admin.columnActive"),
       dataIndex: "isActive",
       key: "isActive",
       render: (isActive: boolean) =>
@@ -115,11 +158,22 @@ const AdminProductsListPage: React.FC = () => {
         ),
     },
     {
+      title: t("admin.columnNew"),
+      dataIndex: "isNew",
+      key: "isNew",
+      render: (isNew: boolean) =>
+        isNew ? (
+          <Tag color="blue">{t("common.yes")}</Tag>
+        ) : (
+          <Tag color="default">{t("common.no")}</Tag>
+        ),
+    },
+    {
       title: t("admin.columnActions"),
       key: "actions",
       fixed: "right",
       width: 100,
-      render: (_: unknown, record: Product) => (
+      render: (_: unknown, record: ProductCardAdmin) => (
         <Space>
           <Button
             type="text"
@@ -131,7 +185,12 @@ const AdminProductsListPage: React.FC = () => {
             title={t("admin.deleteConfirm")}
             onConfirm={() => handleDelete(record.id)}
           >
-            <Button type="text" danger icon={<DeleteOutlined />} aria-label={t("admin.deleteProduct")} />
+            <Button
+              type="text"
+              danger
+              icon={<DeleteOutlined />}
+              aria-label={t("admin.deleteProduct")}
+            />
           </Popconfirm>
         </Space>
       ),
@@ -150,7 +209,7 @@ const AdminProductsListPage: React.FC = () => {
           {t("admin.addProduct")}
         </Button>
       </Flex>
-      <Table<Product>
+      <Table<ProductCardAdmin>
         dataSource={products}
         columns={columns}
         rowKey="id"
