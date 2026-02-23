@@ -127,6 +127,17 @@
   },
   "admin": {
     "panelTitle": "Панель управления",
+    "login": {
+      "title": "Вход в панель",
+      "username": "Имя пользователя",
+      "usernameRequired": "Введите имя пользователя",
+      "password": "Пароль",
+      "passwordRequired": "Введите пароль",
+      "submit": "Войти",
+      "success": "Вы успешно вошли",
+      "failed": "Неверное имя пользователя или пароль"
+    },
+    "logout": "Выйти",
     "products": "Товары",
     "orders": "Заказы",
     "backToSite": "На сайт",

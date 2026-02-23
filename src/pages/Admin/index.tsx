@@ -5,19 +5,22 @@ import {
   TagsOutlined,
   FileTextOutlined,
   HomeOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { useAdminTranslation } from "./useAdminTranslation";
-import { ROUTES } from "src/consts/routes";
-import { LOGO_IMAGE } from "src/consts/assets";
+import { useAdminAuth } from "src/app/providers/AdminAuthProvider";
 import AdminCategoriesProvider from "src/app/providers/AdminCategoriesProvider";
 import AdminCollectionsProvider from "src/app/providers/AdminCollectionsProvider";
+import { ROUTES } from "src/consts/routes";
+import { LOGO_IMAGE } from "src/consts/assets";
+import { useAdminTranslation } from "./useAdminTranslation";
 import styles from "./styles.module.css";
 
 const { Sider, Content } = Layout;
 
 const AdminLayout: React.FC = () => {
   const { t } = useAdminTranslation();
+  const { logout } = useAdminAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -47,16 +50,26 @@ const AdminLayout: React.FC = () => {
       icon: <HomeOutlined />,
       label: t("admin.backToSite"),
     },
+    {
+      key: "logout",
+      icon: <LogoutOutlined />,
+      label: t("admin.logout"),
+    },
   ];
 
   const handleMenuClick = ({ key }: { key: string }) => {
-    navigate(key);
+    if (key === "logout") {
+      logout();
+      navigate(ROUTES.ADMIN_LOGIN, { replace: true });
+    } else {
+      navigate(key);
+    }
   };
 
   return (
     <AdminCategoriesProvider>
       <AdminCollectionsProvider>
-        <Layout>
+        <Layout className={styles.root}>
         <Sider className={styles.sider} breakpoint="lg" collapsedWidth="0">
           <Link to={ROUTES.ADMIN_PRODUCTS} className={styles.logo}>
             <img src={LOGO_IMAGE} alt={t("admin.panelTitle")} />

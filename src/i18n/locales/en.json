@@ -127,6 +127,17 @@
   },
   "admin": {
     "panelTitle": "Admin Panel",
+    "login": {
+      "title": "Admin sign in",
+      "username": "Username",
+      "usernameRequired": "Please enter your username",
+      "password": "Password",
+      "passwordRequired": "Please enter your password",
+      "submit": "Sign in",
+      "success": "Signed in successfully",
+      "failed": "Invalid username or password"
+    },
+    "logout": "Sign out",
     "products": "Products",
     "orders": "Orders",
     "backToSite": "Back to Site",

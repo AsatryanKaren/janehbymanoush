@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ENV } from "src/config/env";
+import { getAdminAccessToken } from "src/api/adminAuthStorage";
 
 type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -15,10 +16,16 @@ export const apiClient = axios.create({
   },
 });
 
-// Add Bearer token for admin API requests; allow FormData to set Content-Type
+const isAdminAuthEndpoint = (url?: string): boolean =>
+  Boolean(url && (url.includes("/v1/admin/auth/login") || url.includes("/v1/admin/auth/refresh")));
+
+// Add Bearer token for admin API requests (except login/refresh); allow FormData to set Content-Type
 apiClient.interceptors.request.use((config) => {
-  if (ENV.ADMIN_BEARER_TOKEN && config.url?.includes("/v1/admin/")) {
-    config.headers.Authorization = `Bearer ${ENV.ADMIN_BEARER_TOKEN}`;
+  if (config.url?.includes("/v1/admin/") && !isAdminAuthEndpoint(config.url)) {
+    const token = getAdminAccessToken() || ENV.ADMIN_BEARER_TOKEN;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
   }
   if (config.data instanceof FormData) {
     delete config.headers["Content-Type"];

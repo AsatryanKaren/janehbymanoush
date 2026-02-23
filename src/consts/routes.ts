@@ -7,6 +7,7 @@ export const ROUTES = {
   ABOUT: "/about",
   CONTACT: "/contact",
 
+  ADMIN_LOGIN: "/admin/login",
   ADMIN_PRODUCTS: "/admin/products",
   ADMIN_PRODUCT_VIEW: "/admin/products/:id",
   ADMIN_PRODUCT_EDIT: "/admin/products/:id/edit",

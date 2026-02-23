@@ -1,13 +1,15 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import { ROUTES } from "src/consts/routes";
+import AdminAuthGuard from "src/app/AdminAuthGuard";
 import AppLayout from "src/app/layout";
+import AdminAuthProvider from "src/app/providers/AdminAuthProvider";
 import HomePage from "src/pages/Home";
 import CatalogPage from "src/pages/Catalog";
 import ProductPage from "src/pages/Product";
 import AboutPage from "src/pages/About";
 import ContactPage from "src/pages/Contact";
 import NotFoundPage from "src/pages/NotFound";
-import AdminLayout from "src/pages/Admin";
+import AdminLoginPage from "src/pages/Admin/Login";
 import AdminProductsListPage from "src/pages/Admin/Products/AdminProductsListPage";
 import AdminProductEditPage from "src/pages/Admin/Products/AdminProductEditPage";
 import AdminProductViewPage from "src/pages/Admin/Products/AdminProductViewPage";
@@ -32,19 +34,30 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    element: <AdminLayout />,
+    path: "/admin",
+    element: (
+      <AdminAuthProvider>
+        <Outlet />
+      </AdminAuthProvider>
+    ),
     children: [
-      { path: ROUTES.ADMIN_PRODUCTS, element: <AdminProductsListPage /> },
-      { path: ROUTES.ADMIN_PRODUCT_NEW, element: <AdminProductEditPage /> },
-      { path: ROUTES.ADMIN_PRODUCT_VIEW, element: <AdminProductViewPage /> },
-      { path: ROUTES.ADMIN_PRODUCT_EDIT, element: <AdminProductEditPage /> },
-      { path: ROUTES.ADMIN_COLLECTIONS, element: <AdminCollectionsListPage /> },
-      { path: ROUTES.ADMIN_COLLECTION_NEW, element: <AdminCollectionEditPage /> },
-      { path: ROUTES.ADMIN_COLLECTION_EDIT, element: <AdminCollectionEditPage /> },
-      { path: ROUTES.ADMIN_CATEGORIES, element: <AdminCategoriesListPage /> },
-      { path: ROUTES.ADMIN_CATEGORY_NEW, element: <AdminCategoryEditPage /> },
-      { path: ROUTES.ADMIN_CATEGORY_EDIT, element: <AdminCategoryEditPage /> },
-      { path: ROUTES.ADMIN_ORDERS, element: <AdminOrdersPage /> },
+      { path: "login", element: <AdminLoginPage /> },
+      {
+        element: <AdminAuthGuard />,
+        children: [
+          { path: "products", element: <AdminProductsListPage /> },
+          { path: "products/new", element: <AdminProductEditPage /> },
+          { path: "products/:id", element: <AdminProductViewPage /> },
+          { path: "products/:id/edit", element: <AdminProductEditPage /> },
+          { path: "collections", element: <AdminCollectionsListPage /> },
+          { path: "collections/new", element: <AdminCollectionEditPage /> },
+          { path: "collections/:id/edit", element: <AdminCollectionEditPage /> },
+          { path: "categories", element: <AdminCategoriesListPage /> },
+          { path: "categories/new", element: <AdminCategoryEditPage /> },
+          { path: "categories/:id/edit", element: <AdminCategoryEditPage /> },
+          { path: "orders", element: <AdminOrdersPage /> },
+        ],
+      },
     ],
   },
 ]);

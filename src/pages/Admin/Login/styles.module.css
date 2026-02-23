@@ -1,0 +1,111 @@
+/* Login page: full viewport with project palette (dark browns + bronze) */
+.wrapper {
+  min-height: 100vh;
+  background: var(--color-page);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  max-width: 400px;
+  width: 100%;
+  background: var(--color-footer) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card :global(.ant-card-body) {
+  padding: 32px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.logo img {
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.form :global(.ant-form-item-label > label) {
+  color: var(--color-text-body) !important;
+}
+
+.form :global(.ant-input),
+.form :global(.ant-input-password),
+.form :global(.ant-input-password input) {
+  background: var(--color-page) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-text-product) !important;
+}
+
+.form :global(.ant-input-password .ant-input) {
+  background: var(--color-page) !important;
+  border-color: transparent !important;
+  color: var(--color-text-product) !important;
+}
+
+/* Override browser autofill white/yellow background so it matches dark theme (username + password) */
+.form :global(.ant-input:-webkit-autofill),
+.form :global(.ant-input:-webkit-autofill:hover),
+.form :global(.ant-input:-webkit-autofill:focus),
+.form :global(.ant-input:-webkit-autofill:active) {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-page) inset !important;
+  box-shadow: 0 0 0 1000px var(--color-page) inset !important;
+  -webkit-text-fill-color: var(--color-text-product) !important;
+  caret-color: var(--color-text-product);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form :global(.ant-input-password input:-webkit-autofill),
+.form :global(.ant-input-password input:-webkit-autofill:hover),
+.form :global(.ant-input-password input:-webkit-autofill:focus),
+.form :global(.ant-input-password input:-webkit-autofill:active) {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-page) inset !important;
+  box-shadow: 0 0 0 1000px var(--color-page) inset !important;
+  -webkit-text-fill-color: var(--color-text-product) !important;
+  caret-color: var(--color-text-product);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form :global(.ant-input::placeholder),
+.form :global(.ant-input-password input::placeholder) {
+  color: var(--color-text-label);
+}
+
+.form :global(.ant-input:hover),
+.form :global(.ant-input-password:hover .ant-input) {
+  border-color: var(--color-border-muted) !important;
+}
+
+.form :global(.ant-input:focus),
+.form :global(.ant-input-password:focus-within .ant-input),
+.form :global(.ant-input-focused) {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 2px rgba(191, 122, 90, 0.2) !important;
+}
+
+.form :global(.ant-input-password .anticon) {
+  color: var(--color-text-label);
+}
+
+.form :global(.ant-btn-primary) {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-button-on-light) !important;
+  font-weight: 600;
+  height: 40px;
+}
+
+.form :global(.ant-btn-primary:hover) {
+  background: var(--color-accent-light) !important;
+  border-color: var(--color-accent-light) !important;
+  color: var(--color-button-on-light) !important;
+}
