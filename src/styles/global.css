@@ -1,6 +1,30 @@
-/* App font: change this variable to use a different font app-wide */
+/* App font + luxury palette: dark browns, bronze accents, stone text hierarchy */
 :root {
-  --app-font-family: "Montserrat", sans-serif;
+  --app-font-family: "Montserrat Arm", sans-serif;
+  /* Main backgrounds */
+  --color-page: #1d1715;
+  --color-header: rgba(29, 23, 21, 0.8);
+  --color-footer: #161413;
+  /* Accents (bronze/copper) */
+  --color-accent: #bf7a5a;
+  --color-accent-muted: #8d734a;
+  --color-accent-light: #c29a73;
+  /* Text on dark (stone/taupe hierarchy) */
+  --color-text-primary: #ffffff;
+  --color-text-heading: #f5f5f4;
+  --color-text-product: #e7e5e4;
+  --color-text-body: #a8a29e;
+  --color-text-label: #78716c;
+  --color-button-on-light: #181611;
+  /* Borders / UI */
+  --color-border: #44403c;
+  --color-border-muted: #57534e;
+  --color-border-subtle: #292524;
+  /* Aliases for components */
+  --color-bg-dark: #1d1715;
+  --color-content-dark: #1d1715;
+  --color-text-on-dark: #ffffff;
+  --color-text-muted-on-dark: #a8a29e;
 }
 
 html {
@@ -39,4 +63,73 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* Catalog sort Select: transparent background + design system border (override antd) */
+[data-catalog-sort] .ant-select,
+[data-catalog-sort] .ant-select-selector {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+[data-catalog-sort] .ant-select-selector {
+  border: 1px solid var(--color-border) !important;
+  box-shadow: none !important;
+  color: var(--color-text-product) !important;
+}
+
+[data-catalog-sort] .ant-select-selection-item,
+[data-catalog-sort] .ant-select-selection-placeholder,
+[data-catalog-sort] .ant-select-selector span,
+[data-catalog-sort] .ant-select-content,
+[data-catalog-sort] .ant-select-content-has-value {
+  color: var(--color-text-product) !important;
+}
+
+[data-catalog-sort] .ant-select:hover .ant-select-selector,
+[data-catalog-sort] .ant-select-focused .ant-select-selector {
+  border-color: var(--color-border-muted) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+[data-catalog-sort] .ant-select-arrow,
+[data-catalog-sort] .ant-select-suffix,
+[data-catalog-sort] .ant-select-suffix span,
+[data-catalog-sort] .ant-select-suffix .anticon,
+[data-catalog-sort] .ant-select-suffix svg,
+[data-catalog-sort] .rc-select-arrow,
+[data-catalog-sort] .rc-select-arrow span,
+[data-catalog-sort] .rc-select-arrow .anticon,
+[data-catalog-sort] .rc-select-arrow svg {
+  color: var(--color-text-product) !important;
+  fill: var(--color-text-product) !important;
+}
+
+/* Catalog sort dropdown options list: dark theme to match design */
+.catalog-sort-dropdown.ant-select-dropdown,
+.catalog-sort-dropdown.rc-select-dropdown {
+  background: var(--color-page) !important;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.catalog-sort-dropdown .ant-select-item,
+.catalog-sort-dropdown .ant-select-item-option,
+.catalog-sort-dropdown .rc-select-item {
+  color: var(--color-text-product) !important;
+}
+
+.catalog-sort-dropdown .ant-select-item-option-active,
+.catalog-sort-dropdown .ant-select-item-option-selected,
+.catalog-sort-dropdown .rc-select-item-option-active,
+.catalog-sort-dropdown .rc-select-item-option-selected {
+  background: rgba(191, 122, 90, 0.12) !important;
+  color: var(--color-text-product) !important;
+}
+
+.catalog-sort-dropdown .ant-select-item-option-selected .ant-select-item-option-state,
+.catalog-sort-dropdown .rc-select-item-option-selected .rc-select-item-option-state {
+  color: var(--color-accent);
 }

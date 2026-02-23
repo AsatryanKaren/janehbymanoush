@@ -51,7 +51,20 @@
     "womenCollection": "Women's Collection",
     "menCollection": "Men's Collection",
     "catalog": "Catalog",
-    "noProducts": "No products found"
+    "noProducts": "No products found",
+    "emptyTitle": "No products in this selection",
+    "emptyDescription": "Try another category or filter and we may have just the jewelry you're looking for.",
+    "emptyAction": "View all collection",
+    "priceRange": "Price",
+    "priceMin": "Min",
+    "priceMax": "Max",
+    "sections": {
+      "categories": "CATEGORIES",
+      "filters": "FILTERS"
+    },
+    "all": "All",
+    "sortBy": "Sort by",
+    "newArrivals": "New arrivals"
   },
   "product": {
     "notFound": "Product not found.",

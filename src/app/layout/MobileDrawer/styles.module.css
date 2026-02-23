@@ -3,11 +3,13 @@
   width: auto;
   object-fit: contain;
   display: block;
+  filter: brightness(0) invert(1);
 }
 
 .drawerHeader {
   padding-left: 14px !important;
   padding-right: 14px !important;
+  background: var(--color-page) !important;
 }
 
 .drawerHeader :global(.ant-drawer-header-title) {
@@ -15,6 +17,15 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.drawerHeader :global(.ant-drawer-title),
+.drawerHeader :global(.ant-drawer-close) {
+  color: var(--color-text-primary) !important;
+}
+
+.drawerHeader :global(.ant-drawer-close):hover {
+  color: var(--color-text-body) !important;
 }
 
 .drawerHeader :global(.ant-drawer-close) {
@@ -26,6 +37,7 @@
   flex-direction: column;
   padding: 0;
   overflow: hidden;
+  background: var(--color-page) !important;
 }
 
 .drawerNav {
@@ -39,45 +51,49 @@
   display: block;
   width: 100%;
   padding: 20px 24px;
-  color: #805c3c;
+  color: var(--color-text-product);
   font-size: 18px;
   text-decoration: none;
   transition: color 0.2s, background-color 0.2s;
 }
 
 .drawerLink:hover {
-  color: #6b4d32;
-  background-color: rgba(128, 92, 60, 0.06);
+  color: var(--color-text-body);
+  background-color: rgba(191, 122, 90, 0.08);
 }
 
 .drawerLinkActive {
   font-weight: 500;
-  background-color: rgba(128, 92, 60, 0.08);
+  color: var(--color-accent);
+  background-color: rgba(191, 122, 90, 0.12);
 }
 
 .dropdownOverlay {
   border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   padding: 4px 0;
 }
 
 .drawerLangButton {
   margin-top: 8px;
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-bottom: 24px;
   padding: 20px 24px;
-  width: 100%;
+  width: calc(100% - 48px);
   text-align: left;
-  color: #805c3c;
+  color: var(--color-text-product);
   font-size: 18px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: #f5f5f5 !important;
-  border: 1px solid #e8e8e8;
+  background: rgba(68, 64, 60, 0.4) !important;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
 }
 
 .drawerLangButton:hover {
-  color: #6b4d32;
-  background: #eee !important;
-  border-color: #d9d9d9;
+  color: var(--color-text-body);
+  background: rgba(68, 64, 60, 0.6) !important;
+  border-color: var(--color-border-muted);
 }

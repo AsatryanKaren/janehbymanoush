@@ -51,7 +51,20 @@
     "womenCollection": "Կանացի հավաքածու",
     "menCollection": "Տղամարդկանց հավաքածու",
     "catalog": "Կատալոգ",
-    "noProducts": "Ապրանքներ չեն գտնվել"
+    "noProducts": "Ապրանքներ չեն գտնվել",
+    "emptyTitle": "Այս ընտրությունում զարդեր չկան",
+    "emptyDescription": "Փորձեք այլ բաժին և հնարավոր է, որ մենք ունենանք հենց ձեր փնտրած զարդը։",
+    "emptyAction": "Դիտել ամբողջ հավաքածուն",
+    "priceRange": "Գին",
+    "priceMin": "Մին",
+    "priceMax": "Մաքս",
+    "sections": {
+      "categories": "ԲԱԺԻՆՆԵՐ",
+      "filters": "ՖԻԼՏՐԵՐ"
+    },
+    "all": "Բոլորը",
+    "sortBy": "Ցուցադրել ըստ",
+    "newArrivals": "Նոր տեսականի"
   },
   "product": {
     "notFound": "Ապրանքը չի գտնվել։",

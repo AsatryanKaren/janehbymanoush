@@ -1,11 +1,11 @@
 .footer {
   padding: 0;
-  background: transparent;
+  background: var(--color-footer);
 }
 
 .main {
   padding: 80px 24px 48px;
-  background: #fbfaf8;
+  background: var(--color-footer);
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -13,7 +13,7 @@
 .brandTagline {
   display: block;
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--color-text-body);
   margin-bottom: 16px;
   line-height: 1.5;
 }
@@ -23,12 +23,12 @@
 }
 
 .iconLink {
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--color-accent-muted);
   font-size: 1.125rem;
 }
 
 .iconLink:hover {
-  color: #8d734a;
+  color: var(--color-accent);
 }
 
 .logoWrap {
@@ -42,12 +42,13 @@
   width: auto;
   object-fit: contain;
   display: block;
+  filter: brightness(0) invert(1);
 }
 
 .logoLine {
   width: 40px;
   height: 1px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--color-border-muted);
   margin: 8px 0 4px;
 }
 
@@ -55,7 +56,7 @@
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--color-text-label);
 }
 
 .columnTitle {
@@ -64,7 +65,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #8d734a;
+  color: var(--color-accent-muted);
   margin-bottom: 16px;
 }
 
@@ -86,16 +87,16 @@
 
 .link {
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.65);
+  color: var(--color-text-body);
 }
 
 .link:hover {
-  color: #8d734a;
+  color: var(--color-accent);
 }
 
 .addressList {
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.65);
+  color: var(--color-text-body);
   line-height: 1.6;
 }
 
@@ -108,7 +109,7 @@
 .addressIcon {
   flex-shrink: 0;
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--color-text-label);
 }
 
 .bottomBar {
@@ -118,14 +119,15 @@
   align-items: center;
   gap: 16px;
   padding: 24px 24px;
-  background: #2b2a29;
+  background: var(--color-footer);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .copyright {
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-label);
   margin: 0;
   flex-shrink: 0;
 }
@@ -138,11 +140,11 @@
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-label);
 }
 
 .legalLink:hover {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-body);
 }
 
 @media (max-width: 768px) {

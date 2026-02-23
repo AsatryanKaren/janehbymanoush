@@ -51,7 +51,20 @@
     "womenCollection": "Женская коллекция",
     "menCollection": "Мужская коллекция",
     "catalog": "Каталог",
-    "noProducts": "Товары не найдены"
+    "noProducts": "Товары не найдены",
+    "emptyTitle": "В этой подборке пока нет товаров",
+    "emptyDescription": "Попробуйте другую категорию или фильтр и мы можем найти то, что вы ищете.",
+    "emptyAction": "Смотреть всю коллекцию",
+    "priceRange": "Цена",
+    "priceMin": "Мин",
+    "priceMax": "Макс",
+    "sections": {
+      "categories": "КАТЕГОРИИ",
+      "filters": "ФИЛЬТРЫ"
+    },
+    "all": "Все",
+    "sortBy": "Сортировка",
+    "newArrivals": "Новинки"
   },
   "product": {
     "notFound": "Товар не найден.",

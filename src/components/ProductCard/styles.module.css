@@ -5,6 +5,13 @@
   min-width: 0;
   width: 100%;
   overflow: hidden;
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0;
+}
+
+.card:hover {
+  border-color: var(--color-border-muted);
 }
 
 .link {
@@ -18,6 +25,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 16px 0 0;
 }
 
 .card :global(.ant-card-meta) {
@@ -27,18 +35,21 @@
 .card :global(.ant-card-meta-title) {
   white-space: normal;
   min-height: 44px;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .image {
   width: 100%;
   height: 280px;
   object-fit: cover;
-  background-color: #f0f0f0;
+  background: var(--color-border-subtle);
 }
 
 .price {
   font-size: 1.125rem;
-  color: #8b6914;
+  font-weight: 600;
+  color: var(--color-accent);
 }
 
 .compactMeta {
@@ -51,28 +62,16 @@
   font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--color-text-label);
 }
 
 .compactCollection {
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.85);
+  color: inherit;
 }
 
 .compactMeta .price {
   font-size: 0.875rem;
-}
-
-.compactCategory {
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.compactCollection {
-  font-size: 0.875rem;
-  display: block;
 }
 
 @media (max-width: 768px) {

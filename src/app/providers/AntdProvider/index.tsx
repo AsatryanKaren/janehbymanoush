@@ -5,17 +5,17 @@ const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
   <ConfigProvider
     theme={{
       token: {
-        colorPrimary: "#8b6914",
+        colorPrimary: "#bf7a5a",
         borderRadius: 6,
         fontFamily: "var(--app-font-family)",
       },
       algorithm: theme.defaultAlgorithm,
       components: {
         Layout: {
-          headerBg: "#fff",
+          headerBg: "transparent",
           headerPadding: "0 24px",
-          footerBg: "#fafafa",
-          siderBg: "#001529",
+          footerBg: "transparent",
+          siderBg: "#1d1715",
         },
         Menu: {
           horizontalLineHeight: "64px",

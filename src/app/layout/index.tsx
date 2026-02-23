@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Layout } from "antd";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -37,6 +37,20 @@ const AppLayout: React.FC = () => {
     setDrawerOpen(false);
   };
 
+  const isCatalogRoute = useMemo(() => {
+    const p = location.pathname;
+    return (
+      p === ROUTES.CATALOG ||
+      p === ROUTES.WOMEN ||
+      p === ROUTES.MEN ||
+      p.startsWith(ROUTES.CATALOG + "/")
+    );
+  }, [location.pathname]);
+
+  const contentClassName = isCatalogRoute
+    ? `${styles.content} ${styles.contentDark}`
+    : styles.content;
+
   return (
     <Layout>
       <Header
@@ -65,7 +79,7 @@ const AppLayout: React.FC = () => {
         logoUrl={LOGO_IMAGE}
         logoAlt={t("common.appName")}
       />
-      <Content className={styles.content}>
+      <Content className={contentClassName}>
         <Outlet />
       </Content>
       <Footer />
