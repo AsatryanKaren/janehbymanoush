@@ -1,6 +1,6 @@
 import type { NavItem } from "../consts";
 
-export interface MobileDrawerProps {
+export type MobileDrawerProps = {
   open: boolean;
   onClose: () => void;
   items: NavItem[];
@@ -12,4 +12,4 @@ export interface MobileDrawerProps {
   onLanguageChange: (opts: { key: string }) => void;
   logoUrl: string;
   logoAlt: string;
-}
+};

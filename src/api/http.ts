@@ -1,12 +1,12 @@
 import axios from "axios";
 import { ENV } from "src/config/env";
 
-interface RequestOptions {
+type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   headers?: Record<string, string>;
   params?: Record<string, string | number | undefined>;
-}
+};
 
 export const apiClient = axios.create({
   baseURL: ENV.API_BASE_URL, // {API_ROOT}/api, e.g. https://janehbymanoush.com/api

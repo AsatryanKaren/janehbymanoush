@@ -56,6 +56,8 @@
   "product": {
     "notFound": "Ապրանքը չի գտնվել։",
     "outOfStock": "Պահեստում չկա",
+    "available": "Առկա",
+    "quantity": "Քանակ",
     "addToCart": "Ավելացնել զամբյուղին",
     "unavailable": "Անհասանելի",
     "categoryEarrings": "ԱԿԱՆՋՕՂԵՐ",

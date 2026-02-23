@@ -56,6 +56,8 @@
   "product": {
     "notFound": "Product not found.",
     "outOfStock": "Out of Stock",
+    "available": "Available",
+    "quantity": "Quantity",
     "addToCart": "Add to Cart",
     "unavailable": "Unavailable",
     "categoryEarrings": "Earrings",

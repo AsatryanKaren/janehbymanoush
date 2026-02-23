@@ -1,15 +1,15 @@
 import { ROUTES } from "src/consts/routes";
 
 /** Footer link item: i18n key for label, optional path (omit for external or no link) */
-export interface FooterLinkItem {
+export type FooterLinkItem = {
   i18nKey: string;
   path?: string;
-}
+};
 
 /** Footer address item: i18n key for the address text */
-export interface FooterAddressItem {
+export type FooterAddressItem = {
   i18nKey: string;
-}
+};
 
 /** Purchases column links */
 export const FOOTER_PURCHASES_LINKS: FooterLinkItem[] = [

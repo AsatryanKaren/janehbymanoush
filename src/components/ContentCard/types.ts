@@ -2,21 +2,21 @@ import type { ReactNode } from "react";
 
 export type ContentCardVariant = "vertical" | "horizontal";
 
-interface ContentCardBaseProps {
+type ContentCardBaseProps = {
   icon: ReactNode;
   title: string;
   className?: string;
-}
+};
 
-export interface ContentCardVerticalProps extends ContentCardBaseProps {
+export type ContentCardVerticalProps = ContentCardBaseProps & {
   variant: "vertical";
   description: string;
-}
+};
 
-export interface ContentCardHorizontalProps extends ContentCardBaseProps {
+export type ContentCardHorizontalProps = ContentCardBaseProps & {
   variant: "horizontal";
   detail: string;
-}
+};
 
 export type ContentCardProps =
   | ContentCardVerticalProps

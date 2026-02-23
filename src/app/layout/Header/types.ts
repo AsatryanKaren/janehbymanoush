@@ -1,6 +1,6 @@
 import type { NavItem } from "../consts";
 
-export interface HeaderProps {
+export type HeaderProps = {
   leftItems: NavItem[];
   rightItems: NavItem[];
   langMenuItems: { key: string; label: string; disabled: boolean }[];
@@ -12,4 +12,4 @@ export interface HeaderProps {
   logoUrl: string;
   logoAlt: string;
   homePath: string;
-}
+};

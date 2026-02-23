@@ -4,17 +4,13 @@ import {
   useContext,
   useEffect,
   useState,
-  type ReactNode,
 } from "react";
 import { adminCategoriesApi } from "src/api/adminCategories";
 import type { CategoryItem } from "src/types/category";
-
-interface AdminCategoriesContextValue {
-  categories: CategoryItem[];
-  loading: boolean;
-  error: boolean;
-  refetch: () => Promise<void>;
-}
+import type {
+  AdminCategoriesContextValue,
+  AdminCategoriesProviderProps,
+} from "./types";
 
 const AdminCategoriesContext = createContext<AdminCategoriesContextValue | null>(
   null,
@@ -27,10 +23,6 @@ export const useAdminCategories = (): AdminCategoriesContextValue => {
   }
   return ctx;
 };
-
-interface AdminCategoriesProviderProps {
-  children: ReactNode;
-}
 
 const AdminCategoriesProvider: React.FC<AdminCategoriesProviderProps> = ({ children }) => {
   const [categories, setCategories] = useState<CategoryItem[]>([]);

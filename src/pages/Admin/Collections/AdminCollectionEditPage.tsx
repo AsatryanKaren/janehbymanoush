@@ -20,6 +20,7 @@ import type {
   CreateCollectionRequest,
   UpdateCollectionRequest,
 } from "src/types/collection";
+import type { CollectionFormValues } from "./types";
 
 const { Title } = Typography;
 
@@ -31,13 +32,6 @@ const FormSection: React.FC<{
     {children}
   </Card>
 );
-
-interface CollectionFormValues {
-  nameHy?: string;
-  nameEn?: string;
-  nameRu?: string;
-  slug?: string;
-}
 
 const isCreateMode = (id: string | undefined): boolean =>
   id === undefined || id === "new";

@@ -1,6 +1,6 @@
 import type { Product } from "src/types/product";
 
-export interface FeaturedProductsProps {
+export type FeaturedProductsProps = {
   products: Product[];
   loading: boolean;
-}
+};

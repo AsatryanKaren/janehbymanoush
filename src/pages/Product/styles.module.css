@@ -1,7 +1,6 @@
 .container {
-  max-width: 1000px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 48px 80px;
 }
 
 .imageWrapper {
@@ -23,7 +22,7 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 24px 16px;
+    padding: 24px 24px;
   }
 
   .image {
@@ -33,7 +32,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 16px 12px;
+    padding: 16px 16px;
   }
 
   .image {

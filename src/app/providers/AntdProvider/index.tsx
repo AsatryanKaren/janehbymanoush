@@ -1,8 +1,5 @@
 import { App, ConfigProvider, theme } from "antd";
-
-interface AntdProviderProps {
-  children: React.ReactNode;
-}
+import type { AntdProviderProps } from "./types";
 
 const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
   <ConfigProvider

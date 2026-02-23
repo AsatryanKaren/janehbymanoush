@@ -2,7 +2,7 @@
 export type Gender = 0 | 1;
 
 /** Admin list: ProductCardAdmin */
-export interface ProductCardAdmin {
+export type ProductCardAdmin = {
   id: string;
   name?: string | null;
   nameHy?: string | null;
@@ -21,17 +21,17 @@ export interface ProductCardAdmin {
   inStock?: boolean;
   isNew?: boolean;
   createdAt?: string | null;
-}
+};
 
-export interface PagedProductsAdminResponse {
+export type PagedProductsAdminResponse = {
   items: ProductCardAdmin[] | null;
   page: number;
   pageSize: number;
   total: number;
-}
+};
 
 /** Admin GET /v1/admin/products/{id} (ProductDetailsPublic) */
-export interface ProductDetailsPublic {
+export type ProductDetailsPublic = {
   id: string;
   slug?: string | null;
   name?: string | null;
@@ -60,26 +60,26 @@ export interface ProductDetailsPublic {
   inStock?: boolean;
   isNew?: boolean;
   createdAt?: string | null;
-}
+};
 
-export interface ProductImage {
+export type ProductImage = {
   id: string;
   url?: string | null;
   isMain?: boolean;
-}
+};
 
-export interface StoryImageDto {
+export type StoryImageDto = {
   id: string;
   url?: string | null;
-}
+};
 
 /** Admin POST /v1/admin/products (multipart) → CreateProductResponse */
-export interface CreateProductResponse {
+export type CreateProductResponse = {
   id: string;
-}
+};
 
 /** Admin PUT /v1/admin/products/{id} (JSON body) */
-export interface CreateProductRequest {
+export type CreateProductRequest = {
   nameHy?: string | null;
   nameEn?: string | null;
   nameRu?: string | null;
@@ -97,15 +97,15 @@ export interface CreateProductRequest {
   inStock?: boolean;
   isNew?: boolean;
   tags?: string[] | null;
-}
+};
 
 /** Admin PATCH /v1/admin/products/{id}/status */
-export interface UpdateProductStatusRequest {
+export type UpdateProductStatusRequest = {
   isActive: boolean;
-}
+};
 
 /** Admin GET products query params (exact API names) */
-export interface AdminProductsListParams {
+export type AdminProductsListParams = {
   Gender?: string;
   Category?: string;
   CategoryId?: string;
@@ -113,10 +113,10 @@ export interface AdminProductsListParams {
   IsActive?: string;
   Page?: string;
   PageSize?: string;
-}
+};
 
 /** Public GET /v1/products list item */
-export interface ProductCardPublic {
+export type ProductCardPublic = {
   id: string;
   slug?: string | null;
   name?: string | null;
@@ -135,20 +135,20 @@ export interface ProductCardPublic {
   isNew?: boolean;
   /** Optional for mocks / backward compat */
   description?: string | null;
-}
+};
 
-export interface PagedProductsPublicResponse {
+export type PagedProductsPublicResponse = {
   items: ProductCardPublic[] | null;
   page: number;
   pageSize: number;
   total: number;
-}
+};
 
 /** Public catalog list item; alias for ProductCardPublic */
 export type Product = ProductCardPublic;
 
 /** Public GET /v1/products query params */
-export interface ProductListParams {
+export type ProductListParams = {
   Gender?: string;
   Category?: string;
   CategoryId?: string;
@@ -157,6 +157,6 @@ export interface ProductListParams {
   MaxPrice?: string;
   Page?: string;
   PageSize?: string;
-}
+};
 
 export type ProductListResponse = PagedProductsPublicResponse;

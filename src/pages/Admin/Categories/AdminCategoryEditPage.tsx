@@ -25,16 +25,9 @@ import type {
   UpdateCategoryRequest,
 } from "src/types/category";
 import type { AdminCollectionItem } from "src/types/collection";
+import type { CategoryFormValues } from "./types";
 
 const { Title } = Typography;
-
-interface CategoryFormValues {
-  collectionId?: string;
-  titleHy?: string;
-  titleEn?: string;
-  titleRu?: string;
-  value?: number;
-}
 
 const isCreateMode = (id: string | undefined): boolean =>
   id === undefined || id === "new";

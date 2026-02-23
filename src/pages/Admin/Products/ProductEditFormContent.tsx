@@ -14,7 +14,6 @@ import {
   Col,
   Divider,
 } from "antd";
-import type { UploadFile } from "antd/es/upload/interface";
 import {
   DeleteOutlined,
   PlusOutlined,
@@ -24,7 +23,10 @@ import {
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import type { ProductImage, StoryImageDto } from "src/types/product";
 import type { UseProductEditFormReturn } from "./useProductEditForm";
+import type { ProductImagesUploadProps } from "./types";
 import styles from "./ProductEditFormContent.module.css";
+
+type ProductEditFormContentProps = UseProductEditFormReturn;
 
 const GENDER_OPTIONS = [
   { label: "Women", value: 0 },
@@ -34,8 +36,6 @@ const GENDER_OPTIONS = [
 /** Accepted image types for product and story uploads: PNG, JPG, WEBP, GIF, AVIF, SVG, BMP */
 const ACCEPT_IMAGES =
   "image/png,image/jpeg,image/jpg,image/webp,image/gif,image/avif,image/svg+xml,image/bmp";
-
-type ProductEditFormContentProps = UseProductEditFormReturn;
 
 const FormSection: React.FC<{
   title: string;
@@ -375,16 +375,6 @@ export const ProductEditFormContent = (
     </>
   );
 };
-
-interface ProductImagesUploadProps {
-  fileList: UploadFile[];
-  onFileListChange: (fileList: UploadFile[]) => void;
-  mainIndex: number;
-  onMainIndexChange: (index: number) => void;
-  t: (key: string) => string;
-  showUploadList?: { showPreviewIcon: boolean };
-  maxCount?: number;
-}
 
 const ProductImagesUpload = ({
   fileList,

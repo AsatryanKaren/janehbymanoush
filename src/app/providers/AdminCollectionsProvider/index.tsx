@@ -4,17 +4,13 @@ import {
   useContext,
   useEffect,
   useState,
-  type ReactNode,
 } from "react";
 import { adminCollectionsApi } from "src/api/adminCollections";
 import type { AdminCollectionItem } from "src/types/collection";
-
-interface AdminCollectionsContextValue {
-  collections: AdminCollectionItem[];
-  loading: boolean;
-  error: boolean;
-  refetch: () => Promise<void>;
-}
+import type {
+  AdminCollectionsContextValue,
+  AdminCollectionsProviderProps,
+} from "./types";
 
 const AdminCollectionsContext = createContext<AdminCollectionsContextValue | null>(
   null,
@@ -27,10 +23,6 @@ export const useAdminCollections = (): AdminCollectionsContextValue => {
   }
   return ctx;
 };
-
-interface AdminCollectionsProviderProps {
-  children: ReactNode;
-}
 
 const AdminCollectionsProvider: React.FC<AdminCollectionsProviderProps> = ({ children }) => {
   const [collections, setCollections] = useState<AdminCollectionItem[]>([]);

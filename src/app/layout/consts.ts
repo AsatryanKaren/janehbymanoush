@@ -1,9 +1,9 @@
 import { ROUTES } from "src/consts/routes";
 
-export interface NavItem {
+export type NavItem = {
   path: string;
   labelKey: string;
-}
+};
 
 export const LEFT_NAV_ITEMS: NavItem[] = [
   { path: ROUTES.CATALOG, labelKey: "nav.collection" },

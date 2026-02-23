@@ -1,7 +1,8 @@
+import type { UploadFile } from "antd/es/upload/interface";
 import type { CreateProductRequest, Gender, ProductDetailsPublic } from "src/types/product";
 
 /** Form field values for product create/edit. Single source of truth for form shape. */
-export interface ProductFormValues {
+export type ProductFormValues = {
   nameHy?: string;
   nameEn?: string;
   nameRu?: string;
@@ -18,7 +19,17 @@ export interface ProductFormValues {
   isActive: boolean;
   inStock: boolean;
   isNew: boolean;
-}
+};
+
+export type ProductImagesUploadProps = {
+  fileList: UploadFile[];
+  onFileListChange: (fileList: UploadFile[]) => void;
+  mainIndex: number;
+  onMainIndexChange: (index: number) => void;
+  t: (key: string) => string;
+  showUploadList?: { showPreviewIcon: boolean };
+  maxCount?: number;
+};
 
 const DEFAULT_FORM_VALUES: ProductFormValues = {
   gender: 0,
