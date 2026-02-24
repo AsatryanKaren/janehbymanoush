@@ -5,7 +5,7 @@ import { ROUTES } from "src/consts/routes";
 import { COLLECTIONS } from "./consts";
 import styles from "./styles.module.css";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const CuratedEdits: React.FC = () => {
   const { t } = useTranslation();
@@ -17,9 +17,9 @@ const CuratedEdits: React.FC = () => {
           <Title level={2} className={styles.title}>
             {t("home.curatedEdits.title")}
           </Title>
-          <Text type="secondary" className={styles.subtitle}>
+          <span className={styles.subtitle}>
             {t("home.curatedEdits.subtitle")}
-          </Text>
+          </span>
         </div>
         <Link to={ROUTES.CATALOG} className={styles.browseAll}>
           {t("home.curatedEdits.browseAll")}
@@ -36,7 +36,6 @@ const CuratedEdits: React.FC = () => {
               <Title level={5} className={styles.cardTitle}>
                 {t(`home.curatedEdits.${item.key}`)}
               </Title>
-              <Text className={styles.explore}>{t("home.curatedEdits.explore")}</Text>
             </Link>
           </Col>
         ))}

@@ -8,6 +8,7 @@
     "collection": "Collection",
     "woman": "Woman",
     "man": "Man",
+    "new": "New",
     "newProducts": "New products",
     "about": "About",
     "contact": "Contact",
@@ -30,6 +31,21 @@
       "collection3": "\"Gavith\" necklace and earrings",
       "explore": "Explore"
     },
+    "ourCollections": {
+      "label": "COLLECTIONS",
+      "title": "Our Collections",
+      "viewAll": "View All",
+      "rings": "Rings",
+      "necklaces": "Necklaces",
+      "bracelets": "Bracelets",
+      "earrings": "Earrings"
+    },
+    "promoSection": {
+      "label": "NEW COLLECTION",
+      "heading": "Discover our latest silver pieces.",
+      "body": "Handcrafted jewelry that blends tradition with contemporary design. Explore the new arrivals.",
+      "cta": "Shop the collection"
+    },
     "heritage": {
       "label": "HERITAGE",
       "heading": "Traditional jewelry with modern design.",
@@ -41,6 +57,7 @@
       "ourStory": "Our story"
     },
     "newsletter": {
+      "label": "Newsletter",
       "title": "Join the Circle",
       "subtitle": "Be the first to know about new collection drops, private events, and editorial journals.",
       "placeholder": "Your email address",
@@ -64,6 +81,13 @@
     },
     "all": "All",
     "sortBy": "Sort by",
+    "sort": {
+      "none": "Default",
+      "priceLowToHigh": "Price: low to high",
+      "priceHighToLow": "Price: high to low",
+      "dateNewToOld": "Date: new to old",
+      "dateOldToNew": "Date: old to new"
+    },
     "newArrivals": "New arrivals"
   },
   "product": {

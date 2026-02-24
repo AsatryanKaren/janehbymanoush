@@ -24,3 +24,7 @@
 .contentDark {
   background: var(--color-page);
 }
+
+.contentNoPaddingTop {
+  padding-top: 0;
+}

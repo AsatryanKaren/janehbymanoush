@@ -15,36 +15,40 @@ const NewsletterSection: React.FC = () => {
 
   return (
     <section className={styles.section}>
-      <MailOutlined className={styles.icon} />
-      <Title level={3} className={styles.title}>
-        {t("home.newsletter.title")}
-      </Title>
-      <Text type="secondary" className={styles.subtitle}>
-        {t("home.newsletter.subtitle")}
-      </Text>
-      <Form
-        form={form}
-        onFinish={onFinish}
-        layout="inline"
-        className={styles.form}
-      >
-        <Form.Item
-          name="email"
-          rules={[{ required: true, type: "email", message: "" }]}
-          className={styles.formItem}
+      <div className={styles.inner}>
+        <div className={styles.iconWrap}>
+          <MailOutlined className={styles.icon} />
+        </div>
+        <span className={styles.label}>{t("home.newsletter.label")}</span>
+        <Title level={3} className={styles.title}>
+          {t("home.newsletter.title")}
+        </Title>
+        <Text className={styles.subtitle}>
+          {t("home.newsletter.subtitle")}
+        </Text>
+        <Form
+          form={form}
+          onFinish={onFinish}
+          layout="inline"
+          className={styles.form}
         >
-          <Input
-            placeholder={t("home.newsletter.placeholder")}
-            size="large"
-            className={styles.input}
-          />
-        </Form.Item>
-        <Form.Item className={styles.formItem}>
-          <Button type="primary" htmlType="submit" size="large" className={styles.button}>
-            {t("home.newsletter.button")}
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item
+            name="email"
+            rules={[{ required: true, type: "email", message: "" }]}
+            className={styles.formItem}
+          >
+            <Input
+              placeholder={t("home.newsletter.placeholder")}
+              className={styles.input}
+              addonAfter={
+                <Button type="primary" htmlType="submit" className={styles.addonButton}>
+                  {t("home.newsletter.button")}
+                </Button>
+              }
+            />
+          </Form.Item>
+        </Form>
+      </div>
     </section>
   );
 };

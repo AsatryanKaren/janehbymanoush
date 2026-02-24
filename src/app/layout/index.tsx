@@ -5,7 +5,12 @@ import { useTranslation } from "react-i18next";
 import { ROUTES } from "src/consts/routes";
 import { LANGUAGES } from "src/i18n";
 import { LOGO_IMAGE } from "src/consts/assets";
-import { LEFT_NAV_ITEMS, RIGHT_NAV_ITEMS, ALL_NAV_ITEMS } from "./consts";
+import {
+  LEFT_NAV_ITEMS,
+  RIGHT_NAV_ITEMS,
+  ALL_NAV_ITEMS,
+  ROUTES_WITHOUT_CONTENT_PADDING_TOP,
+} from "./consts";
 import Header from "./Header";
 import MobileDrawer from "./MobileDrawer";
 import Footer from "src/components/Footer";
@@ -43,13 +48,22 @@ const AppLayout: React.FC = () => {
       p === ROUTES.CATALOG ||
       p === ROUTES.WOMEN ||
       p === ROUTES.MEN ||
+      p === ROUTES.NEW ||
       p.startsWith(ROUTES.CATALOG + "/")
     );
   }, [location.pathname]);
 
-  const contentClassName = isCatalogRoute
-    ? `${styles.content} ${styles.contentDark}`
-    : styles.content;
+  const noContentPaddingTop = ROUTES_WITHOUT_CONTENT_PADDING_TOP.includes(
+    location.pathname,
+  );
+
+  const contentClassName = [
+    styles.content,
+    isCatalogRoute && styles.contentDark,
+    noContentPaddingTop && styles.contentNoPaddingTop,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <Layout>

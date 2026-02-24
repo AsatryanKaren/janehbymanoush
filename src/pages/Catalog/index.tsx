@@ -11,7 +11,12 @@ import type { Product } from "src/types/product";
 import type { CategoryItem } from "src/types/category";
 import { ROUTES } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
-import { CATEGORY_MAP, TITLE_KEY_MAP } from "./consts";
+import {
+  CATEGORY_MAP,
+  TITLE_KEY_MAP,
+  SORT_PARAMS,
+  type SortValue,
+} from "./consts";
 import styles from "./styles.module.css";
 
 const { Title } = Typography;
@@ -35,9 +40,11 @@ const CatalogPage: React.FC = () => {
     null,
   );
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState<SortValue>("price_asc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
 
   const pathCategory = CATEGORY_MAP[location.pathname];
+  const pathIsNew = location.pathname === ROUTES.NEW;
   const titleKey = TITLE_KEY_MAP[location.pathname] ?? "catalog.catalog";
 
   useEffect(() => {
@@ -53,6 +60,10 @@ const CatalogPage: React.FC = () => {
       ? { Category: pathCategory }
       : {};
     if (selectedCategoryId) params.CategoryId = selectedCategoryId;
+    if (pathIsNew) params.IsNew = "true";
+    const { SortBy, SortOrder } = SORT_PARAMS[sort];
+    params.SortBy = SortBy;
+    params.SortOrder = SortOrder;
     params.Page = String(page);
     params.PageSize = String(PAGE_SIZE);
     productsApi
@@ -66,7 +77,7 @@ const CatalogPage: React.FC = () => {
         setTotal(0);
       })
       .finally(() => setLoading(false));
-  }, [pathCategory, selectedCategoryId, page]);
+  }, [pathCategory, pathIsNew, selectedCategoryId, sort, page]);
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -151,6 +162,17 @@ const CatalogPage: React.FC = () => {
           >
             {t("nav.man")}
           </Link>
+          <Link
+            to={ROUTES.NEW}
+            className={
+              location.pathname === ROUTES.NEW
+                ? styles.categoryLinkActive
+                : styles.categoryLink
+            }
+            style={{ display: "block", marginTop: 12 }}
+          >
+            {t("nav.new")}
+          </Link>
           <div className={styles.priceRangeWrap}>
             <span className={styles.priceRangeLabel}>
               {t("catalog.priceRange")}
@@ -180,12 +202,19 @@ const CatalogPage: React.FC = () => {
           </div>
           <div className={styles.sortWrap} data-catalog-sort>
             <span className={styles.sortLabel}>{t("catalog.sortBy")}</span>
-            <Select
-              defaultValue="new"
-              style={{ width: 180 }}
+            <Select<SortValue>
+              value={sort}
+              onChange={(v) => {
+                setSort(v);
+                setPage(1);
+              }}
+              style={{ width: 200 }}
               popupClassName="catalog-sort-dropdown"
               options={[
-                { value: "new", label: t("catalog.newArrivals") },
+                { value: "price_asc", label: t("catalog.sort.priceLowToHigh") },
+                { value: "price_desc", label: t("catalog.sort.priceHighToLow") },
+                { value: "date_desc", label: t("catalog.sort.dateNewToOld") },
+                { value: "date_asc", label: t("catalog.sort.dateOldToNew") },
               ]}
             />
           </div>

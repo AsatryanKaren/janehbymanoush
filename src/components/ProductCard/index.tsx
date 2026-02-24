@@ -1,4 +1,4 @@
-import { Card, Typography } from "antd";
+import { Card, Tag, Typography } from "antd";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { buildProductPath } from "src/consts/routes";
@@ -21,6 +21,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const categoryKey = category && CATEGORY_KEY_MAP[category]
     ? `product.${CATEGORY_KEY_MAP[category]}`
     : null;
+  const categoryLabel = categoryKey
+    ? t(categoryKey)
+    : (product.categoryName ?? category);
+  const showCategoryTag = Boolean(categoryLabel);
   const slug = product.slug ?? product.id;
   const name = product.name ?? "";
 
@@ -35,8 +39,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
       >
         {variant === "compact" ? (
           <div className={styles.compactMeta}>
-            {categoryKey && (
-              <Text className={styles.compactCategory}>{t(categoryKey)}</Text>
+            {showCategoryTag && (
+              <Text className={styles.compactCategory}>{categoryLabel}</Text>
             )}
             <Text className={styles.compactCollection}>
               {product.collectionName ?? ""}
@@ -50,25 +54,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </Text>
           </div>
         ) : (
-          <Card.Meta
-            title={name}
-            description={
-              <>
-                <Text strong className={styles.price}>
-                  {formatPrice(
-                    product.price ?? 0,
-                    DEFAULT_CURRENCY,
-                    i18n.language,
-                  )}
-                </Text>
-                {product.isActive === false && (
-                  <div>
-                    <Text type="danger">{t("product.outOfStock")}</Text>
-                  </div>
-                )}
-              </>
-            }
-          />
+          <div className={styles.meta}>
+            <div className={styles.titleRow}>
+              <span className={styles.title}>{name}</span>
+              {showCategoryTag && (
+                <Tag className={styles.categoryTag}>{categoryLabel}</Tag>
+              )}
+            </div>
+            <Text strong className={styles.price}>
+              {formatPrice(
+                product.price ?? 0,
+                DEFAULT_CURRENCY,
+                i18n.language,
+              )}
+            </Text>
+            {product.isActive === false && (
+              <Text type="danger" className={styles.outOfStock}>
+                {t("product.outOfStock")}
+              </Text>
+            )}
+          </div>
         )}
       </Card>
     </Link>
