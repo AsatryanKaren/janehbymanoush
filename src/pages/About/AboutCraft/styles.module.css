@@ -1,0 +1,64 @@
+.craft {
+  background: #f8f6f4;
+  padding: 80px 24px;
+}
+
+.craftInner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.craftTitle {
+  color: #1d1715 !important;
+  font-size: clamp(1.75rem, 3vw, 2.25rem) !important;
+  font-weight: 400 !important;
+  margin-bottom: 8px !important;
+}
+
+.craftSubtitle {
+  display: block;
+  font-size: 1rem;
+  color: #57534e;
+  margin-bottom: 48px;
+}
+
+.craftRow {
+  margin-top: 0;
+}
+
+.craftColumn {
+  text-align: center;
+}
+
+.craftImageWrap {
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.craftImage {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.craftColumnTitle {
+  color: #1d1715 !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px !important;
+}
+
+.craftColumnBody {
+  color: #57534e !important;
+  font-size: 0.9375rem !important;
+  line-height: 1.6;
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .craft {
+    padding: 56px 16px;
+  }
+}

@@ -37,36 +37,39 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <AntHeader className={styles.header}>
-      <span className={styles.headerSpacer} aria-hidden />
-      {leftItems.map((item) => (
-        <NavLink key={item.path} path={item.path} labelKey={item.labelKey} />
-      ))}
+      <nav className={styles.leftGroup} aria-label={t("nav.main")}>
+        {leftItems.map((item) => (
+          <NavLink key={item.path} path={item.path} labelKey={item.labelKey} />
+        ))}
+      </nav>
       <Link to={homePath} className={styles.logoWrap}>
         <img src={logoUrl} alt={logoAlt} className={styles.logoImg} />
       </Link>
-      {rightLinks.map((item) => (
-        <NavLink key={item.path} path={item.path} labelKey={item.labelKey} />
-      ))}
-      <Flex align="center" gap="small" className={styles.contactWithLang}>
-        {contactItem && (
-          <NavLink path={contactItem.path} labelKey={contactItem.labelKey} />
-        )}
-        <Dropdown
-          className={styles.headerLangWrap}
-          menu={{ items: langMenuItems, onClick: onLanguageChange }}
-          placement="bottomRight"
-          popupRender={(menu) => (
-            <div className={styles.dropdownOverlay}>{menu}</div>
+      <nav className={styles.rightGroup} aria-label={t("nav.main")}>
+        {rightLinks.map((item) => (
+          <NavLink key={item.path} path={item.path} labelKey={item.labelKey} />
+        ))}
+        <Flex align="center" gap="small" className={styles.contactWithLang}>
+          {contactItem && (
+            <NavLink path={contactItem.path} labelKey={contactItem.labelKey} />
           )}
-        >
-          <Button
-            type="text"
-            icon={<GlobalOutlined />}
-            className={styles.langButton}
-            aria-label={currentLangLabel}
-          />
-        </Dropdown>
-      </Flex>
+          <Dropdown
+            className={styles.headerLangWrap}
+            menu={{ items: langMenuItems, onClick: onLanguageChange }}
+            placement="bottomRight"
+            popupRender={(menu) => (
+              <div className={styles.dropdownOverlay}>{menu}</div>
+            )}
+          >
+            <Button
+              type="text"
+              icon={<GlobalOutlined />}
+              className={styles.langButton}
+              aria-label={currentLangLabel}
+            />
+          </Dropdown>
+        </Flex>
+      </nav>
       <Button
         className={styles.menuButton}
         type="text"

@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import {
   GlobalOutlined,
   MailOutlined,
-  ShareAltOutlined,
+  InstagramOutlined,
+  FacebookOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { LOGO_IMAGE } from "src/consts/assets";
+import { SOCIAL_LINKS } from "src/consts/social";
 import {
   FOOTER_PURCHASES_LINKS,
   FOOTER_ABOUT_LINKS,
@@ -34,8 +36,23 @@ const Footer: React.FC = () => {
               <a href="mailto:hello@janehbymanoush.com" className={styles.iconLink} aria-label="Email">
                 <MailOutlined />
               </a>
-              <a href="#" className={styles.iconLink} aria-label="Share">
-                <ShareAltOutlined />
+              <a
+                href={SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.iconLink}
+                aria-label={t("common.socialInstagram")}
+              >
+                <InstagramOutlined />
+              </a>
+              <a
+                href={SOCIAL_LINKS.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.iconLink}
+                aria-label={t("common.socialFacebook")}
+              >
+                <FacebookOutlined />
               </a>
             </Space>
             <div className={styles.logoWrap}>

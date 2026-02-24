@@ -65,45 +65,70 @@ img {
   display: block;
 }
 
-/* Catalog sort Select: transparent background + design system border (override antd) */
-[data-catalog-sort] .ant-select,
-[data-catalog-sort] .ant-select-selector {
+/* DarkSelect (catalog sort + contact form): transparent trigger + design system colors */
+[data-themed-select] .ant-select,
+[data-themed-select] .ant-select-selector {
   background: transparent !important;
   background-color: transparent !important;
 }
 
-[data-catalog-sort] .ant-select-selector {
+[data-themed-select] .ant-select-selector {
   border: 1px solid var(--color-border) !important;
   box-shadow: none !important;
   color: var(--color-text-product) !important;
+  border-radius: 8px !important;
 }
 
-[data-catalog-sort] .ant-select-selection-item,
-[data-catalog-sort] .ant-select-selection-placeholder,
-[data-catalog-sort] .ant-select-selector span,
-[data-catalog-sort] .ant-select-content,
-[data-catalog-sort] .ant-select-content-has-value {
+[data-themed-select] .ant-select-selection-item,
+[data-themed-select] .ant-select-selection-placeholder,
+[data-themed-select] .ant-select-placeholder,
+[data-themed-select] .ant-select-selector span,
+[data-themed-select] .ant-select-content,
+[data-themed-select] .ant-select-content-has-value {
   color: var(--color-text-product) !important;
 }
 
-[data-catalog-sort] .ant-select:hover .ant-select-selector,
-[data-catalog-sort] .ant-select-focused .ant-select-selector {
+[data-themed-select] .ant-select-selection-search-input,
+[data-themed-select] .rc-select-selection-search-input,
+[data-themed-select] .ant-select-selector input,
+[data-themed-select] .rc-select-selector input {
+  color: var(--color-text-product) !important;
+  caret-color: var(--color-text-product) !important;
+}
+
+[data-themed-select] .ant-select:hover .ant-select-selector,
+[data-themed-select] .ant-select-focused .ant-select-selector {
   border-color: var(--color-border-muted) !important;
   background: transparent !important;
   background-color: transparent !important;
 }
 
-[data-catalog-sort] .ant-select-arrow,
-[data-catalog-sort] .ant-select-suffix,
-[data-catalog-sort] .ant-select-suffix span,
-[data-catalog-sort] .ant-select-suffix .anticon,
-[data-catalog-sort] .ant-select-suffix svg,
-[data-catalog-sort] .rc-select-arrow,
-[data-catalog-sort] .rc-select-arrow span,
-[data-catalog-sort] .rc-select-arrow .anticon,
-[data-catalog-sort] .rc-select-arrow svg {
+[data-themed-select] .ant-select-arrow,
+[data-themed-select] .ant-select-suffix,
+[data-themed-select] .ant-select-suffix span,
+[data-themed-select] .ant-select-suffix .anticon,
+[data-themed-select] .ant-select-suffix svg,
+[data-themed-select] .rc-select-arrow,
+[data-themed-select] .rc-select-arrow span,
+[data-themed-select] .rc-select-arrow .anticon,
+[data-themed-select] .rc-select-arrow svg {
   color: var(--color-text-product) !important;
   fill: var(--color-text-product) !important;
+}
+
+/* DarkSelect inside Form: ensure light text wins over antd form defaults */
+.ant-form-item [data-themed-select] .ant-select-selection-item,
+.ant-form-item [data-themed-select] .ant-select-selection-placeholder,
+.ant-form-item [data-themed-select] .ant-select-placeholder,
+.ant-form-item [data-themed-select] .ant-select-selector span,
+.ant-form-item [data-themed-select] .ant-select-selection-search-input,
+.ant-form-item [data-themed-select] .rc-select-selection-search-input,
+.ant-form-item [data-themed-select] .ant-select-selector input {
+  color: var(--color-text-product) !important;
+}
+
+.ant-form-item [data-themed-select] .ant-select-selector {
+  color: var(--color-text-product) !important;
 }
 
 /* Catalog sort dropdown options list: dark theme to match design */

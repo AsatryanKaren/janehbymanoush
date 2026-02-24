@@ -1,17 +1,18 @@
-import { Button, Col, Divider, Form, Input, Row, Typography, Flex } from "antd";
+import { Button, Col, Form, Input, Row, Typography } from "antd";
 import {
   MailOutlined,
   PhoneOutlined,
   EnvironmentOutlined,
-  ClockCircleOutlined,
+  InstagramOutlined,
+  FacebookOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import ContentCard from "src/components/ContentCard";
-import CardGrid from "src/components/CardGrid";
+import { SOCIAL_LINKS } from "src/consts/social";
+import { CONTACT_IMAGES } from "./consts";
 import type { ContactFormValues } from "./types";
 import styles from "./styles.module.css";
 
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const ContactPage: React.FC = () => {
   const { t } = useTranslation();
@@ -21,67 +22,17 @@ const ContactPage: React.FC = () => {
     // TODO: integrate with API
   };
 
-  const contactCards = [
-    {
-      icon: <MailOutlined />,
-      title: t("contact.emailInfo"),
-      detail: t("contact.emailAddress"),
-    },
-    {
-      icon: <PhoneOutlined />,
-      title: t("contact.phoneInfo"),
-      detail: t("contact.phoneNumber"),
-    },
-    {
-      icon: <EnvironmentOutlined />,
-      title: t("contact.addressInfo"),
-      detail: t("contact.address"),
-    },
-    {
-      icon: <ClockCircleOutlined />,
-      title: t("contact.hoursInfo"),
-      detail: t("contact.hours"),
-    },
-  ];
-
   return (
-    <>
-      <Flex vertical align="center" className={styles.hero}>
-        <Title level={1} className={styles.heroTitle}>
-          {t("contact.title")}
-        </Title>
-        <Paragraph className={styles.heroSubtitle}>
-          {t("contact.heroSubtitle")}
-        </Paragraph>
-      </Flex>
-
+    <div className={styles.page}>
       <div className={styles.content}>
         <Row gutter={[48, 48]}>
-          <Col xs={24} md={10}>
-            <Title level={3} className={styles.sectionTitle}>
-              {t("contact.infoTitle")}
+          <Col xs={24} lg={12}>
+            <div className={styles.accentLine} />
+            <Title level={2} className={styles.inquiriesTitle}>
+              {t("contact.inquiriesTitle")}
             </Title>
-            <Divider className={styles.divider} />
-            <CardGrid preset="content2" gutter={[16, 16]}>
-              {contactCards.map((card) => (
-                <ContentCard
-                  key={card.title}
-                  variant="horizontal"
-                  icon={card.icon}
-                  title={card.title}
-                  detail={card.detail}
-                />
-              ))}
-            </CardGrid>
-          </Col>
-
-          <Col xs={24} md={14}>
-            <Title level={3} className={styles.sectionTitle}>
-              {t("contact.sendFormTitle")}
-            </Title>
-            <Divider className={styles.divider} />
-            <Paragraph type="secondary" className={styles.formSubtitle}>
-              {t("contact.subtitle")}
+            <Paragraph className={styles.inquiriesDesc}>
+              {t("contact.inquiriesDesc")}
             </Paragraph>
 
             <Form
@@ -90,26 +41,39 @@ const ContactPage: React.FC = () => {
               onFinish={handleSubmit}
               autoComplete="off"
               size="large"
+              className={styles.form}
             >
-              <Form.Item
-                name="name"
-                label={t("contact.nameLabel")}
-                rules={[
-                  { required: true, message: t("contact.nameRequired") },
-                ]}
-              >
-                <Input placeholder={t("contact.namePlaceholder")} />
-              </Form.Item>
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    name="name"
+                    label={t("contact.nameLabel")}
+                    rules={[
+                      { required: true, message: t("contact.nameRequired") },
+                    ]}
+                  >
+                    <Input placeholder={t("contact.namePlaceholder")} />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    name="email"
+                    label={t("contact.emailLabel")}
+                    rules={[
+                      { required: true, message: t("contact.emailRequired") },
+                      { type: "email", message: t("contact.emailInvalid") },
+                    ]}
+                  >
+                    <Input placeholder={t("contact.emailPlaceholder")} />
+                  </Form.Item>
+                </Col>
+              </Row>
 
               <Form.Item
-                name="email"
-                label={t("contact.emailLabel")}
-                rules={[
-                  { required: true, message: t("contact.emailRequired") },
-                  { type: "email", message: t("contact.emailInvalid") },
-                ]}
+                name="subject"
+                label={t("contact.subjectLabel")}
               >
-                <Input placeholder={t("contact.emailPlaceholder")} />
+                <Input placeholder={t("contact.subjectPlaceholder")} />
               </Form.Item>
 
               <Form.Item
@@ -126,15 +90,112 @@ const ContactPage: React.FC = () => {
               </Form.Item>
 
               <Form.Item>
-                <Button type="primary" htmlType="submit" block>
+                <Button type="primary" htmlType="submit" className={styles.submitBtn}>
                   {t("contact.send")}
                 </Button>
               </Form.Item>
             </Form>
           </Col>
+
+          <Col xs={24} lg={12}>
+            <div className={styles.studioWrap}>
+              <img
+                src={CONTACT_IMAGES.studio}
+                alt=""
+                className={styles.studioImage}
+              />
+              <div className={styles.studioOverlay}>
+                <Text className={styles.studioOverlayTitle}>
+                  {t("contact.ourStudio")}
+                </Text>
+                <Text className={styles.studioOverlayTagline}>
+                  {t("contact.studioTagline")}
+                </Text>
+              </div>
+            </div>
+          </Col>
         </Row>
+
+        <div className={styles.contactMapBlock}>
+          <Row gutter={[24, 24]}>
+            <Col xs={24} md={12}>
+              <div className={styles.contactBlocks}>
+                <div className={styles.contactBlock}>
+                  <MailOutlined className={styles.contactIcon} />
+                  <div>
+                    <Text className={styles.contactLabel}>
+                      {t("contact.emailInfo")}
+                    </Text>
+                    <Text className={styles.contactValue}>
+                      {t("contact.emailAddress")}
+                    </Text>
+                  </div>
+                </div>
+                <div className={styles.contactBlock}>
+                  <PhoneOutlined className={styles.contactIcon} />
+                  <div>
+                    <Text className={styles.contactLabel}>
+                      {t("contact.phoneInfo")}
+                    </Text>
+                    <Text className={styles.contactValue}>
+                      {t("contact.phoneNumber")}
+                    </Text>
+                  </div>
+                </div>
+                <div className={styles.contactBlock}>
+                  <EnvironmentOutlined className={styles.contactIcon} />
+                  <div>
+                    <Text className={styles.contactLabel}>
+                      {t("contact.studioAddressLabel")}
+                    </Text>
+                    <Text className={styles.contactValue}>
+                      {t("contact.studioAddressValue")}
+                    </Text>
+                  </div>
+                </div>
+                <div className={styles.socialRow}>
+                  <Text className={styles.socialLabel}>
+                    {t("contact.followUs")}
+                  </Text>
+                  <div className={styles.socialLinks}>
+                    <a
+                      href={SOCIAL_LINKS.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialLink}
+                      aria-label={t("common.socialInstagram")}
+                    >
+                      <InstagramOutlined />
+                    </a>
+                    <a
+                      href={SOCIAL_LINKS.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialLink}
+                      aria-label={t("common.socialFacebook")}
+                    >
+                      <FacebookOutlined />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Col>
+            <Col xs={24} md={12}>
+              <div className={styles.mapWrap}>
+                <img
+                  src={CONTACT_IMAGES.mapThumb}
+                  alt=""
+                  className={styles.mapImage}
+                />
+                <Button className={styles.viewOnMapBtn}>
+                  {t("contact.viewOnMap")}
+                </Button>
+              </div>
+            </Col>
+          </Row>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

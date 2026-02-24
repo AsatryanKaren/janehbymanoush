@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Spin, Typography, Flex, Select, Pagination, Slider } from "antd";
+import { Spin, Typography, Flex, Pagination, Slider } from "antd";
+import DarkSelect from "src/components/DarkSelect";
 import { useTranslation } from "react-i18next";
 import ProductCard from "src/components/ProductCard";
 import CardGrid from "src/components/CardGrid";
@@ -200,16 +201,15 @@ const CatalogPage: React.FC = () => {
               {t(titleKey)}
             </Title>
           </div>
-          <div className={styles.sortWrap} data-catalog-sort>
+          <div className={styles.sortWrap}>
             <span className={styles.sortLabel}>{t("catalog.sortBy")}</span>
-            <Select<SortValue>
+            <DarkSelect<SortValue>
               value={sort}
               onChange={(v) => {
                 setSort(v);
                 setPage(1);
               }}
               style={{ width: 200 }}
-              popupClassName="catalog-sort-dropdown"
               options={[
                 { value: "price_asc", label: t("catalog.sort.priceLowToHigh") },
                 { value: "price_desc", label: t("catalog.sort.priceHighToLow") },

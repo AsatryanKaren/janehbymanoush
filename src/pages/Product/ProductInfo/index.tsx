@@ -3,6 +3,8 @@ import { Button, InputNumber, Tag, Typography } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "src/utils/formatPrice";
+import OrderModal from "../OrderModal";
+import type { OrderFormValues } from "../OrderModal/types";
 import type { ProductInfoProps } from "./types";
 import styles from "./styles.module.css";
 
@@ -15,8 +17,13 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const [quantity, setQuantity] = useState(1);
+  const [orderModalOpen, setOrderModalOpen] = useState(false);
 
   const isAvailable = product.isActive !== false;
+
+  const handleOrderSuccess = (_values: OrderFormValues) => {
+    // TODO: integrate with API (e.g. submit order with product + quantity)
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -58,10 +65,17 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           disabled={!isAvailable}
           block
           className={styles.orderButton}
+          onClick={() => setOrderModalOpen(true)}
         >
           {isAvailable ? t("product.addToCart") : t("product.unavailable")}
         </Button>
       </div>
+      <OrderModal
+        open={orderModalOpen}
+        onClose={() => setOrderModalOpen(false)}
+        productName={name}
+        onSuccess={handleOrderSuccess}
+      />
     </div>
   );
 };

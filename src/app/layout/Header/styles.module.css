@@ -1,11 +1,28 @@
+/* Horizontal padding = space from viewport left/right only (no extra space around logo) */
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
+  padding: 0 96px;
   height: 72px;
   background: #1d1715;
   border-bottom: 1px solid rgba(141, 115, 74, 0.10);
+}
+
+/* Desktop: groups sit near the logo (left group ends near logo, right group starts near logo) */
+.leftGroup {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: flex-end;
+}
+
+.rightGroup {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  justify-content: flex-start;
 }
 
 /* Reserve bold width so active (bold) link doesn't shift layout */
@@ -70,6 +87,8 @@
 .logoWrap {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  margin: 0 98px;
 }
 
 .logoImg {
@@ -108,10 +127,6 @@
   padding: 4px 0;
 }
 
-.headerSpacer {
-  display: none;
-}
-
 .menuButton {
   display: none;
   color: var(--color-text-primary) !important;
@@ -135,6 +150,13 @@
   .header {
     justify-content: space-between;
     padding: 0 16px;
+    position: relative;
+  }
+
+  .leftGroup,
+  .rightGroup {
+    flex: 0;
+    gap: 0;
   }
 
   .header .navLink,
@@ -152,8 +174,10 @@
   }
 
   .logoWrap {
-    flex: 1;
-    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
   }
 
   .logoImg {

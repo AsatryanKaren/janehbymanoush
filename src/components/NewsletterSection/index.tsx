@@ -1,4 +1,4 @@
-import { Typography, Input, Button, Form } from "antd";
+import { Typography, Input, Button, Form, Space } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import styles from "./styles.module.css";
@@ -37,15 +37,19 @@ const NewsletterSection: React.FC = () => {
             rules={[{ required: true, type: "email", message: "" }]}
             className={styles.formItem}
           >
-            <Input
-              placeholder={t("home.newsletter.placeholder")}
-              className={styles.input}
-              addonAfter={
-                <Button type="primary" htmlType="submit" className={styles.addonButton}>
-                  {t("home.newsletter.button")}
-                </Button>
-              }
-            />
+            <Space.Compact className={styles.compact} block>
+              <Input
+                placeholder={t("home.newsletter.placeholder")}
+                className={styles.input}
+              />
+              <Button
+                type="primary"
+                htmlType="submit"
+                className={styles.submitButton}
+              >
+                {t("home.newsletter.button")}
+              </Button>
+            </Space.Compact>
           </Form.Item>
         </Form>
       </div>

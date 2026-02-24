@@ -1,5 +1,10 @@
 /// <reference types="vite/client" />
 
+declare module "*.png" {
+  const src: string;
+  export default src;
+}
+
 interface ImportMetaEnv {
   /** API root, e.g. https://janehbymanoush.com. Requests go to {VITE_API_ROOT}/api/... */
   readonly VITE_API_ROOT?: string;

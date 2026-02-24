@@ -8,6 +8,7 @@ import CatalogPage from "src/pages/Catalog";
 import ProductPage from "src/pages/Product";
 import AboutPage from "src/pages/About";
 import ContactPage from "src/pages/Contact";
+import InfoPage from "src/pages/InfoPage";
 import NotFoundPage from "src/pages/NotFound";
 import AdminLoginPage from "src/pages/Admin/Login";
 import AdminProductsListPage from "src/pages/Admin/Products/AdminProductsListPage";
@@ -31,6 +32,12 @@ export const router = createBrowserRouter([
       { path: ROUTES.PRODUCT, element: <ProductPage /> },
       { path: ROUTES.ABOUT, element: <AboutPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
+      {
+        path: ROUTES.RING_SIZE_GUIDE,
+        element: <InfoPage pageSlug="ring-size-guide" />,
+      },
+      { path: ROUTES.SHIPPING, element: <InfoPage pageSlug="shipping" /> },
+      { path: ROUTES.CARE, element: <InfoPage pageSlug="care" /> },
       { path: "*", element: <NotFoundPage /> },
     ],
   },

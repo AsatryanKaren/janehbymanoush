@@ -1,0 +1,68 @@
+.values {
+  background: var(--color-page);
+  padding: 80px 24px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.valuesInner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.valuesTitle {
+  color: var(--color-text-primary) !important;
+  font-size: clamp(1.75rem, 3vw, 2.25rem) !important;
+  font-weight: 400 !important;
+  text-align: center;
+  margin-bottom: 48px !important;
+}
+
+.valuesRow {
+  margin-top: 0;
+}
+
+.valueCard {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.valueIconWrap {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-muted);
+  border-radius: 50%;
+}
+
+.valueIcon {
+  font-size: 24px;
+  color: var(--color-text-body);
+}
+
+.valueCardTitle {
+  color: var(--color-text-primary) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px !important;
+}
+
+.valueCardBody {
+  color: var(--color-text-body) !important;
+  font-size: 0.9375rem !important;
+  line-height: 1.6;
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .values {
+    padding: 56px 16px;
+  }
+
+  .valuesTitle {
+    margin-bottom: 32px !important;
+  }
+}

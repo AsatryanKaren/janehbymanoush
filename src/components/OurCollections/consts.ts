@@ -10,7 +10,8 @@ export const COLLECTION_CARDS = [
   },
   {
     key: "necklaces",
-    image: "",
+    image: 
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80",
     linkTo: ROUTES.CATALOG,
   },
   {

@@ -63,18 +63,27 @@
   width: 100%;
 }
 
-.formItem :global(.ant-input-group) {
+.compact {
+  width: 100%;
+  display: flex !important;
+}
+
+.compact:focus-within {
+  outline: none;
+}
+
+.formItem :global(.ant-space-compact) {
   border: 1px solid rgba(141, 115, 74, 0.35);
   border-radius: 4px;
   overflow: hidden;
 }
 
-.formItem :global(.ant-input-group):focus-within {
+.formItem :global(.ant-space-compact):focus-within {
   border-color: var(--color-accent-muted);
   box-shadow: 0 0 0 1px var(--color-accent-muted);
 }
 
-.formItem :global(.ant-input-group .ant-input) {
+.formItem :global(.ant-space-compact .ant-input) {
   border: none !important;
   background: #fff !important;
   padding: 10px 16px !important;
@@ -82,22 +91,24 @@
   font-size: 0.875rem !important;
   color: #181611 !important;
   box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
-.formItem :global(.ant-input-group .ant-input)::placeholder {
+.formItem :global(.ant-space-compact .ant-input)::placeholder {
   color: #78716c;
 }
 
-.formItem :global(.ant-input-group-addon) {
-  padding: 0 !important;
+.formItem :global(.ant-space-compact .ant-input:hover),
+.formItem :global(.ant-space-compact .ant-input:focus) {
   border: none !important;
-  background: transparent !important;
+  box-shadow: none !important;
 }
 
-.addonButton {
+.submitButton {
   background: var(--color-accent-muted) !important;
   border: none !important;
   border-radius: 0 !important;
+  border-left: 1px solid rgba(141, 115, 74, 0.35) !important;
   color: #fff !important;
   font-weight: 600 !important;
   letter-spacing: 0.08em;
@@ -107,7 +118,7 @@
   transition: background 0.2s;
 }
 
-.addonButton:hover {
+.submitButton:hover {
   background: #7a6340 !important;
   color: #fff !important;
 }
@@ -127,20 +138,18 @@
     font-size: 1.5rem;
   }
 
-  .formItem :global(.ant-input-group) {
+  .formItem :global(.ant-space-compact) {
     flex-wrap: wrap;
   }
 
-  .formItem :global(.ant-input-group .ant-input) {
+  .formItem :global(.ant-space-compact .ant-input) {
     width: 100% !important;
+    flex: 1 1 100% !important;
   }
 
-  .formItem :global(.ant-input-group-addon) {
-    width: 100% !important;
-  }
-
-  .addonButton {
+  .submitButton {
     width: 100%;
+    border-left: none !important;
     border-top: 1px solid rgba(141, 115, 74, 0.25) !important;
   }
 }

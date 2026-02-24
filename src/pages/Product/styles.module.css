@@ -3,6 +3,10 @@
   padding: 48px 80px;
 }
 
+.breadcrumbs {
+  margin-bottom: 24px;
+}
+
 .imageWrapper {
   border-radius: 8px;
   overflow: hidden;

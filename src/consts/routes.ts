@@ -7,6 +7,9 @@ export const ROUTES = {
   PRODUCT: "/products/:slug",
   ABOUT: "/about",
   CONTACT: "/contact",
+  RING_SIZE_GUIDE: "/ring-size-guide",
+  SHIPPING: "/shipping",
+  CARE: "/care",
 
   ADMIN_LOGIN: "/admin/login",
   ADMIN_PRODUCTS: "/admin/products",

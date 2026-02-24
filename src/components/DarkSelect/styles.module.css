@@ -1,0 +1,7 @@
+.wrap {
+  display: inline-block;
+}
+
+.wrap:global(.ant-form-item-control-input-content) {
+  display: block;
+}
