@@ -10,6 +10,14 @@ export const ROUTES_WITHOUT_CONTENT_PADDING_TOP: string[] = [
   ROUTES.CARE,
 ];
 
+/** Routes where content has 24px padding-top on mobile (others keep 48px). */
+export const ROUTES_WITH_REDUCED_CONTENT_PADDING_TOP_MOBILE: string[] = [
+  ROUTES.CATALOG,
+  ROUTES.WOMEN,
+  ROUTES.MEN,
+  ROUTES.NEW,
+];
+
 export type NavItem = {
   path: string;
   labelKey: string;

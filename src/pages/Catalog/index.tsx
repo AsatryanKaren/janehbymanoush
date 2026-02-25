@@ -85,7 +85,71 @@ const CatalogPage: React.FC = () => {
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
-        <div className={styles.sidebarSection}>
+        <div className={`${styles.sidebarSection} ${styles.filtersSection}`}>
+          <span className={styles.sectionTitle}>
+            {t("catalog.sections.filters")}
+          </span>
+          <div className={styles.filterLinks}>
+            <Link
+              to={ROUTES.CATALOG}
+              className={
+                location.pathname === ROUTES.CATALOG
+                  ? styles.categoryLinkActive
+                  : styles.categoryLink
+              }
+            >
+              {t("catalog.all")}
+            </Link>
+            <Link
+              to={ROUTES.WOMEN}
+              className={
+                location.pathname === ROUTES.WOMEN
+                  ? styles.categoryLinkActive
+                  : styles.categoryLink
+              }
+            >
+              {t("nav.woman")}
+            </Link>
+            <Link
+              to={ROUTES.MEN}
+              className={
+                location.pathname === ROUTES.MEN
+                  ? styles.categoryLinkActive
+                  : styles.categoryLink
+              }
+            >
+              {t("nav.man")}
+            </Link>
+            <Link
+              to={ROUTES.NEW}
+              className={
+                location.pathname === ROUTES.NEW
+                  ? styles.categoryLinkActive
+                  : styles.categoryLink
+              }
+            >
+              {t("nav.new")}
+            </Link>
+          </div>
+          <div className={styles.priceRangeWrap}>
+            <span className={styles.priceRangeLabel}>
+              {t("catalog.priceRange")}
+            </span>
+            <Slider
+              range
+              min={0}
+              max={500000}
+              value={priceRange}
+              onChange={(v) => setPriceRange(v as [number, number])}
+              className={styles.priceRangeSlider}
+            />
+            <span className={styles.priceRangeValue}>
+              {formatPrice(priceRange[0], "AMD", i18n.language)} –{" "}
+              {formatPrice(priceRange[1], "AMD", i18n.language)}
+            </span>
+          </div>
+        </div>
+        <div className={`${styles.sidebarSection} ${styles.categoriesSection}`}>
           <span className={styles.sectionTitle}>
             {t("catalog.sections.categories")}
           </span>
@@ -126,71 +190,6 @@ const CatalogPage: React.FC = () => {
               </li>
             ))}
           </ul>
-        </div>
-        <div className={`${styles.sidebarSection} ${styles.filtersSection}`}>
-          <span className={styles.sectionTitle}>
-            {t("catalog.sections.filters")}
-          </span>
-          <Link
-            to={ROUTES.CATALOG}
-            className={
-              location.pathname === ROUTES.CATALOG
-                ? styles.categoryLinkActive
-                : styles.categoryLink
-            }
-          >
-            {t("catalog.all")}
-          </Link>
-          <Link
-            to={ROUTES.WOMEN}
-            className={
-              location.pathname === ROUTES.WOMEN
-                ? styles.categoryLinkActive
-                : styles.categoryLink
-            }
-            style={{ display: "block", marginTop: 12 }}
-          >
-            {t("nav.woman")}
-          </Link>
-          <Link
-            to={ROUTES.MEN}
-            className={
-              location.pathname === ROUTES.MEN
-                ? styles.categoryLinkActive
-                : styles.categoryLink
-            }
-            style={{ display: "block", marginTop: 12 }}
-          >
-            {t("nav.man")}
-          </Link>
-          <Link
-            to={ROUTES.NEW}
-            className={
-              location.pathname === ROUTES.NEW
-                ? styles.categoryLinkActive
-                : styles.categoryLink
-            }
-            style={{ display: "block", marginTop: 12 }}
-          >
-            {t("nav.new")}
-          </Link>
-          <div className={styles.priceRangeWrap}>
-            <span className={styles.priceRangeLabel}>
-              {t("catalog.priceRange")}
-            </span>
-            <Slider
-              range
-              min={0}
-              max={500000}
-              value={priceRange}
-              onChange={(v) => setPriceRange(v as [number, number])}
-              className={styles.priceRangeSlider}
-            />
-            <span className={styles.priceRangeValue}>
-              {formatPrice(priceRange[0], "AMD", i18n.language)} –{" "}
-              {formatPrice(priceRange[1], "AMD", i18n.language)}
-            </span>
-          </div>
         </div>
       </aside>
 

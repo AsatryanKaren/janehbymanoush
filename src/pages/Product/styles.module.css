@@ -27,6 +27,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 24px 24px;
+    margin-bottom: 32px;
   }
 
   .image {

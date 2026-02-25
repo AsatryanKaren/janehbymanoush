@@ -28,3 +28,10 @@
 .contentNoPaddingTop {
   padding-top: 0;
 }
+
+/** Applied only on routes that should have reduced top padding on mobile. */
+@media (max-width: 768px) {
+  :global(.ant-layout-content).contentReducedPaddingTopMobile {
+    padding-top: 24px !important;
+  }
+}

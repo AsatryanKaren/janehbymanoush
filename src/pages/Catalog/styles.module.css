@@ -66,7 +66,22 @@
 }
 
 .filtersSection {
+  margin-top: 0;
+}
+
+.categoriesSection {
   margin-top: 32px;
+}
+
+.filterLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filterLinks .categoryLink,
+.filterLinks .categoryLinkActive {
+  display: flex;
 }
 
 .priceRangeWrap {
@@ -233,31 +248,94 @@
   }
 }
 
+/* Mobile: one clear block for all filters */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
+    padding: 0 16px;
+    box-sizing: border-box;
   }
 
   .sidebar {
     width: 100%;
-    padding: 24px 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    align-items: flex-start;
+    padding: 20px 16px;
+    background: var(--color-page);
+    border-radius: 10px;
+    border: 1px solid var(--color-border-subtle);
+    margin: 0;
+    box-sizing: border-box;
   }
 
   .sidebarSection {
-    flex: 1;
-    min-width: 140px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .sidebarSection:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .sectionTitle {
+    margin-bottom: 12px;
+  }
+
+  .categoryList {
+    margin-bottom: 0;
+  }
+
+  .categoryItem {
+    margin-bottom: 10px;
   }
 
   .filtersSection {
     margin-top: 0;
   }
 
+  .filterLinks {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .filterLinks .categoryLink,
+  .filterLinks .categoryLinkActive {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--color-border-subtle);
+    font-size: 0.8125rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .filterLinks .categoryLink:hover,
+  .filterLinks .categoryLink:focus {
+    border-color: var(--color-border-muted);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .filterLinks .categoryLinkActive {
+    border-color: var(--color-accent);
+    background: rgba(168, 129, 90, 0.15);
+  }
+
+  .priceRangeWrap {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .priceRangeLabel {
+    margin-bottom: 10px;
+  }
+
+  .priceRangeValue {
+    margin-top: 10px;
+  }
+
   .main {
-    padding: 24px 16px 32px;
+    padding: 24px 0 32px;
   }
 
   .headerRow {
@@ -266,8 +344,12 @@
 }
 
 @media (max-width: 576px) {
-  .main {
+  .container {
     padding-left: 12px;
     padding-right: 12px;
+  }
+
+  .sidebar {
+    padding: 16px 14px;
   }
 }

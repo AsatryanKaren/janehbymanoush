@@ -10,6 +10,7 @@ import {
   RIGHT_NAV_ITEMS,
   ALL_NAV_ITEMS,
   ROUTES_WITHOUT_CONTENT_PADDING_TOP,
+  ROUTES_WITH_REDUCED_CONTENT_PADDING_TOP_MOBILE,
 } from "./consts";
 import Header from "./Header";
 import MobileDrawer from "./MobileDrawer";
@@ -57,10 +58,19 @@ const AppLayout: React.FC = () => {
     location.pathname,
   );
 
+  const reducedPaddingTopOnMobile =
+    !noContentPaddingTop &&
+    (ROUTES_WITH_REDUCED_CONTENT_PADDING_TOP_MOBILE.includes(
+      location.pathname,
+    ) ||
+      location.pathname.startsWith(ROUTES.CATALOG + "/") ||
+      location.pathname.startsWith("/products/"));
+
   const contentClassName = [
     styles.content,
     isCatalogRoute && styles.contentDark,
     noContentPaddingTop && styles.contentNoPaddingTop,
+    reducedPaddingTopOnMobile && styles.contentReducedPaddingTopMobile,
   ]
     .filter(Boolean)
     .join(" ");
