@@ -32,6 +32,10 @@ const ProductImages: React.FC<ProductImagesProps> = ({
   );
 
   const mainImage = imageList[selectedIndex] ?? imageList[0];
+  const maxThumbnails = 6;
+  const visibleThumbnails = imageList.slice(0, maxThumbnails);
+  const hasMoreImages = imageList.length > maxThumbnails;
+  const moreCount = imageList.length - maxThumbnails;
 
   const openLightbox = (index: number) => {
     setSelectedIndex(index);
@@ -42,25 +46,40 @@ const ProductImages: React.FC<ProductImagesProps> = ({
     <div className={styles.gallery}>
       {imageList.length > 1 && (
         <div className={styles.thumbnails}>
-          {imageList.map((url, index) => (
-            <button
-              key={`${url}-${index}`}
-              type="button"
-              className={`${styles.thumbnailBtn} ${
-                index === selectedIndex ? styles.thumbnailActive : ""
-              }`}
-              onClick={() => setSelectedIndex(index)}
-              aria-label={`View image ${index + 1}`}
-            >
-              <img
-                src={url}
-                alt=""
-                width={72}
-                height={72}
-                className={styles.thumbnailImg}
-              />
-            </button>
-          ))}
+          {visibleThumbnails.map((url, index) => {
+            const isLastWithMore =
+              hasMoreImages && index === visibleThumbnails.length - 1;
+            return (
+              <button
+                key={`${url}-${index}`}
+                type="button"
+                className={`${styles.thumbnailBtn} ${
+                  index === selectedIndex ? styles.thumbnailActive : ""
+                }`}
+                onClick={() =>
+                  isLastWithMore ? openLightbox(0) : setSelectedIndex(index)
+                }
+                aria-label={
+                  isLastWithMore
+                    ? `View all ${imageList.length} images`
+                    : `View image ${index + 1}`
+                }
+              >
+                <img
+                  src={url}
+                  alt=""
+                  width={72}
+                  height={72}
+                  className={styles.thumbnailImg}
+                />
+                {isLastWithMore && (
+                  <span className={styles.thumbnailMoreOverlay}>
+                    +{moreCount}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
       )}
       <div

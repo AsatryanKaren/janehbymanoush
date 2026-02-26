@@ -17,7 +17,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(29, 23, 21, 0.75);
 }
 
 .ctaInner {
@@ -49,7 +49,7 @@
 .ctaBtnPrimary {
   background: var(--color-accent-muted) !important;
   border-color: var(--color-accent-muted) !important;
-  color: #fff !important;
+  color: var(--color-text-primary) !important;
   font-weight: 600 !important;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -58,7 +58,7 @@
 .ctaBtnPrimary:hover {
   background: var(--color-accent-light) !important;
   border-color: var(--color-accent-light) !important;
-  color: #fff !important;
+  color: var(--color-text-primary) !important;
 }
 
 .ctaBtnOutline {

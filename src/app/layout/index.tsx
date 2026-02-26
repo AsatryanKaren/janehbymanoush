@@ -54,9 +54,11 @@ const AppLayout: React.FC = () => {
     );
   }, [location.pathname]);
 
-  const noContentPaddingTop = ROUTES_WITHOUT_CONTENT_PADDING_TOP.includes(
-    location.pathname,
-  );
+  const isAboutRoute = location.pathname === ROUTES.ABOUT;
+
+  const noContentPaddingTop =
+    ROUTES_WITHOUT_CONTENT_PADDING_TOP.includes(location.pathname) ||
+    (location.pathname.startsWith("/products/") && location.pathname !== "/products");
 
   const reducedPaddingTopOnMobile =
     !noContentPaddingTop &&
@@ -68,7 +70,7 @@ const AppLayout: React.FC = () => {
 
   const contentClassName = [
     styles.content,
-    isCatalogRoute && styles.contentDark,
+    (isCatalogRoute || isAboutRoute) && styles.contentDark,
     noContentPaddingTop && styles.contentNoPaddingTop,
     reducedPaddingTopOnMobile && styles.contentReducedPaddingTopMobile,
   ]

@@ -7,13 +7,14 @@ import { ROUTES } from "src/consts/routes";
 import type { ProductDetailsPublic } from "src/types/product";
 import ProductImages from "./ProductImages";
 import ProductInfo from "./ProductInfo";
+import ProductStory from "./ProductStory";
 import OurCollections from "src/components/OurCollections";
 import styles from "./styles.module.css";
 
 const { Text } = Typography;
 
 const ProductPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const [product, setProduct] = useState<ProductDetailsPublic | null>(null);
   const [loading, setLoading] = useState(true);
@@ -40,7 +41,7 @@ const ProductPage: React.FC = () => {
   if (!product) {
     return (
       <div className={styles.container}>
-        <Text type="secondary">{t("product.notFound")}</Text>
+        <Text className={styles.notFoundText}>{t("product.notFound")}</Text>
       </div>
     );
   }
@@ -53,6 +54,18 @@ const ProductPage: React.FC = () => {
     product.descriptionRu ??
     product.description ??
     "";
+  const story =
+    (i18n.language === "hy" ? product.storyHy : i18n.language === "ru" ? product.storyRu : product.storyEn) ??
+    product.storyHy ??
+    product.storyRu ??
+    product.story ??
+    null;
+  const backgroundImageUrl =
+    product.mainImageUrl ??
+    product.images?.find((img) => img.isMain)?.url ??
+    product.images?.[0]?.url ??
+    null;
+  const storyImageUrl = product.storyImages?.[0]?.url ?? null;
 
   return (
     <>
@@ -77,6 +90,13 @@ const ProductPage: React.FC = () => {
             <ProductInfo product={product} name={name} description={description} />
           </Col>
         </Row>
+        <ProductStory
+          collectionName={product.collectionName ?? null}
+          productName={name}
+          storyText={story}
+          storyImageUrl={storyImageUrl}
+          backgroundImageUrl={backgroundImageUrl}
+        />
       </div>
       <OurCollections />
     </>

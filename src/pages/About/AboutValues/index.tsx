@@ -24,12 +24,14 @@ const AboutValues: React.FC = () => {
                   <div className={styles.valueIconWrap}>
                     <Icon className={styles.valueIcon} />
                   </div>
-                  <Title level={5} className={styles.valueCardTitle}>
-                    {t(`about.${key}Title`)}
-                  </Title>
-                  <Paragraph className={styles.valueCardBody}>
-                    {t(`about.${key}Desc`)}
-                  </Paragraph>
+                  <div className={styles.valueCardText}>
+                    <Title level={5} className={styles.valueCardTitle}>
+                      {t(`about.${key}Title`)}
+                    </Title>
+                    <Paragraph className={styles.valueCardBody}>
+                      {t(`about.${key}Desc`)}
+                    </Paragraph>
+                  </div>
                 </div>
               </Col>
             );

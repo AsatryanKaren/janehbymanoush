@@ -1,5 +1,5 @@
 .craft {
-  background: #f8f6f4;
+  background: var(--color-page);
   padding: 80px 24px;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .craftTitle {
-  color: #1d1715 !important;
+  color: var(--color-text-heading) !important;
   font-size: clamp(1.75rem, 3vw, 2.25rem) !important;
   font-weight: 400 !important;
   margin-bottom: 8px !important;
@@ -18,7 +18,7 @@
 .craftSubtitle {
   display: block;
   font-size: 1rem;
-  color: #57534e;
+  color: var(--color-text-body);
   margin-bottom: 48px;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .craftColumnTitle {
-  color: #1d1715 !important;
+  color: var(--color-text-heading) !important;
   font-size: 0.875rem !important;
   font-weight: 600 !important;
   letter-spacing: 0.15em;
@@ -51,7 +51,7 @@
 }
 
 .craftColumnBody {
-  color: #57534e !important;
+  color: var(--color-text-body) !important;
   font-size: 0.9375rem !important;
   line-height: 1.6;
   margin-bottom: 0 !important;

@@ -1,5 +1,101 @@
+.modal :global(.ant-modal-wrap) {
+  --ant-modal-content-bg: var(--color-page) !important;
+}
+
+.modal :global(.ant-modal-container) {
+  background: var(--color-page) !important;
+}
+
+.modal :global(.ant-modal) {
+  background: var(--color-page) !important;
+}
+
+.modal :global(.ant-modal-content) {
+  background: var(--color-page) !important;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-heading);
+}
+
+.modal :global(.ant-modal-content .ant-typography) {
+  color: var(--color-text-heading) !important;
+}
+
+.modal :global(.ant-modal-content .ant-form-item-label > label) {
+  color: var(--color-text-body) !important;
+}
+
+.modal :global(.ant-modal-header) {
+  background: var(--color-page) !important;
+  border-bottom-color: var(--color-border) !important;
+}
+
+.modal :global(.ant-modal-body) {
+  background: var(--color-page) !important;
+}
+
+.modal :global(.ant-modal-close) {
+  color: var(--color-text-body) !important;
+  background: transparent !important;
+}
+
+.modal :global(.ant-modal-close:hover) {
+  color: var(--color-text-heading) !important;
+  background: var(--color-border-subtle) !important;
+}
+
+.modal :global(.ant-modal-close .ant-modal-close-x) {
+  color: inherit;
+}
+
 .body {
   overflow: visible;
+  background: var(--color-page) !important;
+  color: var(--color-text-heading);
+}
+
+.body :global(.ant-typography),
+.body :global(.ant-typography h1),
+.body :global(.ant-typography h2),
+.body :global(.ant-typography h3),
+.body :global(.ant-typography .ant-typography) {
+  color: inherit !important;
+}
+
+.body :global(.ant-form-item-label > label),
+.body :global(.ant-form-item-label .ant-form-item-required) {
+  color: var(--color-text-body) !important;
+}
+
+.body :global(.ant-form-item-explain),
+.body :global(.ant-form-item-explain-error),
+.body :global(.ant-form-item-feedback-icon) {
+  color: #e57373 !important;
+}
+
+.body :global(.ant-form-item-has-error .ant-input),
+.body :global(.ant-form-item-has-error .ant-input:hover),
+.body :global(.ant-form-item-has-error .ant-input:focus),
+.body :global(.ant-form-item-has-error textarea.ant-input) {
+  border-color: #e57373 !important;
+}
+
+.body :global(.ant-input),
+.body :global(.ant-input:hover),
+.body :global(.ant-input:focus),
+.body :global(.ant-input-focused),
+.body :global(.ant-input-textarea),
+.body :global(textarea.ant-input),
+.body :global(textarea.ant-input:hover),
+.body :global(textarea.ant-input:focus) {
+  background: var(--color-border-subtle) !important;
+  border-color: var(--color-border-muted) !important;
+  color: var(--color-text-product) !important;
+}
+
+.body :global(.ant-input::placeholder),
+.body :global(textarea.ant-input::placeholder) {
+  color: var(--color-text-label) !important;
 }
 
 @media (max-width: 767px) {
@@ -17,11 +113,12 @@
   margin: 0 0 6px 0;
   font-size: 22px;
   font-weight: 600;
+  color: var(--color-text-heading) !important;
 }
 
 .subtitle {
   margin: 0;
-  color: rgba(0, 0, 0, 0.65);
+  color: var(--color-text-body) !important;
   font-size: 13px;
 }
 
@@ -31,4 +128,16 @@
 
 .submitItem {
   margin-bottom: 0;
+}
+
+.submitButton {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-text-heading) !important;
+}
+
+.submitButton:hover {
+  background: var(--color-accent-light) !important;
+  border-color: var(--color-accent-light) !important;
+  color: var(--color-text-heading) !important;
 }

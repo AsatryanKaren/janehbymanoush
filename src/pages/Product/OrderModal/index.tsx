@@ -33,6 +33,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
       title={null}
       width={480}
       centered
+      className={styles.modal}
       classNames={{ body: styles.body }}
       styles={{ body: { paddingTop: 0 } }}
     >
@@ -84,17 +85,17 @@ const OrderModal: React.FC<OrderModalProps> = ({
           <Input placeholder={t("product.orderModal.emailPlaceholder")} />
         </Form.Item>
 
-        <Form.Item name="phone" label={t("product.orderModal.phone")}>
+        <Form.Item
+          name="phone"
+          label={t("product.orderModal.phone")}
+          rules={[
+            { required: true, message: t("product.orderModal.phoneRequired") },
+          ]}
+        >
           <Input placeholder={t("product.orderModal.phonePlaceholder")} />
         </Form.Item>
 
-        <Form.Item
-          name="message"
-          label={t("product.orderModal.message")}
-          rules={[
-            { required: true, message: t("product.orderModal.messageRequired") },
-          ]}
-        >
+        <Form.Item name="message" label={t("product.orderModal.message")}>
           <Input.TextArea
             placeholder={t("product.orderModal.messagePlaceholder")}
             rows={3}
@@ -102,7 +103,12 @@ const OrderModal: React.FC<OrderModalProps> = ({
         </Form.Item>
 
         <Form.Item className={styles.submitItem}>
-          <Button type="primary" htmlType="submit" block>
+          <Button
+            type="primary"
+            htmlType="submit"
+            block
+            className={styles.submitButton}
+          >
             {t("product.orderModal.submit")}
           </Button>
         </Form.Item>

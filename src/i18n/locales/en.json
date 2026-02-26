@@ -101,8 +101,11 @@
     "notFound": "Product not found.",
     "outOfStock": "Out of Stock",
     "available": "Available",
+    "createdInYerevan": "Created in Yerevan",
     "quantity": "Quantity",
-    "addToCart": "Add to Cart",
+    "quantityDecrease": "Decrease quantity",
+    "quantityIncrease": "Increase quantity",
+    "addToCart": "Order",
     "unavailable": "Unavailable",
     "categoryEarrings": "Earrings",
     "categoryNecklaces": "Necklaces",
@@ -120,6 +123,7 @@
       "lastNamePlaceholder": "Doe",
       "emailPlaceholder": "john@example.com",
       "phonePlaceholder": "+374 XX XX XX XX",
+      "phoneRequired": "Please enter your phone number",
       "messagePlaceholder": "Any special wishes or delivery notes...",
       "firstNameRequired": "Please enter your first name.",
       "lastNameRequired": "Please enter your last name.",
@@ -152,6 +156,17 @@
     "ctaHeading": "We create jewelry not just to wear, but also to inherit",
     "ctaViewCollections": "VIEW COLLECTIONS",
     "ctaDetails": "DETAILS",
+    "quickLinks": {
+      "label": "Resources",
+      "title": "Help & information",
+      "subtitle": "Everything you need to choose, care for, and receive your jewelry.",
+      "desc": {
+        "ringSize": "Find your perfect fit",
+        "giftCards": "Give the perfect present",
+        "shipping": "Delivery and returns",
+        "care": "Keep your silver shining"
+      }
+    },
     "ourStory": "Our Story",
     "paragraph1": "Janeh by Manoush is a handcrafted jewelry brand founded with the belief that every piece of jewelry should tell a story. Our collections are designed with passion, precision, and a deep love for timeless beauty.",
     "paragraph2": "Each piece is carefully crafted using ethically sourced materials, blending traditional Armenian artistry with contemporary design. From delicate everyday pieces to statement jewelry for special occasions, we create accessories that become a part of your story.",

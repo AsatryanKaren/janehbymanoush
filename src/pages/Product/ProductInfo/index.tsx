@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, InputNumber, Tag, Typography } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Button, Tag, Typography } from "antd";
+import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "src/utils/formatPrice";
 import OrderModal from "../OrderModal";
@@ -8,7 +8,7 @@ import type { OrderFormValues } from "../OrderModal/types";
 import type { ProductInfoProps } from "./types";
 import styles from "./styles.module.css";
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 const ProductInfo: React.FC<ProductInfoProps> = ({
   product,
@@ -28,33 +28,51 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   return (
     <div className={styles.wrapper}>
       {product.collectionName && (
-        <Text className={styles.collection}>{product.collectionName}</Text>
+        <div className={styles.collectionLabel}>
+          «{product.collectionName}»
+        </div>
       )}
-      <Title level={2} style={{ margin: 0 }}>
+      <Title level={2} className={styles.productTitle} style={{ margin: 0 }}>
         {name}
       </Title>
       <div className={styles.priceRow}>
         <span className={styles.price}>
           {formatPrice(product.price ?? 0, "AMD", i18n.language)}
         </span>
-        <Tag color={isAvailable ? "default" : "red"}>
+        <Tag
+          className={
+            isAvailable ? styles.availabilityTag : styles.availabilityTagOutOfStock
+          }
+        >
           {isAvailable ? t("product.available") : t("product.outOfStock")}
         </Tag>
       </div>
       {description !== "" && (
-        <Paragraph type="secondary" style={{ marginBottom: 0 }}>
+        <Paragraph className={styles.description} style={{ marginBottom: 0 }}>
           {description}
         </Paragraph>
       )}
       <div>
         <span className={styles.quantityLabel}>{t("product.quantity")}</span>
         <div className={styles.quantityWrapper}>
-          <InputNumber
-            min={1}
-            value={quantity}
-            onChange={(v) => setQuantity(v ?? 1)}
-            style={{ width: "100%" }}
-          />
+          <div className={styles.quantityControls}>
+            <Button
+              type="text"
+              icon={<MinusOutlined />}
+              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+              disabled={quantity <= 1}
+              className={styles.quantityBtn}
+              aria-label={t("product.quantityDecrease")}
+            />
+            <span className={styles.quantityValue}>{quantity}</span>
+            <Button
+              type="text"
+              icon={<PlusOutlined />}
+              onClick={() => setQuantity((q) => q + 1)}
+              className={styles.quantityBtn}
+              aria-label={t("product.quantityIncrease")}
+            />
+          </div>
         </div>
       </div>
       <div className={styles.ctaButton}>

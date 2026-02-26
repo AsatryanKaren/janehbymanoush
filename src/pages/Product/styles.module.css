@@ -1,16 +1,47 @@
 .container {
   margin: 0 auto;
-  padding: 48px 80px;
+  padding: 24px 80px 48px;
+  background: var(--color-page);
+  color: var(--color-text-heading);
+}
+
+.container :global(.ant-typography) {
+  color: inherit;
+}
+
+.container :global(.ant-spin-dot-item) {
+  background-color: var(--color-accent) !important;
+}
+
+.breadcrumbs :global(.ant-breadcrumb-link),
+.breadcrumbs :global(.ant-breadcrumb-separator) {
+  color: var(--color-text-body) !important;
+}
+
+.breadcrumbs :global(a) {
+  color: var(--color-text-body) !important;
+}
+
+.breadcrumbs :global(a:hover) {
+  color: var(--color-accent-light) !important;
+}
+
+.breadcrumbs :global(.ant-breadcrumb li:last-child .ant-breadcrumb-link) {
+  color: var(--color-text-heading) !important;
 }
 
 .breadcrumbs {
   margin-bottom: 24px;
 }
 
+.notFoundText {
+  color: var(--color-text-body) !important;
+}
+
 .imageWrapper {
   border-radius: 8px;
   overflow: hidden;
-  background-color: #f0f0f0;
+  background: var(--color-border-subtle);
 }
 
 .image {
@@ -21,13 +52,13 @@
 
 .price {
   font-size: 1.5rem;
-  color: #8b6914;
+  color: var(--color-text-heading);
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 24px 24px;
-    margin-bottom: 32px;
+    padding: 20px 54px 32px;
+    /* margin-bottom: 32px; */
   }
 
   .image {
@@ -37,7 +68,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 16px 16px;
+    padding: 16px 16px 24px;
   }
 
   .image {
