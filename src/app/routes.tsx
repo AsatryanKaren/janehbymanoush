@@ -38,6 +38,10 @@ export const router = createBrowserRouter([
       },
       { path: ROUTES.SHIPPING, element: <InfoPage pageSlug="shipping" /> },
       { path: ROUTES.CARE, element: <InfoPage pageSlug="care" /> },
+      {
+        path: ROUTES.GIFT_CARDS,
+        element: <InfoPage pageSlug="gift-cards" />,
+      },
       { path: "*", element: <NotFoundPage /> },
     ],
   },

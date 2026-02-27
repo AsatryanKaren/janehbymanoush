@@ -3,7 +3,7 @@ import { Button, Flex } from "antd";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "src/consts/routes";
-import heroImage from "./assets/NecklaceBanner.png";
+import heroImage from "./assets/newBanner.jpg";
 import styles from "./styles.module.css";
 
 const Banner: React.FC = () => {

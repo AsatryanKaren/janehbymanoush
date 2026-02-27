@@ -23,8 +23,11 @@ import {
 const isCreateMode = (id: string | undefined): boolean =>
   id === undefined || id === "new";
 
-const categoryLabel = (c: CategoryItem): string =>
-  c.titleEn ?? c.titleHy ?? c.titleRu ?? c.title ?? c.id;
+const categoryLabel = (c: CategoryItem): string => {
+  const title = c.titleEn ?? c.titleHy ?? c.titleRu ?? c.title ?? c.id;
+  if (c.collectionName?.trim()) return `${title} (${c.collectionName})`;
+  return title;
+};
 
 export const useProductEditForm = () => {
   const { t } = useAdminTranslation();

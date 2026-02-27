@@ -8,6 +8,7 @@ export const ROUTES_WITHOUT_CONTENT_PADDING_TOP: string[] = [
   ROUTES.RING_SIZE_GUIDE,
   ROUTES.SHIPPING,
   ROUTES.CARE,
+  ROUTES.GIFT_CARDS,
 ];
 
 /** Routes where content has 24px padding-top on mobile (others keep 48px). */

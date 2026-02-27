@@ -33,9 +33,6 @@ const AboutCraft: React.FC = () => {
                     `about.craft${key.charAt(0).toUpperCase()}${key.slice(1)}Title`,
                   )}
                 </Title>
-                <Paragraph className={styles.craftColumnBody}>
-                  {t(`about.craft${key}Body`)}
-                </Paragraph>
               </div>
             </Col>
           ))}

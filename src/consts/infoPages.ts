@@ -12,7 +12,7 @@ export const INFO_PAGES = {
       "ringSizeGuide.tips",
     ],
     image:
-      "https://images.unsplash.com/photo-1605101100278-5d32d15a3e8e?w=600&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80",
   },
   shipping: {
     sectionKey: "shipping",
@@ -23,7 +23,7 @@ export const INFO_PAGES = {
       "shipping.tracking",
     ],
     image:
-      "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&q=80",
+      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80",
   },
   care: {
     sectionKey: "care",
@@ -35,6 +35,17 @@ export const INFO_PAGES = {
     ],
     image:
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80",
+  },
+  "gift-cards": {
+    sectionKey: "giftCards",
+    titleKey: "giftCards.title",
+    bodyKeys: [
+      "giftCards.intro",
+      "giftCards.howItWorks",
+      "giftCards.contact",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&q=80",
   },
 } as const;
 

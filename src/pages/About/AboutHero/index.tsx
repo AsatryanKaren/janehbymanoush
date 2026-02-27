@@ -9,7 +9,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ imageUrl }) => {
   const { t } = useTranslation();
 
   return (
-    <section className={styles.hero}>
+    <section id="philosophy" className={styles.hero}>
       <div
         className={styles.heroBg}
         style={{ backgroundImage: `url(${imageUrl})` }}

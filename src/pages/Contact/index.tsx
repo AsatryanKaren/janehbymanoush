@@ -5,10 +5,17 @@ import {
   EnvironmentOutlined,
   InstagramOutlined,
   FacebookOutlined,
+  TikTokOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import { toMapsUrl } from "src/components/Footer/consts";
 import { SOCIAL_LINKS } from "src/consts/social";
-import { CONTACT_IMAGES } from "./consts";
+import {
+  CONTACT_IMAGES,
+  CONTACT_PHONE_TEL,
+  GOOGLE_MAP_EMBED_URL,
+  GMAIL_COMPOSE_URL,
+} from "./consts";
 import type { ContactFormValues } from "./types";
 import styles from "./styles.module.css";
 
@@ -126,9 +133,14 @@ const ContactPage: React.FC = () => {
                     <Text className={styles.contactLabel}>
                       {t("contact.emailInfo")}
                     </Text>
-                    <Text className={styles.contactValue}>
+                    <a
+                      href={GMAIL_COMPOSE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.contactValueLink}
+                    >
                       {t("contact.emailAddress")}
-                    </Text>
+                    </a>
                   </div>
                 </div>
                 <div className={styles.contactBlock}>
@@ -137,9 +149,12 @@ const ContactPage: React.FC = () => {
                     <Text className={styles.contactLabel}>
                       {t("contact.phoneInfo")}
                     </Text>
-                    <Text className={styles.contactValue}>
+                    <a
+                      href={`tel:${CONTACT_PHONE_TEL}`}
+                      className={styles.contactValueLink}
+                    >
                       {t("contact.phoneNumber")}
-                    </Text>
+                    </a>
                   </div>
                 </div>
                 <div className={styles.contactBlock}>
@@ -148,9 +163,16 @@ const ContactPage: React.FC = () => {
                     <Text className={styles.contactLabel}>
                       {t("contact.studioAddressLabel")}
                     </Text>
-                    <Text className={styles.contactValue}>
+                    <a
+                      href={toMapsUrl(
+                        "Rio Mall, Papazyan 8, 2nd floor, Yerevan, Armenia"
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.contactAddressLink}
+                    >
                       {t("contact.studioAddressValue")}
-                    </Text>
+                    </a>
                   </div>
                 </div>
                 <div className={styles.socialRow}>
@@ -176,20 +198,31 @@ const ContactPage: React.FC = () => {
                     >
                       <FacebookOutlined />
                     </a>
+                    <a
+                      href={SOCIAL_LINKS.tiktok}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialLink}
+                      aria-label={t("common.socialTiktok")}
+                    >
+                      <TikTokOutlined />
+                    </a>
                   </div>
                 </div>
               </div>
             </Col>
             <Col xs={24} md={12}>
               <div className={styles.mapWrap}>
-                <img
-                  src={CONTACT_IMAGES.mapThumb}
-                  alt=""
-                  className={styles.mapImage}
+                <iframe
+                  title={t("contact.studioAddressLabel")}
+                  src={GOOGLE_MAP_EMBED_URL}
+                  width="100%"
+                  height="240"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className={styles.mapIframe}
                 />
-                <Button className={styles.viewOnMapBtn}>
-                  {t("contact.viewOnMap")}
-                </Button>
               </div>
             </Col>
           </Row>

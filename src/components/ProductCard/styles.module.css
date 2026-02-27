@@ -23,6 +23,19 @@
   width: 100%;
 }
 
+/* Desktop: image-only hover – zoom out to normal on hover (CSS-only) */
+@media (min-width: 769px) {
+  .image {
+    transform: scale(1.24);
+    transition: transform 0.5s ease-out, filter 0.5s ease-out;
+  }
+
+  .link:hover .image {
+    transform: scale(1);
+    filter: brightness(1.06);
+  }
+}
+
 .card :global(.ant-card-body) {
   flex: 1;
   display: flex;

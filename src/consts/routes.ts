@@ -10,6 +10,7 @@ export const ROUTES = {
   RING_SIZE_GUIDE: "/ring-size-guide",
   SHIPPING: "/shipping",
   CARE: "/care",
+  GIFT_CARDS: "/gift-cards",
 
   ADMIN_LOGIN: "/admin/login",
   ADMIN_PRODUCTS: "/admin/products",

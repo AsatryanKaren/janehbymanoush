@@ -5,6 +5,7 @@ import {
   MailOutlined,
   InstagramOutlined,
   FacebookOutlined,
+  TikTokOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
@@ -14,6 +15,7 @@ import {
   FOOTER_PURCHASES_LINKS,
   FOOTER_ABOUT_LINKS,
   FOOTER_ADDRESSES,
+  toMapsUrl,
 } from "./consts";
 import styles from "./styles.module.css";
 
@@ -33,7 +35,13 @@ const Footer: React.FC = () => {
               <a href="#" className={styles.iconLink} aria-label="Website">
                 <GlobalOutlined />
               </a>
-              <a href="mailto:hello@janehbymanoush.com" className={styles.iconLink} aria-label="Email">
+              <a
+                href="https://mail.google.com/mail/?view=cm&to=hello%40janehbymanoush.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.iconLink}
+                aria-label="Email"
+              >
                 <MailOutlined />
               </a>
               <a
@@ -53,6 +61,15 @@ const Footer: React.FC = () => {
                 aria-label={t("common.socialFacebook")}
               >
                 <FacebookOutlined />
+              </a>
+              <a
+                href={SOCIAL_LINKS.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.iconLink}
+                aria-label={t("common.socialTiktok")}
+              >
+                <TikTokOutlined />
               </a>
             </Space>
             <div className={styles.logoWrap}>
@@ -91,7 +108,14 @@ const Footer: React.FC = () => {
               {FOOTER_ADDRESSES.map((item) => (
                 <li key={item.i18nKey} className={styles.addressItem}>
                   <EnvironmentOutlined className={styles.addressIcon} />
-                  <span>{t(item.i18nKey)}</span>
+                  <a
+                    href={toMapsUrl(item.mapsQuery)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.addressLink}
+                  >
+                    {t(item.i18nKey)}
+                  </a>
                 </li>
               ))}
             </ul>

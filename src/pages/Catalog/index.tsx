@@ -8,8 +8,10 @@ import CardGrid from "src/components/CardGrid";
 import CatalogEmptyState from "src/components/CatalogEmptyState";
 import { productsApi } from "src/api/products";
 import { categoriesApi } from "src/api/categories";
+import { collectionsApi } from "src/api/collections";
 import type { Product } from "src/types/product";
 import type { CategoryItem } from "src/types/category";
+import type { AdminCollectionItem } from "src/types/collection";
 import { ROUTES } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import {
@@ -23,11 +25,18 @@ import styles from "./styles.module.css";
 const { Title } = Typography;
 
 const PAGE_SIZE = 12;
+const SIDEBAR_INITIAL_VISIBLE = 5;
 
 const getCategoryTitle = (item: CategoryItem, lang: string): string => {
   if (lang === "hy" && item.titleHy) return item.titleHy;
   if (lang === "ru" && item.titleRu) return item.titleRu;
   return item.titleEn ?? item.titleHy ?? item.titleRu ?? "";
+};
+
+const getCollectionTitle = (item: AdminCollectionItem, lang: string): string => {
+  if (lang === "hy" && item.nameHy) return item.nameHy;
+  if (lang === "ru" && item.nameRu) return item.nameRu;
+  return item.nameEn ?? item.nameHy ?? item.nameRu ?? item.name ?? "";
 };
 
 const CatalogPage: React.FC = () => {
@@ -37,9 +46,15 @@ const CatalogPage: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState<CategoryItem[]>([]);
+  const [collections, setCollections] = useState<AdminCollectionItem[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null,
   );
+  const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(
+    null,
+  );
+  const [expandCollections, setExpandCollections] = useState(false);
+  const [expandJewelry, setExpandJewelry] = useState(false);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortValue>("price_asc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
@@ -56,11 +71,19 @@ const CatalogPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    void collectionsApi
+      .getAll()
+      .then((res) => setCollections(res.items ?? []))
+      .catch(() => setCollections([]));
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     const params: Record<string, string> = pathCategory
       ? { Category: pathCategory }
       : {};
     if (selectedCategoryId) params.CategoryId = selectedCategoryId;
+    if (selectedCollectionId) params.CollectionId = selectedCollectionId;
     if (pathIsNew) params.IsNew = "true";
     const { SortBy, SortOrder } = SORT_PARAMS[sort];
     params.SortBy = SortBy;
@@ -78,7 +101,7 @@ const CatalogPage: React.FC = () => {
         setTotal(0);
       })
       .finally(() => setLoading(false));
-  }, [pathCategory, pathIsNew, selectedCategoryId, sort, page]);
+  }, [pathCategory, pathIsNew, selectedCategoryId, selectedCollectionId, sort, page]);
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -149,9 +172,61 @@ const CatalogPage: React.FC = () => {
             </span>
           </div>
         </div>
+        <div className={`${styles.sidebarSection} ${styles.collectionsSection}`}>
+          <span className={styles.sectionTitle}>
+            {t("catalog.sections.collections")}
+          </span>
+          <ul className={styles.categoryList}>
+            <li className={styles.categoryItem}>
+              <Link
+                to={location.pathname}
+                className={
+                  !selectedCollectionId ? styles.categoryLinkActive : styles.categoryLink
+                }
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedCollectionId(null);
+                  setPage(1);
+                }}
+              >
+                {t("catalog.all")}
+              </Link>
+            </li>
+            {(expandCollections ? collections : collections.slice(0, SIDEBAR_INITIAL_VISIBLE)).map((col) => (
+              <li key={col.id} className={styles.categoryItem}>
+                <Link
+                  to={location.pathname}
+                  className={
+                    selectedCollectionId === col.id
+                      ? styles.categoryLinkActive
+                      : styles.categoryLink
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedCollectionId(col.id);
+                    setPage(1);
+                  }}
+                >
+                  {getCollectionTitle(col, i18n.language)}
+                </Link>
+              </li>
+            ))}
+            {collections.length > SIDEBAR_INITIAL_VISIBLE && (
+              <li className={styles.categoryItem}>
+                <button
+                  type="button"
+                  className={styles.showMoreBtn}
+                  onClick={() => setExpandCollections((v) => !v)}
+                >
+                  {expandCollections ? t("catalog.showLess") : t("catalog.showMore")}
+                </button>
+              </li>
+            )}
+          </ul>
+        </div>
         <div className={`${styles.sidebarSection} ${styles.categoriesSection}`}>
           <span className={styles.sectionTitle}>
-            {t("catalog.sections.categories")}
+            {t("catalog.sections.jewelry")}
           </span>
           <ul className={styles.categoryList}>
             <li className={styles.categoryItem}>
@@ -170,7 +245,7 @@ const CatalogPage: React.FC = () => {
                 {total > 0 && <span className={styles.badge}>{total}</span>}
               </Link>
             </li>
-            {categories.map((cat) => (
+            {(expandJewelry ? categories : categories.slice(0, SIDEBAR_INITIAL_VISIBLE)).map((cat) => (
               <li key={cat.id} className={styles.categoryItem}>
                 <Link
                   to={location.pathname}
@@ -189,6 +264,17 @@ const CatalogPage: React.FC = () => {
                 </Link>
               </li>
             ))}
+            {categories.length > SIDEBAR_INITIAL_VISIBLE && (
+              <li className={styles.categoryItem}>
+                <button
+                  type="button"
+                  className={styles.showMoreBtn}
+                  onClick={() => setExpandJewelry((v) => !v)}
+                >
+                  {expandJewelry ? t("catalog.showLess") : t("catalog.showMore")}
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </aside>

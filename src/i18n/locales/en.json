@@ -8,7 +8,8 @@
       "catalog": "Catalog"
     },
     "socialInstagram": "Instagram",
-    "socialFacebook": "Facebook"
+    "socialFacebook": "Facebook",
+    "socialTiktok": "TikTok"
   },
   "nav": {
     "main": "Main navigation",
@@ -85,9 +86,13 @@
     "priceMax": "Max",
     "sections": {
       "categories": "CATEGORIES",
-      "filters": "FILTERS"
+      "collections": "COLLECTIONS",
+      "filters": "FILTERS",
+      "jewelry": "JEWELRY"
     },
     "all": "All",
+    "showMore": "Show more",
+    "showLess": "Show less",
     "sortBy": "Sort by",
     "sort": {
       "none": "Default",
@@ -213,7 +218,7 @@
     "phoneNumber": "+1 (234) 567-890",
     "addressInfo": "Visit Us",
     "studioAddressLabel": "STUDIO ADDRESS",
-    "studioAddressValue": "123 Artisan Way, Suite 400 / Design District, NY 10012",
+    "studioAddressValue": "Rio Mall, 2nd floor, Papazyan 8",
     "address": "Yerevan, Armenia",
     "hoursInfo": "Working Hours",
     "hours": "Mon — Sat, 10:00 — 19:00",
@@ -239,6 +244,12 @@
     "intro": "With a little care, your silver jewelry from Janeh by Manoush will keep its beauty for years. Silver can tarnish over time; simple habits help preserve its shine and finish.",
     "storage": "Store your pieces in a dry place, ideally in a soft pouch or a jewelry box away from direct sunlight and humidity. Keep silver separate from other metals to avoid scratches. Removing rings and bracelets before hand washing or applying lotions helps prevent buildup.",
     "cleaning": "To restore shine, gently wipe your silver with a soft, lint-free cloth. For deeper cleaning, use a mild soap and water, then dry thoroughly. Avoid harsh chemicals and abrasive materials. With minimal care, each piece will continue to reflect the craftsmanship that went into it."
+  },
+  "giftCards": {
+    "title": "Gift Cards",
+    "intro": "Give the gift of choice with a Janeh by Manoush gift card. Let someone special pick a piece of handcrafted silver jewelry that speaks to them—from our collection of rings, necklaces, bracelets, and earrings.",
+    "howItWorks": "Gift cards are available in a range of amounts and can be used for any purchase in our online store. They are delivered by email with a unique code. The recipient can apply the balance at checkout when they are ready to choose their piece.",
+    "contact": "To order a gift card or ask about custom amounts, please contact us. We are happy to help you find the perfect way to give our jewelry."
   },
   "notFound": {
     "code": "404",

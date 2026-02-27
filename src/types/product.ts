@@ -152,6 +152,7 @@ export type ProductListParams = {
   Gender?: string;
   Category?: string;
   CategoryId?: string;
+  CollectionId?: string;
   IsNew?: string;
   SortBy?: string;
   SortOrder?: string;
