@@ -1,13 +1,16 @@
-/* Figma node 1:46: warm beige background, vertical/horizontal padding */
+/* Figma node 1:46 – dark section, same width/padding as CuratedEdits, FeaturedProducts */
 .section {
-  padding: 96px 48px;
-  background: #fbf8f3;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 96px 24px;
+  background: var(--color-page);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Figma: text column (right) – space from image column via padding-left */
+/* Text column (right) – space from image column */
 .contentWrap {
   padding: 64px 0;
-  padding-left: 48px;
+  padding-left: 24px;
 }
 
 /* Figma Our Philosophy image: 530×480 */
@@ -25,34 +28,34 @@
   object-fit: cover;
 }
 
-/* Figma: subtitle – small, uppercase, golden accent #A8815A, 14–16px */
+/* Figma: subtitle – small, uppercase, golden accent */
 .label {
   display: block;
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #a8815a;
+  color: var(--color-accent-muted);
   margin-bottom: 18px;
 }
 
-/* Figma: main heading – 48–60px, medium-bold, dark #333 */
+/* Figma: main heading – 48–60px, medium-bold */
 .heading {
   font-size: 48px !important;
   font-weight: 600 !important;
   line-height: 1.2 !important;
   letter-spacing: 0.02em;
-  color: #333333 !important;
+  color: var(--color-text-primary) !important;
   margin-bottom: 24px !important;
   margin-top: 0 !important;
 }
 
-/* Figma: body – 18–20px, regular, dark */
+/* Figma: body – 18–20px, regular */
 .body {
   display: block;
   font-size: 18px;
   line-height: 1.6;
-  color: #333333;
+  color: var(--color-text-body);
   margin-bottom: 24px;
 }
 
@@ -62,24 +65,24 @@
   margin-bottom: 0;
 }
 
-/* Figma: feature titles – 16–18px, uppercase, golden #A8815A */
+/* Figma: feature titles – 16–18px, uppercase, golden */
 .featureTitle {
   font-size: 16px !important;
   font-weight: 400 !important;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #a8815a !important;
+  color: var(--color-accent-muted) !important;
   margin-bottom: 8px !important;
 }
 
-/* Figma: feature descriptions – 18–20px, dark */
+/* Figma: feature descriptions – 18–20px */
 .featureDesc {
   font-size: 18px;
   line-height: 1.6;
-  color: #333333;
+  color: var(--color-text-body);
 }
 
-/* Figma: CTA link – 18–20px, uppercase, dark, with arrow */
+/* Figma: CTA link – 18–20px, uppercase, with arrow */
 .storyLink {
   display: inline-flex;
   align-items: center;
@@ -89,11 +92,11 @@
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  color: #333333;
+  color: var(--color-text-primary);
 }
 
 .storyLink:hover {
-  color: #a8815a;
+  color: var(--color-accent-light);
 }
 
 .storyIcon {

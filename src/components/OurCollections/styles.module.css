@@ -2,11 +2,17 @@
 .section {
   background: var(--color-page);
   padding: 96px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .inner {
   max-width: 1280px;
   margin: 0 auto;
+}
+
+/* Antd Typography defaults to dark text; force light on dark section */
+.section :global(.ant-typography) {
+  color: var(--color-text-primary) !important;
 }
 
 .header {
@@ -129,6 +135,7 @@
 
 @media (max-width: 480px) {
   .cardsRow {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }

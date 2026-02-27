@@ -2,6 +2,12 @@
   padding: 96px 24px;
   max-width: 1280px;
   margin: 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Antd Typography defaults to dark text; force light on dark section */
+.section :global(.ant-typography) {
+  color: var(--color-text-primary) !important;
 }
 
 .header {
@@ -18,6 +24,7 @@
   font-weight: 300 !important;
   letter-spacing: 0.12em;
   font-size: 1.75rem !important;
+  color: var(--color-text-primary) !important;
 }
 
 @media (min-width: 768px) {
@@ -32,6 +39,7 @@
   font-size: 0.9375rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  color: var(--color-text-body);
 }
 
 .browseAll {
@@ -39,13 +47,13 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: inherit;
-  border-bottom: 2px solid #8d734a;
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-accent-muted);
   padding-bottom: 4px;
 }
 
 .browseAll:hover {
-  color: #8d734a;
+  color: var(--color-accent-light);
 }
 
 .card {
@@ -54,7 +62,7 @@
 }
 
 .imageWrap {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
   background-size: cover;
   background-position: center;
   margin-bottom: 24px;
@@ -67,6 +75,7 @@
   font-weight: 500 !important;
   letter-spacing: 0.08em;
   font-size: 1.0625rem !important;
+  color: var(--color-text-primary) !important;
 }
 
 @media (max-width: 768px) {

@@ -99,7 +99,7 @@
 
 .compactCollection {
   font-size: 0.875rem;
-  color: inherit;
+  color: var(--color-text-body) !important;
 }
 
 .compactMeta .price {

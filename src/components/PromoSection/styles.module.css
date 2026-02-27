@@ -2,6 +2,7 @@
 .section {
   background: var(--color-page);
   padding: 96px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .inner {

@@ -1,18 +1,29 @@
+import { useState, useEffect } from "react";
 import { Button, Flex } from "antd";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "src/consts/routes";
-import { HERO_IMAGE } from "./consts";
+import heroImage from "./assets/NecklaceBanner.png";
 import styles from "./styles.module.css";
 
 const Banner: React.FC = () => {
   const { t } = useTranslation();
+  const [heightPx, setHeightPx] = useState<number | null>(null);
+
+  useEffect(() => {
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
+      const headerHeight = 72; /* matches layout header height */
+      setHeightPx(window.innerHeight - headerHeight);
+    }
+  }, []);
 
   return (
     <section
       className={styles.banner}
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.25)), url(${HERO_IMAGE})`,
+        ...(heightPx !== null && { height: heightPx }),
+        backgroundImage: `linear-gradient(rgba(28,25,23,0.15), rgba(28,25,23,0.2)), url(${heroImage})`,
       }}
     >
       <div className={styles.content}>

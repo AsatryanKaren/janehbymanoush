@@ -55,6 +55,7 @@ const AppLayout: React.FC = () => {
   }, [location.pathname]);
 
   const isAboutRoute = location.pathname === ROUTES.ABOUT;
+  const isHomeRoute = location.pathname === ROUTES.HOME;
 
   const noContentPaddingTop =
     ROUTES_WITHOUT_CONTENT_PADDING_TOP.includes(location.pathname) ||
@@ -70,7 +71,7 @@ const AppLayout: React.FC = () => {
 
   const contentClassName = [
     styles.content,
-    (isCatalogRoute || isAboutRoute) && styles.contentDark,
+    (isCatalogRoute || isAboutRoute || isHomeRoute) && styles.contentDark,
     noContentPaddingTop && styles.contentNoPaddingTop,
     reducedPaddingTopOnMobile && styles.contentReducedPaddingTopMobile,
   ]
