@@ -1,16 +1,41 @@
-import { Typography, Input, Button, Form, Space } from "antd";
+import { useState } from "react";
+import { App, Typography, Input, Button, Form, Space } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import { contactUs } from "src/api/contact.api";
 import styles from "./styles.module.css";
 
 const { Title, Text } = Typography;
 
+type NewsletterFormValues = { email: string };
+
 const NewsletterSection: React.FC = () => {
   const { t } = useTranslation();
-  const [form] = Form.useForm();
+  const { message } = App.useApp();
+  const [form] = Form.useForm<NewsletterFormValues>();
+  const [submitting, setSubmitting] = useState(false);
 
-  const onFinish = () => {
-    form.resetFields();
+  const onFinish = (values: NewsletterFormValues) => {
+    setSubmitting(true);
+    contactUs({
+      firstName: null,
+      lastName: null,
+      email: values.email || null,
+      phoneNumber: null,
+      subject: null,
+      message: null,
+      isSubscription: true,
+    })
+      .then(() => {
+        void message.success(t("home.newsletter.success"));
+        form.resetFields();
+      })
+      .catch(() => {
+        void message.error(t("home.newsletter.error"));
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -46,6 +71,7 @@ const NewsletterSection: React.FC = () => {
                 type="primary"
                 htmlType="submit"
                 className={styles.submitButton}
+                loading={submitting}
               >
                 {t("home.newsletter.button")}
               </Button>

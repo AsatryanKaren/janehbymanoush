@@ -335,140 +335,72 @@
         }
       }
     },
-    "/v1/admin/products/{productId}/images": {
-      "put": {
+    "/v1/admin/logs": {
+      "get": {
         "tags": [
-          "AdminFiles"
+          "AdminLogs"
         ],
-        "operationId": "AdminPutImages",
+        "operationId": "AdminGetLogs",
         "parameters": [
           {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "style": "simple",
+            "name": "Level",
+            "in": "query",
+            "style": "form",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
+            }
+          },
+          {
+            "name": "DateFrom",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "DateTo",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Search",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/v1/admin/products/{productId}/images/{imageId}": {
-      "delete": {
-        "tags": [
-          "AdminFiles"
-        ],
-        "operationId": "AdminDeleteImage",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedLogsResponse"
+                }
+              }
             }
-          },
-          {
-            "name": "imageId",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/v1/admin/products/{productId}/story-images": {
-      "put": {
-        "tags": [
-          "AdminFiles"
-        ],
-        "operationId": "AdminPutStoryImages",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/v1/admin/products/{productId}/story-images/{imageId}": {
-      "delete": {
-        "tags": [
-          "AdminFiles"
-        ],
-        "operationId": "AdminDeleteStoryImage",
-        "parameters": [
-          {
-            "name": "productId",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "imageId",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
@@ -705,9 +637,9 @@
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/CreateProductRequest"
+                "$ref": "#/components/schemas/UpdateProductFormRequest"
               }
             }
           },
@@ -775,6 +707,47 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateProductStatusRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/admin/products/{id}/featured": {
+      "put": {
+        "tags": [
+          "AdminProducts"
+        ],
+        "operationId": "SetProductFeatured",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetProductFeaturedRequest"
               }
             }
           },
@@ -985,6 +958,52 @@
           }
         }
       }
+    },
+    "/v1/bestsellers": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "operationId": "GetBestsellers",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BestsellersResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/contact": {
+      "post": {
+        "tags": [
+          "Public"
+        ],
+        "operationId": "ContactUs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactUsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1017,6 +1036,19 @@
           "refreshTokenExpiresAt": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BestsellersResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductCardPublic"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1212,6 +1244,39 @@
         },
         "additionalProperties": false
       },
+      "ContactUsRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isSubscription": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateCategoryRequest": {
         "type": "object",
         "properties": {
@@ -1381,79 +1446,6 @@
         },
         "additionalProperties": false
       },
-      "CreateProductRequest": {
-        "type": "object",
-        "properties": {
-          "nameHy": {
-            "type": "string",
-            "nullable": true
-          },
-          "nameEn": {
-            "type": "string",
-            "nullable": true
-          },
-          "nameRu": {
-            "type": "string",
-            "nullable": true
-          },
-          "slug": {
-            "type": "string",
-            "nullable": true
-          },
-          "gender": {
-            "$ref": "#/components/schemas/Gender"
-          },
-          "category": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "descriptionHy": {
-            "type": "string",
-            "nullable": true
-          },
-          "descriptionEn": {
-            "type": "string",
-            "nullable": true
-          },
-          "descriptionRu": {
-            "type": "string",
-            "nullable": true
-          },
-          "storyHy": {
-            "type": "string",
-            "nullable": true
-          },
-          "storyEn": {
-            "type": "string",
-            "nullable": true
-          },
-          "storyRu": {
-            "type": "string",
-            "nullable": true
-          },
-          "isActive": {
-            "type": "boolean"
-          },
-          "inStock": {
-            "type": "boolean"
-          },
-          "isNew": {
-            "type": "boolean"
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "CreateProductResponse": {
         "type": "object",
         "properties": {
@@ -1471,6 +1463,36 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "LogListItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "level": {
+            "type": "string",
+            "nullable": true
+          },
+          "raiseDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "exception": {
+            "type": "string",
+            "nullable": true
+          },
+          "machineName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "OrderListItem": {
         "type": "object",
@@ -1523,6 +1545,31 @@
           "mainImageUrl": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PagedLogsResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LogListItem"
+            },
+            "nullable": true
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1745,6 +1792,9 @@
           },
           "isNew": {
             "type": "boolean"
+          },
+          "isBestSeller": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1899,6 +1949,15 @@
         },
         "additionalProperties": false
       },
+      "SetProductFeaturedRequest": {
+        "type": "object",
+        "properties": {
+          "isFeatured": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
       "StoryImageDto": {
         "type": "object",
         "properties": {
@@ -1957,6 +2016,113 @@
           },
           "slug": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateProductFormRequest": {
+        "type": "object",
+        "properties": {
+          "nameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "slug": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "$ref": "#/components/schemas/Gender"
+          },
+          "category": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "descriptionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "storyHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "storyEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "storyRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "inStock": {
+            "type": "boolean"
+          },
+          "isNew": {
+            "type": "boolean"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "newImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "nullable": true
+          },
+          "deletedImageIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "nullable": true
+          },
+          "favoriteImageId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "favoriteImage": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          },
+          "deletedStoryImageIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
             "nullable": true
           }
         },

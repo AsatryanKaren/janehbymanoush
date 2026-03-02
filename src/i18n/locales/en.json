@@ -70,7 +70,9 @@
       "title": "Join the Circle",
       "subtitle": "Be the first to know about new collection drops, private events, and editorial journals.",
       "placeholder": "Your email address",
-      "button": "Join"
+      "button": "Join",
+      "success": "You're subscribed. We'll be in touch.",
+      "error": "Something went wrong. Please try again later."
     }
   },
   "catalog": {
@@ -199,8 +201,13 @@
     "emailPlaceholder": "hello@example.com",
     "emailRequired": "Please enter your email",
     "emailInvalid": "Please enter a valid email",
+    "phoneLabel": "PHONE NUMBER",
+    "phonePlaceholder": "+374 XX XXX XXX",
+    "phoneRequired": "Please enter your phone number",
+    "phoneInvalid": "Phone number must contain only digits and + - ( )",
     "subjectLabel": "SUBJECT",
     "subjectPlaceholder": "General Inquiry",
+    "subjectRequired": "Please enter a subject",
     "subjectGeneral": "General Inquiry",
     "subjectBespoke": "Bespoke Commission",
     "subjectCollection": "Collection Question",
@@ -225,7 +232,9 @@
     "ourStudio": "OUR STUDIO",
     "studioTagline": "Where the magic happens.",
     "viewOnMap": "VIEW ON MAP",
-    "followUs": "Follow us"
+    "followUs": "Follow us",
+    "sendSuccess": "Your message has been sent. We'll get back to you shortly.",
+    "sendError": "Something went wrong. Please try again later."
   },
   "ringSizeGuide": {
     "title": "Ring Size Guide",

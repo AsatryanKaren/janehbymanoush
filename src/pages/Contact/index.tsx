@@ -1,4 +1,5 @@
-import { Button, Col, Form, Input, Row, Typography } from "antd";
+import { useState } from "react";
+import { App, Button, Col, Form, Input, Row, Typography } from "antd";
 import {
   MailOutlined,
   PhoneOutlined,
@@ -8,6 +9,7 @@ import {
   TikTokOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import { contactUs } from "src/api/contact.api";
 import { toMapsUrl } from "src/components/Footer/consts";
 import { SOCIAL_LINKS } from "src/consts/social";
 import {
@@ -21,12 +23,46 @@ import styles from "./styles.module.css";
 
 const { Title, Paragraph, Text } = Typography;
 
+function splitName(fullName: string): { firstName: string; lastName: string } {
+  const trimmed = fullName.trim();
+  const spaceIndex = trimmed.indexOf(" ");
+  if (spaceIndex === -1) {
+    return { firstName: trimmed, lastName: "" };
+  }
+  return {
+    firstName: trimmed.slice(0, spaceIndex),
+    lastName: trimmed.slice(spaceIndex + 1).trim(),
+  };
+}
+
 const ContactPage: React.FC = () => {
   const { t } = useTranslation();
+  const { message } = App.useApp();
   const [form] = Form.useForm<ContactFormValues>();
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (_values: ContactFormValues) => {
-    // TODO: integrate with API
+  const handleSubmit = (values: ContactFormValues) => {
+    const { firstName, lastName } = splitName(values.name);
+    setSubmitting(true);
+    contactUs({
+      firstName: firstName || null,
+      lastName: lastName || null,
+      email: values.email || null,
+      phoneNumber: values.phoneNumber || null,
+      subject: values.subject || null,
+      message: values.message || null,
+      isSubscription: false,
+    })
+      .then(() => {
+        void message.success(t("contact.sendSuccess"));
+        form.resetFields();
+      })
+      .catch(() => {
+        void message.error(t("contact.sendError"));
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -77,8 +113,25 @@ const ContactPage: React.FC = () => {
               </Row>
 
               <Form.Item
+                name="phoneNumber"
+                label={t("contact.phoneLabel")}
+                rules={[
+                  { required: true, message: t("contact.phoneRequired") },
+                  {
+                    pattern: /^[0-9\s\-+()]+$/,
+                    message: t("contact.phoneInvalid"),
+                  },
+                ]}
+              >
+                <Input placeholder={t("contact.phonePlaceholder")} />
+              </Form.Item>
+
+              <Form.Item
                 name="subject"
                 label={t("contact.subjectLabel")}
+                rules={[
+                  { required: true, message: t("contact.subjectRequired") },
+                ]}
               >
                 <Input placeholder={t("contact.subjectPlaceholder")} />
               </Form.Item>
@@ -97,7 +150,12 @@ const ContactPage: React.FC = () => {
               </Form.Item>
 
               <Form.Item>
-                <Button type="primary" htmlType="submit" className={styles.submitBtn}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  className={styles.submitBtn}
+                  loading={submitting}
+                >
                   {t("contact.send")}
                 </Button>
               </Form.Item>
