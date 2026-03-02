@@ -9,6 +9,7 @@ export type OrderFormValues = {
 export type OrderModalProps = {
   open: boolean;
   onClose: () => void;
+  productId: string;
   productName: string;
   onSuccess?: (values: OrderFormValues) => void;
 };

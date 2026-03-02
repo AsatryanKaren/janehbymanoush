@@ -91,6 +91,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       <OrderModal
         open={orderModalOpen}
         onClose={() => setOrderModalOpen(false)}
+        productId={product.id}
         productName={name}
         onSuccess={handleOrderSuccess}
       />

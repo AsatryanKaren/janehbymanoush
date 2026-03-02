@@ -137,7 +137,9 @@
       "lastNameRequired": "Введите фамилию.",
       "emailRequired": "Введите email.",
       "emailInvalid": "Введите корректный email.",
-      "messageRequired": "Введите сообщение."
+      "messageRequired": "Введите сообщение.",
+      "success": "Ваш заказ отправлен. Мы свяжемся с вами в ближайшее время.",
+      "error": "Что-то пошло не так. Попробуйте позже."
     }
   },
   "about": {
@@ -324,6 +326,7 @@
     "columnEmail": "Электронная почта",
     "columnPhone": "Телефон",
     "columnProduct": "Товар",
+    "columnMessage": "Сообщение",
     "columnItems": "Позиции",
     "columnTotal": "Итого",
     "columnStatus": "Статус",

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Table, Typography, Flex, App } from "antd";
+import { Table, Typography, Flex, App, Image, Tooltip } from "antd";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminOrdersApi } from "src/api/adminOrders";
+import { buildProductPath } from "src/consts/routes";
 import type { OrderListItem, PagedOrdersResponse } from "src/types/order";
 import type { ColumnsType } from "antd/es/table";
+import styles from "./styles.module.css";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const AdminOrdersPage: React.FC = () => {
   const { t, language } = useAdminTranslation();
@@ -43,42 +45,135 @@ const AdminOrdersPage: React.FC = () => {
 
   const columns: ColumnsType<OrderListItem> = [
     {
-      title: t("admin.columnOrderId"),
-      dataIndex: "id",
-      key: "id",
-      width: 120,
-      render: (id: string) => id?.slice(0, 8) ?? "—",
+      title: t("admin.columnProduct"),
+      key: "product",
+      width: 220,
+      render: (_: unknown, record: OrderListItem) => {
+        const product = record.product;
+        if (!product) return "—";
+        const name = product.name ?? "—";
+        const img = product.mainImageUrl ? (
+          <Image
+            src={product.mainImageUrl}
+            alt=""
+            width={48}
+            height={48}
+            style={{ objectFit: "cover", borderRadius: 6 }}
+            preview={{ mask: t("admin.columnImage") }}
+          />
+        ) : null;
+        const link =
+          product.slug ?
+            <a
+              href={buildProductPath(product.slug)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {name}
+            </a>
+          : name;
+        return (
+          <Flex align="center" gap="small" style={{ minWidth: 0 }}>
+            {img}
+            <Text
+              style={{ flex: 1, minWidth: 0 }}
+              ellipsis={{ tooltip: name }}
+            >
+              {link}
+            </Text>
+          </Flex>
+        );
+      },
     },
     {
       title: t("admin.columnCustomer"),
       dataIndex: "customerName",
       key: "customerName",
-    },
-    {
-      title: t("admin.columnEmail"),
-      dataIndex: "email",
-      key: "email",
+      width: 140,
+      render: (v: string | null) => v ?? "—",
     },
     {
       title: t("admin.columnPhone"),
       dataIndex: "phone",
       key: "phone",
+      width: 160,
+      render: (v: string | null) => {
+        if (!v) return "—";
+        return (
+          <Text
+            copyable={{ text: v }}
+            style={{ whiteSpace: "nowrap" }}
+          >
+            <a href={`tel:${v}`}>{v}</a>
+          </Text>
+        );
+      },
     },
     {
-      title: t("admin.columnProduct"),
-      key: "product",
-      render: (_: unknown, record: OrderListItem) =>
-        record.product?.name ?? "—",
+      title: t("admin.columnEmail"),
+      dataIndex: "email",
+      key: "email",
+      width: 260,
+      render: (v: string | null) => {
+        if (!v) return "—";
+        return (
+          <Text
+            copyable={{ text: v }}
+            style={{ whiteSpace: "nowrap" }}
+          >
+            <a href={`mailto:${v}`}>{v}</a>
+          </Text>
+        );
+      },
+    },
+    {
+      title: t("admin.columnMessage"),
+      dataIndex: "message",
+      key: "message",
+      width: 200,
+      ellipsis: true,
+      render: (msg: string | null) => {
+        if (msg == null || msg === "") return "—";
+        return (
+          <Tooltip title={msg}>
+            <span className={styles.ellipsisCell}>{msg}</span>
+          </Tooltip>
+        );
+      },
     },
     {
       title: t("admin.columnDate"),
       dataIndex: "createdAt",
       key: "createdAt",
+      width: 165,
       render: (date: string) =>
-        date ? new Date(date).toLocaleDateString(language) : "—",
+        date ?
+          new Date(date).toLocaleString(language, {
+            dateStyle: "short",
+            timeStyle: "short",
+          })
+        : "—",
       sorter: (a, b) =>
         new Date(a.createdAt ?? 0).getTime() -
         new Date(b.createdAt ?? 0).getTime(),
+    },
+    {
+      title: t("admin.columnOrderId"),
+      dataIndex: "id",
+      key: "id",
+      width: 120,
+      ellipsis: true,
+      render: (id: string) =>
+        id ?
+          <Tooltip title={id}>
+            <span
+              className={styles.ellipsisCell}
+              style={{ fontFamily: "monospace" }}
+            >
+              {id}
+            </span>
+          </Tooltip>
+        : "—",
     },
   ];
 
@@ -96,11 +191,11 @@ const AdminOrdersPage: React.FC = () => {
       <Title level={2}>{t("admin.orders")}</Title>
       <Flex vertical gap="middle">
         <Table<OrderListItem>
+          className={styles.ordersTable}
           dataSource={data.items ?? []}
           columns={columns}
           rowKey="id"
           loading={loading}
-          scroll={{ x: 800 }}
           pagination={{
             current: data.page,
             pageSize: data.pageSize,

@@ -1,3 +1,17 @@
+/** POST /v1/orders — create order request */
+export type CreateOrderRequest = {
+  productId: string;
+  customerName: string | null;
+  phone: string | null;
+  email: string | null;
+  message: string | null;
+};
+
+/** POST /v1/orders — create order response */
+export type CreateOrderResponse = {
+  orderId: string;
+};
+
 /** Admin GET /v1/admin/orders: single order in list */
 export type OrderProductInfo = {
   id: string;

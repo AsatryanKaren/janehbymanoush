@@ -137,7 +137,9 @@
       "lastNameRequired": "Please enter your last name.",
       "emailRequired": "Please enter your email.",
       "emailInvalid": "Please enter a valid email.",
-      "messageRequired": "Please enter a message."
+      "messageRequired": "Please enter a message.",
+      "success": "Your order request has been sent. We'll contact you shortly.",
+      "error": "Something went wrong. Please try again later."
     }
   },
   "about": {
@@ -324,6 +326,7 @@
     "columnEmail": "Email",
     "columnPhone": "Phone",
     "columnProduct": "Product",
+    "columnMessage": "Message",
     "columnItems": "Items",
     "columnTotal": "Total",
     "columnStatus": "Status",

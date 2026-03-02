@@ -137,7 +137,9 @@
       "lastNameRequired": "Մուտքագրեք ազգանունը։",
       "emailRequired": "Մուտքագրեք էլ․ փոստը։",
       "emailInvalid": "Մուտքագրեք վավեր էլ․ փոստ։",
-      "messageRequired": "Մուտքագրեք հաղորդագրություն։"
+      "messageRequired": "Մուտքագրեք հաղորդագրություն։",
+      "success": "Ձեր պատվերը ուղարկվել է։ Մենք շուտով կկապվենք ձեզ հետ։",
+      "error": "Ինչ-որ բան սխալ է։ Խնդրում ենք փորձել ավելի ուշ։"
     }
   },
   "about": {
@@ -317,6 +319,7 @@
     "columnEmail": "Էլ. հասցե",
     "columnPhone": "Հեռախոս",
     "columnProduct": "Ապրանք",
+    "columnMessage": "Հաղորդագրություն",
     "columnItems": "Ապրանքներ",
     "columnTotal": "Ընդամենը",
     "columnStatus": "Կարգավիճակ",

@@ -1,21 +1,48 @@
-import { Button, Form, Input, Modal, Typography } from "antd";
+import { useState } from "react";
+import { App, Button, Form, Input, Modal, Typography } from "antd";
 import { useTranslation } from "react-i18next";
+import { ordersApi } from "src/api/orders";
 import type { OrderFormValues, OrderModalProps } from "./types";
 import styles from "./styles.module.css";
 
 const OrderModal: React.FC<OrderModalProps> = ({
   open,
   onClose,
+  productId,
   productName,
   onSuccess,
 }) => {
   const { t } = useTranslation();
+  const { message } = App.useApp();
   const [form] = Form.useForm<OrderFormValues>();
+  const [submitting, setSubmitting] = useState(false);
 
   const handleFinish = (values: OrderFormValues) => {
-    onSuccess?.(values);
-    form.resetFields();
-    onClose();
+    const customerName = [values.firstName, values.lastName]
+      .filter(Boolean)
+      .join(" ")
+      .trim() || null;
+    setSubmitting(true);
+    ordersApi
+      .create({
+        productId,
+        customerName,
+        phone: values.phone ?? null,
+        email: values.email ?? null,
+        message: values.message?.trim() || null,
+      })
+      .then((res) => {
+        void message.success(t("product.orderModal.success"));
+        form.resetFields();
+        onSuccess?.(values);
+        onClose();
+      })
+      .catch(() => {
+        void message.error(t("product.orderModal.error"));
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
   const handleCancel = () => {
@@ -108,6 +135,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
             htmlType="submit"
             block
             className={styles.submitButton}
+            loading={submitting}
           >
             {t("product.orderModal.submit")}
           </Button>

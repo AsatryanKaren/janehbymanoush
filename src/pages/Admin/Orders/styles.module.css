@@ -1,0 +1,18 @@
+/* Ensure truncated columns show ellipsis and respect cell width */
+.ellipsisCell {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Table fits container without horizontal scroll; fixed layout so columns truncate */
+.ordersTable :global(.ant-table) {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.ordersTable :global(.ant-table-cell) {
+  overflow: hidden;
+}
