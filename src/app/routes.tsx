@@ -20,6 +20,7 @@ import AdminCollectionEditPage from "src/pages/Admin/Collections/AdminCollection
 import AdminCategoriesListPage from "src/pages/Admin/Categories/AdminCategoriesListPage";
 import AdminCategoryEditPage from "src/pages/Admin/Categories/AdminCategoryEditPage";
 import AdminBestsellersPage from "src/pages/Admin/Bestsellers/AdminBestsellersPage";
+import AdminLogsPage from "src/pages/Admin/Logs/AdminLogsPage";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,7 @@ export const router = createBrowserRouter([
           { path: "categories/:id/edit", element: <AdminCategoryEditPage /> },
           { path: "orders", element: <AdminOrdersPage /> },
           { path: "bestsellers", element: <AdminBestsellersPage /> },
+          { path: "logs", element: <AdminLogsPage /> },
         ],
       },
     ],

@@ -22,16 +22,12 @@ import {
 } from "@ant-design/icons";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import type { ProductImage, StoryImageDto } from "src/types/product";
+import { GENDER_OPTIONS, isGender } from "src/types/product";
 import type { UseProductEditFormReturn } from "./useProductEditForm";
 import type { ProductImagesUploadProps } from "./types";
 import styles from "./ProductEditFormContent.module.css";
 
 type ProductEditFormContentProps = UseProductEditFormReturn;
-
-const GENDER_OPTIONS = [
-  { label: "Women", value: 0 },
-  { label: "Men", value: 1 },
-];
 
 /** Accepted image types for product and story uploads: PNG, JPG, WEBP, GIF, AVIF, SVG, BMP */
 const ACCEPT_IMAGES =
@@ -60,6 +56,10 @@ export const ProductEditFormContent = (
     setStoryImageFileList,
     mainProductImageIndex,
     setMainProductImageIndex,
+    mainProductImageId,
+    setMainProductImageId,
+    remainingProductImages,
+    remainingStoryImages,
     handleDeleteProductImage,
     handleDeleteStoryImage,
     navigateToProducts,
@@ -144,7 +144,19 @@ export const ProductEditFormContent = (
       <FormSection title={t("admin.productForm.sectionSelling")}>
         <Row gutter={16}>
           <Col xs={24} sm={12} md={8}>
-            <Form.Item name="gender" label={t("admin.gender")} rules={[{ required: true }]}>
+            <Form.Item
+              name="gender"
+              label={t("admin.gender")}
+              rules={[
+                { required: true, message: t("admin.genderInvalid") },
+                {
+                  validator: (_, value) =>
+                    isGender(value)
+                      ? Promise.resolve()
+                      : Promise.reject(new Error(t("admin.genderInvalid"))),
+                },
+              ]}
+            >
               <Select options={GENDER_OPTIONS} />
             </Form.Item>
           </Col>
@@ -232,41 +244,51 @@ export const ProductEditFormContent = (
             >
               <div className={styles.productImagesBlock} style={{ display: "block", marginBottom: 24 }}>
                 <Flex gap="small" wrap>
-                {(product.images ?? []).map((img: ProductImage) => (
-                  <Flex key={img.id} vertical align="center" gap={4}>
-                    <div style={{ position: "relative" }}>
-                      <Image
-                        src={img.url ?? undefined}
-                        alt=""
-                        width={80}
-                        height={80}
-                        style={{ objectFit: "cover" }}
-                      />
-                      {img.isMain && (
-                        <StarFilled
+                {remainingProductImages.map((img: ProductImage) => {
+                  const isMain = mainProductImageId === img.id;
+                  return (
+                    <Flex key={img.id} vertical align="center" gap={4}>
+                      <div style={{ position: "relative" }}>
+                        <Image
+                          src={img.url ?? undefined}
+                          alt=""
+                          width={80}
+                          height={80}
+                          style={{ objectFit: "cover" }}
+                        />
+                        <Button
+                          type="text"
+                          icon={
+                            isMain ? (
+                              <StarFilled style={{ color: "#faad14" }} />
+                            ) : (
+                              <StarOutlined />
+                            )
+                          }
+                          onClick={() => setMainProductImageId(img.id)}
+                          title={t("admin.setAsMain")}
                           style={{
                             position: "absolute",
                             top: 4,
                             right: 4,
-                            color: "#faad14",
-                            fontSize: 16,
+                            zIndex: 1,
                           }}
-                          title={t("admin.setAsMain")}
+                          aria-label={t("admin.setAsMain")}
                         />
-                      )}
-                    </div>
-                    <Button
-                      type="text"
-                      size="small"
-                      danger
-                      icon={<DeleteOutlined />}
-                      title={t("admin.delete")}
-                      onClick={() =>
-                        handleDeleteProductImage(product.id, img.id)
-                      }
-                    />
-                  </Flex>
-                ))}
+                      </div>
+                      <Button
+                        type="text"
+                        size="small"
+                        danger
+                        icon={<DeleteOutlined />}
+                        title={t("admin.delete")}
+                        onClick={() =>
+                          handleDeleteProductImage(product.id, img.id)
+                        }
+                      />
+                    </Flex>
+                  );
+                })}
                 <ProductImagesUpload
                   fileList={productImageFileList}
                   onFileListChange={setProductImageFileListWithMain}
@@ -287,7 +309,7 @@ export const ProductEditFormContent = (
           >
               <div className={styles.storyImagesBlock} style={{ width: "100%" }}>
                 <Flex gap="small" wrap align="start">
-                {(product.storyImages ?? []).map((img: StoryImageDto) => (
+                {remainingStoryImages.map((img: StoryImageDto) => (
                   <Flex key={img.id} vertical align="center" gap={4}>
                     <Image
                       src={img.url ?? undefined}

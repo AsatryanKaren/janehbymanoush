@@ -25,6 +25,7 @@ export const ROUTES = {
   ADMIN_CATEGORY_NEW: "/admin/categories/new",
   ADMIN_ORDERS: "/admin/orders",
   ADMIN_BESTSELLERS: "/admin/bestsellers",
+  ADMIN_LOGS: "/admin/logs",
 } as const;
 
 export const buildProductPath = (slug: string): string =>

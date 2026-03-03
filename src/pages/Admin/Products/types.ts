@@ -1,5 +1,6 @@
 import type { UploadFile } from "antd/es/upload/interface";
 import type { CreateProductRequest, Gender, ProductDetailsPublic } from "src/types/product";
+import { Gender as GenderEnum, genderFromApi } from "src/types/product";
 
 /** Form field values for product create/edit. Single source of truth for form shape. */
 export type ProductFormValues = {
@@ -7,7 +8,7 @@ export type ProductFormValues = {
   nameEn?: string;
   nameRu?: string;
   slug?: string;
-  gender: number;
+  gender: Gender;
   category?: string;
   price?: number;
   descriptionHy?: string;
@@ -32,7 +33,7 @@ export type ProductImagesUploadProps = {
 };
 
 const DEFAULT_FORM_VALUES: ProductFormValues = {
-  gender: 0,
+  gender: GenderEnum.Women,
   isActive: true,
   inStock: true,
   isNew: false,
@@ -46,7 +47,7 @@ export const productToFormValues = (
   nameEn: loaded.nameEn ?? undefined,
   nameRu: loaded.nameRu ?? undefined,
   slug: loaded.slug ?? undefined,
-  gender: loaded.gender ?? 0,
+  gender: genderFromApi(loaded.gender),
   category: loaded.category ?? undefined,
   price: loaded.price ?? undefined,
   descriptionHy: loaded.descriptionHy ?? undefined,
@@ -68,7 +69,7 @@ export const formValuesToCreateRequest = (
     nameEn: values.nameEn ?? null,
     nameRu: values.nameRu ?? null,
     slug: values.slug ?? null,
-    gender: (values.gender as Gender) ?? 0,
+    gender: values.gender ?? GenderEnum.Women,
     category: values.category ?? undefined,
     price: values.price ?? 0,
     descriptionHy: values.descriptionHy ?? null,

@@ -1,0 +1,16 @@
+.ellipsisCell {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.logsTable :global(.ant-table) {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.logsTable :global(.ant-table-cell) {
+  overflow: hidden;
+}

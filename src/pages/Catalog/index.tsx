@@ -58,6 +58,9 @@ const CatalogPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<SortValue>("price_asc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
+  const [appliedPriceRange, setAppliedPriceRange] = useState<[number, number]>([
+    0, 500000,
+  ]);
 
   const pathCategory = CATEGORY_MAP[location.pathname];
   const pathIsNew = location.pathname === ROUTES.NEW;
@@ -79,12 +82,13 @@ const CatalogPage: React.FC = () => {
 
   useEffect(() => {
     setLoading(true);
-    const params: Record<string, string> = pathCategory
-      ? { Category: pathCategory }
-      : {};
+    const params: Record<string, string> = {};
+    if (pathCategory) params.Gender = pathCategory;
     if (selectedCategoryId) params.CategoryId = selectedCategoryId;
     if (selectedCollectionId) params.CollectionId = selectedCollectionId;
     if (pathIsNew) params.IsNew = "true";
+    params.MinPrice = String(appliedPriceRange[0]);
+    params.MaxPrice = String(appliedPriceRange[1]);
     const { SortBy, SortOrder } = SORT_PARAMS[sort];
     params.SortBy = SortBy;
     params.SortOrder = SortOrder;
@@ -101,7 +105,7 @@ const CatalogPage: React.FC = () => {
         setTotal(0);
       })
       .finally(() => setLoading(false));
-  }, [pathCategory, pathIsNew, selectedCategoryId, selectedCollectionId, sort, page]);
+  }, [pathCategory, pathIsNew, selectedCategoryId, selectedCollectionId, sort, page, appliedPriceRange]);
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -164,6 +168,11 @@ const CatalogPage: React.FC = () => {
               max={500000}
               value={priceRange}
               onChange={(v) => setPriceRange(v as [number, number])}
+              onAfterChange={(v) => {
+                const next = v as [number, number];
+                setAppliedPriceRange(next);
+                setPage(1);
+              }}
               className={styles.priceRangeSlider}
             />
             <span className={styles.priceRangeValue}>

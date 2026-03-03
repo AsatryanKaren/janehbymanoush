@@ -2124,6 +2124,15 @@
               "format": "uuid"
             },
             "nullable": true
+          },
+          "newStoryImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "nullable": true,
+            "description": "New story images uploaded during edit (e.g. after deleting)."
           }
         },
         "additionalProperties": false

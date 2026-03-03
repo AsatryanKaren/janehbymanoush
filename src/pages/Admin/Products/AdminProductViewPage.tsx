@@ -17,13 +17,9 @@ import { adminProductsApi } from "src/api/adminProducts";
 import { ROUTES, buildAdminProductEditPath } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import type { ProductDetailsPublic } from "src/types/product";
+import { GENDER_LABELS, genderFromApi } from "src/types/product";
 
 const { Title, Text } = Typography;
-
-const GENDER_LABELS: Record<number, string> = {
-  0: "Women",
-  1: "Men",
-};
 
 const getProductName = (row: ProductDetailsPublic, locale: string): string => {
   if (locale === "hy" && row.nameHy) return row.nameHy;
@@ -136,7 +132,7 @@ const AdminProductViewPage: React.FC = () => {
                 {product.slug}
               </Descriptions.Item>
               <Descriptions.Item label={t("admin.gender")}>
-                {GENDER_LABELS[product.gender ?? 0] ?? product.gender}
+                {GENDER_LABELS[genderFromApi(product.gender)]}
               </Descriptions.Item>
               <Descriptions.Item label={t("admin.columnCategory")}>
                 {product.categoryName ?? product.category}

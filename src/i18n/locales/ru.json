@@ -305,6 +305,7 @@
     "collectionRequired": "Пожалуйста, выберите коллекцию",
     "currency": "Валюта",
     "gender": "Пол",
+    "genderInvalid": "Пол должен быть 0 (Женщины) или 1 (Мужчины).",
     "productImages": "Изображения товара",
     "productImagesTooltip": "Загрузите изображения товара. Макс. 10 (PNG, JPG, WEBP и др.).",
     "setAsMain": "Сделать главным",
@@ -400,6 +401,20 @@
       "collectionRequired": "Выберите коллекцию",
       "notFound": "Категория не найдена",
       "sectionBasic": "Основное"
+    },
+    "logs": {
+      "title": "Логи",
+      "columnLevel": "Уровень",
+      "columnMessage": "Сообщение",
+      "columnDate": "Дата",
+      "columnException": "Исключение",
+      "columnMachine": "Машина",
+      "filterLevel": "Уровень",
+      "filterDateFrom": "Дата от",
+      "filterDateTo": "Дата до",
+      "filterSearch": "Поиск",
+      "applyFilters": "Применить",
+      "noLogs": "Нет логов"
     }
   },
   "footer": {

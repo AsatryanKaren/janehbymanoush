@@ -1,5 +1,51 @@
-/** Gender enum from API (0 = Women, 1 = Men) */
-export type Gender = 0 | 1;
+/** Gender enum for API: 0 = Women, 1 = Men. Required for admin product create/update. */
+export const Gender = {
+  Women: 0,
+  Men: 1,
+} as const;
+
+export type Gender = (typeof Gender)[keyof typeof Gender];
+
+/** API returns/expects gender as lowercase string "women" | "men". */
+export const GENDER_API_VALUES = {
+  [Gender.Women]: "women",
+  [Gender.Men]: "men",
+} as const;
+
+/** Map API response (e.g. "men", "women" or 0, 1) to our Gender enum. */
+export function genderFromApi(value: unknown): Gender {
+  if (value === Gender.Women || value === Gender.Men) return value;
+  const s = String(value).toLowerCase();
+  if (s === "men") return Gender.Men;
+  if (s === "women") return Gender.Women;
+  const n = Number(value);
+  if (n === Gender.Men) return Gender.Men;
+  if (n === Gender.Women) return Gender.Women;
+  return Gender.Women;
+}
+
+/** Map our Gender to API request value ("women" | "men"). */
+export function genderToApi(g: Gender): string {
+  return GENDER_API_VALUES[g];
+}
+
+/** Select options for admin product form (create/update). */
+export const GENDER_OPTIONS: { label: string; value: Gender }[] = [
+  { label: "Women", value: Gender.Women },
+  { label: "Men", value: Gender.Men },
+];
+
+/** Labels for display (e.g. product view). */
+export const GENDER_LABELS: Record<Gender, string> = {
+  [Gender.Women]: "Women",
+  [Gender.Men]: "Men",
+};
+
+export function isGender(value: unknown): value is Gender {
+  if (value === Gender.Women || value === Gender.Men) return true;
+  const n = Number(value);
+  return n === Gender.Women || n === Gender.Men;
+}
 
 /** Admin list: ProductCardAdmin */
 export type ProductCardAdmin = {

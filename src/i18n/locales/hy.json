@@ -298,6 +298,7 @@
     "collectionRequired": "Խնդրում ենք ընտրեք հավաքածուն",
     "currency": "Արտարժույթ",
     "gender": "Սեռ",
+    "genderInvalid": "Սեռը պետք է լինի 0 (Կանայք) կամ 1 (Տղամարդիկ):",
     "productImages": "Ապրանքի նկարներ",
     "productImagesTooltip": "Վերբեռնել ապրանքի նկարներ: Առավելագույնը 10 (PNG, JPG, WEBP և այլն):",
     "setAsMain": "Դարձնել գլխավոր",
@@ -393,6 +394,20 @@
       "collectionRequired": "Խնդրում ենք ընտրել հավաքածու",
       "notFound": "Կատեգորիան չի գտնվել",
       "sectionBasic": "Հիմնական"
+    },
+    "logs": {
+      "title": "Լոգեր",
+      "columnLevel": "Մակարդակ",
+      "columnMessage": "Հաղորդագրություն",
+      "columnDate": "Ամսաթիվ",
+      "columnException": "Բացառություն",
+      "columnMachine": "Մեքենա",
+      "filterLevel": "Մակարդակ",
+      "filterDateFrom": "Սկզբից",
+      "filterDateTo": "Մինչև",
+      "filterSearch": "Փնտրել",
+      "applyFilters": "Կիրառել",
+      "noLogs": "Լոգեր չկան"
     }
   },
   "footer": {

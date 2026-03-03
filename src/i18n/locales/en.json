@@ -305,6 +305,7 @@
     "collectionRequired": "Please select a collection",
     "currency": "Currency",
     "gender": "Gender",
+    "genderInvalid": "Gender must be 0 (Women) or 1 (Men).",
     "mainImageUrl": "Main image URL",
     "productImages": "Product images",
     "productImagesTooltip": "Upload product images. Max 10 images (PNG, JPG, WEBP, etc.).",
@@ -400,6 +401,20 @@
       "collectionRequired": "Please select a collection",
       "notFound": "Category not found",
       "sectionBasic": "Basic info"
+    },
+    "logs": {
+      "title": "Logs",
+      "columnLevel": "Level",
+      "columnMessage": "Message",
+      "columnDate": "Date",
+      "columnException": "Exception",
+      "columnMachine": "Machine",
+      "filterLevel": "Level",
+      "filterDateFrom": "From date",
+      "filterDateTo": "To date",
+      "filterSearch": "Search",
+      "applyFilters": "Apply",
+      "noLogs": "No logs"
     }
   },
   "footer": {

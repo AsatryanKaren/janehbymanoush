@@ -2,7 +2,6 @@ import { http } from "src/api/http";
 import type {
   PagedProductsAdminResponse,
   ProductDetailsPublic,
-  CreateProductRequest,
   CreateProductResponse,
   UpdateProductStatusRequest,
   AdminProductsListParams,
@@ -22,16 +21,18 @@ export const adminProductsApi = {
   getById: (id: string): Promise<ProductDetailsPublic> =>
     http<ProductDetailsPublic>(`${ADMIN_PRODUCTS_PATH}/${id}`),
 
+  /** POST multipart/form-data — CreateProductFormRequest */
   create: (formData: FormData): Promise<CreateProductResponse> =>
     http<CreateProductResponse>(ADMIN_PRODUCTS_PATH, {
       method: "POST",
       body: formData,
     }),
 
-  update: (id: string, data: CreateProductRequest): Promise<void> =>
+  /** PUT multipart/form-data — UpdateProductFormRequest (single request for fields + images) */
+  update: (id: string, formData: FormData): Promise<void> =>
     http<void>(`${ADMIN_PRODUCTS_PATH}/${id}`, {
       method: "PUT",
-      body: data,
+      body: formData,
     }),
 
   delete: (id: string): Promise<void> =>
@@ -51,27 +52,4 @@ export const adminProductsApi = {
       method: "PUT",
       body: data,
     }),
-
-  putImages: (productId: string, formData: FormData): Promise<void> =>
-    http<void>(`${ADMIN_PRODUCTS_PATH}/${productId}/images`, {
-      method: "PUT",
-      body: formData,
-    }),
-
-  deleteImage: (productId: string, imageId: string): Promise<void> =>
-    http<void>(`${ADMIN_PRODUCTS_PATH}/${productId}/images/${imageId}`, {
-      method: "DELETE",
-    }),
-
-  putStoryImages: (productId: string, formData: FormData): Promise<void> =>
-    http<void>(`${ADMIN_PRODUCTS_PATH}/${productId}/story-images`, {
-      method: "PUT",
-      body: formData,
-    }),
-
-  deleteStoryImage: (productId: string, imageId: string): Promise<void> =>
-    http<void>(
-      `${ADMIN_PRODUCTS_PATH}/${productId}/story-images/${imageId}`,
-      { method: "DELETE" },
-    ),
 };
