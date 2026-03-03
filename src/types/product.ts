@@ -21,6 +21,8 @@ export type ProductCardAdmin = {
   inStock?: boolean;
   isNew?: boolean;
   createdAt?: string | null;
+  /** Bestseller/featured; set via PUT .../featured */
+  isBestSeller?: boolean;
 };
 
 export type PagedProductsAdminResponse = {
@@ -133,6 +135,7 @@ export type ProductCardPublic = {
   isActive?: boolean;
   inStock?: boolean;
   isNew?: boolean;
+  isBestSeller?: boolean;
   /** Optional for mocks / backward compat */
   description?: string | null;
 };
@@ -164,3 +167,8 @@ export type ProductListParams = {
 };
 
 export type ProductListResponse = PagedProductsPublicResponse;
+
+/** GET /v1/bestsellers response */
+export type BestsellersResponse = {
+  items: ProductCardPublic[] | null;
+};

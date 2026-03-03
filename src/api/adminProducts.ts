@@ -7,6 +7,8 @@ import type {
   UpdateProductStatusRequest,
   AdminProductsListParams,
 } from "src/types/product";
+
+export type SetProductFeaturedRequest = { isFeatured: boolean };
 import { toQueryParams } from "src/utils/queryParams";
 
 const ADMIN_PRODUCTS_PATH = "/v1/admin/products";
@@ -38,6 +40,15 @@ export const adminProductsApi = {
   updateStatus: (id: string, data: UpdateProductStatusRequest): Promise<void> =>
     http<void>(`${ADMIN_PRODUCTS_PATH}/${id}/status`, {
       method: "PATCH",
+      body: data,
+    }),
+
+  setFeatured: (
+    id: string,
+    data: SetProductFeaturedRequest,
+  ): Promise<void> =>
+    http<void>(`${ADMIN_PRODUCTS_PATH}/${id}/featured`, {
+      method: "PUT",
       body: data,
     }),
 
