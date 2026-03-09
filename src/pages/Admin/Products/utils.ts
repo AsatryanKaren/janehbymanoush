@@ -100,10 +100,10 @@ export type UpdateFormDataOptions = {
   mainExistingImageId: string | null;
   /** Product image ids from BE that user deleted in edit; sent as deletedImageIds. New images removed from list are not sent (no id). */
   deletedImageIds: string[];
-  /** Story image ids from BE that user deleted in edit; sent as deletedStoryImageIds. New story images removed are not sent. */
+  /** Story image ids from BE that user deleted in edit; sent as DeletedStoryImageIds. */
   deletedStoryImageIds: string[];
-  /** New story images uploaded during edit, e.g. after deleting (array). */
-  newStoryImageFiles: File[];
+  /** Story image files to set on the product (key: storyImage). */
+  storyImageFiles: File[];
 };
 
 /** Build FormData for PUT /v1/admin/products/{id} (UpdateProductFormRequest). */
@@ -117,7 +117,7 @@ export const productValuesToUpdateFormData = (
     mainExistingImageId,
     deletedImageIds,
     deletedStoryImageIds,
-    newStoryImageFiles,
+    storyImageFiles,
   } = options;
   const fd = new FormData();
 
@@ -147,12 +147,11 @@ export const productValuesToUpdateFormData = (
   if (mainProductImageFile != null) {
     fd.append("favoriteImage", mainProductImageFile);
   }
-  /* Send every removed existing story image id (one form field per id). */
   for (const imageId of deletedStoryImageIds) {
-    fd.append("deletedStoryImageIds", imageId);
+    fd.append("DeletedStoryImageIds", imageId);
   }
-  for (const file of newStoryImageFiles) {
-    fd.append("newStoryImages", file);
+  for (const file of storyImageFiles) {
+    fd.append("storyImage", file);
   }
 
   return fd;

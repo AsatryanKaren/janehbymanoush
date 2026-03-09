@@ -1,30 +1,35 @@
-/** Gender enum for API: 0 = Women, 1 = Men. Required for admin product create/update. */
+/** Gender enum for API: 0 = Women, 1 = Men, 2 = Unisex. Required for admin product create/update. */
 export const Gender = {
   Women: 0,
   Men: 1,
+  Unisex: 2,
 } as const;
 
 export type Gender = (typeof Gender)[keyof typeof Gender];
 
-/** API returns/expects gender as lowercase string "women" | "men". */
+/** API returns/expects gender as lowercase string "women" | "men" | "unisex". */
 export const GENDER_API_VALUES = {
   [Gender.Women]: "women",
   [Gender.Men]: "men",
+  [Gender.Unisex]: "unisex",
 } as const;
 
-/** Map API response (e.g. "men", "women" or 0, 1) to our Gender enum. */
+/** Map API response (e.g. "men", "women", "unisex" or 0, 1, 2) to our Gender enum. */
 export function genderFromApi(value: unknown): Gender {
-  if (value === Gender.Women || value === Gender.Men) return value;
+  if (value === Gender.Women || value === Gender.Men || value === Gender.Unisex)
+    return value;
   const s = String(value).toLowerCase();
   if (s === "men") return Gender.Men;
   if (s === "women") return Gender.Women;
+  if (s === "unisex") return Gender.Unisex;
   const n = Number(value);
   if (n === Gender.Men) return Gender.Men;
   if (n === Gender.Women) return Gender.Women;
+  if (n === Gender.Unisex) return Gender.Unisex;
   return Gender.Women;
 }
 
-/** Map our Gender to API request value ("women" | "men"). */
+/** Map our Gender to API request value ("women" | "men" | "unisex"). */
 export function genderToApi(g: Gender): string {
   return GENDER_API_VALUES[g];
 }
@@ -33,18 +38,27 @@ export function genderToApi(g: Gender): string {
 export const GENDER_OPTIONS: { label: string; value: Gender }[] = [
   { label: "Women", value: Gender.Women },
   { label: "Men", value: Gender.Men },
+  { label: "Unisex", value: Gender.Unisex },
 ];
 
 /** Labels for display (e.g. product view). */
 export const GENDER_LABELS: Record<Gender, string> = {
   [Gender.Women]: "Women",
   [Gender.Men]: "Men",
+  [Gender.Unisex]: "Unisex",
 };
 
 export function isGender(value: unknown): value is Gender {
-  if (value === Gender.Women || value === Gender.Men) return true;
+  if (
+    value === Gender.Women ||
+    value === Gender.Men ||
+    value === Gender.Unisex
+  )
+    return true;
   const n = Number(value);
-  return n === Gender.Women || n === Gender.Men;
+  return (
+    n === Gender.Women || n === Gender.Men || n === Gender.Unisex
+  );
 }
 
 /** Admin list: ProductCardAdmin */

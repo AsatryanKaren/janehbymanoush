@@ -10,6 +10,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
   onClose,
   productId,
   productName,
+  count,
   onSuccess,
 }) => {
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
     ordersApi
       .create({
         productId,
+        count,
         customerName,
         phone: values.phone ?? null,
         email: values.email ?? null,

@@ -11,5 +11,7 @@ export type OrderModalProps = {
   onClose: () => void;
   productId: string;
   productName: string;
+  /** Quantity selected on product page (+/-). Sent as count in order. */
+  count: number;
   onSuccess?: (values: OrderFormValues) => void;
 };

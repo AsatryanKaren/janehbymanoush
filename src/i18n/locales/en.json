@@ -121,6 +121,9 @@
     "categoryBracelets": "Bracelets",
     "orderModal": {
       "subtitle": "Fill in your details and we'll get back to you to confirm your order.",
+      "count": "Quantity",
+      "countRequired": "Please enter quantity.",
+      "countMin": "Quantity must be at least 1.",
       "firstName": "First Name",
       "lastName": "Last Name",
       "email": "Email Address",
@@ -305,7 +308,7 @@
     "collectionRequired": "Please select a collection",
     "currency": "Currency",
     "gender": "Gender",
-    "genderInvalid": "Gender must be 0 (Women) or 1 (Men).",
+    "genderInvalid": "Gender must be 0 (Women), 1 (Men), or 2 (Unisex).",
     "mainImageUrl": "Main image URL",
     "productImages": "Product images",
     "productImagesTooltip": "Upload product images. Max 10 images (PNG, JPG, WEBP, etc.).",

@@ -93,6 +93,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
         onClose={() => setOrderModalOpen(false)}
         productId={product.id}
         productName={name}
+        count={quantity}
         onSuccess={handleOrderSuccess}
       />
     </div>

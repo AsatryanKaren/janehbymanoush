@@ -106,7 +106,7 @@ export const useProductEditForm = () => {
       } else {
         const newFiles = productImageFileList
           .map((f) => f.originFileObj ?? f)
-          .filter((f): f is File => f instanceof File);
+          .filter((f) => f instanceof File) as File[];
         const mainFileItem = productImageFileList[mainProductImageIndex];
         const mainFile =
           mainFileItem != null
@@ -129,9 +129,9 @@ export const useProductEditForm = () => {
           mainProductImageFileToSend != null
             ? newFiles.filter((f) => f !== mainProductImageFileToSend)
             : newFiles;
-        const newStoryFiles = storyImageFileList
+        const storyFilesToSend = storyImageFileList
           .map((f) => f.originFileObj ?? f)
-          .filter((f): f is File => f instanceof File);
+          .filter((f) => f instanceof File) as File[];
         const formData = productValuesToUpdateFormData({
           values,
           newProductImageFiles: otherNewFiles,
@@ -139,7 +139,7 @@ export const useProductEditForm = () => {
           mainExistingImageId: effectiveMainExistingId,
           deletedImageIds: [...deletedProductImageIds],
           deletedStoryImageIds: [...deletedStoryImageIds],
-          newStoryImageFiles: newStoryFiles,
+          storyImageFiles: storyFilesToSend,
         });
         await adminProductsApi.update(id!, formData);
         void message.success(t("admin.updateSuccess"));

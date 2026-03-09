@@ -1,6 +1,7 @@
 /** POST /v1/orders — create order request */
 export type CreateOrderRequest = {
   productId: string;
+  count: number;
   customerName: string | null;
   phone: string | null;
   email: string | null;
