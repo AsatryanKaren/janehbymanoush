@@ -25,6 +25,51 @@
   justify-content: flex-start;
 }
 
+/* Tablet / narrow desktop: reduce padding and gaps before mobile breakpoint */
+@media (max-width: 1200px) {
+  .header {
+    padding: 0 48px;
+  }
+
+  .leftGroup,
+  .rightGroup {
+    gap: 28px;
+  }
+
+  .logoWrap {
+    margin: 0 48px;
+  }
+
+  .navLink,
+  .navLinkActive {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 992px) {
+  .header {
+    padding: 0 24px;
+  }
+
+  .leftGroup,
+  .rightGroup {
+    gap: 20px;
+  }
+
+  .logoWrap {
+    margin: 0 32px;
+  }
+
+  .logoImg {
+    height: 36px;
+  }
+
+  .navLink,
+  .navLinkActive {
+    font-size: 14px;
+  }
+}
+
 /* Reserve bold width so active (bold) link doesn't shift layout */
 .navLink::before,
 .navLinkActive::before {
@@ -146,7 +191,8 @@
   background: transparent !important;
 }
 
-@media (max-width: 768px) {
+/* Mobile / tablet: hamburger menu, centered logo (nav moves to drawer) */
+@media (max-width: 1068px) {
   .header {
     justify-content: space-between;
     padding: 0 16px;
