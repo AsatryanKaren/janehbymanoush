@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { CRAFT_COLUMNS, CRAFT_IMAGE_MAP } from "./consts";
 import styles from "./styles.module.css";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Text } = Typography;
 
 const AboutCraft: React.FC = () => {
   const { t } = useTranslation();

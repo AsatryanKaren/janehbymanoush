@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAdminAuth } from "src/app/providers/AdminAuthProvider";
 import { ROUTES } from "src/consts/routes";
 import AdminLayout from "src/pages/Admin";
@@ -13,11 +13,7 @@ const AdminAuthGuard: React.FC = () => {
     return <Navigate to={ROUTES.ADMIN_LOGIN} replace />;
   }
 
-  return (
-    <AdminLayout>
-      <Outlet />
-    </AdminLayout>
-  );
+  return <AdminLayout />;
 };
 
 export default AdminAuthGuard;

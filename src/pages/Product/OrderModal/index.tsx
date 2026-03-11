@@ -33,7 +33,7 @@ const OrderModal: React.FC<OrderModalProps> = ({
         email: values.email ?? null,
         message: values.message?.trim() || null,
       })
-      .then((res) => {
+      .then(() => {
         void message.success(t("product.orderModal.success"));
         form.resetFields();
         onSuccess?.(values);
