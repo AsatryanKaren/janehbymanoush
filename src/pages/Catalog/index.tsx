@@ -86,7 +86,7 @@ const CatalogPage: React.FC = () => {
     if (pathCategory) params.Gender = pathCategory;
     if (selectedCategoryId) params.CategoryId = selectedCategoryId;
     if (selectedCollectionId) params.CollectionId = selectedCollectionId;
-    if (pathIsNew) params.IsNew = "true";
+    if (pathIsNew) params.New = "true";
     params.MinPrice = String(appliedPriceRange[0]);
     params.MaxPrice = String(appliedPriceRange[1]);
     const { SortBy, SortOrder } = SORT_PARAMS[sort];

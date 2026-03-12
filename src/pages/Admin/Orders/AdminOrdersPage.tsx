@@ -45,6 +45,15 @@ const AdminOrdersPage: React.FC = () => {
 
   const columns: ColumnsType<OrderListItem> = [
     {
+      title: t("admin.columnQuantity"),
+      dataIndex: "count",
+      key: "count",
+      width: 90,
+      align: "center",
+      render: (_: unknown, record: OrderListItem) =>
+        record.count ?? record.product?.count ?? "—",
+    },
+    {
       title: t("admin.columnProduct"),
       key: "product",
       width: 220,
@@ -156,24 +165,6 @@ const AdminOrdersPage: React.FC = () => {
       sorter: (a, b) =>
         new Date(a.createdAt ?? 0).getTime() -
         new Date(b.createdAt ?? 0).getTime(),
-    },
-    {
-      title: t("admin.columnOrderId"),
-      dataIndex: "id",
-      key: "id",
-      width: 120,
-      ellipsis: true,
-      render: (id: string) =>
-        id ?
-          <Tooltip title={id}>
-            <span
-              className={styles.ellipsisCell}
-              style={{ fontFamily: "monospace" }}
-            >
-              {id}
-            </span>
-          </Tooltip>
-        : "—",
     },
   ];
 

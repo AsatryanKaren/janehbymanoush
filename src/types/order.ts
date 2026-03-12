@@ -19,11 +19,13 @@ export type OrderProductInfo = {
   name?: string | null;
   slug?: string | null;
   mainImageUrl?: string | null;
+  count?: number;
 };
 
 export type OrderListItem = {
   id: string;
   product?: OrderProductInfo | null;
+  count?: number;
   customerName?: string | null;
   phone?: string | null;
   email?: string | null;

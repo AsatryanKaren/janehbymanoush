@@ -330,6 +330,7 @@
     "columnEmail": "Email",
     "columnPhone": "Phone",
     "columnProduct": "Product",
+    "columnQuantity": "Quantity",
     "columnMessage": "Message",
     "columnItems": "Items",
     "columnTotal": "Total",

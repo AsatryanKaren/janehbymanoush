@@ -216,7 +216,7 @@ export type ProductListParams = {
   Category?: string;
   CategoryId?: string;
   CollectionId?: string;
-  IsNew?: string;
+  New?: string;
   SortBy?: string;
   SortOrder?: string;
   Search?: string;

@@ -330,6 +330,7 @@
     "columnEmail": "Электронная почта",
     "columnPhone": "Телефон",
     "columnProduct": "Товар",
+    "columnQuantity": "Количество",
     "columnMessage": "Сообщение",
     "columnItems": "Позиции",
     "columnTotal": "Итого",
