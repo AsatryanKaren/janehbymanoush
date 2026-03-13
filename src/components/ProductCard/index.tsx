@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { buildProductPath } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
+import { getProductName } from "src/utils/productLocale";
 import type { ProductCardProps } from "./types";
 import { CATEGORY_KEY_MAP } from "./consts";
 import styles from "./styles.module.css";
@@ -26,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     : (product.categoryName ?? category);
   const showCategoryTag = Boolean(categoryLabel);
   const slug = product.slug ?? product.id;
-  const name = product.name ?? "";
+  const name = getProductName(product, i18n.language);
 
   return (
     <Link to={buildProductPath(slug)} className={styles.link}>

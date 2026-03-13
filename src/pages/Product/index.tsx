@@ -4,6 +4,11 @@ import { Breadcrumb, Col, Row, Spin, Typography, Flex } from "antd";
 import { useTranslation } from "react-i18next";
 import { productsApi } from "src/api/products";
 import { ROUTES } from "src/consts/routes";
+import {
+  getProductName,
+  getProductDescription,
+  getProductStory,
+} from "src/utils/productLocale";
 import type { ProductDetailsPublic } from "src/types/product";
 import ProductImages from "./ProductImages";
 import ProductInfo from "./ProductInfo";
@@ -46,20 +51,10 @@ const ProductPage: React.FC = () => {
     );
   }
 
-  const name =
-    product.nameEn ?? product.nameHy ?? product.nameRu ?? product.name ?? "";
-  const description =
-    product.descriptionEn ??
-    product.descriptionHy ??
-    product.descriptionRu ??
-    product.description ??
-    "";
-  const story =
-    (i18n.language === "hy" ? product.storyHy : i18n.language === "ru" ? product.storyRu : product.storyEn) ??
-    product.storyHy ??
-    product.storyRu ??
-    product.story ??
-    null;
+  const lang = i18n.language;
+  const name = getProductName(product, lang);
+  const description = getProductDescription(product, lang);
+  const story = getProductStory(product, lang);
   const backgroundImageUrl =
     product.mainImageUrl ??
     product.images?.find((img) => img.isMain)?.url ??

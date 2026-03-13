@@ -1,0 +1,36 @@
+.wrapper {
+  min-height: calc(100vh - 128px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--color-page);
+}
+
+.wrapper :global(.ant-result) {
+  padding: 48px 32px;
+}
+
+.wrapper :global(.ant-result-icon) {
+  color: var(--color-text-label);
+}
+
+.wrapper :global(.ant-result-title) {
+  color: var(--color-text-primary) !important;
+}
+
+.wrapper :global(.ant-result-subtitle) {
+  color: var(--color-text-body) !important;
+}
+
+.wrapper :global(.ant-result-extra) .ant-btn-primary {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-button-on-light) !important;
+}
+
+.wrapper :global(.ant-result-extra) .ant-btn-primary:hover {
+  background: var(--color-accent-light) !important;
+  border-color: var(--color-accent-light) !important;
+  color: var(--color-button-on-light) !important;
+}

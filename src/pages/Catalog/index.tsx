@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Spin, Typography, Flex, Pagination, Slider } from "antd";
+import { Spin, Typography, Flex, Pagination, Slider, Input } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import DarkSelect from "src/components/DarkSelect";
 import { useTranslation } from "react-i18next";
 import ProductCard from "src/components/ProductCard";
 import CardGrid from "src/components/CardGrid";
 import CatalogEmptyState from "src/components/CatalogEmptyState";
 import { productsApi } from "src/api/products";
-import { categoriesApi } from "src/api/categories";
 import { collectionsApi } from "src/api/collections";
 import type { Product } from "src/types/product";
-import type { CategoryItem } from "src/types/category";
-import type { AdminCollectionItem } from "src/types/collection";
+import type {
+  AdminCollectionItem,
+  CategoryItemWithValue,
+} from "src/types/collection";
 import { ROUTES } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import {
@@ -25,9 +27,8 @@ import styles from "./styles.module.css";
 const { Title } = Typography;
 
 const PAGE_SIZE = 12;
-const SIDEBAR_INITIAL_VISIBLE = 5;
 
-const getCategoryTitle = (item: CategoryItem, lang: string): string => {
+const getCategoryTitle = (item: CategoryItemWithValue, lang: string): string => {
   if (lang === "hy" && item.titleHy) return item.titleHy;
   if (lang === "ru" && item.titleRu) return item.titleRu;
   return item.titleEn ?? item.titleHy ?? item.titleRu ?? "";
@@ -45,17 +46,31 @@ const CatalogPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [collections, setCollections] = useState<AdminCollectionItem[]>([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
-    null,
+  const [filterValue, setFilterValue] = useState<string | undefined>(undefined);
+  const [expandedCollections, setExpandedCollections] = useState<Set<string>>(
+    new Set(),
   );
-  const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(
-    null,
-  );
-  const [expandCollections, setExpandCollections] = useState(false);
-  const [expandJewelry, setExpandJewelry] = useState(false);
   const [page, setPage] = useState(1);
+  const [searchInput, setSearchInput] = useState("");
+  const [appliedSearch, setAppliedSearch] = useState("");
+
+  const toggleCollapse = (colId: string) => {
+    setExpandedCollections((prev) => {
+      const next = new Set(prev);
+      if (next.has(colId)) next.delete(colId);
+      else next.add(colId);
+      return next;
+    });
+  };
+
+  const selectedCollectionId = filterValue?.startsWith("col-")
+    ? filterValue.slice(4)
+    : null;
+  const selectedCategoryId = filterValue?.startsWith("cat-")
+    ? filterValue.slice(4)
+    : null;
+
   const [sort, setSort] = useState<SortValue>("price_asc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
   const [appliedPriceRange, setAppliedPriceRange] = useState<[number, number]>([
@@ -65,13 +80,6 @@ const CatalogPage: React.FC = () => {
   const pathCategory = CATEGORY_MAP[location.pathname];
   const pathIsNew = location.pathname === ROUTES.NEW;
   const titleKey = TITLE_KEY_MAP[location.pathname] ?? "catalog.catalog";
-
-  useEffect(() => {
-    void categoriesApi
-      .getAll()
-      .then((res) => setCategories(res.items ?? []))
-      .catch(() => setCategories([]));
-  }, []);
 
   useEffect(() => {
     void collectionsApi
@@ -87,6 +95,7 @@ const CatalogPage: React.FC = () => {
     if (selectedCategoryId) params.CategoryId = selectedCategoryId;
     if (selectedCollectionId) params.CollectionId = selectedCollectionId;
     if (pathIsNew) params.New = "true";
+    if (appliedSearch.trim()) params.Search = appliedSearch.trim();
     params.MinPrice = String(appliedPriceRange[0]);
     params.MaxPrice = String(appliedPriceRange[1]);
     const { SortBy, SortOrder } = SORT_PARAMS[sort];
@@ -105,7 +114,7 @@ const CatalogPage: React.FC = () => {
         setTotal(0);
       })
       .finally(() => setLoading(false));
-  }, [pathCategory, pathIsNew, selectedCategoryId, selectedCollectionId, sort, page, appliedPriceRange]);
+  }, [pathCategory, pathIsNew, filterValue, sort, page, appliedPriceRange, appliedSearch]);
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
@@ -116,6 +125,24 @@ const CatalogPage: React.FC = () => {
           <span className={styles.sectionTitle}>
             {t("catalog.sections.filters")}
           </span>
+          <Input.Search
+            placeholder={t("catalog.searchPlaceholder")}
+            value={searchInput}
+            onChange={(e) => {
+              const v = e.target.value;
+              setSearchInput(v);
+              if (v === "") {
+                setAppliedSearch("");
+                setPage(1);
+              }
+            }}
+            onSearch={(val) => {
+              setAppliedSearch(val);
+              setPage(1);
+            }}
+            allowClear
+            className={styles.searchInput}
+          />
           <div className={styles.filterLinks}>
             <Link
               to={ROUTES.CATALOG}
@@ -186,104 +213,67 @@ const CatalogPage: React.FC = () => {
             {t("catalog.sections.collections")}
           </span>
           <ul className={styles.categoryList}>
-            <li className={styles.categoryItem}>
-              <Link
-                to={location.pathname}
-                className={
-                  !selectedCollectionId ? styles.categoryLinkActive : styles.categoryLink
-                }
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCollectionId(null);
-                  setPage(1);
-                }}
-              >
-                {t("catalog.all")}
-              </Link>
-            </li>
-            {(expandCollections ? collections : collections.slice(0, SIDEBAR_INITIAL_VISIBLE)).map((col) => (
-              <li key={col.id} className={styles.categoryItem}>
-                <Link
-                  to={location.pathname}
-                  className={
-                    selectedCollectionId === col.id
-                      ? styles.categoryLinkActive
-                      : styles.categoryLink
-                  }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedCollectionId(col.id);
-                    setPage(1);
-                  }}
-                >
-                  {getCollectionTitle(col, i18n.language)}
-                </Link>
-              </li>
-            ))}
-            {collections.length > SIDEBAR_INITIAL_VISIBLE && (
-              <li className={styles.categoryItem}>
-                <button
-                  type="button"
-                  className={styles.showMoreBtn}
-                  onClick={() => setExpandCollections((v) => !v)}
-                >
-                  {expandCollections ? t("catalog.showLess") : t("catalog.showMore")}
-                </button>
-              </li>
-            )}
-          </ul>
-        </div>
-        <div className={`${styles.sidebarSection} ${styles.categoriesSection}`}>
-          <span className={styles.sectionTitle}>
-            {t("catalog.sections.jewelry")}
-          </span>
-          <ul className={styles.categoryList}>
-            <li className={styles.categoryItem}>
-              <Link
-                to={location.pathname}
-                className={
-                  !selectedCategoryId ? styles.categoryLinkActive : styles.categoryLink
-                }
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedCategoryId(null);
-                  setPage(1);
-                }}
-              >
-                {t("catalog.all")}
-                {total > 0 && <span className={styles.badge}>{total}</span>}
-              </Link>
-            </li>
-            {(expandJewelry ? categories : categories.slice(0, SIDEBAR_INITIAL_VISIBLE)).map((cat) => (
-              <li key={cat.id} className={styles.categoryItem}>
-                <Link
-                  to={location.pathname}
-                  className={
-                    selectedCategoryId === cat.id
-                      ? styles.categoryLinkActive
-                      : styles.categoryLink
-                  }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelectedCategoryId(cat.id);
-                    setPage(1);
-                  }}
-                >
-                  {getCategoryTitle(cat, i18n.language)}
-                </Link>
-              </li>
-            ))}
-            {categories.length > SIDEBAR_INITIAL_VISIBLE && (
-              <li className={styles.categoryItem}>
-                <button
-                  type="button"
-                  className={styles.showMoreBtn}
-                  onClick={() => setExpandJewelry((v) => !v)}
-                >
-                  {expandJewelry ? t("catalog.showLess") : t("catalog.showMore")}
-                </button>
-              </li>
-            )}
+            {collections.map((col) => {
+              const hasChildren = (col.categories ?? []).length > 0;
+              const isOpen = expandedCollections.has(col.id);
+              const isColActive = filterValue === `col-${col.id}`;
+
+              return (
+                <li key={col.id} className={styles.treeGroup}>
+                  <Flex align="center" gap={6} className={styles.treeGroupRow}>
+                    {hasChildren && (
+                      <PlusOutlined
+                        className={`${styles.toggleIcon} ${isOpen ? styles.toggleIconOpen : ""}`}
+                        onClick={() => toggleCollapse(col.id)}
+                      />
+                    )}
+                    <a
+                      href="#"
+                      className={
+                        isColActive
+                          ? styles.categoryLinkActive
+                          : styles.categoryLink
+                      }
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setFilterValue(isColActive ? undefined : `col-${col.id}`);
+                        if (!isOpen && hasChildren) toggleCollapse(col.id);
+                        setPage(1);
+                      }}
+                    >
+                      {getCollectionTitle(col, i18n.language)}
+                    </a>
+                  </Flex>
+                  {hasChildren && isOpen && (
+                    <ul className={styles.treeChildren}>
+                      {(col.categories ?? []).map((cat) => (
+                        <li key={cat.id} className={styles.categoryItem}>
+                          <a
+                            href="#"
+                            className={
+                              filterValue === `cat-${cat.id}`
+                                ? styles.categoryLinkActive
+                                : styles.categoryLink
+                            }
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setFilterValue(
+                                filterValue === `cat-${cat.id}`
+                                  ? undefined
+                                  : `cat-${cat.id}`,
+                              );
+                              setPage(1);
+                            }}
+                          >
+                            {getCategoryTitle(cat, i18n.language)}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </aside>

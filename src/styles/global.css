@@ -29,6 +29,7 @@
 
 html {
   overflow-x: hidden;
+  background: var(--color-page);
 }
 
 body {
@@ -36,6 +37,8 @@ body {
   padding: 0;
   overflow-x: hidden;
   font-family: var(--app-font-family);
+  background: var(--color-page);
+  color: var(--color-text-primary);
 }
 
 #root {
@@ -43,6 +46,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  background: var(--color-page);
 }
 
 /* Propagate flex so layout fills viewport on mobile */
