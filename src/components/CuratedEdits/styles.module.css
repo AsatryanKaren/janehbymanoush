@@ -5,6 +5,95 @@
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.skeletonTitle :global(.ant-skeleton-title),
+.skeletonSubtitle :global(.ant-skeleton-paragraph li),
+.skeletonBrowseAll :global(.ant-skeleton-paragraph li),
+.skeletonCardTitle :global(.ant-skeleton-title) {
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border-muted) 50%,
+    var(--color-border-subtle) 75%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+.skeletonTitle {
+  margin-bottom: 8px !important;
+}
+
+.skeletonTitle :global(.ant-skeleton-title) {
+  height: 2rem !important;
+  margin-top: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .skeletonTitle :global(.ant-skeleton-title) {
+    height: 2.25rem !important;
+  }
+}
+
+.skeletonSubtitle {
+  margin-top: 0 !important;
+}
+
+.skeletonSubtitle :global(.ant-skeleton-paragraph) {
+  margin-top: 8px !important;
+}
+
+.skeletonSubtitle :global(.ant-skeleton-paragraph li) {
+  height: 0.9375rem !important;
+}
+
+.skeletonBrowseAll :global(.ant-skeleton-paragraph) {
+  margin-top: 0 !important;
+}
+
+.skeletonBrowseAll :global(.ant-skeleton-paragraph li) {
+  height: 0.875rem !important;
+}
+
+.skeletonImageWrap {
+  aspect-ratio: 4 / 5;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border-muted) 50%,
+    var(--color-border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeletonCardTitle {
+  margin-bottom: 0 !important;
+}
+
+.skeletonCardTitle :global(.ant-skeleton-title) {
+  height: 1.0625rem !important;
+  margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .skeletonImageWrap {
+    aspect-ratio: 4 / 3;
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
+}
+
 /* Antd Typography defaults to dark text; force light on dark section */
 .section :global(.ant-typography) {
   color: var(--color-text-primary) !important;
@@ -63,6 +152,7 @@
 
 .imageWrap {
   aspect-ratio: 4 / 5;
+  background-color: var(--color-border-subtle);
   background-size: cover;
   background-position: center;
   margin-bottom: 24px;

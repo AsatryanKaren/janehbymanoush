@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Layout } from "antd";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -24,6 +24,29 @@ const AppLayout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    if (!drawerOpen) {
+      return;
+    }
+    const scrollY = window.scrollY;
+    const html = document.documentElement;
+    html.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.top = `-${scrollY}px`;
+    return () => {
+      html.style.overflow = "";
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.top = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, [drawerOpen]);
 
   const langMenuItems = LANGUAGES.map((lang) => ({
     key: lang.code,
@@ -100,9 +123,6 @@ const AppLayout: React.FC = () => {
         isActive={isActive}
         t={t}
         onNavClick={handleNavClick}
-        langMenuItems={langMenuItems}
-        currentLangLabel={currentLangLabel}
-        onLanguageChange={({ key }) => void i18n.changeLanguage(key)}
         logoUrl={LOGO_IMAGE}
         logoAlt={t("common.appName")}
       />

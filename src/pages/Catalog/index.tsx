@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useSearchParams, Link } from "react-router-dom";
 import { Spin, Typography, Flex, Pagination, Slider, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import DarkSelect from "src/components/DarkSelect";
@@ -43,11 +43,15 @@ const getCollectionTitle = (item: AdminCollectionItem, lang: string): string => 
 const CatalogPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [collections, setCollections] = useState<AdminCollectionItem[]>([]);
-  const [filterValue, setFilterValue] = useState<string | undefined>(undefined);
+  const [filterValue, setFilterValue] = useState<string | undefined>(() => {
+    const collectionId = searchParams.get("collection");
+    return collectionId ? `col-${collectionId}` : undefined;
+  });
   const [expandedCollections, setExpandedCollections] = useState<Set<string>>(
     new Set(),
   );
@@ -87,6 +91,20 @@ const CatalogPage: React.FC = () => {
       .then((res) => setCollections(res.items ?? []))
       .catch(() => setCollections([]));
   }, []);
+
+  useEffect(() => {
+    const collectionId =
+      filterValue?.startsWith("col-") ? filterValue.slice(4) : null;
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (collectionId) next.set("collection", collectionId);
+        else next.delete("collection");
+        return next;
+      },
+      { replace: true },
+    );
+  }, [filterValue, setSearchParams]);
 
   useEffect(() => {
     setLoading(true);

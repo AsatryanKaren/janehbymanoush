@@ -54,6 +54,7 @@ const Header: React.FC<HeaderProps> = ({
             <NavLink path={contactItem.path} labelKey={contactItem.labelKey} />
           )}
           <Dropdown
+            trigger={["click"]}
             className={styles.headerLangWrap}
             menu={{ items: langMenuItems, onClick: onLanguageChange }}
             placement="bottomRight"

@@ -35,7 +35,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         hoverable
         className={styles.card}
         cover={
-          <img className={styles.image} alt={name} src={coverImage} />
+          <img
+            className={styles.image}
+            alt={name}
+            src={encodeURI(coverImage)}
+            loading="lazy"
+          />
         }
       >
         {variant === "compact" ? (

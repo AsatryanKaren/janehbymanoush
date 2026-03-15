@@ -23,7 +23,12 @@ const GalleryRow: React.FC = () => {
           }}
           aria-label={`View image ${i + 1} of ${IMAGES.length}`}
         >
-          <img src={src} alt="" className={styles.image} />
+          <img
+            src={src}
+            alt=""
+            className={styles.image}
+            loading="lazy"
+          />
         </button>
       ))}
       <Lightbox

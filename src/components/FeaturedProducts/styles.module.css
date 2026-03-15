@@ -62,8 +62,103 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
-.loaderWrap {
-  min-height: 280px;
+/* Skeleton loading – same layout as content, dark theme */
+.skeletonLabel :global(.ant-skeleton-paragraph li),
+.skeletonTitle :global(.ant-skeleton-title),
+.skeletonViewAll :global(.ant-skeleton-paragraph li),
+.skeletonMetaLine :global(.ant-skeleton-paragraph li),
+.skeletonMetaLine :global(.ant-skeleton-title) {
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border-muted) 50%,
+    var(--color-border-subtle) 75%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+.skeletonLabel {
+  margin-bottom: 6px !important;
+}
+
+.skeletonLabel :global(.ant-skeleton-paragraph) {
+  margin-top: 0 !important;
+}
+
+.skeletonLabel :global(.ant-skeleton-paragraph li) {
+  height: 0.75rem !important;
+}
+
+.skeletonTitle :global(.ant-skeleton-title) {
+  height: 1.75rem !important;
+  margin-top: 0 !important;
+}
+
+.skeletonViewAll :global(.ant-skeleton-paragraph) {
+  margin-top: 0 !important;
+}
+
+.skeletonViewAll :global(.ant-skeleton-paragraph li) {
+  height: 0.8125rem !important;
+}
+
+.skeletonRow {
+  width: 100%;
+}
+
+.skeletonCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+}
+
+.skeletonCardImage {
+  width: 100%;
+  height: 280px;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border-muted) 50%,
+    var(--color-border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+.skeletonCardMeta {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skeletonMetaLine {
+  margin-bottom: 0 !important;
+}
+
+.skeletonMetaLine :global(.ant-skeleton-paragraph) {
+  margin-top: 0 !important;
+}
+
+.skeletonMetaLine :global(.ant-skeleton-paragraph li) {
+  height: 0.875rem !important;
+}
+
+.skeletonMetaLine :global(.ant-skeleton-title) {
+  height: 0.875rem !important;
+  margin-top: 0 !important;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -84,11 +179,19 @@
     padding: 24px 16px;
     border-radius: 12px;
   }
+
+  .skeletonCardImage {
+    height: 220px;
+  }
 }
 
 @media (max-width: 480px) {
   .header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .skeletonCardImage {
+    height: 200px;
   }
 }

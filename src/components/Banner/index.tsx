@@ -33,7 +33,7 @@ const Banner: React.FC = () => {
           <span className={styles.brandLine2}>{t("home.brandLine2")}</span>
         </h1>
         <Flex gap="middle" justify="center" className={styles.actions}>
-          <Link to={ROUTES.CATALOG}>
+          <Link to={ROUTES.NEW}>
             <Button type="primary" size="large" className={styles.btnPrimary}>
               {t("home.newCollection")}
             </Button>

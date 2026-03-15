@@ -8,11 +8,16 @@ import FeaturedProducts from "src/components/FeaturedProducts";
 import NewsletterSection from "src/components/NewsletterSection";
 import GalleryRow from "src/components/GalleryRow";
 import { getBestsellers } from "src/api/bestsellers";
+import { collectionsApi } from "src/api/collections";
 import type { ProductCardPublic } from "src/types/product";
+import type { AdminCollectionItem } from "src/types/collection";
 
 const HomePage: React.FC = () => {
   const [bestsellers, setBestsellers] = useState<ProductCardPublic[]>([]);
   const [bestsellersLoading, setBestsellersLoading] = useState(true);
+  const [collections, setCollections] = useState<AdminCollectionItem[] | null>(
+    null,
+  );
 
   useEffect(() => {
     getBestsellers()
@@ -21,17 +26,24 @@ const HomePage: React.FC = () => {
       .finally(() => setBestsellersLoading(false));
   }, []);
 
+  useEffect(() => {
+    void collectionsApi
+      .getAll()
+      .then((res) => setCollections(res.items ?? []))
+      .catch(() => setCollections([]));
+  }, []);
+
   return (
     <>
       <Banner />
-      <CuratedEdits />
+      <CuratedEdits collections={collections} />
       <HeritageSection />
       <PromoSection />
       <FeaturedProducts
         products={bestsellers}
         loading={bestsellersLoading}
       />
-      <OurCollections />
+      <OurCollections collections={collections} />
       <NewsletterSection />
       <GalleryRow />
     </>

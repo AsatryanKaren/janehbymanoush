@@ -1,6 +1,6 @@
-import { Drawer, Button, Dropdown } from "antd";
-import { GlobalOutlined } from "@ant-design/icons";
+import { Drawer } from "antd";
 import { Link } from "react-router-dom";
+import GalleryRow from "src/components/GalleryRow";
 import type { MobileDrawerProps } from "./types";
 import styles from "./styles.module.css";
 
@@ -11,9 +11,6 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
   isActive,
   t,
   onNavClick,
-  langMenuItems,
-  currentLangLabel,
-  onLanguageChange,
   logoUrl,
   logoAlt,
 }) => (
@@ -41,21 +38,9 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
         </Link>
       ))}
     </nav>
-    <Dropdown
-      menu={{ items: langMenuItems, onClick: onLanguageChange }}
-      placement="bottomLeft"
-      popupRender={(menu) => (
-        <div className={styles.dropdownOverlay}>{menu}</div>
-      )}
-    >
-      <Button
-        type="text"
-        icon={<GlobalOutlined />}
-        className={styles.drawerLangButton}
-      >
-        {currentLangLabel}
-      </Button>
-    </Dropdown>
+    <div className={styles.drawerGallery}>
+      <GalleryRow />
+    </div>
   </Drawer>
 );
 

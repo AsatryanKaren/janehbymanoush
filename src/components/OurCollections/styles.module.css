@@ -88,6 +88,46 @@
   background: var(--color-border-subtle);
 }
 
+.skeletonImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border-muted) 50%,
+    var(--color-border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: ourCollectionsShimmer 1.5s ease-in-out infinite;
+}
+
+.cardLabelSkeleton {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: linear-gradient(
+    90deg,
+    var(--color-border-subtle) 25%,
+    var(--color-border-muted) 50%,
+    var(--color-border-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: ourCollectionsShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes ourCollectionsShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 .cardLabel {
   position: absolute;
   bottom: 0;

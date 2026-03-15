@@ -6,6 +6,8 @@ const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
     theme={{
       token: {
         colorPrimary: "#bf7a5a",
+        colorLinkHover: "#bf7a5a",
+        colorLinkActive: "#9d6347",
         borderRadius: 6,
         fontFamily: "var(--app-font-family)",
       },

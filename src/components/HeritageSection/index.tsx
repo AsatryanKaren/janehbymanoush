@@ -17,7 +17,12 @@ const HeritageSection: React.FC = () => {
         {/* Image left on desktop (lg), below content on mobile (xs) */}
         <Col xs={{ span: 24, order: 2 }} lg={{ span: 12, order: 1 }}>
           <div className={styles.imageWrap}>
-            <img src={HERITAGE_IMAGE} alt="" className={styles.image} />
+            <img
+              src={HERITAGE_IMAGE}
+              alt=""
+              className={styles.image}
+              loading="lazy"
+            />
           </div>
         </Col>
         <Col xs={{ span: 24, order: 1 }} lg={{ span: 12, order: 2 }}>
