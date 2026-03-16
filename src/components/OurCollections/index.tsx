@@ -38,7 +38,11 @@ const OurCollections: React.FC<OurCollectionsProps> = (
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (collectionsProp === null) return;
+    if (collectionsProp === null || collectionsProp === undefined) {
+      setCards([]);
+      setLoading(false);
+      return;
+    }
     const items = collectionsProp.slice(0, MAX_COLLECTIONS);
     if (items.length === 0) {
       setCards([]);

@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Breadcrumb, Col, Row, Spin, Typography, Flex } from "antd";
 import { useTranslation } from "react-i18next";
 import { productsApi } from "src/api/products";
+import { collectionsApi } from "src/api/collections";
 import { ROUTES } from "src/consts/routes";
 import {
   getProductName,
@@ -10,6 +11,7 @@ import {
   getProductStory,
 } from "src/utils/productLocale";
 import type { ProductDetailsPublic } from "src/types/product";
+import type { AdminCollectionItem } from "src/types/collection";
 import ProductImages from "./ProductImages";
 import ProductInfo from "./ProductInfo";
 import ProductStory from "./ProductStory";
@@ -23,6 +25,9 @@ const ProductPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [product, setProduct] = useState<ProductDetailsPublic | null>(null);
   const [loading, setLoading] = useState(true);
+  const [collections, setCollections] = useState<AdminCollectionItem[] | null>(
+    null,
+  );
 
   useEffect(() => {
     if (!slug) return;
@@ -34,6 +39,13 @@ const ProductPage: React.FC = () => {
       .catch(() => setProduct(null))
       .finally(() => setLoading(false));
   }, [slug]);
+
+  useEffect(() => {
+    void collectionsApi
+      .getAll()
+      .then((res) => setCollections(res.items ?? []))
+      .catch(() => setCollections([]));
+  }, []);
 
   if (loading) {
     return (
@@ -93,7 +105,7 @@ const ProductPage: React.FC = () => {
           backgroundImageUrl={backgroundImageUrl}
         />
       </div>
-      <OurCollections />
+      <OurCollections collections={collections} />
     </>
   );
 };
