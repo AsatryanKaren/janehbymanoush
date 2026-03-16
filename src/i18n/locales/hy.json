@@ -16,6 +16,7 @@
     "collection": "Հավաքածուներ",
     "woman": "Կանանց",
     "man": "Տղամարդկանց",
+    "unisex": "Ունիսեքս",
     "new": "Նոր զարդեր",
     "newProducts": "Նոր զարդեր",
     "about": "Մեր մասին",
@@ -79,6 +80,7 @@
   "catalog": {
     "womenCollection": "Կանացի հավաքածու",
     "menCollection": "Տղամարդկանց հավաքածու",
+    "unisexCollection": "Ունիսեքս",
     "catalog": "Հավաքածուներ",
     "noProducts": "Ապրանքներ չեն գտնվել",
     "emptyTitle": "Այս ընտրությունում զարդեր չկան",
@@ -121,6 +123,11 @@
     "categoryNecklaces": "ՎԶՆՈՑՆԵՐ",
     "categoryRings": "ՄԱՏԱՆԻՆԵՐ",
     "categoryBracelets": "ԹԵՎՆՈՑՆԵՐ",
+    "genderWomen": "Կանայք",
+    "genderMen": "Տղամարդիկ",
+    "genderUnisex": "Ունիսեքս",
+    "orderDetailsLink": "Պատվերի և առաքման մանրամասներ",
+    "jewelryDetails": "Պատրաստված 925 հարգի արծաթից։",
     "orderModal": {
       "subtitle": "Լրացրեք տվյալները, և մենք կկապվենք ձեզ հետ պատվերը հաստատելու համար։",
       "count": "Քանակ",

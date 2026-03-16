@@ -16,6 +16,7 @@
     "collection": "Коллекция",
     "woman": "Женщина",
     "man": "Мужчина",
+    "unisex": "Унисекс",
     "new": "Новинки",
     "newProducts": "Новые товары",
     "about": "О нас",
@@ -79,6 +80,7 @@
   "catalog": {
     "womenCollection": "Женская коллекция",
     "menCollection": "Мужская коллекция",
+    "unisexCollection": "Унисекс",
     "catalog": "Каталог",
     "noProducts": "Товары не найдены",
     "emptyTitle": "В этой подборке пока нет товаров",
@@ -121,6 +123,11 @@
     "categoryNecklaces": "Ожерелья",
     "categoryRings": "Кольца",
     "categoryBracelets": "Браслеты",
+    "genderWomen": "Женщины",
+    "genderMen": "Мужчины",
+    "genderUnisex": "Унисекс",
+    "orderDetailsLink": "Детали заказа и доставки",
+    "jewelryDetails": "Изготовлено из серебра 925 пробы.",
     "orderModal": {
       "subtitle": "Заполните данные, и мы свяжемся с вами для подтверждения заказа.",
       "count": "Количество",

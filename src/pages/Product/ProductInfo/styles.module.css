@@ -40,6 +40,45 @@
   flex-wrap: wrap;
 }
 
+.orderDetailsLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-body);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.orderDetailsLink:hover {
+  color: var(--color-text-heading);
+}
+
+.orderDetailsLinkIcon {
+  font-size: 1.125rem;
+  color: inherit;
+}
+
+.jewelryDetails {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-body);
+  padding: 10px 12px;
+  background: var(--color-border-subtle);
+  border-radius: 8px;
+}
+
+.jewelryDetailsIcon {
+  font-size: 1.125rem;
+  color: var(--color-text-body);
+  flex-shrink: 0;
+}
+
 .price {
   font-size: 1.5rem;
   font-weight: 600;

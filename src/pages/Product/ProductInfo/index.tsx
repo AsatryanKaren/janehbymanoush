@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { Button, Tag, Typography } from "antd";
-import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+  MinusOutlined,
+  PlusOutlined,
+  SafetyCertificateOutlined,
+  ShoppingCartOutlined,
+  TruckOutlined,
+} from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ROUTES } from "src/consts/routes";
+import { GENDER_I18N_KEYS, genderFromApi } from "src/types/product";
 import { formatPrice } from "src/utils/formatPrice";
 import OrderModal from "../OrderModal";
 import type { OrderFormValues } from "../OrderModal/types";
@@ -20,6 +29,10 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   const [orderModalOpen, setOrderModalOpen] = useState(false);
 
   const isAvailable = product.isActive !== false;
+  const gender =
+    product.gender !== undefined && product.gender !== null
+      ? genderFromApi(product.gender)
+      : null;
 
   const handleOrderSuccess = (_values: OrderFormValues) => {
     // TODO: integrate with API (e.g. submit order with product + quantity)
@@ -39,6 +52,9 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
         <span className={styles.price}>
           {formatPrice(product.price ?? 0, "AMD", i18n.language)}
         </span>
+        {gender !== null && (
+          <Tag>{t(GENDER_I18N_KEYS[gender])}</Tag>
+        )}
         <Tag
           className={
             isAvailable ? styles.availabilityTag : styles.availabilityTagOutOfStock
@@ -74,6 +90,14 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
             />
           </div>
         </div>
+      </div>
+      <Link to={ROUTES.SHIPPING} className={styles.orderDetailsLink}>
+        <TruckOutlined className={styles.orderDetailsLinkIcon} />
+        <span>{t("product.orderDetailsLink")}</span>
+      </Link>
+      <div className={styles.jewelryDetails}>
+        <SafetyCertificateOutlined className={styles.jewelryDetailsIcon} />
+        <span>{t("product.jewelryDetails")}</span>
       </div>
       <div className={styles.ctaButton}>
         <Button

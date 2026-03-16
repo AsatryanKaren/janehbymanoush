@@ -173,6 +173,16 @@ const CatalogPage: React.FC = () => {
               {t("catalog.all")}
             </Link>
             <Link
+              to={ROUTES.NEW}
+              className={
+                location.pathname === ROUTES.NEW
+                  ? styles.categoryLinkActive
+                  : styles.categoryLink
+              }
+            >
+              {t("nav.new")}
+            </Link>
+            <Link
               to={ROUTES.WOMEN}
               className={
                 location.pathname === ROUTES.WOMEN
@@ -193,14 +203,14 @@ const CatalogPage: React.FC = () => {
               {t("nav.man")}
             </Link>
             <Link
-              to={ROUTES.NEW}
+              to={ROUTES.UNISEX}
               className={
-                location.pathname === ROUTES.NEW
+                location.pathname === ROUTES.UNISEX
                   ? styles.categoryLinkActive
                   : styles.categoryLink
               }
             >
-              {t("nav.new")}
+              {t("nav.unisex")}
             </Link>
           </div>
           <div className={styles.priceRangeWrap}>

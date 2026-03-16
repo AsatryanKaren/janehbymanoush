@@ -72,6 +72,7 @@ const AppLayout: React.FC = () => {
       p === ROUTES.CATALOG ||
       p === ROUTES.WOMEN ||
       p === ROUTES.MEN ||
+      p === ROUTES.UNISEX ||
       p === ROUTES.NEW ||
       p.startsWith(ROUTES.CATALOG + "/")
     );

@@ -41,11 +41,18 @@ export const GENDER_OPTIONS: { label: string; value: Gender }[] = [
   { label: "Unisex", value: Gender.Unisex },
 ];
 
-/** Labels for display (e.g. product view). */
+/** Labels for display in admin (English). */
 export const GENDER_LABELS: Record<Gender, string> = {
   [Gender.Women]: "Women",
   [Gender.Men]: "Men",
   [Gender.Unisex]: "Unisex",
+};
+
+/** i18n keys for product page gender tag (use with t()). */
+export const GENDER_I18N_KEYS: Record<Gender, string> = {
+  [Gender.Women]: "product.genderWomen",
+  [Gender.Men]: "product.genderMen",
+  [Gender.Unisex]: "product.genderUnisex",
 };
 
 export function isGender(value: unknown): value is Gender {

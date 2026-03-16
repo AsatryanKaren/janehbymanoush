@@ -16,6 +16,7 @@
     "collection": "Collection",
     "woman": "Woman",
     "man": "Man",
+    "unisex": "Unisex",
     "new": "New",
     "newProducts": "New products",
     "about": "About",
@@ -79,6 +80,7 @@
   "catalog": {
     "womenCollection": "Women's Collection",
     "menCollection": "Men's Collection",
+    "unisexCollection": "Unisex",
     "catalog": "Catalog",
     "noProducts": "No products found",
     "emptyTitle": "No products in this selection",
@@ -121,6 +123,11 @@
     "categoryNecklaces": "Necklaces",
     "categoryRings": "Rings",
     "categoryBracelets": "Bracelets",
+    "genderWomen": "Women",
+    "genderMen": "Men",
+    "genderUnisex": "Unisex",
+    "orderDetailsLink": "Order & shipping details",
+    "jewelryDetails": "Crafted from 925 sterling silver.",
     "orderModal": {
       "subtitle": "Fill in your details and we'll get back to you to confirm your order.",
       "count": "Quantity",
