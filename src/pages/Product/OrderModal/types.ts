@@ -13,5 +13,7 @@ export type OrderModalProps = {
   productName: string;
   /** Quantity selected on product page (+/-). Sent as count in order. */
   count: number;
+  /** Ring size when selected on product page. Omitted from request if null. */
+  ringSize?: number | null;
   onSuccess?: (values: OrderFormValues) => void;
 };

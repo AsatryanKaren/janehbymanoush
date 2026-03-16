@@ -6,6 +6,8 @@ export type CreateOrderRequest = {
   phone: string | null;
   email: string | null;
   message: string | null;
+  /** Ring size when selected on product page (optional). */
+  ringSize?: number;
 };
 
 /** POST /v1/orders — create order response */

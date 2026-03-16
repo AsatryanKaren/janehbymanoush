@@ -1,0 +1,134 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-text-label);
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.chipsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  min-width: 44px;
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-border-subtle) !important;
+  color: var(--color-text-body) !important;
+  border-radius: 8px;
+}
+
+.chip:hover:not(:disabled) {
+  color: var(--color-accent-light) !important;
+  background: var(--color-border-muted) !important;
+  border-color: var(--color-border) !important;
+}
+
+.chipCustom {
+  min-width: auto;
+}
+
+.chipActive {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-text-heading) !important;
+}
+
+.chipActive:hover {
+  background: var(--color-accent-light) !important;
+  border-color: var(--color-accent-light) !important;
+  color: var(--color-text-heading) !important;
+}
+
+.customControlsWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.customControls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-border-subtle);
+  min-height: 32px;
+}
+
+.customClearBtn {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-body) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 8px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.customClearBtn:hover:not(:disabled) {
+  color: var(--color-text-heading) !important;
+  background: var(--color-border-muted) !important;
+}
+
+.customBtn {
+  width: 36px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-body) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  transition: color 0.2s, background 0.2s;
+}
+
+.customBtn:hover:not(:disabled) {
+  color: var(--color-accent-light) !important;
+  background: var(--color-border-muted) !important;
+}
+
+.customBtn:disabled {
+  color: var(--color-text-label) !important;
+  opacity: 0.7;
+}
+
+.customValue {
+  min-width: 48px;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-product);
+  padding: 0 8px;
+}
+
+.error .label {
+  color: var(--color-error, #ff4d4f);
+}
+
+.error .chipsWrap :global(.ant-btn) {
+  border-color: var(--color-error, #ff4d4f);
+}
+
+.error .customControls {
+  border-color: var(--color-error, #ff4d4f);
+}

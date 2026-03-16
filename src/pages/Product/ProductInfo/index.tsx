@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "src/consts/routes";
+import RingSizeSelector from "src/components/RingSizeSelector";
 import { GENDER_I18N_KEYS, genderFromApi } from "src/types/product";
 import { formatPrice } from "src/utils/formatPrice";
 import OrderModal from "../OrderModal";
@@ -27,6 +28,8 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   const { t, i18n } = useTranslation();
   const [quantity, setQuantity] = useState(1);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
+  const [ringSize, setRingSize] = useState<number | null>(null);
+  const [ringSizeIsCustom, setRingSizeIsCustom] = useState(false);
 
   const isAvailable = product.isActive !== false;
   const gender =
@@ -68,6 +71,14 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           {description}
         </Paragraph>
       )}
+      <RingSizeSelector
+        value={ringSize}
+        isCustom={ringSizeIsCustom}
+        onChange={(value, isCustom) => {
+          setRingSize(value);
+          setRingSizeIsCustom(isCustom);
+        }}
+      />
       <div>
         <span className={styles.quantityLabel}>{t("product.quantity")}</span>
         <div className={styles.quantityWrapper}>
@@ -118,6 +129,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
         productId={product.id}
         productName={name}
         count={quantity}
+        ringSize={ringSize}
         onSuccess={handleOrderSuccess}
       />
     </div>
