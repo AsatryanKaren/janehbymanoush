@@ -12,6 +12,7 @@ import {
   ROUTES_WITHOUT_CONTENT_PADDING_TOP,
   ROUTES_WITH_REDUCED_CONTENT_PADDING_TOP_MOBILE,
 } from "./consts";
+import ScrollToTop from "src/app/ScrollToTop";
 import Header from "./Header";
 import MobileDrawer from "./MobileDrawer";
 import Footer from "src/components/Footer";
@@ -104,6 +105,7 @@ const AppLayout: React.FC = () => {
 
   return (
     <Layout>
+      <ScrollToTop />
       <Header
         leftItems={LEFT_NAV_ITEMS}
         rightItems={RIGHT_NAV_ITEMS}

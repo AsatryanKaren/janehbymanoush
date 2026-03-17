@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { adminAuthApi } from "src/api/adminAuth.api";
+import ScrollToTop from "src/app/ScrollToTop";
 import {
   clearAdminTokens,
   hasAdminTokens,
@@ -47,6 +48,7 @@ const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }) => {
 
   return (
     <AdminAuthContext.Provider value={value}>
+      <ScrollToTop />
       {children}
     </AdminAuthContext.Provider>
   );
