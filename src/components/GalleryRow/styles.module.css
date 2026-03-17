@@ -28,7 +28,7 @@
   object-fit: cover;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .section {
     display: flex;
     gap: 12px;
@@ -62,7 +62,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1025px) {
   .section {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -75,7 +75,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .section {
     grid-template-columns: repeat(6, 1fr);
   }

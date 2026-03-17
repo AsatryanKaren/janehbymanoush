@@ -4,6 +4,12 @@ import GalleryRow from "src/components/GalleryRow";
 import type { MobileDrawerProps } from "./types";
 import styles from "./styles.module.css";
 
+const GALLERY_MAX_WIDTH_PX = 1024;
+
+const showGalleryInDrawer =
+  typeof window !== "undefined" &&
+  window.matchMedia(`(max-width: ${GALLERY_MAX_WIDTH_PX}px)`).matches;
+
 const MobileDrawer: React.FC<MobileDrawerProps> = ({
   open,
   onClose,
@@ -38,9 +44,11 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
         </Link>
       ))}
     </nav>
-    <div className={styles.drawerGallery}>
-      <GalleryRow />
-    </div>
+    {showGalleryInDrawer && (
+      <div className={styles.drawerGallery}>
+        <GalleryRow />
+      </div>
+    )}
   </Drawer>
 );
 
