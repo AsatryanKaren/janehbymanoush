@@ -57,7 +57,10 @@ const AdminLoginPage: React.FC = () => {
             label={t("admin.login.password")}
             rules={[{ required: true, message: t("admin.login.passwordRequired") }]}
           >
-            <Input.Password autoComplete="current-password" />
+            <Input.Password
+              className={styles.passwordInputNoBorder}
+              autoComplete="current-password"
+            />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" block>

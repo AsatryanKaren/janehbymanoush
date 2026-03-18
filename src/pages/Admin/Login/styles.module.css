@@ -92,6 +92,17 @@
   box-shadow: 0 0 0 2px rgba(191, 122, 90, 0.2) !important;
 }
 
+/* Password input only: no border in any state */
+.form .passwordInputNoBorder:global(.ant-input-password),
+.form .passwordInputNoBorder:global(.ant-input-password) :global(.ant-input),
+.form .passwordInputNoBorder:global(.ant-input-password):hover :global(.ant-input),
+.form .passwordInputNoBorder:global(.ant-input-password):focus-within :global(.ant-input),
+.form .passwordInputNoBorder:global(.ant-input-password.ant-input-focused) :global(.ant-input) {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 .form :global(.ant-input-password .anticon) {
   color: var(--color-text-label);
 }
