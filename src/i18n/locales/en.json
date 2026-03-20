@@ -53,26 +53,24 @@
     },
     "promoSection": {
       "label": "NEW COLLECTION",
-      "heading": "Discover our latest silver pieces.",
-      "body": "Handcrafted jewelry that blends tradition with contemporary design. Explore the new arrivals.",
+      "heading": "Every jewelry holds a story",
+      "body": "Each design is carefully crafted to capture emotion, reflect your style, and highlight your individuality.",
       "cta": "Shop the collection"
     },
     "heritage": {
-      "label": "HERITAGE",
-      "heading": "Traditional jewelry with modern design.",
-      "body": "Made in a modern design style, simultaneously conveying the deep meaning and spiritual value of Armenian architectural heritage.",
+      "heading": "Elegance you can feel",
+      "body": "Our jewelry is created not only to be seen, but to be felt expressing mood, story, and a distinct sense of individuality.",
       "rawMaterialsTitle": "Choice of raw materials",
-      "rawMaterialsDesc": "When creating jewelry, we use only 100% recycled silver.",
+      "rawMaterialsDesc": "Quality you can feel in every detail.",
       "individualityTitle": "Individuality",
-      "individualityDesc": "The jewelry has a unique composition and exceptional design.",
-      "ourStory": "Our story"
+      "individualityDesc": "Design that blends modern aesthetics with refined elegance.",
+      "ourStory": "About Us"
     },
     "newsletter": {
-      "label": "Newsletter",
-      "title": "Join the Circle",
-      "subtitle": "Be the first to know about new collection drops, private events, and editorial journals.",
-      "placeholder": "Your email address",
-      "button": "Join",
+      "label": "SUBSCRIBTION",
+      "title": "Stay Close to JANEH",
+      "subtitle": "Discover the latest collections, news and exclusive privileges.",
+      "button": "Subscribe",
       "success": "You're subscribed. We'll be in touch.",
       "error": "Something went wrong. Please try again later."
     }
@@ -169,20 +167,17 @@
     "heroTagline": "Culture uniting artists",
     "heroLearnMore": "LEARN MORE",
     "heroSubtitle": "Where Armenian heritage meets contemporary elegance",
-    "heritageTitle": "Heritage",
-    "heritageSubtitle": "in every particle",
-    "heritageBody": "Janeh by Manoush is rooted in centuries of Armenian artistry. Each piece carries the heritage of our ancestors, blending traditional craftsmanship with contemporary design. We believe that every detail tells a story of culture, art, and identity.",
-    "heritageReadMore": "READ MORE",
+    "heritageTitle": "About us",
+    "heritageBody": "Representing the real Armenian, the origin of Janeh's name has deep patriotic roots. The name 'Janeh' is taken from the Martuni region of Artsakh. In the local dialect, Janeh is equivalent to the word Jan (in translation-sweety). 'Janeh' is silver jewelry, on which Armenian ornaments are depicted, taken from sculptures of khachkars and church domes, Armenian costumes and carpets.",
     "quoteText": "Our legends tell the rich stories of our ancestors, who are the roots of our art.",
-    "craftTitle": "The Art",
-    "craftSubtitle": "Combination of classical art and modern design",
-    "craftHandicraftTitle": "HANDICRAFT",
+    "craftTitle": "“ What is jewelry?",
+    "craftSubtitle": "- Jewelry is one of the important accessories that reveals a person's essence. The model, type, and shape of jewelry talks more about the wearer than the shirt or pants he or she is wearing. - Manush Yesayan",
     "craftHandicraftBody": "Every piece is meticulously handcrafted by skilled artisans, ensuring exceptional quality and attention to detail in each creation.",
     "craftDesignTitle": "DESIGN",
     "craftDesignBody": "Our designs are drawn from tradition and reimagined for today. From sketch to finished piece, we combine classical motifs with modern sensibility.",
     "craftCollectionsTitle": "COLLECTIONS",
     "craftCollectionsBody": "From delicate everyday pieces to statement jewelry for special occasions, we create collections that become a part of your story.",
-    "ctaHeading": "We create jewelry not just to wear, but also to inherit",
+    "ctaHeading": "Inspired by history and culture, jewelry is created that fuses modern style and Armenian culture.",
     "ctaViewCollections": "VIEW COLLECTIONS",
     "ctaDetails": "DETAILS",
     "quickLinks": {
@@ -192,7 +187,8 @@
       "desc": {
         "ringSize": "Find your perfect fit",
         "giftCards": "Give the perfect present",
-        "shipping": "Delivery and returns",
+        "shipping": "Delivery",
+        "returns": "Returns and exchanges",
         "care": "Keep your silver shining"
       }
     },
@@ -202,18 +198,18 @@
     "paragraph3": "We believe in quality over quantity, sustainability, and the power of personal expression through beautiful jewelry.",
     "valuesTitle": "Our Values",
     "qualityTitle": "Craftsmanship",
-    "qualityDesc": "Every piece is meticulously handcrafted by skilled artisans, ensuring exceptional quality and attention to detail in each creation.",
-    "sustainabilityTitle": "Sustainability",
-    "sustainabilityDesc": "We use ethically sourced materials and sustainable practices, because beautiful jewelry should never come at the planet's expense.",
+    "qualityDesc": "Crafted by skilled artisans, each piece embodies outstanding quality and refined craftsmanship.",
+    "sustainabilityTitle": "Originality",
+    "sustainabilityDesc": "Each piece is thoughtfully created with a distinctive design and a personal touch.",
     "expressionTitle": "Heritage",
-    "expressionDesc": "Rooted in centuries of Armenian artistry, our designs honor tradition while embracing modern aesthetics and personal expression.",
+    "expressionDesc": "Rooted in Armenian tradition, our designs reflect a balance of heritage, modern aesthetics, and individuality.",
     "shopNow": "Explore Collection"
   },
   "contact": {
     "title": "Contact Us",
     "heroSubtitle": "We'd love to hear from you",
-    "inquiriesTitle": "Inquiries",
-    "inquiriesDesc": "Whether you're looking for a bespoke commission or have questions about our latest collection, we'd love to hear from you.",
+    "inquiriesTitle": "Contact Us",
+    "inquiriesDesc": "If you have any questions or would like a consultation, leave your details and we’ll be delighted to assist you.",
     "subtitle": "Send us a message and we'll get back to you shortly.",
     "nameLabel": "NAME",
     "namePlaceholder": "Your full name",
@@ -240,12 +236,12 @@
     "send": "Send Message",
     "sendFormTitle": "Send a Message",
     "infoTitle": "Get in Touch",
-    "emailAddress": "hello@janehbymanoush.com",
+    "emailAddress": "janebymanoushh@gmail.com",
     "emailInfo": "EMAIL US",
-    "phoneInfo": "PHONE",
-    "phoneNumber": "+1 (234) 567-890",
+    "phoneInfo": "PHONE NUMBER",
+    "phoneNumber": "+374 99 080053",
     "addressInfo": "Visit Us",
-    "studioAddressLabel": "STUDIO ADDRESS",
+    "studioAddressLabel": "ADDRESS",
     "studioAddressValue": "Rio Mall, 2nd floor, Papazyan 8",
     "address": "Yerevan, Armenia",
     "hoursInfo": "Working Hours",
@@ -259,27 +255,48 @@
   },
   "ringSizeGuide": {
     "title": "Ring Size Guide",
-    "intro": "Finding the right ring size ensures a comfortable fit for your handcrafted silver piece. Our rings are made to order in standard sizes; use this guide to measure at home.",
-    "howTo": "Wrap a strip of paper or string around the base of your finger where the ring will sit. Mark where it overlaps, then measure the length in millimetres. Match the result to our size chart, or send us your measurement and we will recommend the best size.",
-    "tips": "Fingers can vary slightly with temperature and time of day. For the most accurate fit, measure in the evening when fingers are typically at their largest. If you are between sizes, we recommend choosing the larger size for comfort."
+    "tipsHeading": "Measuring your ring size",
+    "bullet1": "A properly chosen ring size ensures comfort and a natural feel when wearing the ring.",
+    "bullet2": "You can determine your size using a piece of paper: wrap it around your finger, mark the junction, and measure the resulting length in millimetres. You can also measure the inside diameter of an existing ring for a more accurate result. We recommend measuring at the end of the day, when your finger is at its natural size.",
+    "bullet3": "Size guide:\n\n55 mm ≈ size 16\n58 mm ≈ size 17\n61 mm ≈ size 18\n64 mm ≈ size 19\n67 mm ≈ size 20\n70 mm ≈ size 21",
+    "bullet4": "Please note that self-measurements may have slight variations. For the most accurate fit, we recommend visiting our store."
   },
   "shipping": {
-    "title": "Shipping & Delivery",
-    "intro": "We ship our handcrafted silver jewelry with care so it reaches you in perfect condition. All orders are packed in protective packaging and can be sent worldwide.",
-    "options": "Standard delivery typically takes 5–7 business days within the region; express options are available at checkout. International delivery times vary by destination. Shipping costs are calculated at checkout based on your location and the option you choose.",
-    "tracking": "Once your order has been dispatched, you will receive an email with a tracking link so you can follow your package until it arrives. If you have any questions about your delivery, our team is here to help."
+    "title": "Shipping Information",
+    "tipsHeading": "Delivery details",
+    "bullet1": "We offer fast and reliable delivery both within Armenia and internationally.",
+    "bullet2": "After placing your order, you will receive an email with updates on your order status. Please note that the email may appear in your spam folder. Once your order arrives in your country, the courier will contact you to arrange delivery.",
+    "bullet3": "Delivery within Yerevan costs 1,000 AMD. In-stock items are delivered within up to 2 days, while made-to-order pieces are delivered within up to 20 days.",
+    "bullet4": "Shipping to Russia takes 7–10 business days, with a delivery cost of 6,000 AMD.",
+    "bullet5": "Shipping to the USA takes 7–15 business days, with a delivery cost of 6,000 AMD.",
+    "bullet6": "Delivery is carried out door-to-door, directly to your specified address."
+  },
+  "returns": {
+    "title": "Returns or Exchanges",
+    "tipsHeading": "Returns policy",
+    "bullet1": "We value that every purchase is thoughtful and enjoyable.",
+    "bullet2": "Due to the nature of jewelry, and in accordance with Article 23, Clause 9 of the RA Law “On Consumer Rights Protection”, items made of precious metals, including those with precious, semi-precious, or synthetic stones, are not eligible for return or exchange.",
+    "bullet3": "We kindly recommend making your selection carefully or contacting us for assistance before completing your purchase.",
+    "lawReferenceLabel": "Official list on ARLIS — RA Government Decision No. 77 of 30 January 2002 (non-returnable goods of proper quality)"
   },
   "care": {
-    "title": "Jewelry Care",
-    "intro": "With a little care, your silver jewelry from Janeh by Manoush will keep its beauty for years. Silver can tarnish over time; simple habits help preserve its shine and finish.",
-    "storage": "Store your pieces in a dry place, ideally in a soft pouch or a jewelry box away from direct sunlight and humidity. Keep silver separate from other metals to avoid scratches. Removing rings and bracelets before hand washing or applying lotions helps prevent buildup.",
-    "cleaning": "To restore shine, gently wipe your silver with a soft, lint-free cloth. For deeper cleaning, use a mild soap and water, then dry thoroughly. Avoid harsh chemicals and abrasive materials. With minimal care, each piece will continue to reflect the craftsmanship that went into it."
+    "title": "How to wear silver jewelry?",
+    "tipsHeading": "Daily care essentials",
+    "bullet1": "Avoid contact with silver jewelry with cosmetics, household chemicals or medicines containing sulfur.",
+    "bullet2": "Remember that silver begins to \"get black\" from excess moisture, so remove rings, bracelets and earrings when doing housework, taking a bath, or playing sports.",
+    "bullet3": "The best way to store jewelry is to use accessory boxes.",
+    "bullet4": "Avoid impacts that may cause scratches on delicate metal.",
+    "bullet5": "Jewelry should be cleaned regularly with a soft dry cloth.",
+    "closing": "We hope that the above information, as well as your careful treatment of the jewelry, will preserve its original shine and beauty. If, because of wearing the jewelry properly, it will lose its appearance, we are ready to correct all defects, if they are caused by an error in the manufacturing processes.",
+    "signOff": "With love, Janeh"
   },
   "giftCards": {
     "title": "Gift Cards",
-    "intro": "Give the gift of choice with a Janeh by Manoush gift card. Let someone special pick a piece of handcrafted silver jewelry that speaks to them—from our collection of rings, necklaces, bracelets, and earrings.",
-    "howItWorks": "Gift cards are available in a range of amounts and can be used for any purchase in our online store. They are delivered by email with a unique code. The recipient can apply the balance at checkout when they are ready to choose their piece.",
-    "contact": "To order a gift card or ask about custom amounts, please contact us. We are happy to help you find the perfect way to give our jewelry."
+    "tipsHeading": "What to know",
+    "bullet1": "Give the freedom to choose with our gift cards, starting from 10․000 AMD.",
+    "bullet2": "They are the perfect way to create a thoughtful surprise, allowing the recipient to find the piece that speaks to them most.",
+    "bullet3": "Our gift cards have no expiration date and can be used at any convenient time.",
+    "bullet4": "Please present the gift card in-store when making a purchase."
   },
   "cart": {
     "title": "Shopping Cart",
@@ -301,7 +318,10 @@
     "featureShipping": "Shipping",
     "featurePackaging": "Packaging",
     "featurePrivacyPolicy": "Privacy & policy",
-    "privacyPolicySummary": "We respect your privacy and protect your personal data. By placing an order you agree to our processing of your information for order fulfillment. We do not share your data with third parties for marketing. For full details, see our Privacy Policy.",
+    "featureReturns": "Returns",
+    "privacyPolicySummary": "We respect your privacy and protect your personal data. By placing an order you agree to our processing of your information for order fulfillment. For full details, see our Privacy Policy.",
+    "privacyPdfLink": "Open Privacy Policy (PDF file)",
+    "privacyPdfLinkAria": "Open Privacy Policy as a PDF in a new tab",
     "featurePrivacyDiscounts": "Privacy policy & Discounts",
     "paymentDraft": "Payment options will be displayed here. This is a visual draft for now.",
     "name": "Full name",
@@ -314,7 +334,7 @@
     "address": "Address",
     "addressPlaceholder": "Shipping address",
     "addressRequired": "Please enter your address",
-    "phone": "Phone",
+    "phone": "Phone number",
     "phonePlaceholder": "+374 XX XX XX XX",
     "phoneRequired": "Please enter your phone number",
     "message": "Message",
@@ -412,7 +432,7 @@
     "columnOrderId": "Order ID",
     "columnCustomer": "Customer",
     "columnEmail": "Email",
-    "columnPhone": "Phone",
+    "columnPhone": "Phone number",
     "columnProduct": "Product",
     "columnQuantity": "Quantity",
     "columnMessage": "Message",
@@ -506,19 +526,20 @@
     }
   },
   "footer": {
-    "brandTagline": "Armenian heritage in modern jewelry.",
-    "purchases": {
-      "title": "Purchases",
-      "ringSizeGuide": "Ring size guide",
+    "brandTagline": "Where art takes the form of jewelry․",
+    "help": {
+      "title": "Help & information",
+      "ringSizeGuide": "Ring Size Guide",
       "giftCards": "Gift cards",
-      "shippingReturns": "Shipping and returns",
       "careInstructions": "Care instructions"
     },
     "about": {
-      "title": "About Us",
+      "title": "Service & support",
       "philosophy": "Our philosophy",
-      "heritage": "Heritage",
-      "contactUs": "Contact us"
+      "story": "Our story",
+      "contactUs": "Contact us",
+      "shipping": "Shipping",
+      "returns": "Returns or exchanges"
     },
     "addresses": {
       "title": "Our Addresses",

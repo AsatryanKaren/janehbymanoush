@@ -4,34 +4,63 @@
   min-height: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  direction: ltr;
 }
 
+/* Sticky on aside only — no overflow here (same pattern as ContentWithImage). Inner column scrolls. */
 .sidebar {
   flex-shrink: 0;
   width: 240px;
-  max-height: calc(100vh - 72px);
-  overflow-y: auto;
-  padding: 32px 24px 32px 32px;
+  padding: 0;
   background: var(--color-page);
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border-muted) transparent;
+  align-self: flex-start;
+  position: sticky;
+  top: 24px;
 }
 
-.sidebar::-webkit-scrollbar {
+.sidebarInner {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 48px);
+  padding: 32px 24px 32px 32px;
+  box-sizing: border-box;
+}
+
+.sidebarTop {
+  flex-shrink: 0;
+}
+
+/* Scroll only the collections tree when expanded (overflow on inner node, not sticky aside). */
+.collectionsScroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 32px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-muted) transparent;
+  padding-right: 4px;
+}
+
+.collectionsScroll::-webkit-scrollbar {
   width: 6px;
 }
 
-.sidebar::-webkit-scrollbar-track {
+.collectionsScroll::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.collectionsScroll::-webkit-scrollbar-thumb {
   background: var(--color-border-muted);
   border-radius: 3px;
 }
 
-.sidebar::-webkit-scrollbar-thumb:hover {
+.collectionsScroll::-webkit-scrollbar-thumb:hover {
   background: var(--color-border);
+}
+
+.collectionsScroll .collectionsSection {
+  margin-top: 0;
 }
 
 .sectionTitle {
@@ -367,6 +396,9 @@
 @media (max-width: 992px) {
   .sidebar {
     width: 200px;
+  }
+
+  .sidebarInner {
     padding: 24px 16px;
   }
 }
@@ -380,8 +412,10 @@
   }
 
   .sidebar {
+    position: static;
+    align-self: stretch;
     width: 100%;
-    padding: 20px 16px;
+    padding: 0;
     background: var(--color-page);
     border-radius: 10px;
     border: 1px solid var(--color-border-subtle);
@@ -389,13 +423,27 @@
     box-sizing: border-box;
   }
 
-  .sidebarSection {
+  .sidebarInner {
+    display: block;
+    max-height: none;
+    padding: 20px 16px;
+  }
+
+  .collectionsScroll {
+    flex: none;
+    min-height: 0;
+    margin-top: 0;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .sidebarTop .sidebarSection {
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .sidebarSection:last-child {
+  .collectionsScroll .sidebarSection {
     padding-bottom: 0;
     margin-bottom: 0;
     border-bottom: none;
@@ -472,7 +520,7 @@
     padding-right: 12px;
   }
 
-  .sidebar {
+  .sidebarInner {
     padding: 16px 14px;
   }
 }

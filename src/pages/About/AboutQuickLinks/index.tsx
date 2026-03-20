@@ -15,7 +15,7 @@ const AboutQuickLinks: React.FC = () => {
         <div className={styles.divider} aria-hidden />
         <nav className={styles.links}>
           <div className={styles.linksColumn}>
-            {QUICK_LINKS.slice(0, 2).map(({ path, i18nKey, icon: Icon }) => (
+            {QUICK_LINKS.slice(0, 3).map(({ path, i18nKey, icon: Icon }) => (
               <Link key={path} to={path} className={styles.link}>
                 <span className={styles.linkIcon}>
                   <Icon />
@@ -28,7 +28,7 @@ const AboutQuickLinks: React.FC = () => {
             ))}
           </div>
           <div className={styles.linksColumn}>
-            {QUICK_LINKS.slice(2, 4).map(({ path, i18nKey, icon: Icon }) => (
+            {QUICK_LINKS.slice(3).map(({ path, i18nKey, icon: Icon }) => (
               <Link key={path} to={path} className={styles.link}>
                 <span className={styles.linkIcon}>
                   <Icon />

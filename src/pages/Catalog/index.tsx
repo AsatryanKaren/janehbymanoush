@@ -10,18 +10,10 @@ import CatalogEmptyState from "src/components/CatalogEmptyState";
 import { productsApi } from "src/api/products";
 import { collectionsApi } from "src/api/collections";
 import type { Product } from "src/types/product";
-import type {
-  AdminCollectionItem,
-  CategoryItemWithValue,
-} from "src/types/collection";
+import type { AdminCollectionItem, CategoryItemWithValue } from "src/types/collection";
 import { ROUTES } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
-import {
-  CATEGORY_MAP,
-  TITLE_KEY_MAP,
-  SORT_PARAMS,
-  type SortValue,
-} from "./consts";
+import { CATEGORY_MAP, TITLE_KEY_MAP, SORT_PARAMS, type SortValue } from "./consts";
 import styles from "./styles.module.css";
 
 const { Title } = Typography;
@@ -52,9 +44,7 @@ const CatalogPage: React.FC = () => {
     const collectionId = searchParams.get("collection");
     return collectionId ? `col-${collectionId}` : undefined;
   });
-  const [expandedCollections, setExpandedCollections] = useState<Set<string>>(
-    new Set(),
-  );
+  const [expandedCollections, setExpandedCollections] = useState<Set<string>>(new Set());
   const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
@@ -93,8 +83,7 @@ const CatalogPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const collectionId =
-      filterValue?.startsWith("col-") ? filterValue.slice(4) : null;
+    const collectionId = filterValue?.startsWith("col-") ? filterValue.slice(4) : null;
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
@@ -132,177 +121,185 @@ const CatalogPage: React.FC = () => {
         setTotal(0);
       })
       .finally(() => setLoading(false));
-  }, [pathCategory, pathIsNew, filterValue, sort, page, appliedPriceRange, appliedSearch]);
+  }, [
+    pathCategory,
+    pathIsNew,
+    filterValue,
+    sort,
+    page,
+    appliedPriceRange,
+    appliedSearch,
+  ]);
 
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
-        <div className={`${styles.sidebarSection} ${styles.filtersSection}`}>
-          <span className={styles.sectionTitle}>
-            {t("catalog.sections.filters")}
-          </span>
-          <Input.Search
-            placeholder={t("catalog.searchPlaceholder")}
-            value={searchInput}
-            onChange={(e) => {
-              const v = e.target.value;
-              setSearchInput(v);
-              if (v === "") {
-                setAppliedSearch("");
-                setPage(1);
-              }
-            }}
-            onSearch={(val) => {
-              setAppliedSearch(val);
-              setPage(1);
-            }}
-            allowClear
-            className={styles.searchInput}
-          />
-          <div className={styles.filterLinks}>
-            <Link
-              to={ROUTES.CATALOG}
-              className={
-                location.pathname === ROUTES.CATALOG
-                  ? styles.categoryLinkActive
-                  : styles.categoryLink
-              }
-            >
-              {t("catalog.all")}
-            </Link>
-            <Link
-              to={ROUTES.NEW}
-              className={
-                location.pathname === ROUTES.NEW
-                  ? styles.categoryLinkActive
-                  : styles.categoryLink
-              }
-            >
-              {t("nav.new")}
-            </Link>
-            <Link
-              to={ROUTES.WOMEN}
-              className={
-                location.pathname === ROUTES.WOMEN
-                  ? styles.categoryLinkActive
-                  : styles.categoryLink
-              }
-            >
-              {t("nav.woman")}
-            </Link>
-            <Link
-              to={ROUTES.MEN}
-              className={
-                location.pathname === ROUTES.MEN
-                  ? styles.categoryLinkActive
-                  : styles.categoryLink
-              }
-            >
-              {t("nav.man")}
-            </Link>
-            <Link
-              to={ROUTES.UNISEX}
-              className={
-                location.pathname === ROUTES.UNISEX
-                  ? styles.categoryLinkActive
-                  : styles.categoryLink
-              }
-            >
-              {t("nav.unisex")}
-            </Link>
+        <div className={styles.sidebarInner}>
+          <div className={styles.sidebarTop}>
+            <div className={`${styles.sidebarSection} ${styles.filtersSection}`}>
+              <span className={styles.sectionTitle}>{t("catalog.sections.filters")}</span>
+              <Input.Search
+                placeholder={t("catalog.searchPlaceholder")}
+                value={searchInput}
+                onChange={(e) => {
+                  const v = e.target.value;
+                  setSearchInput(v);
+                  if (v === "") {
+                    setAppliedSearch("");
+                    setPage(1);
+                  }
+                }}
+                onSearch={(val) => {
+                  setAppliedSearch(val);
+                  setPage(1);
+                }}
+                allowClear
+                className={styles.searchInput}
+              />
+              <div className={styles.filterLinks}>
+                <Link
+                  to={ROUTES.CATALOG}
+                  className={
+                    location.pathname === ROUTES.CATALOG
+                      ? styles.categoryLinkActive
+                      : styles.categoryLink
+                  }
+                >
+                  {t("catalog.all")}
+                </Link>
+                <Link
+                  to={ROUTES.NEW}
+                  className={
+                    location.pathname === ROUTES.NEW
+                      ? styles.categoryLinkActive
+                      : styles.categoryLink
+                  }
+                >
+                  {t("nav.new")}
+                </Link>
+                <Link
+                  to={ROUTES.WOMEN}
+                  className={
+                    location.pathname === ROUTES.WOMEN
+                      ? styles.categoryLinkActive
+                      : styles.categoryLink
+                  }
+                >
+                  {t("nav.woman")}
+                </Link>
+                <Link
+                  to={ROUTES.MEN}
+                  className={
+                    location.pathname === ROUTES.MEN
+                      ? styles.categoryLinkActive
+                      : styles.categoryLink
+                  }
+                >
+                  {t("nav.man")}
+                </Link>
+                <Link
+                  to={ROUTES.UNISEX}
+                  className={
+                    location.pathname === ROUTES.UNISEX
+                      ? styles.categoryLinkActive
+                      : styles.categoryLink
+                  }
+                >
+                  {t("nav.unisex")}
+                </Link>
+              </div>
+              <div className={styles.priceRangeWrap}>
+                <span className={styles.priceRangeLabel}>{t("catalog.priceRange")}</span>
+                <Slider
+                  range
+                  min={0}
+                  max={500000}
+                  value={priceRange}
+                  onChange={(v) => setPriceRange(v as [number, number])}
+                  onAfterChange={(v) => {
+                    const next = v as [number, number];
+                    setAppliedPriceRange(next);
+                    setPage(1);
+                  }}
+                  className={styles.priceRangeSlider}
+                />
+                <span className={styles.priceRangeValue}>
+                  {formatPrice(priceRange[0], "AMD", i18n.language)} –{" "}
+                  {formatPrice(priceRange[1], "AMD", i18n.language)}
+                </span>
+              </div>
+            </div>
           </div>
-          <div className={styles.priceRangeWrap}>
-            <span className={styles.priceRangeLabel}>
-              {t("catalog.priceRange")}
-            </span>
-            <Slider
-              range
-              min={0}
-              max={500000}
-              value={priceRange}
-              onChange={(v) => setPriceRange(v as [number, number])}
-              onAfterChange={(v) => {
-                const next = v as [number, number];
-                setAppliedPriceRange(next);
-                setPage(1);
-              }}
-              className={styles.priceRangeSlider}
-            />
-            <span className={styles.priceRangeValue}>
-              {formatPrice(priceRange[0], "AMD", i18n.language)} –{" "}
-              {formatPrice(priceRange[1], "AMD", i18n.language)}
-            </span>
-          </div>
-        </div>
-        <div className={`${styles.sidebarSection} ${styles.collectionsSection}`}>
-          <span className={styles.sectionTitle}>
-            {t("catalog.sections.collections")}
-          </span>
-          <ul className={styles.categoryList}>
-            {collections.map((col) => {
-              const hasChildren = (col.categories ?? []).length > 0;
-              const isOpen = expandedCollections.has(col.id);
-              const isColActive = filterValue === `col-${col.id}`;
+          <div className={styles.collectionsScroll}>
+            <div className={`${styles.sidebarSection} ${styles.collectionsSection}`}>
+              <span className={styles.sectionTitle}>
+                {t("catalog.sections.collections")}
+              </span>
+              <ul className={styles.categoryList}>
+                {collections.map((col) => {
+                  const hasChildren = (col.categories ?? []).length > 0;
+                  const isOpen = expandedCollections.has(col.id);
+                  const isColActive = filterValue === `col-${col.id}`;
 
-              return (
-                <li key={col.id} className={styles.treeGroup}>
-                  <Flex align="center" gap={6} className={styles.treeGroupRow}>
-                    {hasChildren && (
-                      <PlusOutlined
-                        className={`${styles.toggleIcon} ${isOpen ? styles.toggleIconOpen : ""}`}
-                        onClick={() => toggleCollapse(col.id)}
-                      />
-                    )}
-                    <a
-                      href="#"
-                      className={
-                        isColActive
-                          ? styles.categoryLinkActive
-                          : styles.categoryLink
-                      }
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setFilterValue(isColActive ? undefined : `col-${col.id}`);
-                        if (!isOpen && hasChildren) toggleCollapse(col.id);
-                        setPage(1);
-                      }}
-                    >
-                      {getCollectionTitle(col, i18n.language)}
-                    </a>
-                  </Flex>
-                  {hasChildren && isOpen && (
-                    <ul className={styles.treeChildren}>
-                      {(col.categories ?? []).map((cat) => (
-                        <li key={cat.id} className={styles.categoryItem}>
-                          <a
-                            href="#"
-                            className={
-                              filterValue === `cat-${cat.id}`
-                                ? styles.categoryLinkActive
-                                : styles.categoryLink
-                            }
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setFilterValue(
-                                filterValue === `cat-${cat.id}`
-                                  ? undefined
-                                  : `cat-${cat.id}`,
-                              );
-                              setPage(1);
-                            }}
-                          >
-                            {getCategoryTitle(cat, i18n.language)}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                  return (
+                    <li key={col.id} className={styles.treeGroup}>
+                      <Flex align="center" gap={6} className={styles.treeGroupRow}>
+                        {hasChildren && (
+                          <PlusOutlined
+                            className={`${styles.toggleIcon} ${isOpen ? styles.toggleIconOpen : ""}`}
+                            onClick={() => toggleCollapse(col.id)}
+                          />
+                        )}
+                        <a
+                          href="#"
+                          className={
+                            isColActive ? styles.categoryLinkActive : styles.categoryLink
+                          }
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setFilterValue(isColActive ? undefined : `col-${col.id}`);
+                            if (!isOpen && hasChildren) toggleCollapse(col.id);
+                            setPage(1);
+                          }}
+                        >
+                          {getCollectionTitle(col, i18n.language)}
+                        </a>
+                      </Flex>
+                      {hasChildren && isOpen && (
+                        <ul className={styles.treeChildren}>
+                          {(col.categories ?? []).map((cat) => (
+                            <li key={cat.id} className={styles.categoryItem}>
+                              <a
+                                href="#"
+                                className={
+                                  filterValue === `cat-${cat.id}`
+                                    ? styles.categoryLinkActive
+                                    : styles.categoryLink
+                                }
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setFilterValue(
+                                    filterValue === `cat-${cat.id}`
+                                      ? undefined
+                                      : `cat-${cat.id}`,
+                                  );
+                                  setPage(1);
+                                }}
+                              >
+                                {getCategoryTitle(cat, i18n.language)}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
       </aside>
 

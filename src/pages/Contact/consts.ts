@@ -3,13 +3,13 @@
  */
 
 /** Business email – used for display and Gmail compose link */
-export const CONTACT_EMAIL = "hello@janehbymanoush.com";
+export const CONTACT_EMAIL = "janebymanoushh@gmail.com";
 
 /** Open Gmail compose with our address pre-filled (opens in new tab) */
 export const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(CONTACT_EMAIL)}`;
 
 /** Business phone for tel: links (digits only, with +) */
-export const CONTACT_PHONE_TEL = "+1234567890";
+export const CONTACT_PHONE_TEL = "+374 99 080053";
 
 export const CONTACT_IMAGES = {
   studio:

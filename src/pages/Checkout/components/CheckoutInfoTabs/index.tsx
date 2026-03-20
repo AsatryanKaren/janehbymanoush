@@ -1,12 +1,25 @@
 import { Tabs, Typography } from "antd";
-import { FileTextOutlined, TruckOutlined } from "@ant-design/icons";
+import {
+  FilePdfOutlined,
+  FileTextOutlined,
+  RightOutlined,
+  SwapOutlined,
+  TruckOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "src/consts/routes";
+import { getPrivacyPolicyPdfHref } from "src/utils/legalDocuments";
 import styles from "../../styles.module.css";
 
+/** Full shipping copy from `shipping.bullet*` (same as shipping info page). */
+const SHIPPING_CHECKOUT_BULLETS = [1, 2, 3, 4, 5, 6] as const;
+
+/** Full returns copy from `returns.bullet*` (same as returns info page). */
+const RETURNS_CHECKOUT_BULLETS = [1, 2, 3] as const;
+
 const CheckoutInfoTabs: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <div className={styles.featuresBlock}>
@@ -27,9 +40,20 @@ const CheckoutInfoTabs: React.FC = () => {
                 <Typography.Paragraph className={styles.shippingText}>
                   {t("checkout.privacyPolicySummary")}
                 </Typography.Paragraph>
-                <Link to={ROUTES.SHIPPING} className={styles.privacyLinkInline}>
-                  {t("footer.privacy")}
-                </Link>
+                <a
+                  href={getPrivacyPolicyPdfHref(i18n.language)}
+                  className={styles.checkoutFullPolicyLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("checkout.privacyPdfLinkAria")}
+                >
+                  <FilePdfOutlined
+                    className={styles.checkoutFullPolicyLinkPdfIcon}
+                    aria-hidden
+                  />
+                  <span>{t("checkout.privacyPdfLink")}</span>
+                  <RightOutlined className={styles.checkoutFullPolicyLinkIcon} />
+                </a>
               </div>
             ),
           },
@@ -43,12 +67,49 @@ const CheckoutInfoTabs: React.FC = () => {
             ),
             children: (
               <div className={styles.shippingInfo}>
-                <Typography.Paragraph className={styles.shippingText}>
-                  {t("shipping.intro")}
-                </Typography.Paragraph>
-                <Typography.Paragraph className={styles.shippingText}>
-                  {t("shipping.options")}
-                </Typography.Paragraph>
+                {SHIPPING_CHECKOUT_BULLETS.map((n) => (
+                  <Typography.Paragraph
+                    key={n}
+                    className={styles.shippingText}
+                  >
+                    {t(`shipping.bullet${n}`)}
+                  </Typography.Paragraph>
+                ))}
+                <Link
+                  to={ROUTES.SHIPPING}
+                  className={styles.checkoutFullPolicyLink}
+                >
+                  <span>{t("shipping.title")}</span>
+                  <RightOutlined className={styles.checkoutFullPolicyLinkIcon} />
+                </Link>
+              </div>
+            ),
+          },
+          {
+            key: "returns",
+            label: (
+              <span className={styles.featureTabLabel}>
+                <SwapOutlined className={styles.featureIcon} />
+                {t("checkout.featureReturns")}
+              </span>
+            ),
+            children: (
+              <div className={styles.shippingInfo}>
+                {RETURNS_CHECKOUT_BULLETS.map((n) => (
+                  <Typography.Paragraph
+                    key={n}
+                    className={styles.shippingText}
+                  >
+                    {t(`returns.bullet${n}`)}
+                  </Typography.Paragraph>
+                ))}
+                <Link
+                  to={ROUTES.RETURNS}
+                  className={styles.checkoutFullPolicyLink}
+                >
+                  <span>{t("returns.title")}</span>
+                  <RightOutlined className={styles.checkoutFullPolicyLinkIcon} />
+                </Link>
               </div>
             ),
           },

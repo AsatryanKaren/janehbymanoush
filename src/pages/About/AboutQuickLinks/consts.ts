@@ -3,28 +3,34 @@ import {
   GiftOutlined,
   HeartOutlined,
   ReadOutlined,
+  SwapOutlined,
 } from "@ant-design/icons";
 import { ROUTES } from "src/consts/routes";
 
 export const QUICK_LINKS = [
   {
     path: ROUTES.RING_SIZE_GUIDE,
-    i18nKey: "footer.purchases.ringSizeGuide",
+    i18nKey: "footer.help.ringSizeGuide",
     icon: ReadOutlined,
   },
   {
+    path: ROUTES.CARE,
+    i18nKey: "footer.help.careInstructions",
+    icon: HeartOutlined,
+  },
+  {
     path: "/gift-cards",
-    i18nKey: "footer.purchases.giftCards",
+    i18nKey: "footer.help.giftCards",
     icon: GiftOutlined,
   },
   {
     path: ROUTES.SHIPPING,
-    i18nKey: "footer.purchases.shippingReturns",
+    i18nKey: "footer.about.shipping",
     icon: CarOutlined,
   },
   {
-    path: ROUTES.CARE,
-    i18nKey: "footer.purchases.careInstructions",
-    icon: HeartOutlined,
+    path: ROUTES.RETURNS,
+    i18nKey: "footer.about.returns",
+    icon: SwapOutlined,
   },
 ] as const;

@@ -8,15 +8,26 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 56px;
   align-items: start;
+  direction: ltr;
 }
 
-.imageWrap {
+/* Sticky must not use overflow:hidden on this node — it breaks position:sticky in browsers. */
+.imageSticky {
+  align-self: start;
   position: sticky;
   top: 24px;
-  border-radius: 12px;
+}
+
+.imageFrame {
+  border-radius: 16px;
   overflow: hidden;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.15),
+    0 24px 48px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  outline: 1px solid var(--color-border-subtle);
 }
 
 .image {
@@ -29,14 +40,23 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 0;
 }
 
 .title {
   color: var(--color-text-primary) !important;
   font-size: clamp(1.5rem, 2.5vw, 2rem) !important;
   font-weight: 500 !important;
+  margin-top: 0 !important;
   margin-bottom: 0 !important;
+}
+
+.titleCare {
+  color: var(--color-text-primary) !important;
+  font-size: clamp(1.5rem, 2.5vw, 2rem) !important;
+  font-weight: 500 !important;
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
 }
 
 .paragraph {
@@ -46,6 +66,129 @@
   margin-bottom: 0 !important;
 }
 
+.tipsPanel {
+  padding: 26px 28px 28px;
+  border-radius: 16px;
+  border: 1px solid var(--color-border-subtle);
+  background:
+    radial-gradient(
+      ellipse 120% 80% at 0% 0%,
+      rgba(191, 122, 90, 0.12) 0%,
+      transparent 55%
+    ),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 45%),
+    var(--color-bg-dark);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 8px 32px rgba(0, 0, 0, 0.28);
+}
+
+.tipsLabel {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 0.6875rem !important;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-light) !important;
+  line-height: 1.4 !important;
+}
+
+.tipsList {
+  width: 100%;
+}
+
+.referenceLink {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(68, 64, 60, 0.45);
+}
+
+.referenceLinkAnchor {
+  font-size: 0.875rem !important;
+  line-height: 1.55 !important;
+  font-weight: 500 !important;
+}
+
+.tipRow {
+  width: 100%;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(68, 64, 60, 0.55);
+}
+
+.tipRow:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.tipIndex {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.1em;
+  padding: 0 0.35rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-light);
+  background: rgba(191, 122, 90, 0.12);
+  border: 1px solid rgba(191, 122, 90, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.tipText {
+  color: var(--color-text-product) !important;
+  font-size: 1rem !important;
+  line-height: 1.78 !important;
+  margin-bottom: 0 !important;
+  flex: 1;
+  min-width: 0;
+  white-space: pre-line;
+}
+
+.fadeRule {
+  height: 1px;
+  margin: 28px 0 24px;
+  border: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-border-muted) 20%,
+    var(--color-border-muted) 80%,
+    transparent 100%
+  );
+}
+
+.closingBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.closingBlockText {
+  color: var(--color-text-product) !important;
+  font-size: 1.0625rem !important;
+  line-height: 1.78 !important;
+  margin-bottom: 0 !important;
+}
+
+.signOff {
+  display: block;
+  margin-top: 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-subtle);
+  font-size: 1.0625rem !important;
+  font-style: italic;
+  line-height: 1.65 !important;
+  color: var(--color-accent-light) !important;
+  letter-spacing: 0.03em;
+}
+
 @media (max-width: 768px) {
   .section {
     padding: 48px 16px;
@@ -53,14 +196,28 @@
 
   .inner {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 36px;
   }
 
-  .imageWrap {
+  .imageSticky {
     position: static;
   }
 
   .image {
     aspect-ratio: 4 / 3;
+  }
+
+  .tipsPanel {
+    padding: 22px 20px 24px;
+  }
+
+  .tipRow {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+
+  .tipIndex {
+    margin-top: 0;
   }
 }

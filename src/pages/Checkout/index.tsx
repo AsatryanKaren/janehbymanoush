@@ -120,7 +120,7 @@ const CheckoutPage: React.FC = () => {
         onFinish={handleFinish}
         initialValues={CHECKOUT_INITIAL_VALUES}
       >
-        <Row gutter={[32, 0]} className={styles.row}>
+        <Row gutter={[32, 32]} className={styles.row}>
           <Col xs={24} lg={14} className={styles.formCol}>
             <CheckoutFormSection
               form={form}
@@ -130,14 +130,19 @@ const CheckoutPage: React.FC = () => {
           </Col>
 
           <Col xs={24} lg={10} className={styles.summaryCol}>
-            <OrderSummary
-              items={items}
-              totalAmount={totalAmount}
-              onUpdateRingSize={updateRingSize}
-            />
-            <CheckoutInfoTabs />
+            <div className={styles.summaryStickyWrap}>
+              <OrderSummary
+                items={items}
+                totalAmount={totalAmount}
+                onUpdateRingSize={updateRingSize}
+              />
+            </div>
           </Col>
         </Row>
+
+        <div className={styles.checkoutInfoTabsWrap}>
+          <CheckoutInfoTabs />
+        </div>
       </Form>
     </div>
   );

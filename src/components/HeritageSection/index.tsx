@@ -27,7 +27,6 @@ const HeritageSection: React.FC = () => {
         </Col>
         <Col xs={{ span: 24, order: 1 }} lg={{ span: 12, order: 2 }}>
           <div className={styles.contentWrap}>
-            <Text className={styles.label}>{t("home.heritage.label")}</Text>
             <Title level={2} className={styles.heading}>
               {t("home.heritage.heading")}
             </Title>

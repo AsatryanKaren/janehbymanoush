@@ -35,10 +35,8 @@
   border-color: var(--color-border);
 }
 
+/* Vertical gap when columns wrap (mobile) comes from Row gutter[1]; keep horizontal via antd Col padding. */
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
   align-items: flex-start;
 }
 
@@ -50,15 +48,53 @@
 .summaryCol {
   width: 360px;
   flex-shrink: 0;
+  align-self: flex-start;
 }
+
+/* Sticky order summary only (info tabs sit full-width below the two columns). */
+.summaryStickyWrap {
+  position: sticky;
+  top: 24px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.checkoutInfoTabsWrap {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 40px;
+}
+
+.checkoutInfoTabsWrap .featuresBlock {
+  margin-top: 0;
+  padding: 28px 0 24px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.checkoutInfoTabsWrap :global(.ant-tabs-nav) {
+  margin-bottom: 16px;
+}
+
+/* Single row: use antd overflow scroll + “more” menu on narrow screens (no broken wrap). */
+.checkoutInfoTabsWrap :global(.ant-tabs-nav-list) {
+  flex-wrap: nowrap;
+}
+
+.checkoutInfoTabsWrap :global(.ant-tabs-tab) {
+  flex-shrink: 0;
+}
+
+.checkoutInfoTabsWrap :global(.ant-tabs-tab-btn) {
+  white-space: nowrap;
+}
+
 
 .summaryCard {
   padding: 24px;
   background: var(--color-border-subtle);
   border-radius: 12px;
   border: 1px solid var(--color-border);
-  position: sticky;
-  top: 24px;
 }
 
 .summaryList {
@@ -197,6 +233,52 @@
 
 .privacyLinkInline:hover {
   color: var(--color-accent);
+}
+
+.checkoutFullPolicyLink {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(191, 122, 90, 0.35);
+  background: rgba(191, 122, 90, 0.1);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-accent-light);
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.checkoutFullPolicyLink:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-accent-muted);
+  background: rgba(191, 122, 90, 0.16);
+}
+
+.checkoutFullPolicyLinkIcon {
+  font-size: 0.875rem;
+  transition: transform 0.2s;
+}
+
+.checkoutFullPolicyLink:hover .checkoutFullPolicyLinkIcon {
+  transform: translateX(3px);
+}
+
+.checkoutFullPolicyLinkPdfIcon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.checkoutFullPolicyLink:hover .checkoutFullPolicyLinkPdfIcon {
+  color: var(--color-accent-light);
 }
 
 .deliveryMethodItem {
@@ -369,7 +451,12 @@
 @media (max-width: 992px) {
   .row {
     flex-direction: column;
-    row-gap: 24px;
+    /* At least 32px between stacked summary + form (matches Row gutter vertical). */
+    row-gap: 32px;
+  }
+
+  .checkoutInfoTabsWrap {
+    margin-top: 32px;
   }
 
   .formCol {
@@ -383,7 +470,7 @@
     order: 1;
   }
 
-  .summaryCard {
+  .summaryStickyWrap {
     position: static;
   }
 }
@@ -391,6 +478,14 @@
 @media (max-width: 768px) {
   .container {
     padding: 20px 20px 40px;
+  }
+
+  .checkoutInfoTabsWrap {
+    margin-top: 32px;
+  }
+
+  .checkoutInfoTabsWrap .featuresBlock {
+    padding: 20px 0 16px;
   }
 
   .summaryCol {
@@ -414,6 +509,14 @@
 @media (max-width: 480px) {
   .container {
     padding: 16px 16px 32px;
+  }
+
+  .checkoutInfoTabsWrap {
+    margin-top: 28px;
+  }
+
+  .checkoutInfoTabsWrap .featuresBlock {
+    padding: 16px 0 14px;
   }
 
   .row {

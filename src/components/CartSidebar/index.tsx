@@ -1,5 +1,10 @@
-import { Drawer, Button, Empty } from "antd";
-import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { Drawer, Button, Typography } from "antd";
+import {
+  DeleteOutlined,
+  MinusOutlined,
+  PlusOutlined,
+  ShoppingOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCart } from "src/app/providers/CartProvider";
@@ -8,6 +13,8 @@ import { formatPrice } from "src/utils/formatPrice";
 import { getProductName, getProductDescription } from "src/utils/productLocale";
 import type { CartSidebarProps } from "./types";
 import styles from "./styles.module.css";
+
+const { Text } = Typography;
 
 const DEFAULT_CURRENCY = "AMD";
 
@@ -39,13 +46,14 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ open, onClose }) => {
       <div className={styles.list}>
         {items.length === 0 ? (
           <div className={styles.emptyWrap}>
-            <Empty
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-              description={t("cart.empty")}
-              className={styles.empty}
-            >
+            <div className={styles.emptyState}>
+              <div className={styles.emptyIconWrap} aria-hidden>
+                <ShoppingOutlined className={styles.emptyIcon} />
+              </div>
+              <Text className={styles.emptyMessage}>{t("cart.empty")}</Text>
               <Button
                 type="primary"
+                className={styles.emptyCta}
                 onClick={() => {
                   onClose();
                   setOpenSidebar(false);
@@ -54,7 +62,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ open, onClose }) => {
               >
                 {t("cart.continueShopping")}
               </Button>
-            </Empty>
+            </div>
           </div>
         ) : (
           items.map((item) => {

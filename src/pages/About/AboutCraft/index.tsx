@@ -28,11 +28,6 @@ const AboutCraft: React.FC = () => {
                     className={styles.craftImage}
                   />
                 </div>
-                <Title level={5} className={styles.craftColumnTitle}>
-                  {t(
-                    `about.craft${key.charAt(0).toUpperCase()}${key.slice(1)}Title`,
-                  )}
-                </Title>
               </div>
             </Col>
           ))}

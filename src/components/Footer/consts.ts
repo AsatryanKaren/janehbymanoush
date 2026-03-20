@@ -15,18 +15,18 @@ export type FooterAddressItem = {
 const toMapsUrl = (query: string): string =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
-/** Purchases column links */
-export const FOOTER_PURCHASES_LINKS: FooterLinkItem[] = [
-  { i18nKey: "footer.purchases.ringSizeGuide", path: "/ring-size-guide" },
-  { i18nKey: "footer.purchases.giftCards", path: "/gift-cards" },
-  { i18nKey: "footer.purchases.shippingReturns", path: "/shipping" },
-  { i18nKey: "footer.purchases.careInstructions", path: "/care" },
+/** Help & information column (guides, care) */
+export const FOOTER_HELP_LINKS: FooterLinkItem[] = [
+  { i18nKey: "footer.help.ringSizeGuide", path: "/ring-size-guide" },
+  { i18nKey: "footer.help.careInstructions", path: "/care" },
+  { i18nKey: "footer.help.giftCards", path: "/gift-cards" },
 ];
 
 /** About column links */
 export const FOOTER_ABOUT_LINKS: FooterLinkItem[] = [
-  { i18nKey: "footer.about.heritage", path: `${ROUTES.ABOUT}#heritage` },
   { i18nKey: "footer.about.contactUs", path: ROUTES.CONTACT },
+  { i18nKey: "footer.about.shipping", path: ROUTES.SHIPPING },
+  { i18nKey: "footer.about.returns", path: ROUTES.RETURNS },
 ];
 
 /** Addresses column items – mapsQuery used for Google Maps link */

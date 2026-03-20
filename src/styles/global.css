@@ -28,14 +28,15 @@
 }
 
 html {
-  overflow-x: hidden;
+  /* clip avoids creating a scroll containment bug that breaks position:sticky (hidden does) */
+  overflow-x: clip;
   background: var(--color-page);
 }
 
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--app-font-family);
   background: var(--color-page);
   color: var(--color-text-primary);

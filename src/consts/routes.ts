@@ -11,6 +11,7 @@ export const ROUTES = {
   CONTACT: "/contact",
   RING_SIZE_GUIDE: "/ring-size-guide",
   SHIPPING: "/shipping",
+  RETURNS: "/returns",
   CARE: "/care",
   GIFT_CARDS: "/gift-cards",
 

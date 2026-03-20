@@ -10,9 +10,10 @@ import {
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { LOGO_IMAGE } from "src/consts/assets";
+import { getPrivacyPolicyPdfHref } from "src/utils/legalDocuments";
 import { SOCIAL_LINKS } from "src/consts/social";
 import {
-  FOOTER_PURCHASES_LINKS,
+  FOOTER_HELP_LINKS,
   FOOTER_ABOUT_LINKS,
   FOOTER_ADDRESSES,
   toMapsUrl,
@@ -22,7 +23,7 @@ import styles from "./styles.module.css";
 const { Text } = Typography;
 
 const Footer: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const year = new Date().getFullYear();
 
   return (
@@ -79,9 +80,9 @@ const Footer: React.FC = () => {
             </div>
           </Col>
           <Col xs={24} md={6} lg={6}>
-            <Text className={styles.columnTitle}>{t("footer.purchases.title")}</Text>
+            <Text className={styles.columnTitle}>{t("footer.help.title")}</Text>
             <ul className={styles.linkList}>
-              {FOOTER_PURCHASES_LINKS.map((item) => (
+              {FOOTER_HELP_LINKS.map((item) => (
                 <li key={item.i18nKey}>
                   <Link to={item.path ?? "#"} className={styles.link}>
                     {t(item.i18nKey)}
@@ -127,9 +128,14 @@ const Footer: React.FC = () => {
           {t("footer.copyright", { year })}
         </Text>
         <Space size="middle" className={styles.legalLinks}>
-          <Link to="/privacy" className={styles.legalLink}>
+          <a
+            href={getPrivacyPolicyPdfHref(i18n.language)}
+            className={styles.legalLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {t("footer.privacy")}
-          </Link>
+          </a>
           <Link to="/terms" className={styles.legalLink}>
             {t("footer.terms")}
           </Link>

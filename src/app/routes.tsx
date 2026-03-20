@@ -47,6 +47,7 @@ export const router = createBrowserRouter([
         element: <InfoPage pageSlug="ring-size-guide" />,
       },
       { path: ROUTES.SHIPPING, element: <InfoPage pageSlug="shipping" /> },
+      { path: ROUTES.RETURNS, element: <InfoPage pageSlug="returns" /> },
       { path: ROUTES.CARE, element: <InfoPage pageSlug="care" /> },
       {
         path: ROUTES.GIFT_CARDS,
