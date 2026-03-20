@@ -22,6 +22,15 @@ const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
         Menu: {
           horizontalLineHeight: "64px",
         },
+        Segmented: {
+          trackBg: "#292524",
+          itemColor: "#a8a29e",
+          itemHoverColor: "#ffffff",
+          itemHoverBg: "#57534e",
+          itemSelectedBg: "#bf7a5a",
+          itemSelectedColor: "#ffffff",
+          itemActiveBg: "#44403c",
+        },
       },
     }}
   >

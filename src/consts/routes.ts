@@ -6,6 +6,7 @@ export const ROUTES = {
   UNISEX: "/unisex",
   NEW: "/new",
   PRODUCT: "/products/:slug",
+  CHECKOUT: "/checkout",
   ABOUT: "/about",
   CONTACT: "/contact",
   RING_SIZE_GUIDE: "/ring-size-guide",

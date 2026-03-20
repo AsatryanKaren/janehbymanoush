@@ -12,4 +12,6 @@ export type HeaderProps = {
   logoUrl: string;
   logoAlt: string;
   homePath: string;
+  cartCount?: number;
+  onOpenCart?: () => void;
 };

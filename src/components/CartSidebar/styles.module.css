@@ -1,0 +1,287 @@
+/* Drawer panel: project dark theme (page background, borders, text) */
+.drawer :global(.ant-drawer-content),
+.drawer :global(.ant-drawer-content-wrapper) {
+  background: var(--color-page) !important;
+}
+
+.drawer :global(.ant-drawer-header) {
+  display: flex;
+  align-items: center;
+  background: var(--color-page) !important;
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary) !important;
+  padding: 16px 24px;
+}
+
+.drawer :global(.ant-drawer-header-title) {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.drawer :global(.ant-drawer-title) {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Title and any text in header must be visible on dark background */
+.drawer :global(.ant-drawer-title),
+.drawer :global(.ant-drawer-header .ant-typography),
+.drawer :global(.ant-drawer-header .ant-typography-title) {
+  color: var(--color-text-primary) !important;
+}
+
+.drawer :global(.ant-drawer-header .ant-drawer-close) {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 4px;
+  width: auto;
+  height: auto;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer :global(.ant-drawer-header .ant-drawer-close),
+.drawer :global(.ant-drawer-header .ant-drawer-close:hover) {
+  color: var(--color-text-body) !important;
+}
+
+.drawer :global(.ant-drawer-body) {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  background: var(--color-page) !important;
+}
+
+/* Quantity control: same style as product page */
+.quantityControls {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-border-subtle);
+}
+
+.quantityBtn {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-body) !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  transition: color 0.2s, background 0.2s;
+}
+
+.quantityBtn:hover:not(:disabled) {
+  color: var(--color-accent-light) !important;
+  background: var(--color-border-muted) !important;
+}
+
+.quantityBtn:disabled {
+  color: var(--color-text-label) !important;
+  opacity: 0.7;
+}
+
+.quantityValue {
+  min-width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-product);
+  background: var(--color-page);
+  border-inline: 1px solid var(--color-border);
+  padding: 0 8px;
+}
+
+/* Checkout button: accent (already primary, token matches --color-accent) */
+.drawer :global(.ant-btn-primary) {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-button-on-light) !important;
+}
+
+.drawer :global(.ant-btn-primary:hover) {
+  background: var(--color-accent-light) !important;
+  border-color: var(--color-accent-light) !important;
+  color: var(--color-button-on-light) !important;
+}
+
+/* Remove (text) button in list */
+.drawer :global(.ant-btn-text) {
+  color: var(--color-text-body) !important;
+}
+
+.drawer :global(.ant-btn-text:hover) {
+  color: var(--color-text-primary) !important;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary) !important;
+  display: inline-block;
+}
+
+/* Ensure all body text is visible on dark background */
+.drawer :global(.ant-drawer-body),
+.drawer .list {
+  color: var(--color-text-body);
+}
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.imageWrap {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-border-subtle);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.itemBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemName {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.9375rem;
+}
+
+.itemDesc {
+  font-size: 0.8125rem;
+  color: var(--color-text-body);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.itemMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.itemPrice {
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+}
+
+.footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.totalLabel {
+  color: var(--color-text-body);
+}
+
+.totalValue {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.checkoutBtn {
+  width: 100%;
+}
+
+.emptyWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  min-height: 200px;
+}
+
+.empty {
+  width: 100%;
+}
+
+.empty :global(.ant-empty-image) {
+  height: 64px;
+  margin-bottom: 16px;
+  opacity: 0.65;
+}
+
+.empty :global(.ant-empty-image svg) {
+  fill: var(--color-text-body);
+}
+
+.empty :global(.ant-empty-description) {
+  color: var(--color-text-body) !important;
+  margin-bottom: 20px;
+}
+
+.empty :global(.ant-empty-footer) {
+  margin-top: 0;
+}
+
+@media (max-width: 576px) {
+  .imageWrap {
+    width: 56px;
+    height: 56px;
+  }
+
+  .item {
+    padding: 10px 0;
+  }
+}

@@ -1,9 +1,12 @@
-import { Card, Tag, Typography } from "antd";
+import { Card, Tag, Typography, Button } from "antd";
+import { ShoppingOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { buildProductPath } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import { getProductName } from "src/utils/productLocale";
+import { useCart } from "src/app/providers/CartProvider";
+import { cartItemFromProduct } from "src/utils/cartItemFromProduct";
 import type { ProductCardProps } from "./types";
 import { CATEGORY_KEY_MAP } from "./consts";
 import styles from "./styles.module.css";
@@ -17,6 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   variant = "default",
 }) => {
   const { t, i18n } = useTranslation();
+  const { addItem, setOpenSidebar } = useCart();
   const coverImage = product.mainImageUrl ?? "/placeholder.jpg";
   const category = product.category ?? "";
   const categoryKey = category && CATEGORY_KEY_MAP[category]
@@ -28,6 +32,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const showCategoryTag = Boolean(categoryLabel);
   const slug = product.slug ?? product.id;
   const name = getProductName(product, i18n.language);
+  const isAvailable = product.isActive !== false;
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isAvailable) return;
+    addItem(cartItemFromProduct(product));
+    setOpenSidebar(true);
+  };
 
   return (
     <Link to={buildProductPath(slug)} className={styles.link}>
@@ -51,34 +64,62 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <Text className={styles.compactCollection}>
               {product.collectionName ?? ""}
             </Text>
-            <Text strong className={styles.price}>
-              {formatPrice(
-                product.price ?? 0,
-                DEFAULT_CURRENCY,
-                i18n.language,
+            <div className={styles.priceRow}>
+              <Text strong className={styles.price}>
+                {formatPrice(
+                  product.price ?? 0,
+                  DEFAULT_CURRENCY,
+                  i18n.language,
+                )}
+              </Text>
+              {isAvailable && (
+                <Button
+                  type="primary"
+                  size="small"
+                  icon={<ShoppingOutlined />}
+                  className={styles.addToCartBtnCompact}
+                  onClick={handleAddToCart}
+                  aria-label={t("cart.addToCart")}
+                />
               )}
-            </Text>
+            </div>
           </div>
         ) : (
           <div className={styles.meta}>
             <div className={styles.titleRow}>
-              <span className={styles.title}>{name}</span>
+              <Text className={styles.title} ellipsis>
+                {name}
+              </Text>
               {showCategoryTag && (
                 <Tag className={styles.categoryTag}>{categoryLabel}</Tag>
               )}
             </div>
-            <Text strong className={styles.price}>
-              {formatPrice(
-                product.price ?? 0,
-                DEFAULT_CURRENCY,
-                i18n.language,
-              )}
-            </Text>
-            {product.isActive === false && (
-              <Text type="danger" className={styles.outOfStock}>
-                {t("product.outOfStock")}
+            <div className={styles.priceRow}>
+              <Text strong className={styles.price}>
+                {formatPrice(
+                  product.price ?? 0,
+                  DEFAULT_CURRENCY,
+                  i18n.language,
+                )}
               </Text>
-            )}
+              <div className={styles.priceActions}>
+                {product.isActive === false && (
+                  <Text type="danger" className={styles.outOfStock}>
+                    {t("product.outOfStock")}
+                  </Text>
+                )}
+                {isAvailable && (
+                  <Button
+                    type="primary"
+                    size="small"
+                    icon={<ShoppingOutlined />}
+                    className={styles.addToCartBtn}
+                    onClick={handleAddToCart}
+                    aria-label={t("cart.addToCart")}
+                  />
+                )}
+              </div>
+            </div>
           </div>
         )}
       </Card>

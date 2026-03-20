@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import { ROUTES } from "src/consts/routes";
 import AdminAuthGuard from "src/app/AdminAuthGuard";
 import AppLayout from "src/app/layout";
+import CartProvider from "src/app/providers/CartProvider";
 import AdminAuthProvider from "src/app/providers/AdminAuthProvider";
 import HomePage from "src/pages/Home";
 import CatalogPage from "src/pages/Catalog";
@@ -21,10 +22,15 @@ import AdminCategoriesListPage from "src/pages/Admin/Categories/AdminCategoriesL
 import AdminCategoryEditPage from "src/pages/Admin/Categories/AdminCategoryEditPage";
 import AdminBestsellersPage from "src/pages/Admin/Bestsellers/AdminBestsellersPage";
 import AdminLogsPage from "src/pages/Admin/Logs/AdminLogsPage";
+import CheckoutPage from "src/pages/Checkout";
 
 export const router = createBrowserRouter([
   {
-    element: <AppLayout />,
+    element: (
+      <CartProvider>
+        <AppLayout />
+      </CartProvider>
+    ),
     children: [
       { path: ROUTES.HOME, element: <HomePage /> },
       { path: ROUTES.CATALOG, element: <CatalogPage /> },
@@ -33,6 +39,7 @@ export const router = createBrowserRouter([
       { path: ROUTES.UNISEX, element: <CatalogPage /> },
       { path: ROUTES.NEW, element: <CatalogPage /> },
       { path: ROUTES.PRODUCT, element: <ProductPage /> },
+      { path: ROUTES.CHECKOUT, element: <CheckoutPage /> },
       { path: ROUTES.ABOUT, element: <AboutPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       {

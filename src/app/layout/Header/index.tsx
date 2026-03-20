@@ -1,5 +1,5 @@
-import { Layout, Button, Dropdown, Flex } from "antd";
-import { MenuOutlined, GlobalOutlined } from "@ant-design/icons";
+import { Layout, Button, Dropdown, Flex, Badge } from "antd";
+import { MenuOutlined, GlobalOutlined, ShoppingOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import type { HeaderProps } from "./types";
 import styles from "./styles.module.css";
@@ -18,6 +18,8 @@ const Header: React.FC<HeaderProps> = ({
   logoUrl,
   logoAlt,
   homePath,
+  cartCount = 0,
+  onOpenCart,
 }) => {
   const contactItem = rightItems[rightItems.length - 1];
   const rightLinks = rightItems.slice(0, -1);
@@ -52,6 +54,17 @@ const Header: React.FC<HeaderProps> = ({
         <Flex align="center" gap="small" className={styles.contactWithLang}>
           {contactItem && (
             <NavLink path={contactItem.path} labelKey={contactItem.labelKey} />
+          )}
+          {onOpenCart && (
+            <Badge count={cartCount} size="small" offset={[-2, 2]}>
+              <Button
+                type="text"
+                icon={<ShoppingOutlined />}
+                className={styles.langButton}
+                onClick={onOpenCart}
+                aria-label={t("cart.title")}
+              />
+            </Badge>
           )}
           <Dropdown
             trigger={["click"]}

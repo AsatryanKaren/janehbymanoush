@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { ROUTES } from "src/consts/routes";
 import { LANGUAGES } from "src/i18n";
 import { LOGO_IMAGE } from "src/consts/assets";
+import { useCart } from "src/app/providers/CartProvider";
 import {
   LEFT_NAV_ITEMS,
   RIGHT_NAV_ITEMS,
@@ -15,6 +16,7 @@ import {
 import ScrollToTop from "src/app/ScrollToTop";
 import Header from "./Header";
 import MobileDrawer from "./MobileDrawer";
+import CartSidebar from "src/components/CartSidebar";
 import Footer from "src/components/Footer";
 import styles from "./styles.module.css";
 
@@ -25,9 +27,11 @@ const AppLayout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { totalCount, openSidebar, setOpenSidebar } = useCart();
 
+  const overlayOpen = drawerOpen || openSidebar;
   useEffect(() => {
-    if (!drawerOpen) {
+    if (!overlayOpen) {
       return;
     }
     const scrollY = window.scrollY;
@@ -47,7 +51,7 @@ const AppLayout: React.FC = () => {
       document.body.style.top = "";
       window.scrollTo(0, scrollY);
     };
-  }, [drawerOpen]);
+  }, [overlayOpen]);
 
   const langMenuItems = LANGUAGES.map((lang) => ({
     key: lang.code,
@@ -118,6 +122,12 @@ const AppLayout: React.FC = () => {
         logoUrl={LOGO_IMAGE}
         logoAlt={t("common.appName")}
         homePath={ROUTES.HOME}
+        cartCount={totalCount}
+        onOpenCart={() => setOpenSidebar(true)}
+      />
+      <CartSidebar
+        open={openSidebar}
+        onClose={() => setOpenSidebar(false)}
       />
       <MobileDrawer
         open={drawerOpen}

@@ -5,16 +5,14 @@ import {
   PlusOutlined,
   SafetyCertificateOutlined,
   ShoppingCartOutlined,
-  TruckOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ROUTES } from "src/consts/routes";
 import RingSizeSelector from "src/components/RingSizeSelector";
+import { useCart } from "src/app/providers/CartProvider";
+import { cartItemFromProduct } from "src/utils/cartItemFromProduct";
+import { isRingCategoryName } from "src/utils/isRingItem";
 import { GENDER_I18N_KEYS, genderFromApi } from "src/types/product";
 import { formatPrice } from "src/utils/formatPrice";
-import OrderModal from "../OrderModal";
-import type { OrderFormValues } from "../OrderModal/types";
 import type { ProductInfoProps } from "./types";
 import styles from "./styles.module.css";
 
@@ -26,8 +24,8 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   description,
 }) => {
   const { t, i18n } = useTranslation();
+  const { addItem, setOpenSidebar } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const [orderModalOpen, setOrderModalOpen] = useState(false);
   const [ringSize, setRingSize] = useState<number | null>(null);
   const [ringSizeIsCustom, setRingSizeIsCustom] = useState(false);
 
@@ -37,8 +35,16 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
       ? genderFromApi(product.gender)
       : null;
 
-  const handleOrderSuccess = (_values: OrderFormValues) => {
-    // TODO: integrate with API (e.g. submit order with product + quantity)
+  const handleAddToCart = () => {
+    if (!isAvailable) return;
+    addItem(
+      {
+        ...cartItemFromProduct(product),
+        ...(ringSize != null && { ringSize, ringSizeIsCustom }),
+      },
+      quantity,
+    );
+    setOpenSidebar(true);
   };
 
   return (
@@ -71,14 +77,16 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           {description}
         </Paragraph>
       )}
-      <RingSizeSelector
-        value={ringSize}
-        isCustom={ringSizeIsCustom}
-        onChange={(value, isCustom) => {
-          setRingSize(value);
-          setRingSizeIsCustom(isCustom);
-        }}
-      />
+      {isRingCategoryName(product.categoryName) && (
+        <RingSizeSelector
+          value={ringSize}
+          isCustom={ringSizeIsCustom}
+          onChange={(value, isCustom) => {
+            setRingSize(value);
+            setRingSizeIsCustom(isCustom);
+          }}
+        />
+      )}
       <div>
         <span className={styles.quantityLabel}>{t("product.quantity")}</span>
         <div className={styles.quantityWrapper}>
@@ -102,10 +110,6 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           </div>
         </div>
       </div>
-      <Link to={ROUTES.SHIPPING} className={styles.orderDetailsLink}>
-        <TruckOutlined className={styles.orderDetailsLinkIcon} />
-        <span>{t("product.orderDetailsLink")}</span>
-      </Link>
       <div className={styles.jewelryDetails}>
         <SafetyCertificateOutlined className={styles.jewelryDetailsIcon} />
         <span>{t("product.jewelryDetails")}</span>
@@ -118,20 +122,11 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           disabled={!isAvailable}
           block
           className={styles.orderButton}
-          onClick={() => setOrderModalOpen(true)}
+          onClick={handleAddToCart}
         >
           {isAvailable ? t("product.addToCart") : t("product.unavailable")}
         </Button>
       </div>
-      <OrderModal
-        open={orderModalOpen}
-        onClose={() => setOrderModalOpen(false)}
-        productId={product.id}
-        productName={name}
-        count={quantity}
-        ringSize={ringSize}
-        onSuccess={handleOrderSuccess}
-      />
     </div>
   );
 };

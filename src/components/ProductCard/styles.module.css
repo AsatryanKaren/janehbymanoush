@@ -59,12 +59,12 @@
 }
 
 .title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  line-height: 1.35;
   flex: 1;
   min-width: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text-primary);
 }
 
 .categoryTag {
@@ -75,14 +75,91 @@
   background: transparent;
 }
 
+.priceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+  min-width: 0;
+}
+
+.priceActions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+  min-width: 64px;
+}
+
 .price {
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--color-accent);
+  line-height: 1.25;
 }
 
 .outOfStock {
   font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+
+.addToCartBtn {
+  flex-shrink: 0;
+  width: 56px !important;
+  min-width: 56px !important;
+  max-width: 56px !important;
+  height: 30px !important;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: none !important;
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-border-subtle) !important;
+  color: var(--color-accent) !important;
+  transition: all 0.2s ease;
+}
+
+.addToCartBtn :global(.anticon) {
+  font-size: 1rem;
+}
+
+.addToCartBtn:hover {
+  border-color: var(--color-accent) !important;
+  background: var(--color-accent) !important;
+  color: var(--color-text-on-dark) !important;
+}
+
+.addToCartBtnCompact {
+  flex-shrink: 0;
+  width: 50px !important;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  height: 28px !important;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: none !important;
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-border-subtle) !important;
+  color: var(--color-accent) !important;
+  transition: all 0.2s ease;
+}
+
+.addToCartBtnCompact :global(.anticon) {
+  font-size: 0.875rem;
+}
+
+.addToCartBtnCompact:hover {
+  border-color: var(--color-accent) !important;
+  background: var(--color-accent) !important;
+  color: var(--color-text-on-dark) !important;
 }
 
 .card :global(.ant-card-cover) {
