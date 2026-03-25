@@ -3,7 +3,6 @@ import {
   GiftOutlined,
   HeartOutlined,
   ReadOutlined,
-  SwapOutlined,
 } from "@ant-design/icons";
 import { ROUTES } from "src/consts/routes";
 
@@ -27,10 +26,5 @@ export const QUICK_LINKS = [
     path: ROUTES.SHIPPING,
     i18nKey: "footer.about.shipping",
     icon: CarOutlined,
-  },
-  {
-    path: ROUTES.RETURNS,
-    i18nKey: "footer.about.returns",
-    icon: SwapOutlined,
   },
 ] as const;

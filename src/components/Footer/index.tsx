@@ -10,7 +10,10 @@ import {
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { LOGO_IMAGE } from "src/consts/assets";
-import { getPrivacyPolicyPdfHref } from "src/utils/legalDocuments";
+import {
+  getPrivacyPolicyPdfHref,
+  getTermsAndConditionsPdfHref,
+} from "src/utils/legalDocuments";
 import { SOCIAL_LINKS } from "src/consts/social";
 import {
   FOOTER_HELP_LINKS,
@@ -136,9 +139,14 @@ const Footer: React.FC = () => {
           >
             {t("footer.privacy")}
           </a>
-          <Link to="/terms" className={styles.legalLink}>
+          <a
+            href={getTermsAndConditionsPdfHref(i18n.language)}
+            className={styles.legalLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {t("footer.terms")}
-          </Link>
+          </a>
         </Space>
       </div>
     </Layout.Footer>

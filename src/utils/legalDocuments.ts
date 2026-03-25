@@ -14,10 +14,40 @@ const PRIVACY_LANG_CODES = Object.keys(PRIVACY_PDF_BY_LANG) as PrivacyLang[];
  * Unknown codes fall back to Armenian (`hy`). Path is encoded for spaces / Unicode.
  */
 export const getPrivacyPolicyPdfHref = (language: string): string => {
-  const code = language.split("-")[0] ?? "hy";
-  const normalized = (PRIVACY_LANG_CODES as readonly string[]).includes(code)
-    ? (code as PrivacyLang)
+  // `i18n.language` may come in formats like `ru-RU` or `ru_RU`, and Armenian
+  // may sometimes be provided as `am` instead of `hy`.
+  const code = language.split(/[-_]/)[0] ?? "hy";
+  const mapped = code === "am" ? "hy" : code;
+  const normalized = (PRIVACY_LANG_CODES as readonly string[]).includes(mapped)
+    ? (mapped as PrivacyLang)
     : "hy";
   const fileName = PRIVACY_PDF_BY_LANG[normalized];
-  return `/legal/${encodeURIComponent(fileName)}`;
+  // Use `BASE_URL` so the app works when hosted under a sub-path in production.
+  const baseUrl = import.meta.env.BASE_URL ?? "/";
+  return `${baseUrl}legal/${encodeURIComponent(fileName)}`;
+};
+
+const TERMS_PDF_BY_LANG = {
+  en: "Terms and Conditions.pdf",
+  ru: "Положения и условия.pdf",
+  hy: "Ընդհանուր_դրույթները_ու_պայմանները.pdf",
+} as const;
+
+type TermsLang = keyof typeof TERMS_PDF_BY_LANG;
+
+const TERMS_LANG_CODES = Object.keys(TERMS_PDF_BY_LANG) as TermsLang[];
+
+export const getTermsAndConditionsPdfHref = (language: string): string => {
+  const code = language.split(/[-_]/)[0] ?? "hy";
+  const mapped = code === "am" ? "hy" : code;
+
+  const normalized = (TERMS_LANG_CODES as readonly string[]).includes(mapped)
+    ? (mapped as TermsLang)
+    : "hy";
+
+  const fileName = TERMS_PDF_BY_LANG[normalized];
+  const baseUrl = import.meta.env.BASE_URL ?? "/";
+
+  // Terms PDFs are stored in `public/terms/` (so URLs look like `/terms/<file>.pdf`).
+  return `${baseUrl}terms/${encodeURIComponent(fileName)}`;
 };
