@@ -3,6 +3,7 @@ import { Button, Flex } from "antd";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ROUTES } from "src/consts/routes";
+import { BANNER_VIDEO_ENABLED, BANNER_VIDEO_URL } from "./consts";
 import heroImage from "./assets/newBanner.jpg";
 import styles from "./styles.module.css";
 
@@ -26,6 +27,20 @@ const Banner: React.FC = () => {
         backgroundImage: `linear-gradient(rgba(28,25,23,0.15), rgba(28,25,23,0.2)), url(${heroImage})`,
       }}
     >
+      {BANNER_VIDEO_ENABLED && (
+        <div className={styles.videoWrapper}>
+          <video
+            className={styles.video}
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={heroImage}
+          >
+            <source src={BANNER_VIDEO_URL} />
+          </video>
+        </div>
+      )}
       <div className={styles.content}>
         <p className={styles.tagline}>{t("home.tagline")}</p>
         <h1 className={styles.brand}>
