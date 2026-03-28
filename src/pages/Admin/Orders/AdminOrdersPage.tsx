@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Table, Typography, Flex, App, Image, Tooltip } from "antd";
+import { useNavigate } from "react-router-dom";
+import { Button, Table, Typography, Flex, App, Image } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminOrdersApi } from "src/api/adminOrders";
-import { buildProductPath } from "src/consts/routes";
+import { buildAdminOrderPath, buildProductPath } from "src/consts/routes";
 import type { OrderListItem, PagedOrdersResponse } from "src/types/order";
 import type { ColumnsType } from "antd/es/table";
 import styles from "./styles.module.css";
@@ -12,6 +14,7 @@ const { Title, Text } = Typography;
 const AdminOrdersPage: React.FC = () => {
   const { t, language } = useAdminTranslation();
   const { message } = App.useApp();
+  const navigate = useNavigate();
   const [data, setData] = useState<PagedOrdersResponse>({
     items: [],
     page: 1,
@@ -45,13 +48,26 @@ const AdminOrdersPage: React.FC = () => {
 
   const columns: ColumnsType<OrderListItem> = [
     {
-      title: t("admin.columnQuantity"),
-      dataIndex: "count",
-      key: "count",
-      width: 90,
+      title: "",
+      key: "open",
+      width: 56,
       align: "center",
-      render: (_: unknown, record: OrderListItem) =>
-        record.count ?? record.product?.count ?? "—",
+      fixed: "left",
+      onHeaderCell: () => ({
+        "aria-label": t("admin.openOrderAria"),
+      }),
+      render: (_: unknown, record: OrderListItem) => (
+        <Button
+          type="link"
+          icon={<EyeOutlined />}
+          className={styles.viewOrderBtn}
+          aria-label={t("admin.openOrderAria")}
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(buildAdminOrderPath(record.id));
+          }}
+        />
+      ),
     },
     {
       title: t("admin.columnProduct"),
@@ -67,7 +83,7 @@ const AdminOrdersPage: React.FC = () => {
             alt=""
             width={48}
             height={48}
-            style={{ objectFit: "cover", borderRadius: 6 }}
+            className={styles.productThumb}
             preview={{ mask: t("admin.columnImage") }}
           />
         ) : null;
@@ -77,17 +93,15 @@ const AdminOrdersPage: React.FC = () => {
               href={buildProductPath(product.slug)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
             >
               {name}
             </a>
           : name;
         return (
-          <Flex align="center" gap="small" style={{ minWidth: 0 }}>
+          <Flex align="center" gap="small" className={styles.productCell}>
             {img}
-            <Text
-              style={{ flex: 1, minWidth: 0 }}
-              ellipsis={{ tooltip: name }}
-            >
+            <Text className={styles.productCellText} ellipsis={{ tooltip: name }}>
               {link}
             </Text>
           </Flex>
@@ -109,11 +123,10 @@ const AdminOrdersPage: React.FC = () => {
       render: (v: string | null) => {
         if (!v) return "—";
         return (
-          <Text
-            copyable={{ text: v }}
-            style={{ whiteSpace: "nowrap" }}
-          >
-            <a href={`tel:${v}`}>{v}</a>
+          <Text copyable={{ text: v }} className={styles.nowrapCell}>
+            <a href={`tel:${v}`} onClick={(e) => e.stopPropagation()}>
+              {v}
+            </a>
           </Text>
         );
       },
@@ -126,27 +139,11 @@ const AdminOrdersPage: React.FC = () => {
       render: (v: string | null) => {
         if (!v) return "—";
         return (
-          <Text
-            copyable={{ text: v }}
-            style={{ whiteSpace: "nowrap" }}
-          >
-            <a href={`mailto:${v}`}>{v}</a>
+          <Text copyable={{ text: v }} className={styles.nowrapCell}>
+            <a href={`mailto:${v}`} onClick={(e) => e.stopPropagation()}>
+              {v}
+            </a>
           </Text>
-        );
-      },
-    },
-    {
-      title: t("admin.columnMessage"),
-      dataIndex: "message",
-      key: "message",
-      width: 200,
-      ellipsis: true,
-      render: (msg: string | null) => {
-        if (msg == null || msg === "") return "—";
-        return (
-          <Tooltip title={msg}>
-            <span className={styles.ellipsisCell}>{msg}</span>
-          </Tooltip>
         );
       },
     },
@@ -166,6 +163,16 @@ const AdminOrdersPage: React.FC = () => {
         new Date(a.createdAt ?? 0).getTime() -
         new Date(b.createdAt ?? 0).getTime(),
     },
+    {
+      title: t("admin.columnQuantity"),
+      dataIndex: "count",
+      key: "count",
+      width: 90,
+      align: "center",
+      fixed: "right",
+      render: (_: unknown, record: OrderListItem) =>
+        record.count ?? record.product?.count ?? "—",
+    },
   ];
 
   const handleTableChange = (pagination: {
@@ -179,7 +186,12 @@ const AdminOrdersPage: React.FC = () => {
 
   return (
     <>
-      <Title level={2}>{t("admin.orders")}</Title>
+      <Flex vertical gap="small" className={styles.pageHeading}>
+        <Title level={2} className={styles.pageTitle}>
+          {t("admin.orders")}
+        </Title>
+        <Text type="secondary">{t("admin.ordersListHint")}</Text>
+      </Flex>
       <Flex vertical gap="middle">
         <Table<OrderListItem>
           className={styles.ordersTable}
@@ -187,6 +199,10 @@ const AdminOrdersPage: React.FC = () => {
           columns={columns}
           rowKey="id"
           loading={loading}
+          scroll={{ x: "max-content" }}
+          onRow={(record) => ({
+            onClick: () => navigate(buildAdminOrderPath(record.id)),
+          })}
           pagination={{
             current: data.page,
             pageSize: data.pageSize,

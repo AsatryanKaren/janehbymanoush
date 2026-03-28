@@ -52,6 +52,42 @@ export type AdminOrdersListParams = {
   PageSize?: string;
 };
 
+/** Admin GET /v1/admin/orders/{id} — line item */
+export type AdminOrderDetailLineProduct = {
+  id: string;
+  name?: string | null;
+  slug?: string | null;
+  mainImageUrl?: string | null;
+  count?: number;
+};
+
+export type AdminOrderDetailLineItem = {
+  id: string;
+  productId: string;
+  productName?: string | null;
+  unitPrice: number;
+  currency?: string | null;
+  count: number;
+  product?: AdminOrderDetailLineProduct | null;
+};
+
+/** Admin GET /v1/admin/orders/{id} */
+export type AdminOrderDetail = {
+  id: string;
+  customerName?: string | null;
+  phone?: string | null;
+  email?: string | null;
+  message?: string | null;
+  createdAt?: string;
+  ringSize?: number | null;
+  shippingCountry?: number | null;
+  storeAddress?: number | null;
+  packaging?: number | null;
+  totalAmount: number;
+  currency?: string | null;
+  items?: AdminOrderDetailLineItem[] | null;
+};
+
 /** Public order (e.g. for future use) */
 export type Order = {
   id: string;

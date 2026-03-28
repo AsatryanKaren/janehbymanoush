@@ -1,10 +1,36 @@
-/* Ensure truncated columns show ellipsis and respect cell width */
-.ellipsisCell {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.pageHeading {
+  margin-bottom: 8px;
+}
+
+.pageTitle {
+  margin: 0 !important;
+}
+
+.nowrapCell {
   white-space: nowrap;
-  max-width: 100%;
+}
+
+.viewOrderBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0;
+}
+
+.productCell {
+  min-width: 0;
+}
+
+.productCellText {
+  flex: 1;
+  min-width: 0;
+}
+
+.productThumb {
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 /* Table fits container without horizontal scroll; fixed layout so columns truncate */
@@ -15,4 +41,13 @@
 
 .ordersTable :global(.ant-table-cell) {
   overflow: hidden;
+}
+
+.ordersTable :global(tbody .ant-table-row) {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.ordersTable :global(tbody .ant-table-row:hover > .ant-table-cell) {
+  background: rgba(0, 0, 0, 0.04) !important;
 }

@@ -69,6 +69,14 @@ const AdminLayout: React.FC = () => {
     },
   ];
 
+  const ordersSectionSelected =
+    location.pathname === ROUTES.ADMIN_ORDERS ||
+    location.pathname.startsWith("/admin/order/");
+
+  const menuSelectedKey = ordersSectionSelected ?
+    ROUTES.ADMIN_ORDERS
+  : location.pathname;
+
   const handleMenuClick = ({ key }: { key: string }) => {
     if (key === "logout") {
       logout();
@@ -89,7 +97,7 @@ const AdminLayout: React.FC = () => {
           <Menu
             theme="dark"
             mode="inline"
-            selectedKeys={[location.pathname]}
+            selectedKeys={[menuSelectedKey]}
             items={menuItems}
             onClick={handleMenuClick}
           />

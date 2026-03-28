@@ -367,6 +367,50 @@
   gap: 10px;
 }
 
+.packagingOptionsSingle {
+  grid-template-columns: 1fr;
+}
+
+.packagingOptionLead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.packagingOptionsSingle .packagingOption {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.packagingOptionsSingle .packagingOption .packagingOptionLead {
+  flex-direction: row;
+  align-items: center;
+}
+
+.packagingOptionHours {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-body);
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .packagingOptionsSingle .packagingOptionHours {
+    margin-left: 0;
+    width: 100%;
+    text-align: left;
+  }
+}
+
 .packagingOption {
   display: flex;
   flex-direction: column;
@@ -390,6 +434,22 @@
 
 .packagingOptionActive,
 .packagingOptionActive:hover {
+  border-color: var(--color-accent);
+  background: rgba(191, 122, 90, 0.12);
+  color: var(--color-text-primary);
+}
+
+.packagingOptionStatic {
+  cursor: default;
+}
+
+.packagingOptionStatic:hover {
+  border-color: var(--color-border);
+  background: var(--color-border-subtle);
+  color: var(--color-text-body);
+}
+
+.packagingOptionStatic.packagingOptionActive:hover {
   border-color: var(--color-accent);
   background: rgba(191, 122, 90, 0.12);
   color: var(--color-text-primary);

@@ -1,20 +1,12 @@
 import type { CheckoutFormValues } from "./types";
 
+/** Single pickup location for now; more stores can be added later. */
 export const STORE_OPTIONS = [
   {
-    value: "store1",
-    labelKey: "checkout.store.store1",
-    imageUrl: "https://placehold.co/80x80/292524/8d734a?text=Store1",
-  },
-  {
-    value: "store2",
-    labelKey: "checkout.store.store2",
-    imageUrl: "https://placehold.co/80x80/292524/8d734a?text=Store2",
-  },
-  {
-    value: "store3",
-    labelKey: "checkout.store.store3",
-    imageUrl: "https://placehold.co/80x80/292524/8d734a?text=Store3",
+    value: "rioMall",
+    labelKey: "checkout.store.rioMall",
+    hoursLabelKey: "checkout.store.rioMallHours",
+    imageUrl: "https://placehold.co/80x80/292524/8d734a?text=Rio+Mall",
   },
 ] as const;
 

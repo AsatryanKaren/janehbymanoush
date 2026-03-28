@@ -45,3 +45,6 @@ export const buildAdminCollectionEditPath = (id: string): string =>
 
 export const buildAdminCategoryEditPath = (id: string): string =>
   `/admin/categories/${id}/edit`;
+
+export const buildAdminOrderPath = (id: string): string =>
+  `/admin/order/${id}`;

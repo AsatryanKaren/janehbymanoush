@@ -1,5 +1,6 @@
 import { http } from "src/api/http";
 import type {
+  AdminOrderDetail,
   PagedOrdersResponse,
   AdminOrdersListParams,
 } from "src/types/order";
@@ -12,4 +13,7 @@ export const adminOrdersApi = {
     http<PagedOrdersResponse>(ADMIN_ORDERS_PATH, {
       params: toQueryParams(params),
     }),
+
+  getById: (id: string): Promise<AdminOrderDetail> =>
+    http<AdminOrderDetail>(`${ADMIN_ORDERS_PATH}/${id}`),
 };

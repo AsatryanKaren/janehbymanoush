@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button, Col, Form, Input, Row, Segmented } from "antd";
 import { useTranslation } from "react-i18next";
 import { PACKAGING_OPTIONS, STORE_OPTIONS } from "../../consts";
@@ -13,6 +14,20 @@ const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
   submitting,
 }) => {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (deliveryMethod !== "pickup") {
+      return;
+    }
+    const onlyStore = STORE_OPTIONS[0]?.value;
+    if (!onlyStore) {
+      return;
+    }
+    const current = form.getFieldValue("pickupStore") as string | undefined;
+    if (current !== onlyStore) {
+      form.setFieldValue("pickupStore", onlyStore);
+    }
+  }, [deliveryMethod, form]);
 
   return (
     <>
@@ -44,10 +59,11 @@ const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
       )}
 
       {deliveryMethod === "pickup" && (
-        <Form.Item name="pickupStore" label={t("checkout.pickupStoreLabel")}>
+        <Form.Item name="pickupStore" label={t("checkout.pickupLocationLabel")}>
           <SelectionCardGroup
             options={STORE_OPTIONS}
             value={form.getFieldValue("pickupStore")}
+            interactive={STORE_OPTIONS.length > 1}
             onChange={(value) => {
               if (typeof value === "string") {
                 form.setFieldValue("pickupStore", value);
