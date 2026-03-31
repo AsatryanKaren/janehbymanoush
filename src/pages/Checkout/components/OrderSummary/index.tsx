@@ -4,6 +4,7 @@ import type { CartItem } from "src/types/cart";
 import { formatPrice } from "src/utils/formatPrice";
 import { isRingItem } from "src/utils/isRingItem";
 import { getProductName } from "src/utils/productLocale";
+import { Space } from "antd";
 import styles from "../../styles.module.css";
 
 const DEFAULT_CURRENCY = "AMD";
@@ -69,6 +70,35 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       <div className={styles.summaryTotal}>
         <span>{t("cart.total")}</span>
         <span>{formatPrice(totalAmount, DEFAULT_CURRENCY, lang)}</span>
+      </div>
+
+      <div className={styles.summaryPaymentLogos} aria-label="Payment methods">
+        <Space size={12} align="center" wrap className={styles.summaryPaymentLogosInner}>
+          <img
+            src="/images/payments/visa-logo.svg"
+            alt="Visa"
+            className={styles.summaryPaymentLogo}
+            loading="lazy"
+          />
+          <img
+            src="/images/payments/Mastercard-logo.svg"
+            alt="Mastercard"
+            className={styles.summaryPaymentLogo}
+            loading="lazy"
+          />
+          <img
+            src="/images/payments/idram.svg"
+            alt="Idram"
+            className={styles.summaryPaymentLogo}
+            loading="lazy"
+          />
+          <img
+            src="/images/payments/arca.svg"
+            alt="ArCa"
+            className={styles.summaryPaymentLogo}
+            loading="lazy"
+          />
+        </Space>
       </div>
     </div>
   );

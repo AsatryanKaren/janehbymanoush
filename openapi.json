@@ -1691,7 +1691,7 @@
         },
         "additionalProperties": false
       },
-      "CreateOrderRequest": {
+      "CreateOrderLineItem": {
         "type": "object",
         "properties": {
           "productId": {
@@ -1701,6 +1701,22 @@
           "count": {
             "type": "integer",
             "format": "int32"
+          },
+          "ringSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateOrderRequest": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateOrderLineItem"
+            }
           },
           "customerName": {
             "type": "string",
@@ -1717,6 +1733,22 @@
           "message": {
             "type": "string",
             "nullable": true
+          },
+          "ringSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shippingCountry": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "storeAddress": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "packaging": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

@@ -15,6 +15,21 @@
   margin: 0 !important;
 }
 
+/* High-contrast fulfillment tags in Summary card header (Card `extra`). */
+.tagDelivery {
+  margin: 0;
+  color: #fff !important;
+  background: #0958d9 !important;
+  border-color: #0958d9 !important;
+}
+
+.tagPickup {
+  margin: 0;
+  color: #fff !important;
+  background: #d4380d !important;
+  border-color: #d4380d !important;
+}
+
 .cardStack {
   width: 100%;
 }

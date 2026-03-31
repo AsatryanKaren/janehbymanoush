@@ -7,7 +7,7 @@ import type {
 const ORDERS_PATH = "/v1/orders";
 
 export const ordersApi = {
-  /** POST /v1/orders — create order (product page modal) */
+  /** POST /v1/orders — create order (checkout or product modal) */
   create: (body: CreateOrderRequest): Promise<CreateOrderResponse> =>
     http<CreateOrderResponse>(ORDERS_PATH, { method: "POST", body }),
 };

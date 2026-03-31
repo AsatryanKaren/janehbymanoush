@@ -11,8 +11,6 @@ import {
 } from "@ant-design/icons";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAdminAuth } from "src/app/providers/AdminAuthProvider";
-import AdminCategoriesProvider from "src/app/providers/AdminCategoriesProvider";
-import AdminCollectionsProvider from "src/app/providers/AdminCollectionsProvider";
 import { ROUTES } from "src/consts/routes";
 import { LOGO_IMAGE } from "src/consts/assets";
 import { useAdminTranslation } from "./useAdminTranslation";
@@ -87,29 +85,25 @@ const AdminLayout: React.FC = () => {
   };
 
   return (
-    <AdminCategoriesProvider>
-      <AdminCollectionsProvider>
-        <Layout className={styles.root}>
-        <Sider className={styles.sider} breakpoint="lg" collapsedWidth="0">
-          <Link to={ROUTES.ADMIN_PRODUCTS} className={styles.logo}>
-            <img src={LOGO_IMAGE} alt={t("admin.panelTitle")} />
-          </Link>
-          <Menu
-            theme="dark"
-            mode="inline"
-            selectedKeys={[menuSelectedKey]}
-            items={menuItems}
-            onClick={handleMenuClick}
-          />
-        </Sider>
-        <Layout>
-          <Content className={styles.content}>
-            <Outlet />
-          </Content>
-        </Layout>
+    <Layout className={styles.root}>
+      <Sider className={styles.sider} breakpoint="lg" collapsedWidth="0">
+        <Link to={ROUTES.ADMIN_PRODUCTS} className={styles.logo}>
+          <img src={LOGO_IMAGE} alt={t("admin.panelTitle")} />
+        </Link>
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={[menuSelectedKey]}
+          items={menuItems}
+          onClick={handleMenuClick}
+        />
+      </Sider>
+      <Layout>
+        <Content className={styles.content}>
+          <Outlet />
+        </Content>
       </Layout>
-      </AdminCollectionsProvider>
-    </AdminCategoriesProvider>
+    </Layout>
   );
 };
 

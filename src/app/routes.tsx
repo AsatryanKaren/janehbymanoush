@@ -23,6 +23,7 @@ import AdminCategoriesListPage from "src/pages/Admin/Categories/AdminCategoriesL
 import AdminCategoryEditPage from "src/pages/Admin/Categories/AdminCategoryEditPage";
 import AdminBestsellersPage from "src/pages/Admin/Bestsellers/AdminBestsellersPage";
 import AdminLogsPage from "src/pages/Admin/Logs/AdminLogsPage";
+import AdminCatalogProvidersLayout from "src/app/AdminCatalogProvidersLayout";
 import CheckoutPage from "src/pages/Checkout";
 
 export const router = createBrowserRouter([
@@ -69,20 +70,31 @@ export const router = createBrowserRouter([
       {
         element: <AdminAuthGuard />,
         children: [
-          { path: "products", element: <AdminProductsListPage /> },
-          { path: "products/new", element: <AdminProductEditPage /> },
-          { path: "products/:id", element: <AdminProductViewPage /> },
-          { path: "products/:id/edit", element: <AdminProductEditPage /> },
-          { path: "collections", element: <AdminCollectionsListPage /> },
-          { path: "collections/new", element: <AdminCollectionEditPage /> },
-          { path: "collections/:id/edit", element: <AdminCollectionEditPage /> },
-          { path: "categories", element: <AdminCategoriesListPage /> },
-          { path: "categories/new", element: <AdminCategoryEditPage /> },
-          { path: "categories/:id/edit", element: <AdminCategoryEditPage /> },
           { path: "orders", element: <AdminOrdersPage /> },
           { path: "order/:id", element: <AdminOrderDetailPage /> },
           { path: "bestsellers", element: <AdminBestsellersPage /> },
           { path: "logs", element: <AdminLogsPage /> },
+          {
+            element: <AdminCatalogProvidersLayout />,
+            children: [
+              { path: "products", element: <AdminProductsListPage /> },
+              { path: "products/new", element: <AdminProductEditPage /> },
+              { path: "products/:id", element: <AdminProductViewPage /> },
+              { path: "products/:id/edit", element: <AdminProductEditPage /> },
+              { path: "collections", element: <AdminCollectionsListPage /> },
+              { path: "collections/new", element: <AdminCollectionEditPage /> },
+              {
+                path: "collections/:id/edit",
+                element: <AdminCollectionEditPage />,
+              },
+              { path: "categories", element: <AdminCategoriesListPage /> },
+              { path: "categories/new", element: <AdminCategoryEditPage /> },
+              {
+                path: "categories/:id/edit",
+                element: <AdminCategoryEditPage />,
+              },
+            ],
+          },
         ],
       },
     ],

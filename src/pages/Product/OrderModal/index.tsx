@@ -2,7 +2,7 @@ import { useState } from "react";
 import { App, Button, Form, Input, Modal, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import { ordersApi } from "src/api/orders";
-import type { CreateOrderRequest } from "src/types/order";
+import { buildProductModalCreateOrderRequest } from "src/utils/createOrderPayload";
 import type { OrderFormValues, OrderModalProps } from "./types";
 import styles from "./styles.module.css";
 
@@ -25,17 +25,15 @@ const OrderModal: React.FC<OrderModalProps> = ({
       .filter(Boolean)
       .join(" ")
       .trim() || null;
-    const body: CreateOrderRequest = {
+    const body = buildProductModalCreateOrderRequest({
       productId,
       count,
       customerName,
       phone: values.phone ?? null,
       email: values.email ?? null,
       message: values.message?.trim() || null,
-    };
-    if (ringSize != null) {
-      body.ringSize = ringSize;
-    }
+      ringSize,
+    });
     setSubmitting(true);
     ordersApi
       .create(body)

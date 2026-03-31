@@ -9,6 +9,7 @@ import {
   Image,
   Result,
   Spin,
+  Tag,
   Typography,
 } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
@@ -17,6 +18,15 @@ import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminOrdersApi } from "src/api/adminOrders";
 import { ROUTES, buildProductPath } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
+import {
+  adminOrderHasPickupStore,
+  adminOrderHasShippingCountry,
+  formatAdminPackaging,
+  formatAdminShippingCountry,
+  formatAdminStoreAddress,
+  formatAdminLineItemRingSizes,
+  getAdminOrderFulfillmentType,
+} from "src/utils/adminOrderDetailDisplay";
 import { adminOrderMessageDisplay } from "src/utils/orderMessageDisplay";
 import type { AdminOrderDetail, AdminOrderDetailLineItem } from "src/types/order";
 import styles from "./styles.module.css";
@@ -33,27 +43,6 @@ const ORDER_DETAIL_LOAD_FAILED_DESCRIPTION =
 
 const dash = (v: string | null | undefined): string =>
   v != null && v !== "" ? v : "—";
-
-/** Admin numeric codes; API may send null or the string "null". */
-const formatOptionalNumber = (
-  n: number | string | null | undefined,
-): string => {
-  if (n == null) return "—";
-  if (typeof n === "string") {
-    const trimmed = n.trim();
-    if (
-      trimmed === "" ||
-      trimmed.toLowerCase() === "null" ||
-      trimmed.toLowerCase() === "undefined"
-    ) {
-      return "—";
-    }
-    const parsed = Number(trimmed);
-    return Number.isFinite(parsed) ? String(parsed) : "—";
-  }
-  if (typeof n === "number" && Number.isFinite(n)) return String(n);
-  return "—";
-};
 
 const AdminOrderDetailPage: React.FC = () => {
   const { t, language } = useAdminTranslation();
@@ -152,11 +141,20 @@ const AdminOrderDetailPage: React.FC = () => {
     row.currency ?? orderCurrency;
 
   const messageDisplay = adminOrderMessageDisplay(order.message);
-  const ringSize = order.ringSize;
-  const showRingSize =
-    typeof ringSize === "number" &&
-    Number.isFinite(ringSize) &&
-    ringSize !== 0;
+
+  const fulfillment = getAdminOrderFulfillmentType(order);
+  const summaryTitleExtra =
+    fulfillment === "unknown" ? null : (
+      <Tag
+        className={
+          fulfillment === "pickup" ? styles.tagPickup : styles.tagDelivery
+        }
+      >
+        {fulfillment === "pickup" ?
+          t("admin.orderDetail.tagPickup")
+        : t("admin.orderDetail.tagDelivery")}
+      </Tag>
+    );
 
   return (
     <>
@@ -178,7 +176,10 @@ const AdminOrderDetailPage: React.FC = () => {
       </Flex>
 
       <Flex vertical gap="large" className={styles.cardStack}>
-        <Card title={t("admin.orderDetail.sectionSummary")}>
+        <Card
+          title={t("admin.orderDetail.sectionSummary")}
+          extra={summaryTitleExtra}
+        >
           <Descriptions column={{ xs: 1, sm: 1, md: 2 }} bordered size="small">
             <Descriptions.Item label={t("admin.orderDetail.createdAt")}>
               {createdLabel}
@@ -201,19 +202,18 @@ const AdminOrderDetailPage: React.FC = () => {
                 <Text copyable={{ text: order.email }}>{order.email}</Text>
               : "—"}
             </Descriptions.Item>
-            {showRingSize ?
-              <Descriptions.Item label={t("admin.orderDetail.ringSize")}>
-                {String(ringSize)}
+            {adminOrderHasShippingCountry(order.shippingCountry) ?
+              <Descriptions.Item label={t("admin.orderDetail.shippingCountry")}>
+                {formatAdminShippingCountry(order.shippingCountry, t)}
               </Descriptions.Item>
             : null}
-            <Descriptions.Item label={t("admin.orderDetail.shippingCountry")}>
-              {formatOptionalNumber(order.shippingCountry ?? undefined)}
-            </Descriptions.Item>
-            <Descriptions.Item label={t("admin.orderDetail.storeAddress")}>
-              {formatOptionalNumber(order.storeAddress ?? undefined)}
-            </Descriptions.Item>
+            {adminOrderHasPickupStore(order.storeAddress) ?
+              <Descriptions.Item label={t("admin.orderDetail.storeAddress")}>
+                {formatAdminStoreAddress(order.storeAddress, t)}
+              </Descriptions.Item>
+            : null}
             <Descriptions.Item label={t("admin.orderDetail.packaging")}>
-              {formatOptionalNumber(order.packaging)}
+              {formatAdminPackaging(order.packaging, t)}
             </Descriptions.Item>
             <Descriptions.Item
               label={t("admin.orderDetail.message")}
@@ -238,6 +238,9 @@ const AdminOrderDetailPage: React.FC = () => {
               const c = lineCurrency(row);
               const subtotal = unit * qty;
               const productSlug = row.product?.slug?.trim();
+              const lineRingSizesText = formatAdminLineItemRingSizes(
+                row.ringSizes,
+              );
               return (
                 <Flex
                   key={row.id}
@@ -278,6 +281,12 @@ const AdminOrderDetailPage: React.FC = () => {
                     : <Text type="secondary">
                         {t("admin.orderDetail.productId")}: {row.productId}
                       </Text>}
+                    {lineRingSizesText ?
+                      <Text type="secondary">
+                        {t("admin.orderDetail.lineItemRingSizes")}:{" "}
+                        {lineRingSizesText}
+                      </Text>
+                    : null}
                     <Divider className={styles.itemDivider} />
                     <Flex wrap gap="large">
                       <Text>

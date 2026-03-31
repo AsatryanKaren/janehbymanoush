@@ -5,15 +5,12 @@ import { useTranslation } from "react-i18next";
 import { useCart } from "src/app/providers/CartProvider";
 import { ordersApi } from "src/api/orders";
 import { ROUTES } from "src/consts/routes";
-import { isRingItem } from "src/utils/isRingItem";
-import type { CreateOrderRequest } from "src/types/order";
-import {
-  CHECKOUT_INITIAL_VALUES,
-  PACKAGING_OPTIONS,
-  STORE_OPTIONS,
-} from "./consts";
+import { CHECKOUT_INITIAL_VALUES } from "./consts";
 import type { CheckoutFormValues } from "./types";
-import { getSelectedOptionLabels, getStoreLabel, hasRingsWithoutSize } from "./utils";
+import {
+  buildCheckoutCreateOrderRequest,
+  hasRingsWithoutSize,
+} from "./utils";
 import CheckoutFormSection from "./components/CheckoutFormSection";
 import OrderSummary from "./components/OrderSummary";
 import CheckoutInfoTabs from "./components/CheckoutInfoTabs";
@@ -49,47 +46,12 @@ const CheckoutPage: React.FC = () => {
       return;
     }
 
-    const customerName = values.name?.trim() || null;
     setSubmitting(true);
 
-    const deliveryMessage = isPickup
-      ? t("checkout.deliveryPickup") +
-        ": " +
-        getStoreLabel(values.pickupStore, STORE_OPTIONS, t)
-      : t("checkout.countryLabel") + ": " + values.country;
-    const selectedPackaging = getSelectedOptionLabels(
-      values.packaging ?? [],
-      PACKAGING_OPTIONS,
-      t,
-    );
-    const promises = items.map((item) => {
-      const body: CreateOrderRequest = {
-        productId: item.id,
-        count: item.quantity,
-        customerName,
-        phone: values.phone?.trim() || null,
-        email: values.email?.trim() || null,
-        message: [
-          values.message?.trim(),
-          selectedPackaging.length > 0
-            ? t("checkout.packagingLabel") + ": " + selectedPackaging.join(", ")
-            : null,
-          deliveryMessage,
-        ]
-          .filter(Boolean)
-          .join(" | ") || null,
-      };
-      if (
-        isRingItem(item) &&
-        item.ringSize != null &&
-        typeof item.ringSize === "number"
-      ) {
-        body.ringSize = item.ringSize;
-      }
-      return ordersApi.create(body);
-    });
+    const body = buildCheckoutCreateOrderRequest(items, values, t);
 
-    Promise.all(promises)
+    ordersApi
+      .create(body)
       .then(() => {
         void message.success(t("checkout.success"));
         items.forEach((item) => removeItem(item.id));

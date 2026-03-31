@@ -17,6 +17,28 @@
   background-clip: text;
 }
 
+ .summaryPaymentLogos {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.summaryPaymentLogosInner {
+  justify-content: center;
+}
+
+.summaryPaymentLogo {
+  height: 18px;
+  width: auto;
+  max-width: 84px;
+  object-fit: contain;
+  display: block;
+  opacity: 0.95;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.35));
+}
+
 /* Form labels and content visible on dark page */
 .container :global(.ant-form-item-label > label),
 .container :global(.ant-collapse-header) {
@@ -540,6 +562,11 @@
     padding: 20px 20px 40px;
   }
 
+  .summaryPaymentLogo {
+    height: 16px;
+    max-width: 76px;
+  }
+
   .checkoutInfoTabsWrap {
     margin-top: 32px;
   }
@@ -569,6 +596,16 @@
 @media (max-width: 480px) {
   .container {
     padding: 16px 16px 32px;
+  }
+
+  .summaryPaymentLogos {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  .summaryPaymentLogo {
+    height: 15px;
+    max-width: 70px;
   }
 
   .checkoutInfoTabsWrap {

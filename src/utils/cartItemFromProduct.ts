@@ -1,4 +1,5 @@
 import type { CartItem } from "src/types/cart";
+import type { ProductImage } from "src/types/product";
 
 type ProductLike = {
   id: string;
@@ -8,11 +9,19 @@ type ProductLike = {
   nameRu?: string | null;
   price?: number;
   mainImageUrl?: string | null;
+  images?: ProductImage[] | null;
   descriptionEn?: string | null;
   descriptionHy?: string | null;
   descriptionRu?: string | null;
   category?: string | null;
   categoryName?: string | null;
+};
+
+/** Prefer API `images[]` entry with `isMain: true`; else `mainImageUrl` (e.g. catalog cards). */
+const resolveMainImageUrlForCart = (product: ProductLike): string | null => {
+  const fromFlaggedMain = product.images?.find((img) => img.isMain)?.url;
+  if (fromFlaggedMain) return fromFlaggedMain;
+  return product.mainImageUrl ?? null;
 };
 
 /**
@@ -26,7 +35,7 @@ export function cartItemFromProduct(product: ProductLike): Omit<CartItem, "quant
     nameHy: product.nameHy ?? null,
     nameRu: product.nameRu ?? null,
     price: product.price ?? 0,
-    mainImageUrl: product.mainImageUrl ?? null,
+    mainImageUrl: resolveMainImageUrlForCart(product),
     descriptionEn: product.descriptionEn ?? null,
     descriptionHy: product.descriptionHy ?? null,
     descriptionRu: product.descriptionRu ?? null,

@@ -367,6 +367,7 @@
     "success": "Your order has been placed. We will contact you shortly.",
     "error": "Something went wrong. Please try again later.",
     "ringSizeRequired": "Please select a ring size for all ring(s) in your order.",
+    "ringSizesOrderNote": "Ring sizes: {{detail}}",
     "ringSizeRequiredLabel": "Մատանու չափ"
   },
   "notFound": {
@@ -473,6 +474,8 @@
     "loadListFailed": "Failed to load list",
     "orderDetail": {
       "title": "Order",
+      "tagDelivery": "Delivery",
+      "tagPickup": "Pickup",
       "backToOrders": "Back to orders",
       "sectionSummary": "Summary",
       "sectionItems": "Items",
@@ -482,9 +485,9 @@
       "phone": "Phone",
       "email": "Email",
       "message": "Message",
-      "ringSize": "Ring size",
-      "shippingCountry": "Shipping country (code)",
-      "storeAddress": "Store / address (code)",
+      "lineItemRingSizes": "Ring sizes",
+      "shippingCountry": "Shipping country",
+      "storeAddress": "Pickup store",
       "packaging": "Packaging",
       "noItems": "No line items",
       "productId": "Product ID",

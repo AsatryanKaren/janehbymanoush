@@ -83,7 +83,8 @@ Every component lives in a folder whose name is the logical component name. Use 
 - Translation files: `src/i18n/locales/{en,ru,hy}.json`
 - Keys are nested by section: `nav.*`, `home.*`, `catalog.*`, `product.*`, `about.*`, `contact.*`, `notFound.*`, `admin.*`, `common.*`
 - Use `useTranslation()` hook in components, pass `i18n.language` to locale-aware utils
-- When adding new UI text, add keys to all three locale files
+- When adding new storefront UI text, add keys to all three locale files
+- **Admin panel:** English only. Add `admin.*` strings to `en.json` only; use `useAdminTranslation()` in `src/pages/Admin/` (forces `lng: "en"`). Do not duplicate `admin` in `ru.json` / `hy.json`
 
 ## API Layer
 

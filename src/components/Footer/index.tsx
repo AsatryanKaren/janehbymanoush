@@ -32,6 +32,34 @@ const Footer: React.FC = () => {
   return (
     <Layout.Footer className={styles.footer}>
       <div className={styles.main}>
+        <div className={styles.paymentLogos} aria-label="Payment methods">
+          <Space size={16} align="center" wrap className={styles.paymentLogosInner}>
+            <img
+              src="/images/payments/visa-logo.svg"
+              alt="Visa"
+              className={styles.paymentLogo}
+              loading="lazy"
+            />
+            <img
+              src="/images/payments/Mastercard-logo.svg"
+              alt="Mastercard"
+              className={styles.paymentLogo}
+              loading="lazy"
+            />
+            <img
+              src="/images/payments/idram.svg"
+              alt="Idram"
+              className={styles.paymentLogo}
+              loading="lazy"
+            />
+            <img
+              src="/images/payments/arca.svg"
+              alt="ArCa"
+              className={styles.paymentLogo}
+              loading="lazy"
+            />
+          </Space>
+        </div>
         <Row gutter={[32, 48]}>
           <Col xs={24} md={12} lg={6}>
             <Text className={styles.brandTagline}>{t("footer.brandTagline")}</Text>
