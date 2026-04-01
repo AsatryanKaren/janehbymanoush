@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Table, Typography, Flex, App, Image } from "antd";
+import { Button, Table, Typography, Flex, App, Image, Tag } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminOrdersApi } from "src/api/adminOrders";
@@ -98,12 +98,18 @@ const AdminOrdersPage: React.FC = () => {
               {name}
             </a>
           : name;
+        const more = product.moreItems;
+        const moreTag =
+          typeof more === "number" && more > 0 ?
+            <Tag color="blue">{t("admin.moreItemsTag", { count: more })}</Tag>
+          : null;
         return (
-          <Flex align="center" gap="small" className={styles.productCell}>
+          <Flex align="center" gap="small" className={styles.productCell} wrap="wrap">
             {img}
             <Text className={styles.productCellText} ellipsis={{ tooltip: name }}>
               {link}
             </Text>
+            {moreTag}
           </Flex>
         );
       },

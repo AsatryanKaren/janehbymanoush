@@ -437,6 +437,7 @@
     "columnEmail": "Email",
     "columnPhone": "Phone number",
     "columnProduct": "Product",
+    "moreItemsTag": "+{{count}}",
     "columnQuantity": "Quantity",
     "columnMessage": "Message",
     "columnItems": "Items",

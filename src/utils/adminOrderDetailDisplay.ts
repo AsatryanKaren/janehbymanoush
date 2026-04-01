@@ -139,11 +139,7 @@ export const formatAdminPackaging = (
   return "—";
 };
 
-/**
- * Line-item ring sizes when API sends `ringSizes` (single number or per-unit list).
- * Returns `null` when absent or empty so the UI can hide the row.
- */
-export const formatAdminLineItemRingSizes = (
+const formatRingSizesRaw = (
   raw: number[] | number | null | undefined,
 ): string | null => {
   if (raw == null) return null;
@@ -155,6 +151,27 @@ export const formatAdminLineItemRingSizes = (
       (x): x is number => typeof x === "number" && Number.isFinite(x),
     );
     return parts.length > 0 ? parts.map(String).join(", ") : null;
+  }
+  return null;
+};
+
+export type AdminLineItemRingSizeSource = {
+  ringSizes?: number[] | number | null;
+  ringSize?: number | null;
+};
+
+/**
+ * Line-item ring size(s): prefers `ringSizes` (list or single), else `ringSize`.
+ * Returns `null` when absent so the UI can hide the label.
+ */
+export const formatAdminLineItemRingSizes = (
+  line: AdminLineItemRingSizeSource,
+): string | null => {
+  const fromSizes = formatRingSizesRaw(line.ringSizes);
+  if (fromSizes != null) return fromSizes;
+  const rs = line.ringSize;
+  if (rs != null && typeof rs === "number" && Number.isFinite(rs)) {
+    return String(rs);
   }
   return null;
 };

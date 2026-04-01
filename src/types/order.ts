@@ -63,6 +63,8 @@ export type OrderProductInfo = {
   slug?: string | null;
   mainImageUrl?: string | null;
   count?: number;
+  /** Additional line items beyond the first (summary row). */
+  moreItems?: number;
 };
 
 export type OrderListItem = {
@@ -110,6 +112,8 @@ export type AdminOrderDetailLineItem = {
   currency?: string | null;
   count: number;
   product?: AdminOrderDetailLineProduct | null;
+  /** Per-line ring size from API (e.g. rings). */
+  ringSize?: number | null;
   /**
    * Per-line ring sizes when API returns them (e.g. one entry per unit).
    * Optional until backend adds the field.

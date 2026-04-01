@@ -238,9 +238,7 @@ const AdminOrderDetailPage: React.FC = () => {
               const c = lineCurrency(row);
               const subtotal = unit * qty;
               const productSlug = row.product?.slug?.trim();
-              const lineRingSizesText = formatAdminLineItemRingSizes(
-                row.ringSizes,
-              );
+              const lineRingSizesText = formatAdminLineItemRingSizes(row);
               return (
                 <Flex
                   key={row.id}
@@ -281,12 +279,6 @@ const AdminOrderDetailPage: React.FC = () => {
                     : <Text type="secondary">
                         {t("admin.orderDetail.productId")}: {row.productId}
                       </Text>}
-                    {lineRingSizesText ?
-                      <Text type="secondary">
-                        {t("admin.orderDetail.lineItemRingSizes")}:{" "}
-                        {lineRingSizesText}
-                      </Text>
-                    : null}
                     <Divider className={styles.itemDivider} />
                     <Flex wrap gap="large">
                       <Text>
@@ -296,6 +288,12 @@ const AdminOrderDetailPage: React.FC = () => {
                       <Text>
                         {t("admin.orderDetail.quantity")}: {qty}
                       </Text>
+                      {lineRingSizesText ?
+                        <Text>
+                          {t("admin.orderDetail.lineItemRingSizes")}:{" "}
+                          {lineRingSizesText}
+                        </Text>
+                      : null}
                       <Text strong>
                         {t("admin.orderDetail.lineTotal")}:{" "}
                         {formatPrice(subtotal, c, language)}
