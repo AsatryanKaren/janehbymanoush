@@ -253,6 +253,12 @@
     "sendSuccess": "Your message has been sent. We'll get back to you shortly.",
     "sendError": "Something went wrong. Please try again later."
   },
+  "gallery": {
+    "kicker": "From the studio",
+    "title": "Gallery",
+    "intro": "A glimpse of the craft, the pieces, and the light that shapes them.",
+    "viewImage": "View image {{current}} of {{total}}"
+  },
   "ringSizeGuide": {
     "title": "Ring Size Guide",
     "tipsHeading": "Measuring your ring size",
@@ -277,6 +283,7 @@
     "bullet1": "We value that every purchase is thoughtful and enjoyable.",
     "bullet2": "Due to the nature of jewelry, and in accordance with Article 23, Clause 9 of the RA Law “On Consumer Rights Protection”, items made of precious metals, including those with precious, semi-precious, or synthetic stones, are not eligible for return or exchange.",
     "bullet3": "We kindly recommend making your selection carefully or contacting us for assistance before completing your purchase.",
+    "bullet4": "We also want to inform you that if you placed an order with delivery or in-store pickup selected but subsequently canceled it (meaning the jewelry was not actually delivered to you), your order may be voided. To request a refund, please contact us and provide the appropriate bank account number.",
     "lawReferenceLabel": "Official list on ARLIS — RA Government Decision No. 77 of 30 January 2002 (non-returnable goods of proper quality)"
   },
   "care": {
@@ -565,6 +572,7 @@
       "title": "Service & support",
       "philosophy": "Our philosophy",
       "story": "Our story",
+      "gallery": "Gallery",
       "contactUs": "Contact us",
       "shipping": "Shipping",
       "returns": "Returns or exchanges"

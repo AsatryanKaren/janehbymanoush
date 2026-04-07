@@ -11,26 +11,28 @@ const GalleryRow: React.FC = () => {
   const [index, setIndex] = useState(0);
 
   return (
-    <section className={styles.section}>
-      {IMAGES.map((src, i) => (
-        <button
-          key={i}
-          type="button"
-          className={styles.tile}
-          onClick={() => {
-            setIndex(i);
-            setLightboxOpen(true);
-          }}
-          aria-label={`View image ${i + 1} of ${IMAGES.length}`}
-        >
-          <img
-            src={src}
-            alt=""
-            className={styles.image}
-            loading="lazy"
-          />
-        </button>
-      ))}
+    <>
+      <section className={styles.section}>
+        {IMAGES.map((src, i) => (
+          <button
+            key={i}
+            type="button"
+            className={styles.tile}
+            onClick={() => {
+              setIndex(i);
+              setLightboxOpen(true);
+            }}
+            aria-label={`View image ${i + 1} of ${IMAGES.length}`}
+          >
+            <img
+              src={src}
+              alt=""
+              className={styles.image}
+              loading="lazy"
+            />
+          </button>
+        ))}
+      </section>
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}
@@ -38,7 +40,7 @@ const GalleryRow: React.FC = () => {
         slides={slides}
         on={{ view: ({ index: i }) => setIndex(i) }}
       />
-    </section>
+    </>
   );
 };
 

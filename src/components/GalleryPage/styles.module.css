@@ -1,0 +1,124 @@
+.root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 48px 12px 64px;
+}
+
+.intro {
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.intro :global(.ant-typography) {
+  color: inherit;
+}
+
+.kicker {
+  display: block;
+  font-size: 0.6875rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.28em !important;
+  color: var(--color-accent-light) !important;
+  margin-bottom: 0 !important;
+}
+
+.accentBar {
+  width: 56px;
+  height: 2px;
+  margin: 18px auto 20px;
+  border-radius: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-accent) 20%,
+    var(--color-accent-light) 50%,
+    var(--color-accent) 80%,
+    transparent
+  );
+}
+
+.title {
+  margin-bottom: 14px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 3.5vw, 2.125rem) !important;
+  line-height: 1.2 !important;
+  color: var(--color-text-heading) !important;
+}
+
+.subtitle {
+  margin-bottom: 0 !important;
+  font-size: 1rem !important;
+  line-height: 1.65 !important;
+  color: var(--color-text-body) !important;
+  max-width: 28rem;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 575px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tile {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  min-width: 0;
+  border-radius: 10px;
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-accent-muted);
+  outline-offset: 2px;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .root {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .root {
+    padding-top: 56px;
+    padding-bottom: 80px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .grid {
+    gap: 20px;
+  }
+}

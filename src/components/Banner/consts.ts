@@ -1,7 +1,7 @@
 /** Banner hero image – NecklaceBanner.png in ./assets */
 
 export const BANNER_VIDEO_URL =
-  "https://janeh-prod.s3.eu-north-1.amazonaws.com/products/banner_video";
+  "https://dfgkytohsu2cm.cloudfront.net/static/հոմ փեյջ սկզբնամասը.mov";
 
 /**
  * Temporary toggle for using the home banner video.

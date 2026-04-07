@@ -2,6 +2,8 @@
  * Contact page assets – placeholder URLs; replace with real studio image and map link.
  */
 
+import { CF_CONTACT_STUDIO } from "src/consts/gallery";
+
 /** Business email – used for display and Gmail compose link */
 export const CONTACT_EMAIL = "janebymanoushh@gmail.com";
 
@@ -12,8 +14,7 @@ export const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&to=${enc
 export const CONTACT_PHONE_TEL = "+374 99 080053";
 
 export const CONTACT_IMAGES = {
-  studio:
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+  studio: CF_CONTACT_STUDIO,
 } as const;
 
 /** Google Maps embed URL for Contact page (Rio Mall / studio, Yerevan) */

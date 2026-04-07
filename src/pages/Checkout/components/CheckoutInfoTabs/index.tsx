@@ -16,7 +16,7 @@ import styles from "../../styles.module.css";
 const SHIPPING_CHECKOUT_BULLETS = [1, 2, 3, 4, 5, 6] as const;
 
 /** Full returns copy from `returns.bullet*` (same as returns info page). */
-const RETURNS_CHECKOUT_BULLETS = [1, 2, 3] as const;
+const RETURNS_CHECKOUT_BULLETS = [1, 2, 3, 4] as const;
 
 const CheckoutInfoTabs: React.FC = () => {
   const { t, i18n } = useTranslation();

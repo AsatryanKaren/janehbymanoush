@@ -1,3 +1,10 @@
+import {
+  CF_INFO_CARE,
+  CF_INFO_GIFT_CARDS,
+  CF_INFO_RING_SIZE,
+  CF_INFO_SHIPPING,
+} from "src/consts/gallery";
+
 /**
  * Config for info pages: ring-size-guide, shipping, returns, care, gift-cards.
  * Each has an i18n section key, title key, body paragraph keys, and image URL.
@@ -13,8 +20,7 @@ export const INFO_PAGES = {
       "ringSizeGuide.bullet3",
       "ringSizeGuide.bullet4",
     ],
-    image:
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80",
+    image: CF_INFO_RING_SIZE,
   },
   shipping: {
     sectionKey: "shipping",
@@ -28,20 +34,19 @@ export const INFO_PAGES = {
       "shipping.bullet5",
       "shipping.bullet6",
     ],
-    image:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80",
+    image: CF_INFO_SHIPPING,
   },
   returns: {
     sectionKey: "returns",
     titleKey: "returns.title",
-    bulletCount: 3,
+    bulletCount: 4,
     bodyKeys: [
       "returns.bullet1",
       "returns.bullet2",
       "returns.bullet3",
+      "returns.bullet4",
     ],
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    image: CF_INFO_SHIPPING,
   },
   care: {
     sectionKey: "care",
@@ -57,8 +62,7 @@ export const INFO_PAGES = {
       "care.closing",
       "care.signOff",
     ],
-    image:
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80",
+    image: CF_INFO_CARE,
   },
   "gift-cards": {
     sectionKey: "giftCards",
@@ -70,8 +74,7 @@ export const INFO_PAGES = {
       "giftCards.bullet3",
       "giftCards.bullet4",
     ],
-    image:
-      "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=600&q=80",
+    image: CF_INFO_GIFT_CARDS,
   },
 } as const;
 
