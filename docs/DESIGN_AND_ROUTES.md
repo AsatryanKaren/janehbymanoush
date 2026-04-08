@@ -12,8 +12,8 @@ All tokens are defined in `src/styles/global.css`.
 - **Footer:** `#161413` — `var(--color-footer)`
 
 ### Accents (bronze/copper)
-- **Main bronze (prices, active links, badges):** `#bf7a5a` — `var(--color-accent)`
-- **Muted gold (footer headings, icons):** `#8d734a` — `var(--color-accent-muted)`
+- **Main bronze (prices, active links, badges):** `#966a55` — `var(--color-accent)`
+- **Muted gold (footer headings, icons):** `#966a55` — `var(--color-accent-muted)`
 - **Light bronze (e.g. “New Collection” badges):** `#c29a73` — `var(--color-accent-light)`
 
 ### Text (stone/taupe hierarchy)

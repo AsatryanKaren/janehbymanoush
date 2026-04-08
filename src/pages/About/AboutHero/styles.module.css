@@ -44,18 +44,24 @@
 
 .heroName1 {
   color: var(--color-text-primary) !important;
-  font-weight: 300 !important;
-  font-size: clamp(2rem, 5vw, 3rem) !important;
+  font-family: "Montserrat Arm", sans-serif;
+  font-weight: 700 !important;
+  font-size: clamp(2.75rem, 9vw, 4.5rem) !important;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
   margin: 0 0 4px !important;
-  letter-spacing: 0.02em;
 }
 
 .heroName2 {
   color: var(--color-text-primary) !important;
-  font-weight: 400 !important;
-  font-size: clamp(2.5rem, 6vw, 4rem) !important;
+  font-family: "Montserrat Arm", sans-serif;
+  font-weight: 700 !important;
+  font-size: clamp(1.25rem, 3.5vw, 1.75rem) !important;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
   margin: 0 0 16px !important;
-  letter-spacing: 0.02em;
 }
 
 .heroTagline {

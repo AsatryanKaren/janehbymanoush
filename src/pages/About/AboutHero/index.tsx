@@ -15,7 +15,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ imageUrl }) => {
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
       <div className={styles.heroOverlay}>
-        <Text className={styles.heroBrand}>{t("about.heroBrand")}</Text>
+        {/* <Text className={styles.heroBrand}>{t("about.heroBrand")}</Text> */}
         <Title level={1} className={styles.heroName1}>
           {t("about.heroName1")}
         </Title>
@@ -23,7 +23,7 @@ const AboutHero: React.FC<AboutHeroProps> = ({ imageUrl }) => {
           {t("about.heroName2")}
         </Title>
         <Paragraph className={styles.heroTagline}>
-          {t("about.heroTagline")}
+          {/* {t("about.heroTagline")} */}
         </Paragraph>
         <a href="#heritage" className={styles.heroLearnMore}>
           {t("about.heroLearnMore")}

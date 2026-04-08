@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Janeh by Manoush",
+    "appName": "Janeh By Manoush",
     "yes": "Yes",
     "no": "No",
     "breadcrumbs": {
@@ -160,10 +160,10 @@
     }
   },
   "about": {
-    "title": "About Janeh by Manoush",
+    "title": "About Janeh By Manoush",
     "heroBrand": "JANEH",
-    "heroName1": "Janeh",
-    "heroName2": "Bymanoush",
+    "heroName1": "JANEH",
+    "heroName2": "BY MANOUSH",
     "heroTagline": "Culture uniting artists",
     "heroLearnMore": "LEARN MORE",
     "heroSubtitle": "Where Armenian heritage meets contemporary elegance",
@@ -193,7 +193,7 @@
       }
     },
     "ourStory": "Our Story",
-    "paragraph1": "Janeh by Manoush is a handcrafted jewelry brand founded with the belief that every piece of jewelry should tell a story. Our collections are designed with passion, precision, and a deep love for timeless beauty.",
+    "paragraph1": "Janeh By Manoush is a handcrafted jewelry brand founded with the belief that every piece of jewelry should tell a story. Our collections are designed with passion, precision, and a deep love for timeless beauty.",
     "paragraph2": "Each piece is carefully crafted using ethically sourced materials, blending traditional Armenian artistry with contemporary design. From delicate everyday pieces to statement jewelry for special occasions, we create accessories that become a part of your story.",
     "paragraph3": "We believe in quality over quantity, sustainability, and the power of personal expression through beautiful jewelry.",
     "valuesTitle": "Our Values",

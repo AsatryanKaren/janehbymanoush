@@ -42,7 +42,7 @@ const Banner: React.FC = () => {
         </div>
       )}
       <div className={styles.content}>
-        <p className={styles.tagline}>{t("home.tagline")}</p>
+        {/* <p className={styles.tagline}>{t("home.tagline")}</p> */}
         <h1 className={styles.brand}>
           <span className={styles.brandLine1}>{t("home.brandLine1")}</span>
           <span className={styles.brandLine2}>{t("home.brandLine2")}</span>

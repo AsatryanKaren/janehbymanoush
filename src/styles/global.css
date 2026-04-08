@@ -1,13 +1,13 @@
 /* App font + luxury palette: dark browns, bronze accents, stone text hierarchy */
 :root {
-  --app-font-family: "Montserrat Arm", sans-serif;
+  --app-font-family: "Montserrat", sans-serif;
   /* Main backgrounds */
   --color-page: #1d1715;
   --color-header: rgba(29, 23, 21, 0.8);
   --color-footer: #161413;
   /* Accents (bronze/copper) */
-  --color-accent: #bf7a5a;
-  --color-accent-muted: #8d734a;
+  --color-accent: #966a55;
+  --color-accent-muted: #966a55;
   --color-accent-light: #c29a73;
   /* Text on dark (stone/taupe hierarchy) */
   --color-text-primary: #ffffff;

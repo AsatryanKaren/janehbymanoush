@@ -5,8 +5,8 @@ const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
   <ConfigProvider
     theme={{
       token: {
-        colorPrimary: "#bf7a5a",
-        colorLinkHover: "#bf7a5a",
+        colorPrimary: "#966a55",
+        colorLinkHover: "#966a55",
         colorLinkActive: "#9d6347",
         borderRadius: 6,
         fontFamily: "var(--app-font-family)",
@@ -27,7 +27,7 @@ const AntdProvider: React.FC<AntdProviderProps> = ({ children }) => (
           itemColor: "#a8a29e",
           itemHoverColor: "#ffffff",
           itemHoverBg: "#57534e",
-          itemSelectedBg: "#bf7a5a",
+          itemSelectedBg: "#966a55",
           itemSelectedColor: "#ffffff",
           itemActiveBg: "#44403c",
         },

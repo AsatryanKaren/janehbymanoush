@@ -4,7 +4,7 @@ test.describe("Public pages flow", () => {
   test("should load the home page", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: "Janeh by Manoush" }),
+      page.getByRole("heading", { name: "Janeh By Manoush" }),
     ).toBeVisible();
     await expect(page.locator("text=Featured Pieces")).toBeVisible();
   });
@@ -33,7 +33,7 @@ test.describe("Public pages flow", () => {
     await page.click("text=About");
     await expect(page).toHaveURL("/about");
     await expect(
-      page.locator("text=About Janeh by Manoush"),
+      page.locator("text=About Janeh By Manoush"),
     ).toBeVisible();
   });
 

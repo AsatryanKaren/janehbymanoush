@@ -113,7 +113,7 @@ const Footer: React.FC = () => {
             <div className={styles.logoWrap}>
               <img src={LOGO_IMAGE} alt="JANEH" className={styles.logo} />
               <span className={styles.logoLine} />
-              <Text className={styles.logoBy}>BY MANOUSH</Text>
+              {/* <Text className={styles.logoBy}>BY MANOUSH</Text> */}
             </div>
           </Col>
           <Col xs={24} md={6} lg={6}>
