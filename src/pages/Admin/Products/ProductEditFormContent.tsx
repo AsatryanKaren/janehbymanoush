@@ -13,12 +13,14 @@ import {
   Row,
   Col,
   Divider,
+  Tooltip,
 } from "antd";
 import {
   DeleteOutlined,
   PlusOutlined,
   StarFilled,
   StarOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import type { ProductImage, StoryImageDto } from "src/types/product";
@@ -63,6 +65,7 @@ export const ProductEditFormContent = (
     handleDeleteProductImage,
     handleDeleteStoryImage,
     navigateToProducts,
+    showDuplicateSlugWarning,
   } = props;
   const { t } = useAdminTranslation();
 
@@ -92,7 +95,19 @@ export const ProductEditFormContent = (
           <Col span={24}>
             <Form.Item
               name="slug"
-              label={t("admin.slug")}
+              label={
+                <Space size="small" align="center">
+                  <span>{t("admin.slug")}</span>
+                  {showDuplicateSlugWarning ? (
+                    <Tooltip title={t("admin.slugDuplicateHint")}>
+                      <WarningOutlined
+                        className={styles.slugDuplicateWarningIcon}
+                        aria-label={t("admin.slugDuplicateHint")}
+                      />
+                    </Tooltip>
+                  ) : null}
+                </Space>
+              }
               rules={[{ required: true, message: t("admin.slugRequired") }]}
             >
               <Input placeholder="e.g. silver-ring-gavith" />

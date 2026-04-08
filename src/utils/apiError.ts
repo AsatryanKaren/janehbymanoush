@@ -1,6 +1,6 @@
 /**
  * Shape of 400 validation (and similar) error response from the API.
- * Example: { "code": "VALIDATION_ERROR", "message": "Maximum 10 product images allowed...", "details": [] }
+ * Example: { "code": "VALIDATION_ERROR", "message": "...", "details": [] }
  */
 export type ApiErrorBody = {
   code?: string;
@@ -12,12 +12,33 @@ function isApiErrorBody(value: unknown): value is ApiErrorBody {
   return typeof value === "object" && value !== null && "message" in value;
 }
 
+/** Wrapped API envelope: { success: false, error: { message, details } } */
+const messageFromResponseData = (data: unknown): string | undefined => {
+  if (data == null || typeof data !== "object") return undefined;
+  const o = data as Record<string, unknown>;
+
+  const nested = o.error;
+  if (nested != null && typeof nested === "object" && "message" in nested) {
+    const m = (nested as { message?: unknown }).message;
+    if (typeof m === "string" && m.trim()) return m.trim();
+  }
+
+  if (isApiErrorBody(data) && typeof data.message === "string" && data.message.trim()) {
+    return data.message.trim();
+  }
+
+  return undefined;
+};
+
+const GENERIC_AXIOS_STATUS_MESSAGE = /^Request failed with status code \d+$/;
+
 /**
- * Extracts the error message from an API error (e.g. axios 400 response).
- * Returns response.data.message if present, otherwise undefined.
+ * Extracts a user-facing message from an API error (axios) or from `Error` thrown by `http()`
+ * when the server returns `{ success: false, error: { message } }` on a successful HTTP response.
  */
-export function getApiErrorMessage(error: unknown): string | undefined {
+export const getApiErrorMessage = (error: unknown): string | undefined => {
   if (error == null) return undefined;
+
   const data =
     typeof error === "object" &&
     "response" in error &&
@@ -26,8 +47,20 @@ export function getApiErrorMessage(error: unknown): string | undefined {
     "data" in error.response
       ? (error.response as { data?: unknown }).data
       : undefined;
-  if (isApiErrorBody(data) && typeof data.message === "string") {
-    return data.message;
+
+  const fromResponse = messageFromResponseData(data);
+  if (fromResponse) return fromResponse;
+
+  if (error instanceof Error) {
+    const msg = error.message.trim();
+    if (
+      msg &&
+      msg !== "API Error" &&
+      !GENERIC_AXIOS_STATUS_MESSAGE.test(msg)
+    ) {
+      return msg;
+    }
   }
+
   return undefined;
-}
+};

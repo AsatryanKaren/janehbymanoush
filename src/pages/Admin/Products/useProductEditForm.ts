@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { Form, App } from "antd";
 import type { UploadFile } from "antd/es/upload/interface";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminProductsApi } from "src/api/adminProducts";
 import { ROUTES } from "src/consts/routes";
@@ -10,6 +10,7 @@ import type { ProductDetailsPublic, ProductImage } from "src/types/product";
 import type { CategoryItem } from "src/types/category";
 import {
   productToFormValues,
+  productToDuplicateFormValues,
   PRODUCT_EDIT_DEFAULTS,
   type ProductFormValues,
 } from "./types";
@@ -33,10 +34,14 @@ export const useProductEditForm = () => {
   const { message } = App.useApp();
   const { id } = useParams<{ id?: string }>();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const copyFromId = searchParams.get("copyFrom")?.trim() || undefined;
   const { categories } = useAdminCategories();
 
   const [form] = Form.useForm<ProductFormValues>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(
+    () => Boolean(copyFromId) && isCreateMode(id),
+  );
   const [submitting, setSubmitting] = useState(false);
   const [productImageFileList, setProductImageFileList] = useState<UploadFile[]>(
     [],
@@ -56,6 +61,8 @@ export const useProductEditForm = () => {
   );
   /** Existing story image ids user clicked delete on (from BE). Sent on submit as deletedStoryImageIds. New story images removed are just not sent. */
   const [deletedStoryImageIds, setDeletedStoryImageIds] = useState<string[]>([]);
+  /** After successful “duplicate as new” prefill — show slug reminder in the form. */
+  const [showDuplicateSlugWarning, setShowDuplicateSlugWarning] = useState(false);
 
   const create = isCreateMode(id);
 
@@ -196,6 +203,51 @@ export const useProductEditForm = () => {
     [create],
   );
 
+  /** Prefill create form from an existing product (?copyFrom=). */
+  useEffect(() => {
+    if (!create || !copyFromId) return;
+
+    let cancelled = false;
+    setLoading(true);
+    setShowDuplicateSlugWarning(false);
+    setProductImageFileList([]);
+    setStoryImageFileList([]);
+    productImageFileListLengthRef.current = 0;
+    setDeletedProductImageIds([]);
+    setDeletedStoryImageIds([]);
+    setMainProductImageIndex(0);
+    setMainProductImageId(null);
+    form.setFieldsValue(PRODUCT_EDIT_DEFAULTS);
+
+    void adminProductsApi
+      .getById(copyFromId)
+      .then((loaded) => {
+        if (cancelled) return;
+        form.setFieldsValue(productToDuplicateFormValues(loaded));
+        setShowDuplicateSlugWarning(true);
+
+        setSearchParams(
+          (prev) => {
+            const next = new URLSearchParams(prev);
+            if (!next.has("copyFrom")) return prev;
+            next.delete("copyFrom");
+            return next;
+          },
+          { replace: true },
+        );
+      })
+      .catch(() => {
+        if (!cancelled) void message.error(t("admin.loadFailed"));
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [copyFromId, create, form, message, t, setSearchParams]);
+
   /** Existing product images still shown (not deleted by user). */
   const remainingProductImages = (product?.images ?? []).filter(
     (img: ProductImage) => !deletedProductImageIds.includes(img.id),
@@ -241,6 +293,7 @@ export const useProductEditForm = () => {
     handleDeleteStoryImage,
     initialValues: PRODUCT_EDIT_DEFAULTS,
     navigateToProducts: () => navigate(ROUTES.ADMIN_PRODUCTS),
+    showDuplicateSlugWarning,
   };
   return out;
 };

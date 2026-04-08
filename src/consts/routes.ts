@@ -40,6 +40,10 @@ export const buildAdminProductViewPath = (id: string): string =>
 export const buildAdminProductEditPath = (id: string): string =>
   `/admin/products/${id}/edit`;
 
+/** Open create product form with fields prefilled from an existing product (query param read by admin UI). */
+export const buildAdminProductDuplicatePath = (sourceProductId: string): string =>
+  `${ROUTES.ADMIN_PRODUCT_NEW}?copyFrom=${encodeURIComponent(sourceProductId)}`;
+
 export const buildAdminCollectionEditPath = (id: string): string =>
   `/admin/collections/${id}/edit`;
 

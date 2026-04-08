@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import type { AboutHeroProps } from "./types";
 import styles from "./styles.module.css";
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const AboutHero: React.FC<AboutHeroProps> = ({ imageUrl }) => {
   const { t } = useTranslation();

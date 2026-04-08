@@ -1,3 +1,7 @@
+.slugDuplicateWarningIcon {
+  color: #faad14;
+}
+
 /* Let product images upload area grow with content so it doesn't overlap story section */
 .imagesSection :global(.ant-upload-wrapper) {
   display: block !important;

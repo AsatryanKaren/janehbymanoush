@@ -39,6 +39,9 @@ const DEFAULT_FORM_VALUES: ProductFormValues = {
   isNew: false,
 };
 
+/** Slug suffix for “duplicate as new” so the new product does not collide with the source. */
+export const DUPLICATE_PRODUCT_SLUG_SUFFIX = "-copy";
+
 /** Map API product to form values (edit mode load). */
 export const productToFormValues = (
   loaded: ProductDetailsPublic,
@@ -60,6 +63,21 @@ export const productToFormValues = (
   inStock: loaded.inStock ?? true,
   isNew: loaded.isNew ?? false,
 });
+
+/** Map API product to form values for creating a copy (unique slug; story text left empty). */
+export const productToDuplicateFormValues = (
+  loaded: ProductDetailsPublic,
+): ProductFormValues => {
+  const base = productToFormValues(loaded);
+  const slug = base.slug?.trim();
+  return {
+    ...base,
+    slug: slug ? `${slug}${DUPLICATE_PRODUCT_SLUG_SUFFIX}` : undefined,
+    storyHy: undefined,
+    storyEn: undefined,
+    storyRu: undefined,
+  };
+};
 
 /** Map form values to API update/create body. */
 export const formValuesToCreateRequest = (

@@ -10,7 +10,7 @@ const AdminProductEditPage: React.FC = () => {
   const { t } = useAdminTranslation();
   const edit = useProductEditForm();
 
-  if (!edit.create && edit.loading) {
+  if (edit.loading) {
     return (
       <Flex justify="center" align="center">
         <Spin size="large" />

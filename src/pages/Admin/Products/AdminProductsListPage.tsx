@@ -10,7 +10,12 @@ import {
   Tag,
   App,
 } from "antd";
-import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  CopyOutlined,
+} from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminProductsApi } from "src/api/adminProducts";
@@ -18,6 +23,7 @@ import {
   ROUTES,
   buildAdminProductEditPath,
   buildAdminProductViewPath,
+  buildAdminProductDuplicatePath,
 } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import type { ProductCardAdmin } from "src/types/product";
@@ -172,7 +178,7 @@ const AdminProductsListPage: React.FC = () => {
       title: t("admin.columnActions"),
       key: "actions",
       fixed: "right",
-      width: 100,
+      width: 132,
       render: (_: unknown, record: ProductCardAdmin) => (
         <Space>
           <Button
@@ -180,6 +186,12 @@ const AdminProductsListPage: React.FC = () => {
             icon={<EditOutlined />}
             onClick={() => navigate(buildAdminProductEditPath(record.id))}
             aria-label={t("admin.edit")}
+          />
+          <Button
+            type="text"
+            icon={<CopyOutlined />}
+            onClick={() => navigate(buildAdminProductDuplicatePath(record.id))}
+            aria-label={t("admin.duplicateProduct")}
           />
           <Popconfirm
             title={t("admin.deleteConfirm")}

@@ -3,6 +3,10 @@ import type { CartItem } from "src/types/cart";
 /** categoryName value for rings from API (Armenian: Մատանի). */
 const RING_CATEGORY_NAME = "Մատանի";
 
+/** `ring` / `rings` as a whole token in a lowercased slug or label (spaces, `-`, `_`). */
+const hasRingToken = (lower: string): boolean =>
+  /(^|[\s_-])rings?($|[\s_-])/.test(lower);
+
 /**
  * Returns true if categoryName indicates a ring. Use for product page.
  */
@@ -10,7 +14,9 @@ export const isRingCategoryName = (
   categoryName: string | null | undefined,
 ): boolean => {
   const name = (categoryName ?? "").trim();
-  return name === RING_CATEGORY_NAME || name === "մատանի";
+  if (name === "") return false;
+  if (name === RING_CATEGORY_NAME || name === "մատանի") return true;
+  return hasRingToken(name.toLowerCase());
 };
 
 /**
@@ -24,6 +30,8 @@ export const isRingItem = (item: CartItem): boolean => {
     cat === "ring" ||
     cat === "rings" ||
     cat === "մատանի" ||
-    cat === RING_CATEGORY_NAME.toLowerCase()
+    cat === RING_CATEGORY_NAME.toLowerCase() ||
+    hasRingToken(cat)
   );
 };
+
