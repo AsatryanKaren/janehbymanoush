@@ -77,6 +77,7 @@ const CheckoutInfoTabs: React.FC = () => {
                 ))}
                 <Link
                   to={ROUTES.SHIPPING}
+                  target="_blank"
                   className={styles.checkoutFullPolicyLink}
                 >
                   <span>{t("shipping.title")}</span>
@@ -105,6 +106,7 @@ const CheckoutInfoTabs: React.FC = () => {
                 ))}
                 <Link
                   to={ROUTES.RETURNS}
+                  target="_blank"
                   className={styles.checkoutFullPolicyLink}
                 >
                   <span>{t("returns.title")}</span>

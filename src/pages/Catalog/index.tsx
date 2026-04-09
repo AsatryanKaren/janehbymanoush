@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useSearchParams, Link } from "react-router-dom";
 import { Spin, Typography, Flex, Pagination, Slider, Input } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -46,8 +46,16 @@ const CatalogPage: React.FC = () => {
   });
   const [expandedCollections, setExpandedCollections] = useState<Set<string>>(new Set());
   const [page, setPage] = useState(1);
+  const catalogPageRef = useRef(page);
   const [searchInput, setSearchInput] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
+
+  useEffect(() => {
+    if (catalogPageRef.current !== page) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      catalogPageRef.current = page;
+    }
+  }, [page]);
 
   const toggleCollapse = (colId: string) => {
     setExpandedCollections((prev) => {

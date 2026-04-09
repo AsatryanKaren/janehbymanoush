@@ -13,6 +13,13 @@
   padding-left: 24px;
 }
 
+/* Desktop (lg+): one row height for both columns; copy column centers when image is taller */
+.imageCol,
+.textCol {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Figma Our Philosophy image: 530×480 */
 .imageWrap {
   position: relative;
@@ -20,6 +27,20 @@
   aspect-ratio: 530 / 480;
   overflow: hidden;
   border-radius: 8px;
+}
+
+@media (min-width: 992px) {
+  /* Shorter side stretches to match the taller; center the shorter block in that space */
+  .imageCol {
+    justify-content: center;
+  }
+
+  .contentWrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .image {

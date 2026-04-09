@@ -15,14 +15,14 @@ export const CF_CONTACT_STUDIO = staticUrl("Կապ մեզ հետ.JPG");
 export const CF_ABOUT_CTA = staticUrl("About us վերջին հատվածում.JPG");
 
 /** About → Values section. */
-export const CF_VALUES_QUALITY = staticUrl("About us.png");
-export const CF_VALUES_SUSTAINABILITY = staticUrl("Copy of Kyores.jpg");
-export const CF_VALUES_EXPRESSION = staticUrl("IMG_2794.PNG");
+export const CF_VALUES_QUALITY = staticUrl("IMG_9117.JPG");
+export const CF_VALUES_SUSTAINABILITY = staticUrl("IMG_9132.JPG");
+export const CF_VALUES_EXPRESSION = staticUrl("IMG_9116.JPG");
 
 /** About → Craft section. */
-export const CF_CRAFT_HANDICRAFT = staticUrl("Copy of IMG_7227.png");
-export const CF_CRAFT_DESIGN = staticUrl("Copy of IMG_7230.png");
-export const CF_CRAFT_COLLECTIONS = staticUrl("Copy of IMG_7218.png");
+export const CF_CRAFT_HANDICRAFT = staticUrl("IMG_9117.JPG");
+export const CF_CRAFT_DESIGN = staticUrl("IMG_9132.JPG");
+export const CF_CRAFT_COLLECTIONS = staticUrl("IMG_9116.JPG");
 
 /** Original home / drawer gallery stills. */
 export const CF_GALLERY_1 = staticUrl("Նրբություն.png");

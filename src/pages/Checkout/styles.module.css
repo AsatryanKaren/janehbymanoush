@@ -346,17 +346,6 @@
   border-radius: 8px;
 }
 
-.paymentDraft {
-  padding: 16px;
-  background: var(--color-border-subtle);
-  border: 1px dashed var(--color-border-muted);
-  border-radius: 8px;
-  margin-bottom: 24px;
-  text-align: center;
-  color: var(--color-text-body);
-  font-size: 0.875rem;
-}
-
 .countryChips {
   display: flex;
   flex-wrap: wrap;
@@ -526,8 +515,32 @@
   color: inherit;
 }
 
-.submitBtn {
+.checkoutSubmitBlock {
   margin-top: 8px;
+  padding-top: 28px;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.paymentTimingFormItem {
+  margin-bottom: 20px !important;
+}
+
+.paymentTimingFormItem :global(.ant-form-item-label) {
+  padding-bottom: 10px;
+}
+
+.paymentTimingFormItem :global(.ant-form-item-label > label) {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.submitFormItem {
+  margin-bottom: 0 !important;
+}
+
+.submitBtn {
+  margin-top: 0;
 }
 
 @media (max-width: 992px) {
@@ -618,12 +631,6 @@
 
   .row {
     gap: 20px;
-  }
-
-  .paymentDraft {
-    padding: 12px;
-    margin-bottom: 20px;
-    font-size: 0.8125rem;
   }
 
   .summaryCol {

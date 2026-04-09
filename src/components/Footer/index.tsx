@@ -15,6 +15,7 @@ import {
   getTermsAndConditionsPdfHref,
 } from "src/utils/legalDocuments";
 import { SOCIAL_LINKS } from "src/consts/social";
+import { GMAIL_COMPOSE_URL } from "src/consts/contact";
 import {
   FOOTER_HELP_LINKS,
   FOOTER_ABOUT_LINKS,
@@ -74,7 +75,7 @@ const Footer: React.FC = () => {
                 <GlobalOutlined />
               </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&to=hello%40janehbymanoush.com"
+                href={GMAIL_COMPOSE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.iconLink}

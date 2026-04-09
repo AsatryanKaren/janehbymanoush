@@ -169,14 +169,6 @@ const ContactPage: React.FC = () => {
                 alt=""
                 className={styles.studioImage}
               />
-              <div className={styles.studioOverlay}>
-                <Text className={styles.studioOverlayTitle}>
-                  {t("contact.ourStudio")}
-                </Text>
-                <Text className={styles.studioOverlayTagline}>
-                  {t("contact.studioTagline")}
-                </Text>
-              </div>
             </div>
           </Col>
         </Row>

@@ -1,0 +1,90 @@
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 16px 14px;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-border-subtle);
+  color: var(--color-text-primary);
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--color-border-muted);
+  background: var(--color-border-muted);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.cardSelected {
+  border-color: var(--color-accent);
+  background: var(--color-border-muted);
+  box-shadow: inset 0 0 0 1px var(--color-accent-muted);
+}
+
+.iconWrap {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--color-page);
+  border: 1px solid var(--color-border-subtle);
+  font-size: 20px;
+  color: var(--color-accent-light);
+}
+
+.cardSelected .iconWrap {
+  border-color: var(--color-accent-muted);
+  background: var(--color-page);
+}
+
+.textCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  display: block;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  color: var(--color-text-primary) !important;
+  line-height: 1.35 !important;
+}
+
+.hint {
+  display: block;
+  font-size: 0.8125rem !important;
+  line-height: 1.45 !important;
+  color: var(--color-text-body) !important;
+}
+
+@media (max-width: 576px) {
+  .root {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 14px 12px;
+  }
+}

@@ -46,29 +46,8 @@
   display: block;
 }
 
-.valueImageIconWrap {
-  position: absolute;
-  top: clamp(10px, 2.5vw, 14px);
-  left: clamp(10px, 2.5vw, 14px);
-  z-index: 1;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-border-muted);
-  border-radius: 50%;
-  background: var(--color-page);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
 .valueCardFooter {
   width: 100%;
-}
-
-.valueIcon {
-  font-size: 24px;
-  color: var(--color-text-body);
 }
 
 .valueCardTitle {
@@ -103,16 +82,5 @@
 
   .valueImageWrap {
     margin-bottom: 16px;
-  }
-
-  .valueImageIconWrap {
-    width: 40px;
-    height: 40px;
-    top: 10px;
-    left: 10px;
-  }
-
-  .valueIcon {
-    font-size: 18px;
   }
 }

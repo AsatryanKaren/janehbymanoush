@@ -13,9 +13,13 @@ const HeritageSection: React.FC = () => {
 
   return (
     <section className={styles.section}>
-      <Row gutter={[72, 48]} align="middle">
+      <Row gutter={[72, 48]} align="stretch">
         {/* Image left on desktop (lg), below content on mobile (xs) */}
-        <Col xs={{ span: 24, order: 2 }} lg={{ span: 12, order: 1 }}>
+        <Col
+          xs={{ span: 24, order: 2 }}
+          lg={{ span: 12, order: 1 }}
+          className={styles.imageCol}
+        >
           <div className={styles.imageWrap}>
             <img
               src={HERITAGE_IMAGE}
@@ -25,7 +29,11 @@ const HeritageSection: React.FC = () => {
             />
           </div>
         </Col>
-        <Col xs={{ span: 24, order: 1 }} lg={{ span: 12, order: 2 }}>
+        <Col
+          xs={{ span: 24, order: 1 }}
+          lg={{ span: 12, order: 2 }}
+          className={styles.textCol}
+        >
           <div className={styles.contentWrap}>
             <Title level={2} className={styles.heading}>
               {t("home.heritage.heading")}

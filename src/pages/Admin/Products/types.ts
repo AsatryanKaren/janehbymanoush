@@ -64,7 +64,7 @@ export const productToFormValues = (
   isNew: loaded.isNew ?? false,
 });
 
-/** Map API product to form values for creating a copy (unique slug; story text left empty). */
+/** Map API product to form values for creating a copy (unique slug; other fields unchanged). */
 export const productToDuplicateFormValues = (
   loaded: ProductDetailsPublic,
 ): ProductFormValues => {
@@ -73,9 +73,6 @@ export const productToDuplicateFormValues = (
   return {
     ...base,
     slug: slug ? `${slug}${DUPLICATE_PRODUCT_SLUG_SUFFIX}` : undefined,
-    storyHy: undefined,
-    storyEn: undefined,
-    storyRu: undefined,
   };
 };
 

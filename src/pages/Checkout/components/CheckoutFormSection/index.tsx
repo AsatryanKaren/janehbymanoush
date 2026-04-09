@@ -5,6 +5,7 @@ import { PACKAGING_OPTIONS, STORE_OPTIONS } from "../../consts";
 import { DELIVERY_METHOD_OPTIONS } from "./consts";
 import type { CheckoutFormSectionProps } from "./types";
 import CountryChipGroup from "../CountryChipGroup";
+import PaymentTimingCards from "../PaymentTimingCards";
 import SelectionCardGroup from "../SelectionCardGroup";
 import styles from "../../styles.module.css";
 
@@ -31,8 +32,6 @@ const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
 
   return (
     <>
-      <div className={styles.paymentDraft}>{t("checkout.paymentDraft")}</div>
-
       <Form.Item
         name="deliveryMethod"
         label={t("checkout.deliveryMethod")}
@@ -140,18 +139,27 @@ const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
         />
       </Form.Item>
 
-      <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          size="large"
-          loading={submitting}
-          block
-          className={styles.submitBtn}
+      <div className={styles.checkoutSubmitBlock}>
+        <Form.Item
+          name="paymentTiming"
+          label={t("checkout.paymentMethod")}
+          className={styles.paymentTimingFormItem}
         >
-          {t("checkout.submit")}
-        </Button>
-      </Form.Item>
+          <PaymentTimingCards />
+        </Form.Item>
+        <Form.Item className={styles.submitFormItem}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            loading={submitting}
+            block
+            className={styles.submitBtn}
+          >
+            {t("checkout.submit")}
+          </Button>
+        </Form.Item>
+      </div>
     </>
   );
 };

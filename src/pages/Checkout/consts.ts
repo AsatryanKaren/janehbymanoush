@@ -36,9 +36,10 @@ export const COUNTRY_OPTIONS = [
 
 export const CHECKOUT_INITIAL_VALUES: Pick<
   CheckoutFormValues,
-  "deliveryMethod" | "packaging" | "country"
+  "deliveryMethod" | "paymentTiming" | "packaging" | "country"
 > = {
   deliveryMethod: "shipping",
+  paymentTiming: "online",
   packaging: [],
   country: COUNTRY_OPTIONS[0].value,
 };
