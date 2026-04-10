@@ -5,6 +5,16 @@ declare module "*.png" {
   export default src;
 }
 
+declare module "*.jpg" {
+  const src: string;
+  export default src;
+}
+
+declare module "*.JPG" {
+  const src: string;
+  export default src;
+}
+
 interface ImportMetaEnv {
   /** API root, e.g. https://janehbymanoush.com. Requests go to {VITE_API_ROOT}/api/... */
   readonly VITE_API_ROOT?: string;

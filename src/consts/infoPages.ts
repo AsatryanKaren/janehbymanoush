@@ -3,6 +3,7 @@ import {
   CF_INFO_GIFT_CARDS,
   CF_INFO_RING_SIZE,
   CF_INFO_SHIPPING,
+  CF_RETURN_NEW,
 } from "src/consts/gallery";
 
 /**
@@ -46,7 +47,7 @@ export const INFO_PAGES = {
       "returns.bullet3",
       "returns.bullet4",
     ],
-    image: CF_INFO_SHIPPING,
+    image: CF_RETURN_NEW,
   },
   care: {
     sectionKey: "care",

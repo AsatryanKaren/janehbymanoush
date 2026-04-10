@@ -1,7 +1,7 @@
-/** Banner hero image – NecklaceBanner.png in ./assets */
+/** Banner hero image – NecklaceBanner.webp in ./assets */
 
 export const BANNER_VIDEO_URL =
-  "https://dfgkytohsu2cm.cloudfront.net/static/հոմ փեյջ սկզբնամասը.mov";
+  "https://dfgkytohsu2cm.cloudfront.net/static_new/հոմ փեյջ սկզբնամասը.mov";
 
 /**
  * Temporary toggle for using the home banner video.

@@ -379,7 +379,7 @@
     "error": "Что-то пошло не так. Попробуйте позже.",
     "ringSizeRequired": "Выберите размер кольца для всех колец в заказе.",
     "ringSizesOrderNote": "Размеры колец: {{detail}}",
-    "ringSizeRequiredLabel": "Մատանու չափ"
+    "ringSizeRequiredLabel": "Размер кольца"
   },
   "notFound": {
     "code": "404",

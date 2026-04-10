@@ -71,6 +71,7 @@
       "title": "Stay Close to JANEH",
       "subtitle": "Discover the latest collections, news and exclusive privileges.",
       "button": "Subscribe",
+      "placeholder": "Your email",
       "success": "You're subscribed. We'll be in touch.",
       "error": "Something went wrong. Please try again later."
     }
@@ -379,7 +380,7 @@
     "error": "Something went wrong. Please try again later.",
     "ringSizeRequired": "Please select a ring size for all ring(s) in your order.",
     "ringSizesOrderNote": "Ring sizes: {{detail}}",
-    "ringSizeRequiredLabel": "Մատանու չափ"
+    "ringSizeRequiredLabel": "Ring size"
   },
   "notFound": {
     "code": "404",

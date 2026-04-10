@@ -14,7 +14,7 @@ const isCheckoutRingSizesMessageSegment = (segment: string): boolean => {
   const s = segment.trim();
   if (s.toLowerCase().startsWith("ring sizes:")) return true;
   if (s.toLowerCase().startsWith("размеры колец:")) return true;
-  if (s.startsWith("Մատանու չափեր՝")) return true;
+  if (s.startsWith("Մատանու չափսեր՝")) return true;
   return false;
 };
 
