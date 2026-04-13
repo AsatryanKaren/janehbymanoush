@@ -9,6 +9,7 @@ import {
   getProductName,
   getProductDescription,
   getProductStory,
+  getProductCollectionName,
 } from "src/utils/productLocale";
 import type { ProductDetailsPublic } from "src/types/product";
 import type { AdminCollectionItem } from "src/types/collection";
@@ -67,6 +68,7 @@ const ProductPage: React.FC = () => {
   const name = getProductName(product, lang);
   const description = getProductDescription(product, lang);
   const story = getProductStory(product, lang);
+  const storyCollectionLabel = getProductCollectionName(product, lang);
   const backgroundImageUrl =
     product.mainImageUrl ??
     product.images?.find((img) => img.isMain)?.url ??
@@ -98,7 +100,7 @@ const ProductPage: React.FC = () => {
           </Col>
         </Row>
         <ProductStory
-          collectionName={product.collectionName ?? null}
+          collectionName={storyCollectionLabel !== "" ? storyCollectionLabel : null}
           productName={name}
           storyText={story}
           storyImageUrl={storyImageUrl}

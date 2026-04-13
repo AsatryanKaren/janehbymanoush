@@ -101,3 +101,47 @@ export function getProductStory(
     null;
   return value;
 }
+
+type WithCategoryNames = {
+  categoryNameEn?: string | null;
+  categoryNameRu?: string | null;
+  categoryNameHy?: string | null;
+  categoryName?: string | null;
+};
+
+type WithCollectionNames = {
+  collectionNameEn?: string | null;
+  collectionNameRu?: string | null;
+  collectionNameHy?: string | null;
+  collectionName?: string | null;
+};
+
+/** Category label for current locale; falls back to legacy `categoryName`. */
+export function getProductCategoryName(
+  product: WithCategoryNames,
+  lang: string,
+): string {
+  const L = normalizeLang(lang);
+  return pickByLang(
+    L,
+    product.categoryNameEn,
+    product.categoryNameRu,
+    product.categoryNameHy,
+    product.categoryName,
+  );
+}
+
+/** Collection label for current locale; falls back to legacy `collectionName`. */
+export function getProductCollectionName(
+  product: WithCollectionNames,
+  lang: string,
+): string {
+  const L = normalizeLang(lang);
+  return pickByLang(
+    L,
+    product.collectionNameEn,
+    product.collectionNameRu,
+    product.collectionNameHy,
+    product.collectionName,
+  );
+}

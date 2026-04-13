@@ -15,6 +15,9 @@ export type CartItem = {
   category?: string | null;
   /** Product category display name (e.g. "Rings"). */
   categoryName?: string | null;
+  categoryNameHy?: string | null;
+  categoryNameEn?: string | null;
+  categoryNameRu?: string | null;
   /** Selected ring size when product is a ring. */
   ringSize?: number | null;
   ringSizeIsCustom?: boolean;

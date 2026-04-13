@@ -10,7 +10,8 @@ import { useTranslation } from "react-i18next";
 import RingSizeSelector from "src/components/RingSizeSelector";
 import { useCart } from "src/app/providers/CartProvider";
 import { cartItemFromProduct } from "src/utils/cartItemFromProduct";
-import { isRingCategoryName } from "src/utils/isRingItem";
+import { isRingCategoryFromProduct } from "src/utils/isRingItem";
+import { getProductCollectionName } from "src/utils/productLocale";
 import { GENDER_I18N_KEYS, genderFromApi } from "src/types/product";
 import { formatPrice } from "src/utils/formatPrice";
 import type { ProductInfoProps } from "./types";
@@ -30,6 +31,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   const [ringSizeIsCustom, setRingSizeIsCustom] = useState(false);
 
   const isAvailable = product.isActive !== false;
+  const collectionLabel = getProductCollectionName(product, i18n.language);
   const gender =
     product.gender !== undefined && product.gender !== null
       ? genderFromApi(product.gender)
@@ -49,9 +51,9 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      {product.collectionName && (
+      {collectionLabel !== "" && (
         <div className={styles.collectionLabel}>
-          «{product.collectionName}»
+          «{collectionLabel}»
         </div>
       )}
       <Title level={2} className={styles.productTitle} style={{ margin: 0 }}>
@@ -77,7 +79,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
           {description}
         </Paragraph>
       )}
-      {isRingCategoryName(product.categoryName) && (
+      {isRingCategoryFromProduct(product) && (
         <RingSizeSelector
           value={ringSize}
           isCustom={ringSizeIsCustom}

@@ -6,6 +6,7 @@ import {
   FileTextOutlined,
   StarOutlined,
   AuditOutlined,
+  PictureOutlined,
   HomeOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
@@ -54,6 +55,11 @@ const AdminLayout: React.FC = () => {
       key: ROUTES.ADMIN_LOGS,
       icon: <AuditOutlined />,
       label: t("admin.logs.title"),
+    },
+    {
+      key: ROUTES.ADMIN_BANNER_CONTENT,
+      icon: <PictureOutlined />,
+      label: t("admin.homeBanner"),
     },
     {
       key: ROUTES.HOME,

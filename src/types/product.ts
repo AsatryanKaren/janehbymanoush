@@ -110,8 +110,14 @@ export type ProductDetailsPublic = {
   gender?: Gender;
   category?: string | null;
   categoryName?: string | null;
+  categoryNameHy?: string | null;
+  categoryNameEn?: string | null;
+  categoryNameRu?: string | null;
   collectionId?: string | null;
   collectionName?: string | null;
+  collectionNameHy?: string | null;
+  collectionNameEn?: string | null;
+  collectionNameRu?: string | null;
   price?: number;
   mainImageUrl?: string | null;
   descriptionHy?: string | null;
@@ -184,7 +190,7 @@ export type AdminProductsListParams = {
   PageSize?: string;
 };
 
-/** Public GET /v1/products list item */
+/** Public GET /v1/products and GET /v1/bestsellers list item */
 export type ProductCardPublic = {
   id: string;
   slug?: string | null;
@@ -195,8 +201,15 @@ export type ProductCardPublic = {
   gender?: Gender;
   category?: string | null;
   categoryName?: string | null;
+  /** Localized category labels when API omits legacy `categoryName`. */
+  categoryNameHy?: string | null;
+  categoryNameEn?: string | null;
+  categoryNameRu?: string | null;
   collectionId?: string | null;
   collectionName?: string | null;
+  collectionNameHy?: string | null;
+  collectionNameEn?: string | null;
+  collectionNameRu?: string | null;
   price?: number;
   mainImageUrl?: string | null;
   isActive?: boolean;

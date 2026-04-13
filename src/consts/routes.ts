@@ -29,6 +29,7 @@ export const ROUTES = {
   ADMIN_ORDERS: "/admin/orders",
   ADMIN_BESTSELLERS: "/admin/bestsellers",
   ADMIN_LOGS: "/admin/logs",
+  ADMIN_BANNER_CONTENT: "/admin/banner-content",
 } as const;
 
 export const buildProductPath = (slug: string): string =>

@@ -15,6 +15,9 @@ type ProductLike = {
   descriptionRu?: string | null;
   category?: string | null;
   categoryName?: string | null;
+  categoryNameHy?: string | null;
+  categoryNameEn?: string | null;
+  categoryNameRu?: string | null;
 };
 
 /** Prefer API `images[]` entry with `isMain: true`; else `mainImageUrl` (e.g. catalog cards). */
@@ -41,5 +44,8 @@ export function cartItemFromProduct(product: ProductLike): Omit<CartItem, "quant
     descriptionRu: product.descriptionRu ?? null,
     category: product.category ?? null,
     categoryName: product.categoryName ?? null,
+    categoryNameHy: product.categoryNameHy ?? null,
+    categoryNameEn: product.categoryNameEn ?? null,
+    categoryNameRu: product.categoryNameRu ?? null,
   };
 }

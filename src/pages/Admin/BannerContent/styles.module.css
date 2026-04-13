@@ -1,0 +1,22 @@
+.root {
+  max-width: 720px;
+}
+
+.previewBlock {
+  margin-top: 12px;
+}
+
+.urlLink {
+  color: #1677ff;
+  margin-bottom: 0;
+}
+
+.previewFrame {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  aspect-ratio: 21 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1c1917;
+}

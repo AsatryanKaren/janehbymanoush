@@ -2300,7 +2300,23 @@
           "gender": {
             "$ref": "#/components/schemas/Gender"
           },
+          "category": {
+            "type": "string",
+            "nullable": true
+          },
           "categoryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryNameRu": {
             "type": "string",
             "nullable": true
           },
@@ -2310,6 +2326,18 @@
             "nullable": true
           },
           "collectionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "collectionNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "collectionNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "collectionNameRu": {
             "type": "string",
             "nullable": true
           },
@@ -2332,6 +2360,10 @@
           },
           "isBestSeller": {
             "type": "boolean"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2369,9 +2401,21 @@
           },
           "category": {
             "type": "string",
-            "format": "uuid"
+            "nullable": true
           },
           "categoryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoryNameRu": {
             "type": "string",
             "nullable": true
           },
@@ -2381,6 +2425,18 @@
             "nullable": true
           },
           "collectionName": {
+            "type": "string",
+            "nullable": true
+          },
+          "collectionNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "collectionNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "collectionNameRu": {
             "type": "string",
             "nullable": true
           },

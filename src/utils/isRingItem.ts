@@ -19,13 +19,25 @@ export const isRingCategoryName = (
   return hasRingToken(name.toLowerCase());
 };
 
+type CategoryFieldsForRing = {
+  category?: string | null;
+  categoryName?: string | null;
+  categoryNameHy?: string | null;
+  categoryNameEn?: string | null;
+  categoryNameRu?: string | null;
+};
+
 /**
- * Returns true if the cart item is a ring. Checks both categoryName and category
- * (API may send either, e.g. categoryName "Մատանի" or category "rings").
+ * Product / list item: ring category from slug or any localized category label.
  */
-export const isRingItem = (item: CartItem): boolean => {
-  if (isRingCategoryName(item.categoryName)) return true;
-  const cat = (item.category ?? "").trim().toLowerCase();
+export const isRingCategoryFromProduct = (
+  product: CategoryFieldsForRing,
+): boolean => {
+  if (isRingCategoryName(product.categoryName)) return true;
+  if (isRingCategoryName(product.categoryNameHy)) return true;
+  if (isRingCategoryName(product.categoryNameEn)) return true;
+  if (isRingCategoryName(product.categoryNameRu)) return true;
+  const cat = (product.category ?? "").trim().toLowerCase();
   return (
     cat === "ring" ||
     cat === "rings" ||
@@ -34,4 +46,11 @@ export const isRingItem = (item: CartItem): boolean => {
     hasRingToken(cat)
   );
 };
+
+/**
+ * Returns true if the cart item is a ring. Checks both categoryName and category
+ * (API may send either, e.g. categoryName "Մատանի" or category "rings").
+ */
+export const isRingItem = (item: CartItem): boolean =>
+  isRingCategoryFromProduct(item);
 

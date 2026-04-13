@@ -23,6 +23,7 @@ import AdminCategoriesListPage from "src/pages/Admin/Categories/AdminCategoriesL
 import AdminCategoryEditPage from "src/pages/Admin/Categories/AdminCategoryEditPage";
 import AdminBestsellersPage from "src/pages/Admin/Bestsellers/AdminBestsellersPage";
 import AdminLogsPage from "src/pages/Admin/Logs/AdminLogsPage";
+import AdminBannerContentPage from "src/pages/Admin/BannerContent/AdminBannerContentPage";
 import AdminCatalogProvidersLayout from "src/app/AdminCatalogProvidersLayout";
 import CheckoutPage from "src/pages/Checkout";
 
@@ -74,6 +75,7 @@ export const router = createBrowserRouter([
           { path: "order/:id", element: <AdminOrderDetailPage /> },
           { path: "bestsellers", element: <AdminBestsellersPage /> },
           { path: "logs", element: <AdminLogsPage /> },
+          { path: "banner-content", element: <AdminBannerContentPage /> },
           {
             element: <AdminCatalogProvidersLayout />,
             children: [

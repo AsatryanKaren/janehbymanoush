@@ -401,6 +401,7 @@
     },
     "logout": "Sign out",
     "products": "Products",
+    "homeBanner": "Home banner",
     "orders": "Orders",
     "ordersListHint": "Click any row to open the full order.",
     "openOrderAria": "Open order details",

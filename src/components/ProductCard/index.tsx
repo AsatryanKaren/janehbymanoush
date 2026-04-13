@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { buildProductPath } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
-import { getProductName } from "src/utils/productLocale";
+import {
+  getProductName,
+  getProductCategoryName,
+  getProductCollectionName,
+} from "src/utils/productLocale";
 import { useCart } from "src/app/providers/CartProvider";
 import { cartItemFromProduct } from "src/utils/cartItemFromProduct";
 import type { ProductCardProps } from "./types";
@@ -26,9 +30,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const categoryKey = category && CATEGORY_KEY_MAP[category]
     ? `product.${CATEGORY_KEY_MAP[category]}`
     : null;
+  const localizedCategory = getProductCategoryName(product, i18n.language);
   const categoryLabel = categoryKey
     ? t(categoryKey)
-    : (product.categoryName ?? category);
+    : localizedCategory || (product.categoryName ?? category);
   const showCategoryTag = Boolean(categoryLabel);
   const slug = product.slug ?? product.id;
   const name = getProductName(product, i18n.language);
@@ -62,7 +67,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <Text className={styles.compactCategory}>{categoryLabel}</Text>
             )}
             <Text className={styles.compactCollection}>
-              {product.collectionName ?? ""}
+              {getProductCollectionName(product, i18n.language)}
             </Text>
             <div className={styles.priceRow}>
               <Text strong className={styles.price}>
