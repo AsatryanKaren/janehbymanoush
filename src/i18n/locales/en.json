@@ -35,7 +35,7 @@
     "curatedEdits": {
       "title": "\"Gavith\" collection",
       "subtitle": "The patterns of the \"Gavith\" collection are inspired by the carved and miniature compositions of Artsakh's Gandzasar church.",
-      "subtitleDefault": "A selection of pieces from this collection.",
+      "subtitleDefault": "Highlights from the collection.",
       "browseAll": "View all",
       "collection1": "\"Gavith\" earrings",
       "collection2": "\"Gavith\" ring",
@@ -106,7 +106,13 @@
       "dateNewToOld": "Date: new to old",
       "dateOldToNew": "Date: old to new"
     },
-    "newArrivals": "New arrivals"
+    "newArrivals": "New arrivals",
+    "activeFilters": {
+      "clearAll": "Clear all",
+      "price": "{{min}} – {{max}}",
+      "collectionFallback": "Collection",
+      "categoryFallback": "Category"
+    }
   },
   "product": {
     "notFound": "Product not found.",

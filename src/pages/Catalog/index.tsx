@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useSearchParams, Link } from "react-router-dom";
-import { Spin, Typography, Flex, Pagination, Slider, Input } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useLocation, useNavigate, useSearchParams, Link } from "react-router-dom";
+import { Spin, Typography, Flex, Pagination, Slider, Input, Tag, Button } from "antd";
+import { ClearOutlined, PlusOutlined } from "@ant-design/icons";
 import DarkSelect from "src/components/DarkSelect";
 import { useTranslation } from "react-i18next";
 import ProductCard from "src/components/ProductCard";
@@ -10,31 +10,36 @@ import CatalogEmptyState from "src/components/CatalogEmptyState";
 import { productsApi } from "src/api/products";
 import { collectionsApi } from "src/api/collections";
 import type { Product } from "src/types/product";
-import type { AdminCollectionItem, CategoryItemWithValue } from "src/types/collection";
+import type { AdminCollectionItem } from "src/types/collection";
 import { ROUTES } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
-import { CATEGORY_MAP, TITLE_KEY_MAP, SORT_PARAMS, type SortValue } from "./consts";
+import {
+  CATEGORY_MAP,
+  CATALOG_PAGE_SIZE,
+  CATALOG_PRICE_MAX,
+  CATALOG_PRICE_MIN,
+  isCatalogDefaultPriceRange,
+  TITLE_KEY_MAP,
+  SORT_PARAMS,
+  type SortValue,
+} from "./consts";
+import type { ActiveFilterKind, ActiveFilterTag } from "./types";
+import {
+  catalogCategoryFilterValue,
+  catalogCollectionFilterValue,
+  findCategoryInCollections,
+  getCatalogSelectionIds,
+  getCategoryTitle,
+  getCollectionTitle,
+} from "./utils";
 import styles from "./styles.module.css";
 
 const { Title } = Typography;
 
-const PAGE_SIZE = 12;
-
-const getCategoryTitle = (item: CategoryItemWithValue, lang: string): string => {
-  if (lang === "hy" && item.titleHy) return item.titleHy;
-  if (lang === "ru" && item.titleRu) return item.titleRu;
-  return item.titleEn ?? item.titleHy ?? item.titleRu ?? "";
-};
-
-const getCollectionTitle = (item: AdminCollectionItem, lang: string): string => {
-  if (lang === "hy" && item.nameHy) return item.nameHy;
-  if (lang === "ru" && item.nameRu) return item.nameRu;
-  return item.nameEn ?? item.nameHy ?? item.nameRu ?? item.name ?? "";
-};
-
 const CatalogPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
@@ -42,7 +47,7 @@ const CatalogPage: React.FC = () => {
   const [collections, setCollections] = useState<AdminCollectionItem[]>([]);
   const [filterValue, setFilterValue] = useState<string | undefined>(() => {
     const collectionId = searchParams.get("collection");
-    return collectionId ? `col-${collectionId}` : undefined;
+    return collectionId ? catalogCollectionFilterValue(collectionId) : undefined;
   });
   const [expandedCollections, setExpandedCollections] = useState<Set<string>>(new Set());
   const [page, setPage] = useState(1);
@@ -66,17 +71,17 @@ const CatalogPage: React.FC = () => {
     });
   };
 
-  const selectedCollectionId = filterValue?.startsWith("col-")
-    ? filterValue.slice(4)
-    : null;
-  const selectedCategoryId = filterValue?.startsWith("cat-")
-    ? filterValue.slice(4)
-    : null;
+  const { collectionId: selectedCollectionId, categoryId: selectedCategoryId } =
+    getCatalogSelectionIds(filterValue);
 
   const [sort, setSort] = useState<SortValue>("price_asc");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([
+    CATALOG_PRICE_MIN,
+    CATALOG_PRICE_MAX,
+  ]);
   const [appliedPriceRange, setAppliedPriceRange] = useState<[number, number]>([
-    0, 500000,
+    CATALOG_PRICE_MIN,
+    CATALOG_PRICE_MAX,
   ]);
 
   const pathCategory = CATEGORY_MAP[location.pathname];
@@ -91,7 +96,7 @@ const CatalogPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const collectionId = filterValue?.startsWith("col-") ? filterValue.slice(4) : null;
+    const { collectionId } = getCatalogSelectionIds(filterValue);
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
@@ -117,7 +122,7 @@ const CatalogPage: React.FC = () => {
     params.SortBy = SortBy;
     params.SortOrder = SortOrder;
     params.Page = String(page);
-    params.PageSize = String(PAGE_SIZE);
+    params.PageSize = String(CATALOG_PAGE_SIZE);
     productsApi
       .getAll(params)
       .then((res) => {
@@ -139,7 +144,96 @@ const CatalogPage: React.FC = () => {
     appliedSearch,
   ]);
 
-  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE));
+
+  const activeFilterTags = useMemo((): ActiveFilterTag[] => {
+    const tags: ActiveFilterTag[] = [];
+    if (location.pathname !== ROUTES.CATALOG) {
+      let sectionLabel = "";
+      if (pathIsNew) sectionLabel = t("nav.new");
+      else if (location.pathname === ROUTES.WOMEN) sectionLabel = t("nav.woman");
+      else if (location.pathname === ROUTES.MEN) sectionLabel = t("nav.man");
+      else if (location.pathname === ROUTES.UNISEX) sectionLabel = t("nav.unisex");
+      if (sectionLabel) tags.push({ key: "section", kind: "section", label: sectionLabel });
+    }
+    if (selectedCollectionId) {
+      const col = collections.find((c) => c.id === selectedCollectionId);
+      tags.push({
+        key: catalogCollectionFilterValue(selectedCollectionId),
+        kind: "collection",
+        label: col
+          ? getCollectionTitle(col, i18n.language)
+          : t("catalog.activeFilters.collectionFallback"),
+      });
+    } else if (selectedCategoryId) {
+      const cat = findCategoryInCollections(collections, selectedCategoryId);
+      tags.push({
+        key: catalogCategoryFilterValue(selectedCategoryId),
+        kind: "category",
+        label: cat
+          ? getCategoryTitle(cat, i18n.language)
+          : t("catalog.activeFilters.categoryFallback"),
+      });
+    }
+    const q = appliedSearch.trim();
+    if (q) tags.push({ key: "search", kind: "search", label: q });
+    if (!isCatalogDefaultPriceRange(appliedPriceRange)) {
+      tags.push({
+        key: "price",
+        kind: "price",
+        label: t("catalog.activeFilters.price", {
+          min: formatPrice(appliedPriceRange[0], "AMD", i18n.language),
+          max: formatPrice(appliedPriceRange[1], "AMD", i18n.language),
+        }),
+      });
+    }
+    return tags;
+  }, [
+    appliedPriceRange,
+    appliedSearch,
+    collections,
+    i18n.language,
+    location.pathname,
+    pathIsNew,
+    selectedCategoryId,
+    selectedCollectionId,
+    t,
+  ]);
+
+  const removeActiveFilter = useCallback(
+    (kind: ActiveFilterKind) => {
+      setPage(1);
+      switch (kind) {
+        case "section":
+          navigate(ROUTES.CATALOG);
+          break;
+        case "search":
+          setAppliedSearch("");
+          setSearchInput("");
+          break;
+        case "price":
+          setPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
+          setAppliedPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
+          break;
+        case "collection":
+        case "category":
+          setFilterValue(undefined);
+          break;
+      }
+    },
+    [navigate],
+  );
+
+  const clearAllFilters = useCallback(() => {
+    navigate(ROUTES.CATALOG);
+    setFilterValue(undefined);
+    setAppliedSearch("");
+    setSearchInput("");
+    setPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
+    setAppliedPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
+    setSort("price_asc");
+    setPage(1);
+  }, [navigate]);
 
   return (
     <div className={styles.container}>
@@ -222,8 +316,8 @@ const CatalogPage: React.FC = () => {
                 <span className={styles.priceRangeLabel}>{t("catalog.priceRange")}</span>
                 <Slider
                   range
-                  min={0}
-                  max={500000}
+                  min={CATALOG_PRICE_MIN}
+                  max={CATALOG_PRICE_MAX}
                   value={priceRange}
                   onChange={(v) => setPriceRange(v as [number, number])}
                   onAfterChange={(v) => {
@@ -249,7 +343,8 @@ const CatalogPage: React.FC = () => {
                 {collections.map((col) => {
                   const hasChildren = (col.categories ?? []).length > 0;
                   const isOpen = expandedCollections.has(col.id);
-                  const isColActive = filterValue === `col-${col.id}`;
+                  const colFilterValue = catalogCollectionFilterValue(col.id);
+                  const isColActive = filterValue === colFilterValue;
 
                   return (
                     <li key={col.id} className={styles.treeGroup}>
@@ -267,7 +362,7 @@ const CatalogPage: React.FC = () => {
                           }
                           onClick={(e) => {
                             e.preventDefault();
-                            setFilterValue(isColActive ? undefined : `col-${col.id}`);
+                            setFilterValue(isColActive ? undefined : colFilterValue);
                             if (!isOpen && hasChildren) toggleCollapse(col.id);
                             setPage(1);
                           }}
@@ -277,29 +372,32 @@ const CatalogPage: React.FC = () => {
                       </Flex>
                       {hasChildren && isOpen && (
                         <ul className={styles.treeChildren}>
-                          {(col.categories ?? []).map((cat) => (
-                            <li key={cat.id} className={styles.categoryItem}>
-                              <a
-                                href="#"
-                                className={
-                                  filterValue === `cat-${cat.id}`
-                                    ? styles.categoryLinkActive
-                                    : styles.categoryLink
-                                }
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setFilterValue(
-                                    filterValue === `cat-${cat.id}`
-                                      ? undefined
-                                      : `cat-${cat.id}`,
-                                  );
-                                  setPage(1);
-                                }}
-                              >
-                                {getCategoryTitle(cat, i18n.language)}
-                              </a>
-                            </li>
-                          ))}
+                          {(col.categories ?? []).map((cat) => {
+                            const catFilterValue = catalogCategoryFilterValue(cat.id);
+                            return (
+                              <li key={cat.id} className={styles.categoryItem}>
+                                <a
+                                  href="#"
+                                  className={
+                                    filterValue === catFilterValue
+                                      ? styles.categoryLinkActive
+                                      : styles.categoryLink
+                                  }
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setFilterValue(
+                                      filterValue === catFilterValue
+                                        ? undefined
+                                        : catFilterValue,
+                                    );
+                                    setPage(1);
+                                  }}
+                                >
+                                  {getCategoryTitle(cat, i18n.language)}
+                                </a>
+                              </li>
+                            );
+                          })}
                         </ul>
                       )}
                     </li>
@@ -312,29 +410,54 @@ const CatalogPage: React.FC = () => {
       </aside>
 
       <main className={styles.main}>
-        <div className={styles.headerRow}>
-          <div className={styles.titleBlock}>
-            <Title level={1} className={styles.title}>
-              {t(titleKey)}
-            </Title>
+        <div className={styles.mainTop}>
+          <div className={styles.headerRow}>
+            <div className={styles.titleBlock}>
+              <Title level={1} className={styles.title}>
+                {t(titleKey)}
+              </Title>
+            </div>
+            <div className={styles.sortWrap}>
+              <span className={styles.sortLabel}>{t("catalog.sortBy")}</span>
+              <DarkSelect<SortValue>
+                value={sort}
+                onChange={(v) => {
+                  setSort(v);
+                  setPage(1);
+                }}
+                style={{ width: 200 }}
+                options={[
+                  { value: "price_asc", label: t("catalog.sort.priceLowToHigh") },
+                  { value: "price_desc", label: t("catalog.sort.priceHighToLow") },
+                  { value: "date_desc", label: t("catalog.sort.dateNewToOld") },
+                  { value: "date_asc", label: t("catalog.sort.dateOldToNew") },
+                ]}
+              />
+            </div>
           </div>
-          <div className={styles.sortWrap}>
-            <span className={styles.sortLabel}>{t("catalog.sortBy")}</span>
-            <DarkSelect<SortValue>
-              value={sort}
-              onChange={(v) => {
-                setSort(v);
-                setPage(1);
-              }}
-              style={{ width: 200 }}
-              options={[
-                { value: "price_asc", label: t("catalog.sort.priceLowToHigh") },
-                { value: "price_desc", label: t("catalog.sort.priceHighToLow") },
-                { value: "date_desc", label: t("catalog.sort.dateNewToOld") },
-                { value: "date_asc", label: t("catalog.sort.dateOldToNew") },
-              ]}
-            />
-          </div>
+          {activeFilterTags.length > 0 && (
+            <Flex wrap="wrap" gap={8} align="center" className={styles.activeFilters}>
+              {activeFilterTags.map((item) => (
+                <Tag
+                  key={item.key}
+                  closable
+                  className={styles.filterTag}
+                  onClose={() => removeActiveFilter(item.kind)}
+                >
+                  {item.label}
+                </Tag>
+              ))}
+              <Button
+                type="link"
+                size="small"
+                className={styles.clearAllLink}
+                icon={<ClearOutlined className={styles.clearAllIcon} />}
+                onClick={clearAllFilters}
+              >
+                {t("catalog.activeFilters.clearAll")}
+              </Button>
+            </Flex>
+          )}
         </div>
 
         {loading ? (
@@ -357,7 +480,7 @@ const CatalogPage: React.FC = () => {
                 <Pagination
                   current={page}
                   total={total}
-                  pageSize={PAGE_SIZE}
+                  pageSize={CATALOG_PAGE_SIZE}
                   showSizeChanger={false}
                   onChange={setPage}
                 />

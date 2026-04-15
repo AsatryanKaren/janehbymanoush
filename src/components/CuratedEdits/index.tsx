@@ -16,7 +16,6 @@ const { Title } = Typography;
 const { useBreakpoint } = Grid;
 
 const MAX_ITEMS = 4;
-const MIN_ITEMS_TO_SHOW = 2;
 
 function getCollectionTitle(
   item: AdminCollectionItem,
@@ -35,23 +34,30 @@ function getProductTitle(product: ProductCardPublic, lang: string): string {
   );
 }
 
-async function fetchCollectionWithProducts(
+/** Collections whose catalog `total` is at least `minCount` (single-item page + `total`). */
+async function filterCollectionsWithMinProductCount(
   collections: AdminCollectionItem[],
-  excludeId: string | null,
-): Promise<{ collection: AdminCollectionItem; products: ProductCardPublic[] } | null> {
-  const available = excludeId
-    ? collections.filter((c) => c.id !== excludeId)
-    : collections;
-  if (available.length === 0) return null;
-  const randomIndex = Math.floor(Math.random() * available.length);
-  const chosen = available[randomIndex];
-  if (!chosen?.id) return null;
-  const res = await productsApi.getAll({
-    CollectionId: chosen.id,
-    PageSize: String(MAX_ITEMS),
-  });
-  const list = (res.items ?? []).slice(0, MAX_ITEMS);
-  return { collection: chosen, products: list };
+  minCount: number,
+): Promise<AdminCollectionItem[]> {
+  const withIds = collections.filter((c): c is AdminCollectionItem & { id: string } =>
+    Boolean(c.id),
+  );
+  const settled = await Promise.allSettled(
+    withIds.map(async (c) => {
+      const res = await productsApi.getAll({
+        CollectionId: c.id,
+        PageSize: "1",
+      });
+      return { collection: c, total: res.total ?? 0 };
+    }),
+  );
+  const eligible: AdminCollectionItem[] = [];
+  for (const s of settled) {
+    if (s.status === "fulfilled" && s.value.total >= minCount) {
+      eligible.push(s.value.collection);
+    }
+  }
+  return eligible;
 }
 
 const CuratedEdits: React.FC<CuratedEditsProps> = ({
@@ -78,34 +84,36 @@ const CuratedEdits: React.FC<CuratedEditsProps> = ({
 
     void (async () => {
       try {
-        const first = await fetchCollectionWithProducts(
+        const eligible = await filterCollectionsWithMinProductCount(
           collectionsList,
-          null,
+          MAX_ITEMS,
         );
         if (cancelled) return;
-        if (!first) {
+        if (eligible.length === 0) {
+          setCollection(null);
+          setProducts([]);
           setLoading(false);
           return;
         }
-        if (first.products.length >= MIN_ITEMS_TO_SHOW) {
-          setCollection(first.collection);
-          setProducts(first.products);
+        const chosen = eligible[Math.floor(Math.random() * eligible.length)];
+        if (!chosen?.id) {
+          setCollection(null);
+          setProducts([]);
           setLoading(false);
           return;
         }
-        const second = await fetchCollectionWithProducts(
-          collectionsList,
-          first.collection.id,
-        );
+        const res = await productsApi.getAll({
+          CollectionId: chosen.id,
+          PageSize: String(MAX_ITEMS),
+        });
         if (cancelled) return;
-        const result =
-          second && second.products.length > first.products.length
-            ? second
-            : first;
-        setCollection(result.collection);
-        setProducts(result.products);
+        setCollection(chosen);
+        setProducts((res.items ?? []).slice(0, MAX_ITEMS));
       } catch {
-        if (!cancelled) setCollection(null);
+        if (!cancelled) {
+          setCollection(null);
+          setProducts([]);
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
