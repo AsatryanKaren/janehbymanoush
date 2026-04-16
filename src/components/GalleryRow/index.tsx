@@ -1,19 +1,19 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { IMAGES } from "./consts";
+import { getHomeGalleryStripUrls } from "src/consts/homeGalleryStrip";
 import styles from "./styles.module.css";
 
-const slides = IMAGES.map((src) => ({ src }));
-
 const GalleryRow: React.FC = () => {
+  const images = useMemo(() => getHomeGalleryStripUrls(), []);
+  const slides = useMemo(() => images.map((src) => ({ src })), [images]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
   return (
     <>
       <section className={styles.section}>
-        {IMAGES.map((src, i) => (
+        {images.map((src, i) => (
           <button
             key={i}
             type="button"
@@ -22,7 +22,7 @@ const GalleryRow: React.FC = () => {
               setIndex(i);
               setLightboxOpen(true);
             }}
-            aria-label={`View image ${i + 1} of ${IMAGES.length}`}
+            aria-label={`View image ${i + 1} of ${images.length}`}
           >
             <img
               src={src}
