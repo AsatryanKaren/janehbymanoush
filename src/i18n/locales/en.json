@@ -35,7 +35,7 @@
     "curatedEdits": {
       "title": "\"Gavith\" collection",
       "subtitle": "The patterns of the \"Gavith\" collection are inspired by the carved and miniature compositions of Artsakh's Gandzasar church.",
-      "subtitleDefault": "Highlights from the collection.",
+      "subtitleDefault": "Highlights from the collection",
       "browseAll": "View all",
       "collection1": "\"Gavith\" earrings",
       "collection2": "\"Gavith\" ring",
@@ -53,15 +53,15 @@
     },
     "promoSection": {
       "label": "NEW COLLECTION",
-      "heading": "Every jewelry holds a story",
-      "body": "Each design is carefully crafted to capture emotion, reflect your style, and highlight your individuality.",
+      "heading": "Each Piece Tells a Story",
+      "body": "Every detail of our collections is thoughtfully designed to convey emotion, style, and uniqueness.",
       "cta": "Shop the collection"
     },
     "heritage": {
-      "heading": "Elegance you can feel",
-      "body": "Our jewelry is created not only to be seen, but to be felt expressing mood, story, and a distinct sense of individuality.",
-      "rawMaterialsTitle": "Choice of raw materials",
-      "rawMaterialsDesc": "Quality you can feel in every detail.",
+      "heading": "Elegance You Can Feel",
+      "body": "We create jewelry not only to be worn, but to be felt, conveying mood, story, and individuality.",
+      "rawMaterialsTitle": "Material Selection",
+      "rawMaterialsDesc": "Quality that is felt in every detail.",
       "individualityTitle": "Individuality",
       "individualityDesc": "Design that blends modern aesthetics with refined elegance.",
       "ourStory": "About Us"
@@ -175,10 +175,10 @@
     "heroLearnMore": "LEARN MORE",
     "heroSubtitle": "Where Armenian heritage meets contemporary elegance",
     "heritageTitle": "About us",
-    "heritageBody": "Representing the real Armenian, the origin of Janeh's name has deep patriotic roots. The name 'Janeh' is taken from the Martuni region of Artsakh. In the local dialect, Janeh is equivalent to the word Jan (in translation-sweety). 'Janeh' is silver jewelry, on which Armenian ornaments are depicted, taken from sculptures of khachkars and church domes, Armenian costumes and carpets.",
+    "heritageBody": "The name \"Janeh\" carries deep patriotic roots. It originates from the Martuni region of Artsakh, where, in the local dialect, \"Janeh\" is equivalent to the Armenian word \"jan,\" an expression of affection, warmth, and endearment. Notably, this kind of pronunciation is unique to that specific region.\n\n\"Janeh\" represents a collection of silver jewelry adorned with traditional Armenian ornaments inspired by the intricate carvings of khachkars (Armenian cross-stones) and church domes, as well as motifs from Armenian national costumes, carpets, and rugs. Our goal is for each piece of jewelry to become a bearer of our rich history and cultural heritage, passing it on to future generations.",
     "quoteText": "Our legends tell the rich stories of our ancestors, who are the roots of our art.",
     "craftTitle": "“ What is jewelry?",
-    "craftSubtitle": "- Jewelry is one of the important accessories that reveals a person's essence. The model, type, and shape of jewelry talks more about the wearer than the shirt or pants he or she is wearing. - Manush Yesayan",
+    "craftSubtitle": "Jewelry is one of the important accessories that reveals a person's essence. The model, type, and shape of jewelry talk more about the wearer than the shirt or pants he or she is wearing.” - Manush Yesayan",
     "craftHandicraftBody": "Every piece is meticulously handcrafted by skilled artisans, ensuring exceptional quality and attention to detail in each creation.",
     "craftDesignTitle": "DESIGN",
     "craftDesignBody": "Our designs are drawn from tradition and reimagined for today. From sketch to finished piece, we combine classical motifs with modern sensibility.",
@@ -206,10 +206,10 @@
     "valuesTitle": "Our Values",
     "qualityTitle": "Craftsmanship",
     "qualityDesc": "Crafted by skilled artisans, each piece embodies outstanding quality and refined craftsmanship.",
-    "sustainabilityTitle": "Originality",
-    "sustainabilityDesc": "Each piece is thoughtfully created with a distinctive design and a personal touch.",
+    "sustainabilityTitle": "Uniqueness",
+    "sustainabilityDesc": "Each piece of jewelry is created with a distinctive design, combining an individual approach with a contemporary style.",
     "expressionTitle": "Heritage",
-    "expressionDesc": "Rooted in Armenian tradition, our designs reflect a balance of heritage, modern aesthetics, and individuality.",
+    "expressionDesc": "At the heart of our jewelry lies centuries-old Armenian art, reinterpreted through contemporary aesthetics and individual expression.",
     "shopNow": "Explore Collection"
   },
   "contact": {
