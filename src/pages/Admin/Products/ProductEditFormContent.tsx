@@ -182,6 +182,15 @@ export const ProductEditFormContent = (
               rules={[{ required: true, message: t("admin.categoryRequired") }]}
             >
               <Select
+                showSearch
+                optionFilterProp="label"
+                filterOption={(input, option) => {
+                  const label =
+                    typeof option?.label === "string"
+                      ? option.label
+                      : String(option?.label ?? "");
+                  return label.toLowerCase().includes(input.trim().toLowerCase());
+                }}
                 options={categoryOptions}
                 placeholder={t("admin.categoryRequired")}
                 loading={categoryOptions.length === 0}

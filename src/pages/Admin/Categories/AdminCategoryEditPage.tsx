@@ -150,6 +150,15 @@ const AdminCategoryEditPage: React.FC = () => {
                 ]}
               >
                 <Select
+                  showSearch
+                  optionFilterProp="label"
+                  filterOption={(input, option) => {
+                    const label =
+                      typeof option?.label === "string"
+                        ? option.label
+                        : String(option?.label ?? "");
+                    return label.toLowerCase().includes(input.trim().toLowerCase());
+                  }}
                   options={collectionOptions}
                   placeholder={t("admin.categories.collectionRequired")}
                   loading={collectionOptions.length === 0}
