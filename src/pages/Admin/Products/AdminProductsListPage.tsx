@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Table,
@@ -16,14 +16,17 @@ import {
   DeleteOutlined,
   CopyOutlined,
 } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminProductsApi } from "src/api/adminProducts";
 import {
   ROUTES,
+  ADMIN_PRODUCTS_PAGE_PARAM,
+  ADMIN_PRODUCTS_PAGE_SIZE_PARAM,
   buildAdminProductEditPath,
   buildAdminProductViewPath,
   buildAdminProductDuplicatePath,
+  parseAdminProductsListQuery,
 } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import type { ProductCardAdmin } from "src/types/product";
@@ -41,50 +44,78 @@ const AdminProductsListPage: React.FC = () => {
   const { t, language } = useAdminTranslation();
   const { message } = App.useApp();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { page: urlPage, pageSize: urlPageSize } = useMemo(
+    () => parseAdminProductsListQuery(searchParams),
+    [searchParams],
+  );
+  const listPagination = useMemo(
+    () => ({ page: urlPage, pageSize: urlPageSize }),
+    [urlPage, urlPageSize],
+  );
   const [products, setProducts] = useState<ProductCardAdmin[]>([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(12);
   const [total, setTotal] = useState(0);
 
-  const fetchProducts = (pageNum = page, size = pageSize) => {
-    setLoading(true);
-    adminProductsApi
-      .getAll({
-        Page: String(pageNum),
-        PageSize: String(size),
-      })
-      .then((res) => {
-        setProducts(res.items ?? []);
-        setTotal(res.total ?? 0);
-        setPage(res.page ?? 1);
-        setPageSize(res.pageSize ?? size);
-      })
-      .catch(() => {
-        setProducts([]);
-        setTotal(0);
-        void message.error(t("admin.loadListFailed"));
-      })
-      .finally(() => setLoading(false));
-  };
+  const fetchProducts = useCallback(
+    (pageNum: number, size: number) => {
+      setLoading(true);
+      adminProductsApi
+        .getAll({
+          Page: String(pageNum),
+          PageSize: String(size),
+        })
+        .then((res) => {
+          setProducts(res.items ?? []);
+          setTotal(res.total ?? 0);
+          const resolvedPage = res.page ?? pageNum;
+          const resolvedSize = res.pageSize ?? size;
+          if (resolvedPage !== urlPage || resolvedSize !== urlPageSize) {
+            setSearchParams(
+              (prev) => {
+                const next = new URLSearchParams(prev);
+                if (resolvedPage <= 1) next.delete(ADMIN_PRODUCTS_PAGE_PARAM);
+                else next.set(ADMIN_PRODUCTS_PAGE_PARAM, String(resolvedPage));
+                if (resolvedSize === 12) next.delete(ADMIN_PRODUCTS_PAGE_SIZE_PARAM);
+                else next.set(ADMIN_PRODUCTS_PAGE_SIZE_PARAM, String(resolvedSize));
+                return next;
+              },
+              { replace: true },
+            );
+          }
+        })
+        .catch(() => {
+          setProducts([]);
+          setTotal(0);
+          void message.error(t("admin.loadListFailed"));
+        })
+        .finally(() => setLoading(false));
+    },
+    [message, setSearchParams, t, urlPage, urlPageSize],
+  );
 
   useEffect(() => {
-    fetchProducts(1, pageSize);
-  }, []);
+    fetchProducts(urlPage, urlPageSize);
+  }, [fetchProducts, urlPage, urlPageSize]);
 
   const handleTableChange = (pagination: { current?: number; pageSize?: number }) => {
     const nextPage = pagination.current ?? 1;
-    const nextSize = pagination.pageSize ?? pageSize;
-    setPage(nextPage);
-    setPageSize(nextSize);
-    fetchProducts(nextPage, nextSize);
+    const nextSize = pagination.pageSize ?? urlPageSize;
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (nextPage <= 1) next.delete(ADMIN_PRODUCTS_PAGE_PARAM);
+      else next.set(ADMIN_PRODUCTS_PAGE_PARAM, String(nextPage));
+      if (nextSize === 12) next.delete(ADMIN_PRODUCTS_PAGE_SIZE_PARAM);
+      else next.set(ADMIN_PRODUCTS_PAGE_SIZE_PARAM, String(nextSize));
+      return next;
+    });
   };
 
   const handleDelete = async (id: string) => {
     try {
       await adminProductsApi.delete(id);
       void message.success(t("admin.deleteSuccess"));
-      fetchProducts(page, pageSize);
+      fetchProducts(urlPage, urlPageSize);
     } catch {
       void message.error(t("admin.deleteFailed"));
     }
@@ -118,7 +149,7 @@ const AdminProductsListPage: React.FC = () => {
           getProductName(b, language),
         ),
       render: (_: string, record: ProductCardAdmin) => (
-        <Link to={buildAdminProductViewPath(record.id)}>
+        <Link to={buildAdminProductViewPath(record.id, listPagination)}>
           {getProductName(record, language)}
         </Link>
       ),
@@ -184,13 +215,15 @@ const AdminProductsListPage: React.FC = () => {
           <Button
             type="text"
             icon={<EditOutlined />}
-            onClick={() => navigate(buildAdminProductEditPath(record.id))}
+            onClick={() => navigate(buildAdminProductEditPath(record.id, listPagination))}
             aria-label={t("admin.edit")}
           />
           <Button
             type="text"
             icon={<CopyOutlined />}
-            onClick={() => navigate(buildAdminProductDuplicatePath(record.id))}
+            onClick={() =>
+              navigate(buildAdminProductDuplicatePath(record.id, listPagination))
+            }
             aria-label={t("admin.duplicateProduct")}
           />
           <Popconfirm
@@ -228,8 +261,8 @@ const AdminProductsListPage: React.FC = () => {
         loading={loading}
         scroll={{ x: 900 }}
         pagination={{
-          current: page,
-          pageSize,
+          current: urlPage,
+          pageSize: urlPageSize,
           total,
           showSizeChanger: true,
           pageSizeOptions: ["12", "20", "50"],

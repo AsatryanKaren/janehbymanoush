@@ -513,6 +513,19 @@
     margin-bottom: 0;
   }
 
+  .collectionsMoreToggle {
+    margin-top: 4px;
+    padding: 0;
+    height: auto;
+    align-self: flex-start;
+    color: var(--color-accent);
+    font-size: 0.875rem;
+  }
+
+  .collectionsMoreToggle:hover {
+    color: var(--color-accent-muted);
+  }
+
   .categoryItem {
     margin-bottom: 10px;
   }

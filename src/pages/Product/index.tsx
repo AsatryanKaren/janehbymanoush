@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Breadcrumb, Col, Row, Spin, Typography, Flex } from "antd";
 import { useTranslation } from "react-i18next";
 import { productsApi } from "src/api/products";
 import { collectionsApi } from "src/api/collections";
-import { ROUTES } from "src/consts/routes";
+import {
+  ROUTES,
+  PRODUCT_CATALOG_RETURN_PARAM,
+  parseSafeCatalogReturnPath,
+} from "src/consts/routes";
 import {
   getProductName,
   getProductDescription,
@@ -24,6 +28,10 @@ const { Text } = Typography;
 const ProductPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
+  const catalogBreadcrumbTo =
+    parseSafeCatalogReturnPath(searchParams.get(PRODUCT_CATALOG_RETURN_PARAM)) ??
+    ROUTES.CATALOG;
   const [product, setProduct] = useState<ProductDetailsPublic | null>(null);
   const [loading, setLoading] = useState(true);
   const [collections, setCollections] = useState<AdminCollectionItem[] | null>(
@@ -83,7 +91,11 @@ const ProductPage: React.FC = () => {
           className={styles.breadcrumbs}
           items={[
             { title: <Link to={ROUTES.HOME}>{t("common.breadcrumbs.home")}</Link> },
-            { title: <Link to={ROUTES.CATALOG}>{t("common.breadcrumbs.catalog")}</Link> },
+            {
+              title: (
+                <Link to={catalogBreadcrumbTo}>{t("common.breadcrumbs.catalog")}</Link>
+              ),
+            },
             { title: name },
           ]}
         />

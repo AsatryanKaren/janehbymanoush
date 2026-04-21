@@ -2,7 +2,7 @@ import { Card, Tag, Typography, Button } from "antd";
 import { ShoppingOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { buildProductPath } from "src/consts/routes";
+import { buildProductPath, buildProductPathWithCatalogReturn } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import {
   getProductName,
@@ -22,6 +22,7 @@ const DEFAULT_CURRENCY = "AMD";
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   variant = "default",
+  catalogReturnLocation,
 }) => {
   const { t, i18n } = useTranslation();
   const { addItem, setOpenSidebar } = useCart();
@@ -37,6 +38,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const showCategoryTag = Boolean(categoryLabel);
   const slug = product.slug ?? product.id;
   const name = getProductName(product, i18n.language);
+  const productTo =
+    catalogReturnLocation != null && catalogReturnLocation !== ""
+      ? buildProductPathWithCatalogReturn(slug, catalogReturnLocation)
+      : buildProductPath(slug);
   const isAvailable = product.isActive !== false;
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -48,7 +53,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <Link to={buildProductPath(slug)} className={styles.link}>
+    <Link to={productTo} className={styles.link}>
       <Card
         hoverable
         className={styles.card}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import {
   Button,
   Card,
@@ -14,7 +14,12 @@ import {
 import { ArrowLeftOutlined, EditOutlined } from "@ant-design/icons";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminProductsApi } from "src/api/adminProducts";
-import { ROUTES, buildAdminProductEditPath } from "src/consts/routes";
+import {
+  ROUTES,
+  buildAdminProductEditPath,
+  buildAdminProductsListPath,
+  parseAdminProductListReturnQuery,
+} from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import type { ProductDetailsPublic } from "src/types/product";
 import { GENDER_LABELS, genderFromApi } from "src/types/product";
@@ -47,6 +52,15 @@ const AdminProductViewPage: React.FC = () => {
   const { message } = App.useApp();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const listReturnPagination = parseAdminProductListReturnQuery(searchParams);
+  const productsListPath =
+    listReturnPagination != null
+      ? buildAdminProductsListPath(
+          listReturnPagination.page,
+          listReturnPagination.pageSize,
+        )
+      : ROUTES.ADMIN_PRODUCTS;
   const [product, setProduct] = useState<ProductDetailsPublic | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -77,7 +91,7 @@ const AdminProductViewPage: React.FC = () => {
       <Flex vertical gap="middle">
         <Button
           icon={<ArrowLeftOutlined />}
-          onClick={() => navigate(ROUTES.ADMIN_PRODUCTS)}
+          onClick={() => navigate(productsListPath)}
         >
           {t("admin.backToList")}
         </Button>
@@ -97,7 +111,7 @@ const AdminProductViewPage: React.FC = () => {
       <Flex align="center" gap="middle" wrap style={{ marginBottom: 24 }}>
         <Button
           icon={<ArrowLeftOutlined />}
-          onClick={() => navigate(ROUTES.ADMIN_PRODUCTS)}
+          onClick={() => navigate(productsListPath)}
         >
           {t("admin.backToList")}
         </Button>
@@ -107,7 +121,9 @@ const AdminProductViewPage: React.FC = () => {
         <Button
           type="primary"
           icon={<EditOutlined />}
-          onClick={() => navigate(buildAdminProductEditPath(product.id))}
+          onClick={() =>
+            navigate(buildAdminProductEditPath(product.id, listReturnPagination ?? undefined))
+          }
         >
           {t("admin.edit")}
         </Button>

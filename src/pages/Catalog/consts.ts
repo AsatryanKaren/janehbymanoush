@@ -15,6 +15,22 @@ export const TITLE_KEY_MAP: Record<string, string> = {
 
 export const CATALOG_PAGE_SIZE = 12;
 
+/** Catalog sidebar: max width (px) at which collections list can collapse on mobile */
+export const MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX = 768;
+
+/** How many top-level collections show before "Show more" on mobile sidebar */
+export const MOBILE_CATALOG_COLLECTIONS_INITIAL = 5;
+
+/** URL query key for catalog pagination (storefront /catalog, /women, …) */
+export const CATALOG_PAGE_URL_PARAM = "page";
+
+export const parseCatalogPageFromSearchParams = (params: URLSearchParams): number => {
+  const raw = params.get(CATALOG_PAGE_URL_PARAM);
+  if (raw == null || raw === "") return 1;
+  const n = Number.parseInt(raw, 10);
+  return Number.isFinite(n) && n >= 1 ? n : 1;
+};
+
 /** Stored in `filterValue` state and matched against collection id. */
 export const CATALOG_FILTER_COLLECTION_PREFIX = "col-" as const;
 

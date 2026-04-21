@@ -4,7 +4,11 @@ import type { UploadFile } from "antd/es/upload/interface";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminProductsApi } from "src/api/adminProducts";
-import { ROUTES } from "src/consts/routes";
+import {
+  ROUTES,
+  buildAdminProductsListPath,
+  parseAdminProductListReturnQuery,
+} from "src/consts/routes";
 import { useAdminCategories } from "src/app/providers/AdminCategoriesProvider";
 import type { ProductDetailsPublic, ProductImage } from "src/types/product";
 import type { CategoryItem } from "src/types/category";
@@ -36,6 +40,14 @@ export const useProductEditForm = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const copyFromId = searchParams.get("copyFrom")?.trim() || undefined;
+  const listReturnPagination = parseAdminProductListReturnQuery(searchParams);
+  const productsListPath =
+    listReturnPagination != null
+      ? buildAdminProductsListPath(
+          listReturnPagination.page,
+          listReturnPagination.pageSize,
+        )
+      : ROUTES.ADMIN_PRODUCTS;
   const { categories } = useAdminCategories();
 
   const [form] = Form.useForm<ProductFormValues>();
@@ -109,7 +121,7 @@ export const useProductEditForm = () => {
         );
         await adminProductsApi.create(formData);
         void message.success(t("admin.createSuccess"));
-        navigate(ROUTES.ADMIN_PRODUCTS);
+        navigate(productsListPath);
       } else {
         const newFiles = productImageFileList
           .map((f) => f.originFileObj ?? f)
@@ -150,7 +162,7 @@ export const useProductEditForm = () => {
         });
         await adminProductsApi.update(id!, formData);
         void message.success(t("admin.updateSuccess"));
-        navigate(ROUTES.ADMIN_PRODUCTS);
+        navigate(productsListPath);
       }
     } catch (err) {
       const apiMessage = getApiErrorMessage(err);
@@ -292,7 +304,7 @@ export const useProductEditForm = () => {
     handleDeleteProductImage,
     handleDeleteStoryImage,
     initialValues: PRODUCT_EDIT_DEFAULTS,
-    navigateToProducts: () => navigate(ROUTES.ADMIN_PRODUCTS),
+    navigateToProducts: () => navigate(productsListPath),
     showDuplicateSlugWarning,
   };
   return out;

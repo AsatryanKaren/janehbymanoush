@@ -16,11 +16,15 @@ import { formatPrice } from "src/utils/formatPrice";
 import {
   CATEGORY_MAP,
   CATALOG_PAGE_SIZE,
+  CATALOG_PAGE_URL_PARAM,
   CATALOG_PRICE_MAX,
   CATALOG_PRICE_MIN,
   isCatalogDefaultPriceRange,
   TITLE_KEY_MAP,
   SORT_PARAMS,
+  parseCatalogPageFromSearchParams,
+  MOBILE_CATALOG_COLLECTIONS_INITIAL,
+  MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX,
   type SortValue,
 } from "./consts";
 import type { ActiveFilterKind, ActiveFilterTag } from "./types";
@@ -36,11 +40,25 @@ import styles from "./styles.module.css";
 
 const { Title } = Typography;
 
+const mergeCatalogPageIntoParams = (
+  prev: URLSearchParams,
+  pageNum: number,
+): URLSearchParams => {
+  const next = new URLSearchParams(prev);
+  if (pageNum <= 1) next.delete(CATALOG_PAGE_URL_PARAM);
+  else next.set(CATALOG_PAGE_URL_PARAM, String(pageNum));
+  return next;
+};
+
 const CatalogPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const urlPage = useMemo(
+    () => parseCatalogPageFromSearchParams(searchParams),
+    [searchParams],
+  );
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -50,17 +68,22 @@ const CatalogPage: React.FC = () => {
     return collectionId ? catalogCollectionFilterValue(collectionId) : undefined;
   });
   const [expandedCollections, setExpandedCollections] = useState<Set<string>>(new Set());
-  const [page, setPage] = useState(1);
-  const catalogPageRef = useRef(page);
+  const [isMobileCatalogSidebar, setIsMobileCatalogSidebar] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia(`(max-width: ${MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX}px)`).matches,
+  );
+  const [mobileCollectionsExpanded, setMobileCollectionsExpanded] = useState(false);
+  const catalogPageRef = useRef(urlPage);
   const [searchInput, setSearchInput] = useState("");
   const [appliedSearch, setAppliedSearch] = useState("");
 
   useEffect(() => {
-    if (catalogPageRef.current !== page) {
+    if (catalogPageRef.current !== urlPage) {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      catalogPageRef.current = page;
+      catalogPageRef.current = urlPage;
     }
-  }, [page]);
+  }, [urlPage]);
 
   const toggleCollapse = (colId: string) => {
     setExpandedCollections((prev) => {
@@ -96,6 +119,40 @@ const CatalogPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const mq = window.matchMedia(
+      `(max-width: ${MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX}px)`,
+    );
+    const sync = (): void => {
+      setIsMobileCatalogSidebar(mq.matches);
+    };
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobileCatalogSidebar) setMobileCollectionsExpanded(false);
+  }, [isMobileCatalogSidebar]);
+
+  const collectionsForSidebar = useMemo(() => {
+    if (
+      !isMobileCatalogSidebar ||
+      mobileCollectionsExpanded ||
+      collections.length <= MOBILE_CATALOG_COLLECTIONS_INITIAL
+    ) {
+      return collections;
+    }
+    return collections.slice(0, MOBILE_CATALOG_COLLECTIONS_INITIAL);
+  }, [
+    collections,
+    isMobileCatalogSidebar,
+    mobileCollectionsExpanded,
+  ]);
+
+  const showMobileCollectionsToggle =
+    isMobileCatalogSidebar && collections.length > MOBILE_CATALOG_COLLECTIONS_INITIAL;
+
+  useEffect(() => {
     const { collectionId } = getCatalogSelectionIds(filterValue);
     setSearchParams(
       (prev) => {
@@ -121,13 +178,23 @@ const CatalogPage: React.FC = () => {
     const { SortBy, SortOrder } = SORT_PARAMS[sort];
     params.SortBy = SortBy;
     params.SortOrder = SortOrder;
-    params.Page = String(page);
+    params.Page = String(urlPage);
     params.PageSize = String(CATALOG_PAGE_SIZE);
     productsApi
       .getAll(params)
       .then((res) => {
         setProducts(res.items ?? []);
-        setTotal(res.total ?? res.items?.length ?? 0);
+        const resolvedTotal = res.total ?? res.items?.length ?? 0;
+        setTotal(resolvedTotal);
+        const resolvedPage = res.page ?? urlPage;
+        const maxPage = Math.max(1, Math.ceil(resolvedTotal / CATALOG_PAGE_SIZE));
+        const clampedPage = Math.min(Math.max(1, resolvedPage), maxPage);
+        if (clampedPage !== urlPage) {
+          setSearchParams(
+            (prev) => mergeCatalogPageIntoParams(prev, clampedPage),
+            { replace: true },
+          );
+        }
       })
       .catch(() => {
         setProducts([]);
@@ -139,9 +206,10 @@ const CatalogPage: React.FC = () => {
     pathIsNew,
     filterValue,
     sort,
-    page,
+    urlPage,
     appliedPriceRange,
     appliedSearch,
+    setSearchParams,
   ]);
 
   const totalPages = Math.max(1, Math.ceil(total / CATALOG_PAGE_SIZE));
@@ -202,11 +270,12 @@ const CatalogPage: React.FC = () => {
 
   const removeActiveFilter = useCallback(
     (kind: ActiveFilterKind) => {
-      setPage(1);
+      if (kind === "section") {
+        navigate(ROUTES.CATALOG);
+        return;
+      }
+      setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), { replace: true });
       switch (kind) {
-        case "section":
-          navigate(ROUTES.CATALOG);
-          break;
         case "search":
           setAppliedSearch("");
           setSearchInput("");
@@ -221,7 +290,7 @@ const CatalogPage: React.FC = () => {
           break;
       }
     },
-    [navigate],
+    [navigate, setSearchParams],
   );
 
   const clearAllFilters = useCallback(() => {
@@ -232,7 +301,6 @@ const CatalogPage: React.FC = () => {
     setPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
     setAppliedPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
     setSort("price_asc");
-    setPage(1);
   }, [navigate]);
 
   return (
@@ -250,12 +318,16 @@ const CatalogPage: React.FC = () => {
                   setSearchInput(v);
                   if (v === "") {
                     setAppliedSearch("");
-                    setPage(1);
+                    setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
+                      replace: true,
+                    });
                   }
                 }}
                 onSearch={(val) => {
                   setAppliedSearch(val);
-                  setPage(1);
+                  setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
+                    replace: true,
+                  });
                 }}
                 allowClear
                 className={styles.searchInput}
@@ -323,7 +395,9 @@ const CatalogPage: React.FC = () => {
                   onAfterChange={(v) => {
                     const next = v as [number, number];
                     setAppliedPriceRange(next);
-                    setPage(1);
+                    setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
+                      replace: true,
+                    });
                   }}
                   className={styles.priceRangeSlider}
                 />
@@ -340,7 +414,7 @@ const CatalogPage: React.FC = () => {
                 {t("catalog.sections.collections")}
               </span>
               <ul className={styles.categoryList}>
-                {collections.map((col) => {
+                {collectionsForSidebar.map((col) => {
                   const hasChildren = (col.categories ?? []).length > 0;
                   const isOpen = expandedCollections.has(col.id);
                   const colFilterValue = catalogCollectionFilterValue(col.id);
@@ -364,7 +438,9 @@ const CatalogPage: React.FC = () => {
                             e.preventDefault();
                             setFilterValue(isColActive ? undefined : colFilterValue);
                             if (!isOpen && hasChildren) toggleCollapse(col.id);
-                            setPage(1);
+                            setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
+                              replace: true,
+                            });
                           }}
                         >
                           {getCollectionTitle(col, i18n.language)}
@@ -390,7 +466,9 @@ const CatalogPage: React.FC = () => {
                                         ? undefined
                                         : catFilterValue,
                                     );
-                                    setPage(1);
+                                    setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
+                                      replace: true,
+                                    });
                                   }}
                                 >
                                   {getCategoryTitle(cat, i18n.language)}
@@ -404,6 +482,17 @@ const CatalogPage: React.FC = () => {
                   );
                 })}
               </ul>
+              {showMobileCollectionsToggle && (
+                <Button
+                  type="link"
+                  className={styles.collectionsMoreToggle}
+                  onClick={() => setMobileCollectionsExpanded((v) => !v)}
+                >
+                  {mobileCollectionsExpanded
+                    ? t("catalog.showLess")
+                    : t("catalog.showMore")}
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -423,7 +512,9 @@ const CatalogPage: React.FC = () => {
                 value={sort}
                 onChange={(v) => {
                   setSort(v);
-                  setPage(1);
+                  setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
+                    replace: true,
+                  });
                 }}
                 style={{ width: 200 }}
                 options={[
@@ -471,18 +562,22 @@ const CatalogPage: React.FC = () => {
             <div className={styles.gridWrap}>
               <CardGrid preset="catalog">
                 {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    catalogReturnLocation={`${location.pathname}${location.search}`}
+                  />
                 ))}
               </CardGrid>
             </div>
             {totalPages > 1 && (
               <div className={styles.pagination}>
                 <Pagination
-                  current={page}
+                  current={urlPage}
                   total={total}
                   pageSize={CATALOG_PAGE_SIZE}
                   showSizeChanger={false}
-                  onChange={setPage}
+                  onChange={(p) => setSearchParams((prev) => mergeCatalogPageIntoParams(prev, p))}
                 />
               </div>
             )}
