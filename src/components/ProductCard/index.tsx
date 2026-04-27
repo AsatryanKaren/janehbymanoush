@@ -1,5 +1,5 @@
 import { Card, Tag, Typography, Button } from "antd";
-import { ShoppingOutlined } from "@ant-design/icons";
+import { HeartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { buildProductPath, buildProductPathWithCatalogReturn } from "src/consts/routes";
@@ -86,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <Button
                   type="primary"
                   size="small"
-                  icon={<ShoppingOutlined />}
+                  icon={<HeartOutlined />}
                   className={styles.addToCartBtnCompact}
                   onClick={handleAddToCart}
                   aria-label={t("cart.addToCart")}
@@ -122,7 +122,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                   <Button
                     type="primary"
                     size="small"
-                    icon={<ShoppingOutlined />}
+                    icon={<HeartOutlined />}
                     className={styles.addToCartBtn}
                     onClick={handleAddToCart}
                     aria-label={t("cart.addToCart")}

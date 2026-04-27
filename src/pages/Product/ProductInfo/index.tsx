@@ -4,7 +4,7 @@ import {
   MinusOutlined,
   PlusOutlined,
   SafetyCertificateOutlined,
-  ShoppingCartOutlined,
+  HeartOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import RingSizeSelector from "src/components/RingSizeSelector";
@@ -120,7 +120,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
         <Button
           type="primary"
           size="large"
-          icon={<ShoppingCartOutlined />}
+          icon={<HeartOutlined />}
           disabled={!isAvailable}
           block
           className={styles.orderButton}

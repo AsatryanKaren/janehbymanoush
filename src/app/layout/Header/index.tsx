@@ -1,5 +1,5 @@
 import { Layout, Button, Dropdown, Flex, Badge } from "antd";
-import { MenuOutlined, GlobalOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { MenuOutlined, GlobalOutlined, HeartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import type { HeaderProps } from "./types";
 import styles from "./styles.module.css";
@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({
             <Badge count={cartCount} size="small" offset={[-2, 2]}>
               <Button
                 type="text"
-                icon={<ShoppingOutlined />}
+                icon={<HeartOutlined />}
                 className={styles.langButton}
                 onClick={onOpenCart}
                 aria-label={t("cart.title")}

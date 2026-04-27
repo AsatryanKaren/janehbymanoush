@@ -1,9 +1,9 @@
 import { Drawer, Button, Typography } from "antd";
 import {
   DeleteOutlined,
+  HeartOutlined,
   MinusOutlined,
   PlusOutlined,
-  ShoppingOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -48,7 +48,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ open, onClose }) => {
           <div className={styles.emptyWrap}>
             <div className={styles.emptyState}>
               <div className={styles.emptyIconWrap} aria-hidden>
-                <ShoppingOutlined className={styles.emptyIcon} />
+                <HeartOutlined className={styles.emptyIcon} />
               </div>
               <Text className={styles.emptyMessage}>{t("cart.empty")}</Text>
               <Button
