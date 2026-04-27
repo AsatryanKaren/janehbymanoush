@@ -138,6 +138,7 @@ const AppLayout: React.FC = () => {
         onNavClick={handleNavClick}
         logoUrl={LOGO_IMAGE}
         logoAlt={t("common.appName")}
+        homePath={ROUTES.HOME}
       />
       <Content className={contentClassName}>
         <Outlet />

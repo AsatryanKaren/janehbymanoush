@@ -9,4 +9,5 @@ export type MobileDrawerProps = {
   onNavClick: (path: string) => void;
   logoUrl: string;
   logoAlt: string;
+  homePath: string;
 };

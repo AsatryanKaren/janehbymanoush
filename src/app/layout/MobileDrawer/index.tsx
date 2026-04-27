@@ -19,10 +19,16 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
   onNavClick,
   logoUrl,
   logoAlt,
+  homePath,
 }) => (
   <Drawer
     title={
-      <img src={logoUrl} alt={logoAlt} className={styles.drawerLogo} />
+      <img
+        src={logoUrl}
+        alt={logoAlt}
+        className={styles.drawerLogo}
+        onClick={() => onNavClick(homePath)}
+      />
     }
     placement="left"
     onClose={onClose}

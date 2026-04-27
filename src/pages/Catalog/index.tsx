@@ -19,10 +19,15 @@ import {
   CATALOG_PAGE_URL_PARAM,
   CATALOG_PRICE_MAX,
   CATALOG_PRICE_MIN,
+  CATALOG_PRICE_MAX_URL_PARAM,
+  CATALOG_PRICE_MIN_URL_PARAM,
+  CATALOG_SEARCH_URL_PARAM,
   isCatalogDefaultPriceRange,
   TITLE_KEY_MAP,
   SORT_PARAMS,
   parseCatalogPageFromSearchParams,
+  parseCatalogPriceRangeFromSearchParams,
+  parseCatalogSearchFromSearchParams,
   MOBILE_CATALOG_COLLECTIONS_INITIAL,
   MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX,
   type SortValue,
@@ -50,6 +55,34 @@ const mergeCatalogPageIntoParams = (
   return next;
 };
 
+/** Reset to page 1 and set or clear the search term in the URL. */
+const mergeCatalogPageAndSearchIntoParams = (
+  prev: URLSearchParams,
+  searchQuery: string,
+): URLSearchParams => {
+  const next = mergeCatalogPageIntoParams(prev, 1);
+  const trimmed = searchQuery.trim();
+  if (trimmed) next.set(CATALOG_SEARCH_URL_PARAM, trimmed);
+  else next.delete(CATALOG_SEARCH_URL_PARAM);
+  return next;
+};
+
+/** Reset to page 1 and set or clear `minPrice` / `maxPrice` in the URL. */
+const mergeCatalogPageAndPriceIntoParams = (
+  prev: URLSearchParams,
+  range: [number, number],
+): URLSearchParams => {
+  const next = mergeCatalogPageIntoParams(prev, 1);
+  if (isCatalogDefaultPriceRange(range)) {
+    next.delete(CATALOG_PRICE_MIN_URL_PARAM);
+    next.delete(CATALOG_PRICE_MAX_URL_PARAM);
+  } else {
+    next.set(CATALOG_PRICE_MIN_URL_PARAM, String(range[0]));
+    next.set(CATALOG_PRICE_MAX_URL_PARAM, String(range[1]));
+  }
+  return next;
+};
+
 const CatalogPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
@@ -57,6 +90,14 @@ const CatalogPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const urlPage = useMemo(
     () => parseCatalogPageFromSearchParams(searchParams),
+    [searchParams],
+  );
+  const urlSearch = useMemo(
+    () => parseCatalogSearchFromSearchParams(searchParams),
+    [searchParams],
+  );
+  const urlPriceRange = useMemo(
+    () => parseCatalogPriceRangeFromSearchParams(searchParams),
     [searchParams],
   );
   const [products, setProducts] = useState<Product[]>([]);
@@ -75,8 +116,13 @@ const CatalogPage: React.FC = () => {
   );
   const [mobileCollectionsExpanded, setMobileCollectionsExpanded] = useState(false);
   const catalogPageRef = useRef(urlPage);
-  const [searchInput, setSearchInput] = useState("");
-  const [appliedSearch, setAppliedSearch] = useState("");
+  const [searchInput, setSearchInput] = useState(urlSearch);
+  const [appliedSearch, setAppliedSearch] = useState(urlSearch);
+
+  useEffect(() => {
+    setSearchInput(urlSearch);
+    setAppliedSearch(urlSearch);
+  }, [urlSearch]);
 
   useEffect(() => {
     if (catalogPageRef.current !== urlPage) {
@@ -98,14 +144,13 @@ const CatalogPage: React.FC = () => {
     getCatalogSelectionIds(filterValue);
 
   const [sort, setSort] = useState<SortValue>("price_asc");
-  const [priceRange, setPriceRange] = useState<[number, number]>([
-    CATALOG_PRICE_MIN,
-    CATALOG_PRICE_MAX,
-  ]);
-  const [appliedPriceRange, setAppliedPriceRange] = useState<[number, number]>([
-    CATALOG_PRICE_MIN,
-    CATALOG_PRICE_MAX,
-  ]);
+  const [priceRange, setPriceRange] = useState<[number, number]>(urlPriceRange);
+  const [appliedPriceRange, setAppliedPriceRange] = useState<[number, number]>(urlPriceRange);
+
+  useEffect(() => {
+    setPriceRange(urlPriceRange);
+    setAppliedPriceRange(urlPriceRange);
+  }, [urlPriceRange]);
 
   const pathCategory = CATEGORY_MAP[location.pathname];
   const pathIsNew = location.pathname === ROUTES.NEW;
@@ -151,6 +196,16 @@ const CatalogPage: React.FC = () => {
 
   const showMobileCollectionsToggle =
     isMobileCatalogSidebar && collections.length > MOBILE_CATALOG_COLLECTIONS_INITIAL;
+
+  /** Collapse "show more" on mobile when page, section, query filters, or sort change. */
+  const mobileCatalogListSignature = useMemo(
+    () => `${location.pathname}|${searchParams.toString()}|${sort}`,
+    [location.pathname, searchParams, sort],
+  );
+
+  useEffect(() => {
+    setMobileCollectionsExpanded(false);
+  }, [mobileCatalogListSignature]);
 
   useEffect(() => {
     const { collectionId } = getCatalogSelectionIds(filterValue);
@@ -274,16 +329,30 @@ const CatalogPage: React.FC = () => {
         navigate(ROUTES.CATALOG);
         return;
       }
+      if (kind === "search") {
+        setAppliedSearch("");
+        setSearchInput("");
+        setSearchParams(
+          (prev) => mergeCatalogPageAndSearchIntoParams(prev, ""),
+          { replace: true },
+        );
+        return;
+      }
+      if (kind === "price") {
+        setPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
+        setAppliedPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
+        setSearchParams(
+          (prev) =>
+            mergeCatalogPageAndPriceIntoParams(prev, [
+              CATALOG_PRICE_MIN,
+              CATALOG_PRICE_MAX,
+            ]),
+          { replace: true },
+        );
+        return;
+      }
       setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), { replace: true });
       switch (kind) {
-        case "search":
-          setAppliedSearch("");
-          setSearchInput("");
-          break;
-        case "price":
-          setPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
-          setAppliedPriceRange([CATALOG_PRICE_MIN, CATALOG_PRICE_MAX]);
-          break;
         case "collection":
         case "category":
           setFilterValue(undefined);
@@ -294,7 +363,7 @@ const CatalogPage: React.FC = () => {
   );
 
   const clearAllFilters = useCallback(() => {
-    navigate(ROUTES.CATALOG);
+    navigate({ pathname: ROUTES.CATALOG, search: "" }, { replace: true });
     setFilterValue(undefined);
     setAppliedSearch("");
     setSearchInput("");
@@ -318,16 +387,18 @@ const CatalogPage: React.FC = () => {
                   setSearchInput(v);
                   if (v === "") {
                     setAppliedSearch("");
-                    setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
-                      replace: true,
-                    });
+                    setSearchParams(
+                      (prev) => mergeCatalogPageAndSearchIntoParams(prev, ""),
+                      { replace: true },
+                    );
                   }
                 }}
                 onSearch={(val) => {
                   setAppliedSearch(val);
-                  setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
-                    replace: true,
-                  });
+                  setSearchParams(
+                    (prev) => mergeCatalogPageAndSearchIntoParams(prev, val),
+                    { replace: true },
+                  );
                 }}
                 allowClear
                 className={styles.searchInput}
@@ -395,9 +466,10 @@ const CatalogPage: React.FC = () => {
                   onAfterChange={(v) => {
                     const next = v as [number, number];
                     setAppliedPriceRange(next);
-                    setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
-                      replace: true,
-                    });
+                    setSearchParams(
+                      (prev) => mergeCatalogPageAndPriceIntoParams(prev, next),
+                      { replace: true },
+                    );
                   }}
                   className={styles.priceRangeSlider}
                 />

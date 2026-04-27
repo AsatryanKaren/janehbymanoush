@@ -117,24 +117,77 @@
   transform: translateX(4px);
 }
 
-@media (max-width: 768px) {
+/* Same destination as .storyLink; only visible below `lg` */
+.storyLinkMobile {
+  display: none;
+}
+
+/* —— Mobile / tablet below antd `lg` (992px): compact row + body + About link; features hidden —— */
+@media (max-width: 991px) {
   .section {
-    padding: 48px 16px;
+    padding: 32px 16px;
+  }
+
+  .mainRow {
+    align-items: flex-start;
+  }
+
+  .imageCol,
+  .textCol {
+    justify-content: center;
   }
 
   .contentWrap {
-    padding: 32px 0;
-    padding-left: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .desktopBlock {
+    display: none;
   }
 
   .heading {
-    font-size: 28px !important;
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    margin-bottom: 6px !important;
+    font-weight: 600 !important;
+  }
+
+  .body {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .storyLinkMobile {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-text-primary);
+  }
+
+  .storyLinkMobile:hover {
+    color: var(--color-accent-light);
+  }
+
+  .storyLinkMobile:hover .storyIcon {
+    transform: translateX(4px);
   }
 
   .imageWrap {
-    aspect-ratio: 4 / 3;
-    border-radius: 12px;
-    -webkit-border-radius: 12px;
+    max-height: 112px;
+    aspect-ratio: 1;
+    width: 100%;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }
