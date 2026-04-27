@@ -1,0 +1,237 @@
+.makers {
+  position: relative;
+  padding: 64px 24px;
+  background:
+    linear-gradient(180deg, rgba(29, 23, 21, 0) 0%, rgba(22, 20, 19, 0.65) 12%, #161413 100%);
+  border-top: 1px solid var(--color-border-subtle);
+  overflow: hidden;
+}
+
+.makers::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 50% at 50% 0%,
+    rgba(150, 106, 85, 0.1),
+    transparent 55%
+  );
+  pointer-events: none;
+}
+
+.makersInner {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.makersHeader {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.makersTitle {
+  color: var(--color-text-primary) !important;
+  font-size: clamp(1.35rem, 2.4vw, 1.6rem) !important;
+  font-weight: 400 !important;
+  margin-bottom: 0 !important;
+  letter-spacing: 0.02em;
+}
+
+.makersIntro {
+  color: var(--color-text-body) !important;
+  font-size: 0.875rem !important;
+  line-height: 1.55 !important;
+  max-width: 38em;
+  margin-bottom: 0 !important;
+}
+
+.makersRow {
+  margin-top: 0 !important;
+}
+
+.makerBlock {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+
+.makerBlockStart {
+  justify-content: flex-start;
+}
+
+.makerBlockEnd {
+  justify-content: flex-end;
+}
+
+.makerCard {
+  flex: 0 1 auto;
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 14px;
+  text-align: start;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(41, 37, 36, 0.45) 0%, rgba(22, 20, 19, 0.88) 100%);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.makerBlockStart .makerCard {
+  border-left: 2px solid rgba(150, 106, 85, 0.45);
+}
+
+.makerBlockEnd .makerCard {
+  border-right: 2px solid rgba(150, 106, 85, 0.45);
+}
+
+.makerCard:hover {
+  border-color: var(--color-border-muted);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.makerBlockStart .makerCard:hover {
+  border-left-color: rgba(194, 154, 115, 0.65);
+}
+
+.makerBlockEnd .makerCard:hover {
+  border-right-color: rgba(194, 154, 115, 0.65);
+}
+
+.makerVisual {
+  flex: 0 0 112px;
+  width: 112px;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.makerImageFrame {
+  width: 112px;
+  height: 112px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(150, 106, 85, 0.3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.makerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.makerInitials {
+  width: 112px;
+  height: 112px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(194, 154, 115, 0.3),
+    rgba(47, 39, 35, 0.95) 70%
+  );
+  border: 1px solid rgba(150, 106, 85, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.makerInitialsText {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--color-accent-light);
+}
+
+.makerContent {
+  flex: 1;
+  min-width: 0;
+  justify-content: flex-start;
+  text-align: start;
+}
+
+.makerName {
+  color: var(--color-text-heading) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.06em;
+}
+
+.makerRole {
+  display: block;
+  color: var(--color-accent-light) !important;
+  font-size: 0.6875rem !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+.makerBio {
+  color: var(--color-text-body) !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0 !important;
+  margin-top: 6px !important;
+}
+
+@media (max-width: 768px) {
+  .makers {
+    padding: 48px 16px;
+  }
+
+  .makersHeader {
+    margin-bottom: 22px;
+    align-items: flex-start !important;
+    text-align: start;
+  }
+
+  .makersTitle {
+    text-align: start;
+    width: 100%;
+  }
+
+  .makersIntro {
+    text-align: start;
+    max-width: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .makers {
+    padding: 40px 16px;
+  }
+
+  .makerCard {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .makerVisual {
+    flex: 0 0 88px;
+    width: 88px;
+  }
+
+  .makerImageFrame,
+  .makerInitials {
+    width: 88px;
+    height: 88px;
+  }
+
+  .makerInitialsText {
+    font-size: 1.2rem;
+  }
+}

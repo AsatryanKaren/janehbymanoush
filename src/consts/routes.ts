@@ -77,6 +77,9 @@ export const ROUTES = {
   ADMIN_CATEGORIES: "/admin/categories",
   ADMIN_CATEGORY_EDIT: "/admin/categories/:id/edit",
   ADMIN_CATEGORY_NEW: "/admin/categories/new",
+  ADMIN_MASTERS: "/admin/masters",
+  ADMIN_MASTERS_NEW: "/admin/masters/new",
+  ADMIN_MASTERS_EDIT: "/admin/masters/:id/edit",
   ADMIN_ORDERS: "/admin/orders",
   ADMIN_BESTSELLERS: "/admin/bestsellers",
   ADMIN_LOGS: "/admin/logs",
@@ -171,6 +174,9 @@ export const buildAdminCollectionEditPath = (id: string): string =>
 
 export const buildAdminCategoryEditPath = (id: string): string =>
   `/admin/categories/${id}/edit`;
+
+export const buildAdminMasterEditPath = (id: string): string =>
+  `/admin/masters/${id}/edit`;
 
 export const buildAdminOrderPath = (id: string): string =>
   `/admin/order/${id}`;

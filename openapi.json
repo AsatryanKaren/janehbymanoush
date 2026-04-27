@@ -38,6 +38,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized",
             "content": {
@@ -101,6 +111,36 @@
         }
       }
     },
+    "/v1/admin/banner-content": {
+      "post": {
+        "tags": [
+          "AdminBanner"
+        ],
+        "operationId": "AdminPostBannerContent",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BannerContentResponseApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/admin/categories": {
       "get": {
         "tags": [
@@ -110,6 +150,14 @@
         "parameters": [
           {
             "name": "collectionId",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
             "in": "query",
             "style": "form",
             "schema": {
@@ -290,6 +338,16 @@
           "AdminCollections"
         ],
         "operationId": "AdminGetCollections",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -517,6 +575,221 @@
         }
       }
     },
+    "/v1/admin/masters": {
+      "get": {
+        "tags": [
+          "AdminMasters"
+        ],
+        "operationId": "AdminGetMasters",
+        "parameters": [
+          {
+            "name": "isActive",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MastersAdminResponseApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AdminMasters"
+        ],
+        "operationId": "AdminCreateMaster",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMasterFormRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MasterAdminItemApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/masters/{id}": {
+      "put": {
+        "tags": [
+          "AdminMasters"
+        ],
+        "operationId": "AdminUpdateMaster",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMasterFormRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "AdminMasters"
+        ],
+        "operationId": "AdminDeleteMaster",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/masters/{id}/status": {
+      "patch": {
+        "tags": [
+          "AdminMasters"
+        ],
+        "operationId": "AdminUpdateMasterStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMasterStatusRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/admin/orders": {
       "get": {
         "tags": [
@@ -580,6 +853,58 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PagedOrdersResponseApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/orders/{id}": {
+      "get": {
+        "tags": [
+          "AdminOrders"
+        ],
+        "operationId": "AdminGetOrderById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOrderDetailResponseApiResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
                 }
               }
             }
@@ -1172,6 +1497,16 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Not Found",
             "content": {
@@ -1191,6 +1526,16 @@
           "Public"
         ],
         "operationId": "GetCategories",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1211,6 +1556,16 @@
           "Public"
         ],
         "operationId": "GetCollections",
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -1238,6 +1593,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BestsellersResponseApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/masters": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "operationId": "GetMasters",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MastersPublicResponseApiResponse"
                 }
               }
             }
@@ -1278,6 +1653,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ObjectApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/banner-content": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "operationId": "GetBannerContent",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BannerContentResponseApiResponse"
                 }
               }
             }
@@ -1328,6 +1723,142 @@
           },
           "data": {
             "$ref": "#/components/schemas/AdminLoginResponse"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdminOrderDetailResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "customerName": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "shippingCountry": {
+            "$ref": "#/components/schemas/ShippingCountry"
+          },
+          "storeAddress": {
+            "$ref": "#/components/schemas/StoreAddress"
+          },
+          "packaging": {
+            "$ref": "#/components/schemas/PackagingOption"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminOrderLineItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdminOrderDetailResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/AdminOrderDetailResponse"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdminOrderLineItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "productId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "currency": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ringSize": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "product": {
+            "$ref": "#/components/schemas/OrderProductInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BannerContentResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "isVideo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BannerContentResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/BannerContentResponse"
           },
           "error": {
             "$ref": "#/components/schemas/ErrorResponse"
@@ -1691,7 +2222,57 @@
         },
         "additionalProperties": false
       },
-      "CreateOrderLineItem": {
+      "CreateMasterFormRequest": {
+        "type": "object",
+        "properties": {
+          "fullNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateOrderItemRequest": {
         "type": "object",
         "properties": {
           "productId": {
@@ -1703,8 +2284,9 @@
             "format": "int32"
           },
           "ringSize": {
-            "type": "integer",
-            "format": "int32"
+            "type": "number",
+            "format": "double",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1715,8 +2297,9 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CreateOrderLineItem"
-            }
+              "$ref": "#/components/schemas/CreateOrderItemRequest"
+            },
+            "nullable": true
           },
           "customerName": {
             "type": "string",
@@ -1734,21 +2317,14 @@
             "type": "string",
             "nullable": true
           },
-          "ringSize": {
-            "type": "integer",
-            "format": "int32"
-          },
           "shippingCountry": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/ShippingCountry"
           },
           "storeAddress": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/StoreAddress"
           },
           "packaging": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/PackagingOption"
           }
         },
         "additionalProperties": false
@@ -1952,6 +2528,184 @@
         },
         "additionalProperties": false
       },
+      "MasterAdminItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fullNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MasterAdminItemApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/MasterAdminItem"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MasterItemPublic": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fullNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MastersAdminResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MasterAdminItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MastersAdminResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/MastersAdminResponse"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MastersPublicResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MasterItemPublic"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MastersPublicResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "$ref": "#/components/schemas/MastersPublicResponse"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          }
+        },
+        "additionalProperties": false
+      },
       "ObjectApiResponse": {
         "type": "object",
         "properties": {
@@ -2026,9 +2780,23 @@
           "count": {
             "type": "integer",
             "format": "int32"
+          },
+          "moreItems": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
+      },
+      "PackagingOption": {
+        "enum": [
+          0,
+          1,
+          2,
+          4
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "PagedLogsResponse": {
         "type": "object",
@@ -2300,14 +3068,6 @@
           "gender": {
             "$ref": "#/components/schemas/Gender"
           },
-          "category": {
-            "type": "string",
-            "nullable": true
-          },
-          "categoryName": {
-            "type": "string",
-            "nullable": true
-          },
           "categoryNameHy": {
             "type": "string",
             "nullable": true
@@ -2323,10 +3083,6 @@
           "collectionId": {
             "type": "string",
             "format": "uuid",
-            "nullable": true
-          },
-          "collectionName": {
-            "type": "string",
             "nullable": true
           },
           "collectionNameHy": {
@@ -2360,10 +3116,6 @@
           },
           "isBestSeller": {
             "type": "boolean"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -2401,11 +3153,7 @@
           },
           "category": {
             "type": "string",
-            "nullable": true
-          },
-          "categoryName": {
-            "type": "string",
-            "nullable": true
+            "format": "uuid"
           },
           "categoryNameHy": {
             "type": "string",
@@ -2422,10 +3170,6 @@
           "collectionId": {
             "type": "string",
             "format": "uuid",
-            "nullable": true
-          },
-          "collectionName": {
-            "type": "string",
             "nullable": true
           },
           "collectionNameHy": {
@@ -2549,12 +3293,6 @@
       },
       "RefreshTokenRequest": {
         "type": "object",
-        "properties": {
-          "refreshToken": {
-            "type": "string",
-            "nullable": true
-          }
-        },
         "additionalProperties": false
       },
       "SetProductFeaturedRequest": {
@@ -2565,6 +3303,22 @@
           }
         },
         "additionalProperties": false
+      },
+      "ShippingCountry": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "StoreAddress": {
+        "enum": [
+          0
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "StoryImageDto": {
         "type": "object",
@@ -2625,6 +3379,65 @@
           "slug": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateMasterFormRequest": {
+        "type": "object",
+        "properties": {
+          "fullNameHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullNameRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "positionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionHy": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionEn": {
+            "type": "string",
+            "nullable": true
+          },
+          "descriptionRu": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateMasterStatusRequest": {
+        "type": "object",
+        "properties": {
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

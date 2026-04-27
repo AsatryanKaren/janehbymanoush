@@ -9,6 +9,7 @@ import {
   PictureOutlined,
   HomeOutlined,
   LogoutOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAdminAuth } from "src/app/providers/AdminAuthProvider";
@@ -40,6 +41,11 @@ const AdminLayout: React.FC = () => {
       key: ROUTES.ADMIN_CATEGORIES,
       icon: <TagsOutlined />,
       label: t("admin.categories.title"),
+    },
+    {
+      key: ROUTES.ADMIN_MASTERS,
+      icon: <TeamOutlined />,
+      label: t("admin.masters.title"),
     },
     {
       key: ROUTES.ADMIN_ORDERS,

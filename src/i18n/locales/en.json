@@ -210,7 +210,26 @@
     "sustainabilityDesc": "Each piece of jewelry is created with a distinctive design, combining an individual approach with a contemporary style.",
     "expressionTitle": "Heritage",
     "expressionDesc": "At the heart of our jewelry lies centuries-old Armenian art, reinterpreted through contemporary aesthetics and individual expression.",
-    "shopNow": "Explore Collection"
+    "shopNow": "Explore Collection",
+    "makers": {
+      "title": "Our jewelry makers",
+      "intro": "Every piece is shaped by dedicated craftspeople who carry Armenian silverwork and design forward.",
+      "manush": {
+        "name": "Manush Yesayan",
+        "role": "Founder & creative director",
+        "bio": "Founder of Janeh By Manoush, Manush weaves cultural storytelling with contemporary design. Her vision guides each collection and keeps the spirit of the craft at the heart of the brand."
+      },
+      "aram": {
+        "name": "Aram Petrosyan",
+        "role": "Master silversmith",
+        "bio": "With years of experience in fine metalwork, Aram refines every piece in the studio—chasing, soldering, and finishing by hand so that each detail meets our standard of excellence."
+      },
+      "lilit": {
+        "name": "Lilit Sargsyan",
+        "role": "Studio & production lead",
+        "bio": "Lilit keeps the workshop running smoothly: coordinating finishing, quality checks, and the small details that ensure every order leaves the studio on time and looking its best."
+      }
+    }
   },
   "contact": {
     "title": "Contact Us",
@@ -558,6 +577,27 @@
       "collectionRequired": "Please select a collection",
       "notFound": "Category not found",
       "sectionBasic": "Basic info"
+    },
+    "masters": {
+      "title": "Makers",
+      "add": "Add maker",
+      "edit": "Edit maker",
+      "deleteConfirm": "Delete this maker?",
+      "columnRole": "Role",
+      "notFound": "Maker not found",
+      "statusUpdated": "Status updated",
+      "statusUpdateFailed": "Failed to update status"
+    },
+    "makers": {
+      "sectionNamesAndRole": "Name & role",
+      "sectionDescriptions": "Descriptions",
+      "sectionImage": "Image & visibility",
+      "fieldName": "Name",
+      "fieldRole": "Role",
+      "fieldDescription": "Description",
+      "uploadImage": "Upload image",
+      "imageUploadHint": "The API expects a file upload (multipart field “image”). When editing, leave empty to keep the current image, or pick a new file to replace it.",
+      "nameAtLeastOneRequired": "Enter at least one name (HY, EN, or RU)."
     },
     "logs": {
       "title": "Logs",

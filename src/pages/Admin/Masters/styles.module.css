@@ -1,0 +1,38 @@
+.thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.sectionCard {
+  margin-bottom: 16px;
+}
+
+.formMax {
+  max-width: 960px;
+}
+
+.loadingMin {
+  min-height: 200px;
+}
+
+.imageHint {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.existingImageWrap {
+  margin-bottom: 12px;
+}
+
+.existingImage {
+  max-width: 240px;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.uploadBlock {
+  margin-bottom: 16px;
+}

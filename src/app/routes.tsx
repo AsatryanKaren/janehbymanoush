@@ -24,6 +24,8 @@ import AdminCategoryEditPage from "src/pages/Admin/Categories/AdminCategoryEditP
 import AdminBestsellersPage from "src/pages/Admin/Bestsellers/AdminBestsellersPage";
 import AdminLogsPage from "src/pages/Admin/Logs/AdminLogsPage";
 import AdminBannerContentPage from "src/pages/Admin/BannerContent/AdminBannerContentPage";
+import AdminMastersListPage from "src/pages/Admin/Masters/AdminMastersListPage";
+import AdminMasterEditPage from "src/pages/Admin/Masters/AdminMasterEditPage";
 import AdminCatalogProvidersLayout from "src/app/AdminCatalogProvidersLayout";
 import CheckoutPage from "src/pages/Checkout";
 
@@ -95,6 +97,9 @@ export const router = createBrowserRouter([
                 path: "categories/:id/edit",
                 element: <AdminCategoryEditPage />,
               },
+              { path: "masters", element: <AdminMastersListPage /> },
+              { path: "masters/new", element: <AdminMasterEditPage /> },
+              { path: "masters/:id/edit", element: <AdminMasterEditPage /> },
             ],
           },
         ],
