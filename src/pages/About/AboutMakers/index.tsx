@@ -7,7 +7,6 @@ const { Title, Paragraph, Text } = Typography;
 
 const AboutMakers: React.FC<AboutMakersProps> = ({
   title,
-  intro,
   makers,
   sectionId = "makers",
 }) => {
@@ -18,9 +17,6 @@ const AboutMakers: React.FC<AboutMakersProps> = ({
           <Title level={2} className={styles.makersTitle}>
             {title}
           </Title>
-          {intro ? (
-            <Paragraph className={styles.makersIntro}>{intro}</Paragraph>
-          ) : null}
         </Flex>
 
         <Row gutter={[0, 24]} className={styles.makersRow}>

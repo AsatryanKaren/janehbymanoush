@@ -57,11 +57,7 @@ const AboutPage: React.FC = () => {
       <AboutHeritage imageUrl={ABOUT_IMAGES.heritage} />
       <AboutValues />
       {!makersLoading && makers.length > 0 ? (
-        <AboutMakers
-          title={t("about.makers.title")}
-          intro={t("about.makers.intro")}
-          makers={makers}
-        />
+        <AboutMakers title={t("about.makers.title")} makers={makers} />
       ) : null}
       <AboutCraft />
       <AboutQuickLinks />

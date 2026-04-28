@@ -39,14 +39,6 @@
   letter-spacing: 0.02em;
 }
 
-.makersIntro {
-  color: var(--color-text-body) !important;
-  font-size: 0.875rem !important;
-  line-height: 1.55 !important;
-  max-width: 38em;
-  margin-bottom: 0 !important;
-}
-
 .makersRow {
   margin-top: 0 !important;
 }
@@ -200,11 +192,6 @@
   .makersTitle {
     text-align: start;
     width: 100%;
-  }
-
-  .makersIntro {
-    text-align: start;
-    max-width: none;
   }
 }
 

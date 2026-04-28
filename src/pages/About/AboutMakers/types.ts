@@ -10,7 +10,6 @@ export type JewelryMaker = {
 
 export type AboutMakersProps = {
   title: string;
-  intro?: string;
   makers: JewelryMaker[];
   sectionId?: string;
 };
