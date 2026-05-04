@@ -1,3 +1,5 @@
+import type { PackagingEnum } from "./packaging";
+
 /** Backend `ShippingCountry` — values must match API contract. */
 export enum ShippingCountry {
   Armenia = 0,
@@ -11,14 +13,17 @@ export enum StoreAddress {
 }
 
 /**
- * Backend `PackagingOption` flags (combine with bitwise OR).
- * None = 0, Bag = 1, Box = 2, SmallJewelryBox = 4
+ * Legacy persisted `packaging` as int bitmasks (admin read until data is migrated).
+ * New orders use string enum — see `PackagingEnum` in `src/types/packaging.ts`.
  */
 export const PackagingOptionFlag = {
   None: 0,
   Bag: 1,
   Box: 2,
   SmallJewelryBox: 4,
+  Bag2: 8,
+  Box2: 16,
+  Box3: 32,
 } as const;
 
 /** Single line in POST /v1/orders `items`. */
@@ -39,7 +44,7 @@ export type CreateOrderRequest = {
   phone: string | null;
   email: string | null;
   message: string | null;
-  packaging: number;
+  packaging: PackagingEnum;
   /** Shipping only — omit when pickup. */
   shippingCountry?: number;
   /** Pickup only — omit when shipping. */

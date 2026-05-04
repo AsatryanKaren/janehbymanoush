@@ -9,7 +9,8 @@
     },
     "socialInstagram": "Instagram",
     "socialFacebook": "Facebook",
-    "socialTiktok": "TikTok"
+    "socialTiktok": "TikTok",
+    "free": "Անվճար"
   },
   "nav": {
     "main": "Հիմնական նավիգացիա",
@@ -368,11 +369,10 @@
     "message": "Հաղորդագրություն",
     "messagePlaceholder": "Հատուկ ցանկություններ կամ նշումներ...",
     "packagingLabel": "Փաթեթավորում",
-    "packaging": {
-      "bag": "Պայուսակ",
-      "box": "Տուփ",
-      "jewelryBox": "Փոքր զարդատուփ"
-    },
+    "packagingRequired": "Խնդրում ենք ընտրել փաթեթավորման տարբերակ։",
+    "packagingOptionAria": "Փաթեթավորման տարբերակ {{current}}՝ {{total}}-ից",
+    "merchandiseSubtotal": "Ենթահանրագումար (ապրանքներ)",
+    "packagingOrderNote": "Փաթեթավորում՝ {{price}}",
     "countryLabel": "Երկիր",
     "countryLabelShipping": "Առաքման երկիր",
     "deliveryMethod": "Առաքում",

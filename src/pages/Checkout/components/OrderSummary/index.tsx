@@ -11,13 +11,20 @@ const DEFAULT_CURRENCY = "AMD";
 
 type OrderSummaryProps = {
   items: CartItem[];
-  totalAmount: number;
+  /** Cart lines only (before packaging add-on). */
+  merchandiseTotal: number;
+  /** Cart + packaging fee. */
+  grandTotal: number;
+  /** Shown when customer chose a packaging option. */
+  packagingLine?: { feeAmd: number } | null;
   onUpdateRingSize: (itemId: string, value: number | null, isCustom: boolean) => void;
 };
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({
   items,
-  totalAmount,
+  merchandiseTotal,
+  grandTotal,
+  packagingLine,
   onUpdateRingSize,
 }) => {
   const { t, i18n } = useTranslation();
@@ -45,8 +52,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
               <div className={styles.summaryItemBody}>
                 <div className={styles.summaryItemName}>{name}</div>
                 <div className={styles.summaryItemMeta}>
-                  {item.quantity} ×{" "}
-                  {formatPrice(item.price ?? 0, DEFAULT_CURRENCY, lang)}
+                  {item.quantity} × {formatPrice(item.price ?? 0, DEFAULT_CURRENCY, lang)}
                 </div>
                 {isRing && (
                   <div className={styles.summaryRingSize}>
@@ -67,9 +73,27 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
           );
         })}
       </ul>
+      {packagingLine != null ? (
+        <>
+          <div className={styles.summarySubtotalRow}>
+            <span>{t("checkout.merchandiseSubtotal")}</span>
+            <span>{formatPrice(merchandiseTotal, DEFAULT_CURRENCY, lang)}</span>
+          </div>
+          <div className={styles.summaryPackagingRow}>
+            <span className={styles.summaryPackagingName}>
+              {t("checkout.packagingLabel")}
+            </span>
+            <span>
+              {packagingLine.feeAmd > 0
+                ? formatPrice(packagingLine.feeAmd, DEFAULT_CURRENCY, lang)
+                : t("common.free")}
+            </span>
+          </div>
+        </>
+      ) : null}
       <div className={styles.summaryTotal}>
         <span>{t("cart.total")}</span>
-        <span>{formatPrice(totalAmount, DEFAULT_CURRENCY, lang)}</span>
+        <span>{formatPrice(grandTotal, DEFAULT_CURRENCY, lang)}</span>
       </div>
 
       <div className={styles.summaryPaymentLogos} aria-label="Payment methods">

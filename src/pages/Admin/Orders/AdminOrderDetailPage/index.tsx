@@ -27,6 +27,10 @@ import {
   formatAdminLineItemRingSizes,
   getAdminOrderFulfillmentType,
 } from "src/utils/adminOrderDetailDisplay";
+import {
+  packagingImageUrl,
+  parsePackagingForAdmin,
+} from "src/types/packaging";
 import { adminOrderMessageDisplay } from "src/utils/orderMessageDisplay";
 import type { AdminOrderDetail, AdminOrderDetailLineItem } from "src/types/order";
 import styles from "./styles.module.css";
@@ -213,7 +217,29 @@ const AdminOrderDetailPage: React.FC = () => {
               </Descriptions.Item>
             : null}
             <Descriptions.Item label={t("admin.orderDetail.packaging")}>
-              {formatAdminPackaging(order.packaging, t)}
+              {(() => {
+                const parsed = parsePackagingForAdmin(order.packaging);
+                if (parsed.kind === "none") {
+                  return "—";
+                }
+                if (parsed.kind === "enum") {
+                  return (
+                    <Flex align="center" gap={12} className={styles.packagingCell}>
+                      <img
+                        src={packagingImageUrl(parsed.value)}
+                        alt=""
+                        className={styles.packagingThumb}
+                      />
+                      <Text>{t(`admin.packagingEnum.${parsed.value}`)}</Text>
+                    </Flex>
+                  );
+                }
+                return (
+                  <Text type="secondary">
+                    {formatAdminPackaging(order.packaging, t)}
+                  </Text>
+                );
+              })()}
             </Descriptions.Item>
             <Descriptions.Item
               label={t("admin.orderDetail.message")}

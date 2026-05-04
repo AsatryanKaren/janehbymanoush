@@ -56,6 +56,19 @@
   margin-bottom: 0 !important;
 }
 
+.packagingCell {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.packagingThumb {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
 .itemDivider {
   margin: 8px 0;
 }

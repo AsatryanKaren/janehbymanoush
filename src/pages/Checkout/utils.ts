@@ -4,14 +4,17 @@ import type { CreateOrderLineItem, CreateOrderRequest } from "src/types/order";
 import { isRingItem } from "src/utils/isRingItem";
 import {
   checkoutCountryValueToShippingCountry,
-  packagingFormValuesToFlags,
+  packagingFormValueToApi,
   pickupStoreValueToStoreAddress,
 } from "src/utils/createOrderPayload";
+import i18n from "src/i18n";
+import { formatPrice } from "src/utils/formatPrice";
+import { PACKAGING_OPTIONS } from "./consts";
 import type { CheckoutFormValues } from "./types";
 
 type OptionWithLabel = {
   value: string;
-  labelKey: string;
+  labelKey?: string;
 };
 
 export const hasRingsWithoutSize = (items: CartItem[]): boolean =>
@@ -28,7 +31,7 @@ export const getSelectedOptionLabels = (
 ): string[] =>
   selectedValues.reduce<string[]>((acc, value) => {
     const labelKey = options.find((option) => option.value === value)?.labelKey;
-    if (labelKey) {
+    if (labelKey != null && labelKey.length > 0) {
       acc.push(translate(labelKey));
     }
     return acc;
@@ -90,7 +93,13 @@ export const buildCheckoutCreateOrderRequest = (
   }
 
   const customerName = values.name?.trim() || null;
-  const packaging = packagingFormValuesToFlags(values.packaging ?? []);
+
+  const packaging = packagingFormValueToApi(values.packaging);
+  const opt = PACKAGING_OPTIONS.find((o) => o.value === packaging);
+  const fee = opt?.priceAmd ?? 0;
+  const priceStr =
+    fee > 0 ? formatPrice(fee, "AMD", i18n.language) : t("common.free");
+  messageParts.push(t("checkout.packagingOrderNote", { price: priceStr }));
 
   const base: CreateOrderRequest = {
     items: items.map((item) => {

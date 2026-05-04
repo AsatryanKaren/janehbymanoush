@@ -4,18 +4,12 @@ import {
   ShippingCountry,
   StoreAddress,
 } from "src/types/order";
+import { parsePackagingForAdmin } from "src/types/packaging";
 
 const SHIPPING_COUNTRY_STRING_KEYS: Record<string, string> = {
   armenia: "checkout.countryArmenia",
   russia: "checkout.countryRussia",
   usa: "checkout.countryUSA",
-};
-
-const PACKAGING_TOKEN_KEYS: Record<string, string> = {
-  bag: "checkout.packaging.bag",
-  box: "checkout.packaging.box",
-  jewelrybox: "checkout.packaging.jewelryBox",
-  smalljewelrybox: "checkout.packaging.jewelryBox",
 };
 
 const isEmptySentinel = (s: string): boolean =>
@@ -102,38 +96,71 @@ export const formatAdminStoreAddress = (
   return "—";
 };
 
-/** Packaging: API may send flag bits (number) or comma-separated names (string). */
+/**
+ * Plain-text packaging line (lists, fallbacks). Prefer `parsePackagingForAdmin` + image in order detail.
+ * Supports legacy int bitmasks and comma-separated tokens.
+ */
 export const formatAdminPackaging = (
   value: number | string | null | undefined,
   t: TFunction,
 ): string => {
-  if (value == null) return "—";
+  if (value == null) {
+    return "—";
+  }
   if (typeof value === "number" && Number.isFinite(value)) {
-    if (value === PackagingOptionFlag.None) return "—";
+    if (value === PackagingOptionFlag.None) {
+      return "—";
+    }
     const parts: string[] = [];
     if (value & PackagingOptionFlag.Bag) {
-      parts.push(t("checkout.packaging.bag"));
+      parts.push(t("admin.packagingEnum.white_bag"));
+    }
+    if (value & PackagingOptionFlag.Bag2) {
+      parts.push(t("admin.packagingEnum.black_bag"));
     }
     if (value & PackagingOptionFlag.Box) {
-      parts.push(t("checkout.packaging.box"));
+      parts.push(t("admin.packagingEnum.white_box"));
+    }
+    if (value & PackagingOptionFlag.Box2) {
+      parts.push(t("admin.packagingEnum.white_box_janeh"));
+    }
+    if (value & PackagingOptionFlag.Box3) {
+      parts.push(t("admin.packagingEnum.black_box"));
     }
     if (value & PackagingOptionFlag.SmallJewelryBox) {
-      parts.push(t("checkout.packaging.jewelryBox"));
+      parts.push(t("admin.packagingLegacy.jewelryBox"));
     }
     return parts.length > 0 ? parts.join(", ") : String(value);
   }
   if (typeof value === "string") {
     const s = value.trim();
-    if (isEmptySentinel(s)) return "—";
+    if (isEmptySentinel(s)) {
+      return "—";
+    }
+    if (s.toLowerCase() === "none") {
+      return "—";
+    }
     const labels = s
       .split(",")
       .map((part) => part.trim())
       .filter((part) => part.length > 0)
       .map((token) => {
-        const k = token.toLowerCase().replace(/\s+/g, "");
-        const labelKey = PACKAGING_TOKEN_KEYS[k];
-        return labelKey ? t(labelKey) : token;
-      });
+        const parsed = parsePackagingForAdmin(token);
+        if (parsed.kind === "none") {
+          return "";
+        }
+        if (parsed.kind === "enum") {
+          return t(`admin.packagingEnum.${parsed.value}`);
+        }
+        if (parsed.kind === "legacy") {
+          return formatAdminPackaging(parsed.bits, t);
+        }
+        if (parsed.kind === "unknown") {
+          return parsed.raw;
+        }
+        return token;
+      })
+      .filter((part) => part.length > 0);
     return labels.length > 0 ? labels.join(", ") : "—";
   }
   return "—";

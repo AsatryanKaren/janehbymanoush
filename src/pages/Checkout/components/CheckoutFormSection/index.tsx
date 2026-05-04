@@ -126,13 +126,18 @@ const CheckoutFormSection: React.FC<CheckoutFormSectionProps> = ({
         />
       </Form.Item>
 
-      <Form.Item name="packaging" label={t("checkout.packagingLabel")}>
+      <Form.Item
+        name="packaging"
+        label={t("checkout.packagingLabel")}
+        rules={[{ required: true, message: t("checkout.packagingRequired") }]}
+      >
         <SelectionCardGroup
           options={PACKAGING_OPTIONS}
+          imageFill
+          allowDeselect={false}
           value={form.getFieldValue("packaging")}
-          multiple
           onChange={(value) => {
-            if (Array.isArray(value)) {
+            if (typeof value === "string") {
               form.setFieldValue("packaging", value);
             }
           }}

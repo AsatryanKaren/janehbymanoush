@@ -9,7 +9,8 @@
     },
     "socialInstagram": "Instagram",
     "socialFacebook": "Facebook",
-    "socialTiktok": "TikTok"
+    "socialTiktok": "TikTok",
+    "free": "Free"
   },
   "nav": {
     "main": "Main navigation",
@@ -376,11 +377,10 @@
     "message": "Message",
     "messagePlaceholder": "Any special wishes or delivery notes...",
     "packagingLabel": "Packaging",
-    "packaging": {
-      "bag": "Bag",
-      "box": "Box",
-      "jewelryBox": "Small jewelry box"
-    },
+    "packagingRequired": "Please choose a packaging option.",
+    "packagingOptionAria": "Packaging option {{current}} of {{total}}",
+    "merchandiseSubtotal": "Subtotal (items)",
+    "packagingOrderNote": "Packaging: {{price}}",
     "countryLabel": "Country",
     "countryLabelShipping": "Shipping country",
     "deliveryMethod": "Delivery",
@@ -512,6 +512,16 @@
     "save": "Save",
     "delete": "Delete",
     "loadListFailed": "Failed to load list",
+    "packagingEnum": {
+      "white_bag": "White bag",
+      "black_bag": "Black bag",
+      "white_box": "White box",
+      "white_box_janeh": "White box + Janeh package",
+      "black_box": "Black box"
+    },
+    "packagingLegacy": {
+      "jewelryBox": "Jewelry box (legacy)"
+    },
     "orderDetail": {
       "title": "Order",
       "tagDelivery": "Delivery",

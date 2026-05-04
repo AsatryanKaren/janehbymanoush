@@ -1,4 +1,12 @@
+import { staticUrl } from "src/consts/gallery";
+import { DEFAULT_CHECKOUT_PACKAGING, type PackagingEnum } from "src/types/packaging";
 import type { CheckoutFormValues } from "./types";
+
+type PackagingOptionRow = {
+  value: PackagingEnum;
+  imageUrl: string;
+  priceAmd: number;
+};
 
 /** Single pickup location for now; more stores can be added later. */
 export const STORE_OPTIONS = [
@@ -10,23 +18,33 @@ export const STORE_OPTIONS = [
   },
 ] as const;
 
-export const PACKAGING_OPTIONS = [
+export const PACKAGING_OPTIONS: readonly PackagingOptionRow[] = [
   {
-    value: "bag",
-    labelKey: "checkout.packaging.bag",
-    imageUrl: "https://placehold.co/80x80/292524/8d734a?text=Bag",
+    value: "white_bag",
+    imageUrl: staticUrl("Bag.webp"),
+    priceAmd: 0,
   },
   {
-    value: "box",
-    labelKey: "checkout.packaging.box",
-    imageUrl: "https://placehold.co/80x80/292524/8d734a?text=Box",
+    value: "black_bag",
+    imageUrl: staticUrl("Bag 2.webp"),
+    priceAmd: 0,
   },
   {
-    value: "jewelryBox",
-    labelKey: "checkout.packaging.jewelryBox",
-    imageUrl: "https://placehold.co/80x80/292524/8d734a?text=Jewelry",
+    value: "white_box",
+    imageUrl: staticUrl("Box.webp"),
+    priceAmd: 1200,
   },
-] as const;
+  {
+    value: "white_box_janeh",
+    imageUrl: staticUrl("Box 2.webp"),
+    priceAmd: 1200,
+  },
+  {
+    value: "black_box",
+    imageUrl: staticUrl("Box 3.webp"),
+    priceAmd: 1200,
+  },
+];
 
 export const COUNTRY_OPTIONS = [
   { value: "armenia", labelKey: "checkout.countryArmenia" },
@@ -40,6 +58,6 @@ export const CHECKOUT_INITIAL_VALUES: Pick<
 > = {
   deliveryMethod: "shipping",
   paymentTiming: "online",
-  packaging: [],
+  packaging: DEFAULT_CHECKOUT_PACKAGING,
   country: COUNTRY_OPTIONS[0].value,
 };

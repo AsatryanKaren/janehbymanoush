@@ -5,7 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useCart } from "src/app/providers/CartProvider";
 import { ordersApi } from "src/api/orders";
 import { ROUTES } from "src/consts/routes";
-import { CHECKOUT_INITIAL_VALUES } from "./consts";
+import { packagingFormValueToApi } from "src/utils/createOrderPayload";
+import { CHECKOUT_INITIAL_VALUES, PACKAGING_OPTIONS } from "./consts";
 import type { CheckoutFormValues } from "./types";
 import {
   buildCheckoutCreateOrderRequest,
@@ -23,12 +24,20 @@ const CheckoutPage: React.FC = () => {
   const { items, removeItem, updateRingSize } = useCart();
   const [form] = Form.useForm<CheckoutFormValues>();
   const deliveryMethod = Form.useWatch("deliveryMethod", form) ?? "shipping";
+  const packagingField = Form.useWatch("packaging", form);
   const [submitting, setSubmitting] = useState(false);
 
-  const totalAmount = items.reduce(
+  const merchandiseTotal = items.reduce(
     (sum, i) => sum + (i.price ?? 0) * i.quantity,
     0,
   );
+
+  const packagingResolved = packagingFormValueToApi(
+    typeof packagingField === "string" ? packagingField : CHECKOUT_INITIAL_VALUES.packaging,
+  );
+  const packagingOption = PACKAGING_OPTIONS.find((o) => o.value === packagingResolved);
+  const packagingLine = { feeAmd: packagingOption?.priceAmd ?? 0 };
+  const grandTotal = merchandiseTotal + packagingLine.feeAmd;
 
   const handleFinish = (values: CheckoutFormValues) => {
     if (hasRingsWithoutSize(items)) {
@@ -95,7 +104,9 @@ const CheckoutPage: React.FC = () => {
             <div className={styles.summaryStickyWrap}>
               <OrderSummary
                 items={items}
-                totalAmount={totalAmount}
+                merchandiseTotal={merchandiseTotal}
+                grandTotal={grandTotal}
+                packagingLine={packagingLine}
                 onUpdateRingSize={updateRingSize}
               />
             </div>

@@ -374,8 +374,20 @@
 
 .packagingOptions {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+}
+
+@media (max-width: 992px) {
+  .packagingOptions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .packagingOptions {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .packagingOptionsSingle {
@@ -492,6 +504,73 @@
   display: block;
 }
 
+/* Packaging: square tile (width = height), image fills card; price overlaid on image */
+.packagingOption.packagingOptionImageFill {
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  align-items: stretch;
+  width: 100%;
+  aspect-ratio: 1;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.packagingOptionImageFill .packagingOptionLead {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  align-items: stretch;
+  gap: 0;
+  flex: 1 1 auto;
+}
+
+.packagingOptionImageFill .packagingOptionImageWrap {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+  align-self: stretch;
+}
+
+.packagingOptionImageFill .packagingOptionImage {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+}
+
+.packagingOptionPriceOnImage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 8px 4px 7px;
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-on-dark);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.2) 55%, transparent 100%);
+  pointer-events: none;
+}
+
+.packagingOptionImageFill .packagingOptionCheck {
+  top: 6px;
+  right: 6px;
+  bottom: auto;
+  z-index: 2;
+}
+
 .packagingOptionCheck {
   position: absolute;
   bottom: 2px;
@@ -513,6 +592,39 @@
   font-size: 0.75rem;
   font-weight: 600;
   color: inherit;
+}
+
+.packagingOptionPrice {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--color-text-body);
+  line-height: 1.2;
+}
+
+.summarySubtotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.875rem;
+  color: var(--color-text-body);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-border-subtle);
+}
+
+.summaryPackagingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.875rem;
+  color: var(--color-text-body);
+  margin-top: 8px;
+}
+
+.summaryPackagingName {
+  font-weight: 500;
+  color: var(--color-text-primary);
+  padding-right: 8px;
 }
 
 .checkoutSubmitBlock {
@@ -658,7 +770,11 @@
     padding: 8px 6px;
   }
 
-  .packagingOptionImageWrap {
+  .packagingOption.packagingOptionImageFill {
+    padding: 0;
+  }
+
+  .packagingOption:not(.packagingOptionImageFill) .packagingOptionImageWrap {
     width: 40px;
     height: 40px;
   }

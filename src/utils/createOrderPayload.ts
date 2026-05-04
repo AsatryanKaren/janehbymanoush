@@ -1,20 +1,12 @@
 import {
   type CreateOrderLineItem,
   type CreateOrderRequest,
-  PackagingOptionFlag,
   ShippingCountry,
   StoreAddress,
 } from "src/types/order";
+import { toCheckoutOrderPackagingApi } from "src/types/packaging";
 
-/** Checkout form `packaging` values → backend flag bits. */
-const PACKAGING_BY_FORM_VALUE: Record<string, number> = {
-  bag: PackagingOptionFlag.Bag,
-  box: PackagingOptionFlag.Box,
-  jewelryBox: PackagingOptionFlag.SmallJewelryBox,
-};
-
-export const packagingFormValuesToFlags = (selected: string[]): number =>
-  selected.reduce((acc, key) => acc | (PACKAGING_BY_FORM_VALUE[key] ?? 0), 0);
+export const packagingFormValueToApi = toCheckoutOrderPackagingApi;
 
 export const pickupStoreValueToStoreAddress = (
   store: string | undefined,
@@ -60,7 +52,7 @@ export const buildProductModalCreateOrderRequest = (params: {
     phone: params.phone,
     email: params.email,
     message: params.message,
-    packaging: PackagingOptionFlag.None,
+    packaging: toCheckoutOrderPackagingApi(null),
     shippingCountry: ShippingCountry.Armenia,
   };
   return body;

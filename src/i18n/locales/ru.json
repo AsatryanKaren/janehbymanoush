@@ -9,7 +9,8 @@
     },
     "socialInstagram": "Instagram",
     "socialFacebook": "Facebook",
-    "socialTiktok": "TikTok"
+    "socialTiktok": "TikTok",
+    "free": "Бесплатно"
   },
   "nav": {
     "main": "Основная навигация",
@@ -375,11 +376,10 @@
     "message": "Сообщение",
     "messagePlaceholder": "Пожелания или комментарии к заказу...",
     "packagingLabel": "Упаковка",
-    "packaging": {
-      "bag": "Пакет",
-      "box": "Коробка",
-      "jewelryBox": "Небольшая шкатулка для украшений"
-    },
+    "packagingRequired": "Выберите вариант упаковки.",
+    "packagingOptionAria": "Вариант упаковки {{current}} из {{total}}",
+    "merchandiseSubtotal": "Подытог (товары)",
+    "packagingOrderNote": "Упаковка: {{price}}",
     "countryLabel": "Страна",
     "countryLabelShipping": "Страна доставки",
     "deliveryMethod": "Доставка",
