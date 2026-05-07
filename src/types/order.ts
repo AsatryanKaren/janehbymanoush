@@ -1,4 +1,5 @@
 import type { PackagingEnum } from "./packaging";
+import type { PaymentType } from "./payments";
 
 /** Backend `ShippingCountry` — values must match API contract. */
 export enum ShippingCountry {
@@ -45,6 +46,8 @@ export type CreateOrderRequest = {
   email: string | null;
   message: string | null;
   packaging: PackagingEnum;
+  /** How the order will be paid — required for EPG flow. */
+  paymentType: PaymentType;
   /** Shipping only — omit when pickup. */
   shippingCountry?: number;
   /** Pickup only — omit when shipping. */

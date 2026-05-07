@@ -4,8 +4,11 @@ import { useNavigate, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCart } from "src/app/providers/CartProvider";
 import { ordersApi } from "src/api/orders";
+import { paymentsApi } from "src/api/payments.api";
 import { ROUTES } from "src/consts/routes";
 import { packagingFormValueToApi } from "src/utils/createOrderPayload";
+import i18n from "src/i18n";
+import { savePending } from "src/pages/PaymentStatus/sessionStore";
 import { CHECKOUT_INITIAL_VALUES, PACKAGING_OPTIONS } from "./consts";
 import type { CheckoutFormValues } from "./types";
 import {
@@ -16,6 +19,14 @@ import CheckoutFormSection from "./components/CheckoutFormSection";
 import OrderSummary from "./components/OrderSummary";
 import CheckoutInfoTabs from "./components/CheckoutInfoTabs";
 import styles from "./styles.module.css";
+
+type RegisterLanguage = "en" | "hy" | "ru";
+
+const toRegisterLanguage = (lang: string): RegisterLanguage | undefined => {
+  const head = lang.slice(0, 2).toLowerCase();
+  if (head === "en" || head === "hy" || head === "ru") return head;
+  return undefined;
+};
 
 const CheckoutPage: React.FC = () => {
   const { t } = useTranslation();
@@ -58,19 +69,43 @@ const CheckoutPage: React.FC = () => {
     setSubmitting(true);
 
     const body = buildCheckoutCreateOrderRequest(items, values, t);
+    const isOnline = body.paymentType === "online";
 
     ordersApi
       .create(body)
-      .then(() => {
-        void message.success(t("checkout.success"));
-        items.forEach((item) => removeItem(item.id));
-        form.resetFields();
-        navigate(ROUTES.HOME);
+      .then((order) => {
+        if (!isOnline) {
+          void message.success(t("checkout.success"));
+          items.forEach((item) => removeItem(item.id));
+          form.resetFields();
+          navigate(ROUTES.HOME);
+          return;
+        }
+
+        // Online: register EPG session and redirect to the bank's hosted page.
+        // Cart is intentionally NOT cleared here so the user can retry if they
+        // bail out before paying. It is cleared on confirmed success in
+        // src/pages/PaymentStatus/index.tsx after polling deposits.
+        return paymentsApi
+          .register({
+            orderId: order.orderId,
+            language: toRegisterLanguage(i18n.language),
+          })
+          .then((registered) => {
+            savePending({
+              epgOrderId: registered.epgOrderId,
+              orderId: order.orderId,
+              paymentId: registered.paymentId,
+            });
+            window.location.href = registered.formUrl;
+          })
+          .catch(() => {
+            void message.error(t("checkout.error"));
+            setSubmitting(false);
+          });
       })
       .catch(() => {
         void message.error(t("checkout.error"));
-      })
-      .finally(() => {
         setSubmitting(false);
       });
   };

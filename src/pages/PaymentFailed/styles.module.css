@@ -1,0 +1,13 @@
+.page {
+  min-height: calc(100vh - 128px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 5vw, 48px) 20px;
+  background: radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      rgba(180, 83, 74, 0.1) 0%,
+      transparent 55%
+    ),
+    var(--color-page);
+}

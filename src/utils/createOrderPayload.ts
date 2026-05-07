@@ -54,6 +54,9 @@ export const buildProductModalCreateOrderRequest = (params: {
     message: params.message,
     packaging: toCheckoutOrderPackagingApi(null),
     shippingCountry: ShippingCountry.Armenia,
+    // Quick-order modal does not run the EPG redirect flow; treat as pay-on-pickup
+    // so the backend does not require a payment session.
+    paymentType: "onPickup",
   };
   return body;
 };

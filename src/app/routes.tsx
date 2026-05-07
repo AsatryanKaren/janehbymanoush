@@ -28,6 +28,9 @@ import AdminMastersListPage from "src/pages/Admin/Masters/AdminMastersListPage";
 import AdminMasterEditPage from "src/pages/Admin/Masters/AdminMasterEditPage";
 import AdminCatalogProvidersLayout from "src/app/AdminCatalogProvidersLayout";
 import CheckoutPage from "src/pages/Checkout";
+import PaymentStatusPage from "src/pages/PaymentStatus";
+import PaymentSuccessPage from "src/pages/PaymentSuccess";
+import PaymentFailedPage from "src/pages/PaymentFailed";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +48,9 @@ export const router = createBrowserRouter([
       { path: ROUTES.NEW, element: <CatalogPage /> },
       { path: ROUTES.PRODUCT, element: <ProductPage /> },
       { path: ROUTES.CHECKOUT, element: <CheckoutPage /> },
+      { path: ROUTES.PAYMENT_STATUS, element: <PaymentStatusPage /> },
+      { path: ROUTES.PAYMENT_SUCCESS, element: <PaymentSuccessPage /> },
+      { path: ROUTES.PAYMENT_FAILED, element: <PaymentFailedPage /> },
       { path: ROUTES.ABOUT, element: <AboutPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       {

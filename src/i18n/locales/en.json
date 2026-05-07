@@ -406,6 +406,48 @@
     "ringSizesOrderNote": "Ring sizes: {{detail}}",
     "ringSizeRequiredLabel": "Ring size"
   },
+  "paymentStatus": {
+    "sectionLabel": "Payment",
+    "loadingHeadline": "Checking your payment",
+    "loadingHint": "We are checking your payment status. Please keep this page open — this usually takes just a few moments.",
+    "successHeadline": "Payment received",
+    "successTitle": "Thank you",
+    "successSubtitle": "Your payment was completed successfully. We will follow up on your order shortly.",
+    "failedHeadline": "Payment did not go through",
+    "failedTitle": "Something went wrong",
+    "failedSubtitle": "The transaction could not be completed. You have not been charged, or any hold will be released according to your bank.",
+    "cancelledHeadline": "Payment cancelled",
+    "cancelledTitle": "You left checkout",
+    "cancelledSubtitle": "No charge was made. You can return to checkout whenever you are ready.",
+    "backHome": "Back to home",
+    "continueShopping": "Browse collection",
+    "tryAgain": "Try again",
+    "backToCheckout": "Back to checkout",
+    "pendingHeadline": "Still processing",
+    "pendingTitle": "Taking longer than usual",
+    "pendingSubtitle": "Your payment is still being processed by the bank. You can check again in a moment, or contact support if it does not resolve.",
+    "checkAgain": "Check again",
+    "contactSupport": "Contact support",
+    "noPaymentHeadline": "No payment in progress",
+    "noPaymentTitle": "Nothing to confirm here",
+    "noPaymentSubtitle": "We could not find an active payment for this session. If you started a checkout, please return there and try again.",
+    "goToCheckout": "Go to checkout"
+  },
+  "paymentResult": {
+    "label": "Payment",
+    "success": {
+      "headline": "Payment successful",
+      "description": "Thank you. Your payment completed successfully. You can return home or keep shopping.",
+      "primaryCta": "Back to home",
+      "secondaryCta": "Browse collection"
+    },
+    "failed": {
+      "headline": "Payment unsuccessful",
+      "description": "We could not complete your payment. You have not been charged. You can try again.",
+      "primaryCta": "Try again",
+      "secondaryCta": "Browse collection"
+    }
+  },
   "notFound": {
     "code": "404",
     "message": "The page you are looking for does not exist.",

@@ -121,6 +121,7 @@ export const buildCheckoutCreateOrderRequest = (
     email: values.email?.trim() || null,
     message: messageParts.length > 0 ? messageParts.join(" | ") : null,
     packaging,
+    paymentType: values.paymentTiming === "on_pickup" ? "onPickup" : "online",
   };
 
   if (isPickup) {

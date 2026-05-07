@@ -58,6 +58,12 @@ export const ROUTES = {
   NEW: "/new",
   PRODUCT: "/products/:slug",
   CHECKOUT: "/checkout",
+  /** Return URL after online payment; query `status` drives UI once wired (success, failed, cancelled). */
+  PAYMENT_STATUS: "/payment/status",
+  /** Shown after a successful payment redirect (final messaging + CTAs). */
+  PAYMENT_SUCCESS: "/payment/success",
+  /** Shown after a failed or declined payment redirect. */
+  PAYMENT_FAILED: "/payment/failed",
   ABOUT: "/about",
   CONTACT: "/contact",
   RING_SIZE_GUIDE: "/ring-size-guide",
