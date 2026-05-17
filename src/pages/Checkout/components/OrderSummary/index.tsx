@@ -111,12 +111,6 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             loading="lazy"
           />
           <img
-            src="/images/payments/mir.svg"
-            alt="Mir"
-            className={styles.summaryPaymentLogo}
-            loading="lazy"
-          />
-          <img
             src="/images/payments/idram.svg"
             alt="Idram"
             className={styles.summaryPaymentLogo}

@@ -97,7 +97,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         ) : (
           <div className={styles.meta}>
             <div className={styles.titleRow}>
-              <Text className={styles.title} ellipsis>
+              <Text className={styles.title} ellipsis={{ tooltip: { title: name, placement: "bottom" } }}>
                 {name}
               </Text>
               {showCategoryTag && (

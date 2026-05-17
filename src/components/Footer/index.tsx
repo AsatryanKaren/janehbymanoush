@@ -48,12 +48,6 @@ const Footer: React.FC = () => {
               loading="lazy"
             />
             <img
-              src="/images/payments/mir.svg"
-              alt="Mir"
-              className={styles.paymentLogo}
-              loading="lazy"
-            />
-            <img
               src="/images/payments/idram.svg"
               alt="Idram"
               className={styles.paymentLogo}
