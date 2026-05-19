@@ -5,6 +5,10 @@ import { EyeOutlined } from "@ant-design/icons";
 import { useAdminTranslation } from "src/pages/Admin/useAdminTranslation";
 import { adminOrdersApi } from "src/api/adminOrders";
 import { buildAdminOrderPath, buildProductPath } from "src/consts/routes";
+import {
+  AdminOrderPaymentTag,
+  AdminOrderStatusTag,
+} from "src/components/AdminOrderTags";
 import type { OrderListItem, PagedOrdersResponse } from "src/types/order";
 import type { ColumnsType } from "antd/es/table";
 import styles from "./styles.module.css";
@@ -115,6 +119,28 @@ const AdminOrdersPage: React.FC = () => {
       },
     },
     {
+      title: t("admin.columnPayment"),
+      key: "paymentType",
+      width: 120,
+      render: (_: unknown, record: OrderListItem) => (
+        <AdminOrderPaymentTag
+          paymentType={record.paymentType}
+          onClick={(e) => e.stopPropagation()}
+        />
+      ),
+    },
+    {
+      title: t("admin.columnStatus"),
+      key: "status",
+      width: 140,
+      render: (_: unknown, record: OrderListItem) => (
+        <AdminOrderStatusTag
+          status={record.status}
+          onClick={(e) => e.stopPropagation()}
+        />
+      ),
+    },
+    {
       title: t("admin.columnCustomer"),
       dataIndex: "customerName",
       key: "customerName",
@@ -131,22 +157,6 @@ const AdminOrdersPage: React.FC = () => {
         return (
           <Text copyable={{ text: v }} className={styles.nowrapCell}>
             <a href={`tel:${v}`} onClick={(e) => e.stopPropagation()}>
-              {v}
-            </a>
-          </Text>
-        );
-      },
-    },
-    {
-      title: t("admin.columnEmail"),
-      dataIndex: "email",
-      key: "email",
-      width: 260,
-      render: (v: string | null) => {
-        if (!v) return "—";
-        return (
-          <Text copyable={{ text: v }} className={styles.nowrapCell}>
-            <a href={`mailto:${v}`} onClick={(e) => e.stopPropagation()}>
               {v}
             </a>
           </Text>

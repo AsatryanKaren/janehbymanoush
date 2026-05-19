@@ -1,6 +1,17 @@
 import type { PackagingEnum } from "./packaging";
 import type { PaymentType } from "./payments";
 
+/** Admin API order status (camelCase strings from backend). */
+export type AdminOrderStatus =
+  | "declined"
+  | "processed"
+  | "completed"
+  | "cancelled"
+  | "awaitingPayment"
+  | "paid"
+  | "refunded"
+  | "partiallyRefunded";
+
 /** Backend `ShippingCountry` — values must match API contract. */
 export enum ShippingCountry {
   Armenia = 0,
@@ -83,6 +94,8 @@ export type OrderListItem = {
   phone?: string | null;
   email?: string | null;
   message?: string | null;
+  paymentType?: PaymentType | null;
+  status?: AdminOrderStatus | null;
   createdAt?: string;
 };
 
@@ -136,6 +149,8 @@ export type AdminOrderDetail = {
   phone?: string | null;
   email?: string | null;
   message?: string | null;
+  paymentType?: PaymentType | null;
+  status?: AdminOrderStatus | null;
   createdAt?: string;
   ringSize?: number | null;
   /** API may return enum number or string (e.g. `"usa"`). */

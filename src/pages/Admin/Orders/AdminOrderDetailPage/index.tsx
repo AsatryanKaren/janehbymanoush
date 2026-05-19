@@ -32,6 +32,10 @@ import {
   parsePackagingForAdmin,
 } from "src/types/packaging";
 import { adminOrderMessageDisplay } from "src/utils/orderMessageDisplay";
+import {
+  AdminOrderPaymentTag,
+  AdminOrderStatusTag,
+} from "src/components/AdminOrderTags";
 import type { AdminOrderDetail, AdminOrderDetailLineItem } from "src/types/order";
 import styles from "./styles.module.css";
 
@@ -147,7 +151,7 @@ const AdminOrderDetailPage: React.FC = () => {
   const messageDisplay = adminOrderMessageDisplay(order.message);
 
   const fulfillment = getAdminOrderFulfillmentType(order);
-  const summaryTitleExtra =
+  const fulfillmentTag =
     fulfillment === "unknown" ? null : (
       <Tag
         className={
@@ -159,6 +163,13 @@ const AdminOrderDetailPage: React.FC = () => {
         : t("admin.orderDetail.tagDelivery")}
       </Tag>
     );
+  const summaryTitleExtra =
+    order.paymentType || fulfillmentTag ?
+      <Flex gap="small" wrap align="center">
+        <AdminOrderPaymentTag paymentType={order.paymentType} />
+        {fulfillmentTag}
+      </Flex>
+    : null;
 
   return (
     <>
@@ -181,7 +192,14 @@ const AdminOrderDetailPage: React.FC = () => {
 
       <Flex vertical gap="large" className={styles.cardStack}>
         <Card
-          title={t("admin.orderDetail.sectionSummary")}
+          title={
+            <Flex align="center" gap="small" wrap className={styles.cardTitleRow}>
+              <span>{t("admin.orderDetail.sectionSummary")}</span>
+              {order.status ?
+                <AdminOrderStatusTag status={order.status} />
+              : null}
+            </Flex>
+          }
           extra={summaryTitleExtra}
         >
           <Descriptions column={{ xs: 1, sm: 1, md: 2 }} bordered size="small">

@@ -15,6 +15,10 @@
   margin: 0 !important;
 }
 
+.cardTitleRow {
+  min-width: 0;
+}
+
 /* High-contrast fulfillment tags in Summary card header (Card `extra`). */
 .tagDelivery {
   margin: 0;
