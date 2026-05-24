@@ -5,10 +5,10 @@ import {
   MinusOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useCart } from "src/app/providers/CartProvider";
-import { ROUTES } from "src/consts/routes";
+import { ROUTES, buildProductPath } from "src/consts/routes";
 import { formatPrice } from "src/utils/formatPrice";
 import { getProductName, getProductDescription } from "src/utils/productLocale";
 import type { CartSidebarProps } from "./types";
@@ -30,6 +30,11 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ open, onClose }) => {
     onClose();
     setOpenSidebar(false);
     navigate(ROUTES.CHECKOUT);
+  };
+
+  const handleItemNavigate = () => {
+    onClose();
+    setOpenSidebar(false);
   };
 
   return (
@@ -69,24 +74,46 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ open, onClose }) => {
             const name = getProductName(item, lang);
             const description = getProductDescription(item, lang);
             const imgUrl = item.mainImageUrl ?? undefined;
+            const productPath = item.slug ? buildProductPath(item.slug) : null;
+            const imageNode = imgUrl ? (
+              <img src={encodeURI(imgUrl)} alt={name} className={styles.image} />
+            ) : (
+              <div className={styles.image} />
+            );
             return (
               <div key={item.id} className={styles.item}>
-                <div className={styles.imageWrap}>
-                  {imgUrl ? (
-                    <img
-                      src={encodeURI(imgUrl)}
-                      alt={name}
-                      className={styles.image}
-                    />
-                  ) : (
-                    <div className={styles.image} />
-                  )}
-                </div>
+                {productPath ? (
+                  <Link
+                    to={productPath}
+                    onClick={handleItemNavigate}
+                    className={styles.imageWrap}
+                    aria-label={name}
+                  >
+                    {imageNode}
+                  </Link>
+                ) : (
+                  <div className={styles.imageWrap}>{imageNode}</div>
+                )}
                 <div className={styles.itemBody}>
-                  <span className={styles.itemName}>{name}</span>
-                  {description ? (
-                    <span className={styles.itemDesc}>{description}</span>
-                  ) : null}
+                  {productPath ? (
+                    <Link
+                      to={productPath}
+                      onClick={handleItemNavigate}
+                      className={styles.itemTextLink}
+                    >
+                      <span className={styles.itemName}>{name}</span>
+                      {description ? (
+                        <span className={styles.itemDesc}>{description}</span>
+                      ) : null}
+                    </Link>
+                  ) : (
+                    <>
+                      <span className={styles.itemName}>{name}</span>
+                      {description ? (
+                        <span className={styles.itemDesc}>{description}</span>
+                      ) : null}
+                    </>
+                  )}
                   <div className={styles.itemMeta}>
                     <div className={styles.quantityControls}>
                       <Button

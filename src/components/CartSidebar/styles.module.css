@@ -162,12 +162,17 @@
 }
 
 .imageWrap {
+  display: block;
   flex-shrink: 0;
   width: 72px;
   height: 72px;
   border-radius: 8px;
   overflow: hidden;
   background: var(--color-border-subtle);
+}
+
+a.imageWrap {
+  cursor: pointer;
 }
 
 .image {
@@ -184,10 +189,23 @@
   gap: 4px;
 }
 
+.itemTextLink {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.itemTextLink:hover .itemName {
+  color: var(--color-accent-light);
+}
+
 .itemName {
   font-weight: 600;
   color: var(--color-text-primary);
   font-size: 0.9375rem;
+  transition: color 0.2s;
 }
 
 .itemDesc {

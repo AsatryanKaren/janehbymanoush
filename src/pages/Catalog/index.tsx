@@ -45,6 +45,8 @@ import styles from "./styles.module.css";
 
 const { Title } = Typography;
 
+const CATALOG_TITLE_ANCHOR_ID = "catalog-title-anchor";
+
 const mergeCatalogPageIntoParams = (
   prev: URLSearchParams,
   pageNum: number,
@@ -125,11 +127,31 @@ const CatalogPage: React.FC = () => {
   }, [urlSearch]);
 
   useEffect(() => {
-    if (catalogPageRef.current !== urlPage) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      catalogPageRef.current = urlPage;
-    }
-  }, [urlPage]);
+    if (catalogPageRef.current === urlPage) return;
+    catalogPageRef.current = urlPage;
+    if (isMobileCatalogSidebar) return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [urlPage, isMobileCatalogSidebar]);
+
+  const scrollToCatalogTitle = useCallback((behavior: ScrollBehavior): void => {
+    const titleEl = document.getElementById(CATALOG_TITLE_ANCHOR_ID);
+    if (!titleEl) return;
+    const top = Math.max(
+      0,
+      titleEl.getBoundingClientRect().top + window.scrollY - 50,
+    );
+    window.scrollTo({ top, behavior });
+  }, []);
+
+  const handlePageChange = useCallback(
+    (page: number): void => {
+      if (isMobileCatalogSidebar) {
+        scrollToCatalogTitle("auto");
+      }
+      setSearchParams((prev) => mergeCatalogPageIntoParams(prev, page));
+    },
+    [isMobileCatalogSidebar, scrollToCatalogTitle, setSearchParams],
+  );
 
   const toggleCollapse = (colId: string) => {
     setExpandedCollections((prev) => {
@@ -573,7 +595,7 @@ const CatalogPage: React.FC = () => {
       <main className={styles.main}>
         <div className={styles.mainTop}>
           <div className={styles.headerRow}>
-            <div className={styles.titleBlock}>
+            <div id={CATALOG_TITLE_ANCHOR_ID} className={styles.titleBlock}>
               <Title level={1} className={styles.title}>
                 {t(titleKey)}
               </Title>
@@ -649,7 +671,7 @@ const CatalogPage: React.FC = () => {
                   total={total}
                   pageSize={CATALOG_PAGE_SIZE}
                   showSizeChanger={false}
-                  onChange={(p) => setSearchParams((prev) => mergeCatalogPageIntoParams(prev, p))}
+                  onChange={handlePageChange}
                 />
               </div>
             )}
