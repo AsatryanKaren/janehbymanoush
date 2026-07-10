@@ -36,10 +36,6 @@ export const FOOTER_ADDRESSES: FooterAddressItem[] = [
     mapsQuery: "Rio Mall, Papazyan 8, 2nd floor, Yerevan, Armenia",
   },
   {
-    i18nKey: "footer.addresses.nubar",
-    mapsQuery: "Nubar restaurant, Vardanants 18/2, Yerevan, Armenia",
-  },
-  {
     i18nKey: "footer.addresses.serevn",
     mapsQuery: "SER.EVN, Moskovyan 31, Yerevan, Armenia",
   },
