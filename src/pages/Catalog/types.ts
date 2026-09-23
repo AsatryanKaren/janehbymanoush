@@ -3,7 +3,16 @@ export type ActiveFilterKind =
   | "search"
   | "price"
   | "collection"
-  | "category";
+  | "category"
+  | "productType";
+
+export type CatalogProductTypeOption = {
+  key: string;
+  title?: string | null;
+  titleHy?: string | null;
+  titleEn?: string | null;
+  titleRu?: string | null;
+};
 
 export type ActiveFilterTag = {
   key: string;

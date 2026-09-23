@@ -43,6 +43,13 @@ export const CATALOG_FILTER_COLLECTION_PREFIX = "col-" as const;
 /** Stored in `filterValue` state and matched against category id. */
 export const CATALOG_FILTER_CATEGORY_PREFIX = "cat-" as const;
 
+/** URL query key for jewelry type (Ring, Necklace, …) across collections */
+export const CATALOG_PRODUCT_TYPE_URL_PARAM = "type";
+
+export const parseCatalogProductTypeFromSearchParams = (
+  params: URLSearchParams,
+): string => params.get(CATALOG_PRODUCT_TYPE_URL_PARAM)?.trim() ?? "";
+
 export const CATALOG_PRICE_MIN = 0;
 export const CATALOG_PRICE_MAX = 500_000;
 
@@ -50,10 +57,7 @@ export const CATALOG_PRICE_MAX = 500_000;
 export const CATALOG_PRICE_MIN_URL_PARAM = "minPrice";
 export const CATALOG_PRICE_MAX_URL_PARAM = "maxPrice";
 
-const parseCatalogPriceBound = (
-  raw: string | null,
-  fallback: number,
-): number => {
+const parseCatalogPriceBound = (raw: string | null, fallback: number): number => {
   if (raw == null || raw === "") return fallback;
   const n = Number.parseInt(raw, 10);
   if (!Number.isFinite(n)) return fallback;
@@ -83,10 +87,7 @@ export const isCatalogDefaultPriceRange = (range: [number, number]): boolean =>
 
 export type SortValue = "price_asc" | "price_desc" | "date_desc" | "date_asc";
 
-export const SORT_PARAMS: Record<
-  SortValue,
-  { SortBy: string; SortOrder: string }
-> = {
+export const SORT_PARAMS: Record<SortValue, { SortBy: string; SortOrder: string }> = {
   price_asc: { SortBy: "Price", SortOrder: "Asc" },
   price_desc: { SortBy: "Price", SortOrder: "Desc" },
   date_desc: { SortBy: "CreatedAt", SortOrder: "Desc" },

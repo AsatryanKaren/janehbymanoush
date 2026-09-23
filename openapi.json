@@ -1391,6 +1391,14 @@
             }
           },
           {
+            "name": "ProductType",
+            "in": "query",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "Search",
             "in": "query",
             "style": "form",
