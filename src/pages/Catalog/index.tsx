@@ -138,6 +138,7 @@ const CatalogPage: React.FC = () => {
       window.matchMedia(`(max-width: ${MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX}px)`).matches,
   );
   const [mobileCollectionsExpanded, setMobileCollectionsExpanded] = useState(false);
+  const [mobileProductTypesExpanded, setMobileProductTypesExpanded] = useState(false);
   const catalogPageRef = useRef(urlPage);
   const [searchInput, setSearchInput] = useState(urlSearch);
   const [appliedSearch, setAppliedSearch] = useState(urlSearch);
@@ -215,7 +216,10 @@ const CatalogPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!isMobileCatalogSidebar) setMobileCollectionsExpanded(false);
+    if (!isMobileCatalogSidebar) {
+      setMobileCollectionsExpanded(false);
+      setMobileProductTypesExpanded(false);
+    }
   }, [isMobileCatalogSidebar]);
 
   const collectionsForSidebar = useMemo(() => {
@@ -244,8 +248,22 @@ const CatalogPage: React.FC = () => {
     [productTypes, urlProductType],
   );
 
+  const productTypesForSidebar = useMemo(() => {
+    if (
+      !isMobileCatalogSidebar ||
+      mobileProductTypesExpanded ||
+      productTypes.length <= MOBILE_CATALOG_COLLECTIONS_INITIAL
+    ) {
+      return productTypes;
+    }
+    return productTypes.slice(0, MOBILE_CATALOG_COLLECTIONS_INITIAL);
+  }, [productTypes, isMobileCatalogSidebar, mobileProductTypesExpanded]);
+
   const showMobileCollectionsToggle =
     isMobileCatalogSidebar && collections.length > MOBILE_CATALOG_COLLECTIONS_INITIAL;
+
+  const showMobileProductTypesToggle =
+    isMobileCatalogSidebar && productTypes.length > MOBILE_CATALOG_COLLECTIONS_INITIAL;
 
   /** Collapse "show more" on mobile when page, section, query filters, or sort change. */
   const mobileCatalogListSignature = useMemo(
@@ -255,6 +273,7 @@ const CatalogPage: React.FC = () => {
 
   useEffect(() => {
     setMobileCollectionsExpanded(false);
+    setMobileProductTypesExpanded(false);
   }, [mobileCatalogListSignature]);
 
   useEffect(() => {
@@ -555,7 +574,7 @@ const CatalogPage: React.FC = () => {
                   {t("catalog.sections.jewelry")}
                 </span>
                 <ul className={styles.categoryList}>
-                  {productTypes.map((item) => {
+                  {productTypesForSidebar.map((item) => {
                     const queryValue = catalogProductTypeQueryValue(item);
                     const isTypeActive = selectedProductTypeOption?.key === item.key;
                     return (
@@ -583,6 +602,17 @@ const CatalogPage: React.FC = () => {
                     );
                   })}
                 </ul>
+                {showMobileProductTypesToggle && (
+                  <Button
+                    type="link"
+                    className={styles.collectionsMoreToggle}
+                    onClick={() => setMobileProductTypesExpanded((v) => !v)}
+                  >
+                    {mobileProductTypesExpanded
+                      ? t("catalog.showLess")
+                      : t("catalog.showMore")}
+                  </Button>
+                )}
               </div>
             )}
             <div className={`${styles.sidebarSection} ${styles.collectionsSection}`}>
