@@ -56,16 +56,10 @@ export const GENDER_I18N_KEYS: Record<Gender, string> = {
 };
 
 export function isGender(value: unknown): value is Gender {
-  if (
-    value === Gender.Women ||
-    value === Gender.Men ||
-    value === Gender.Unisex
-  )
+  if (value === Gender.Women || value === Gender.Men || value === Gender.Unisex)
     return true;
   const n = Number(value);
-  return (
-    n === Gender.Women || n === Gender.Men || n === Gender.Unisex
-  );
+  return n === Gender.Women || n === Gender.Men || n === Gender.Unisex;
 }
 
 /** Admin list: ProductCardAdmin */
@@ -235,6 +229,7 @@ export type ProductListParams = {
   Gender?: string;
   Category?: string;
   CategoryId?: string;
+  ProductType?: string;
   CollectionId?: string;
   New?: string;
   SortBy?: string;

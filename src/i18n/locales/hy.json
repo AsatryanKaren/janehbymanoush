@@ -112,7 +112,8 @@
       "clearAll": "Մաքրել բոլորը",
       "price": "{{min}} – {{max}}",
       "collectionFallback": "Հավաքածու",
-      "categoryFallback": "Բաժին"
+      "categoryFallback": "Բաժին",
+      "typeFallback": "Տեսակ"
     }
   },
   "product": {

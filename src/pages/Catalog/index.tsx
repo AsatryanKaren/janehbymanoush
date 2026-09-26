@@ -22,12 +22,14 @@ import {
   CATALOG_PRICE_MAX_URL_PARAM,
   CATALOG_PRICE_MIN_URL_PARAM,
   CATALOG_SEARCH_URL_PARAM,
+  CATALOG_PRODUCT_TYPE_URL_PARAM,
   isCatalogDefaultPriceRange,
   TITLE_KEY_MAP,
   SORT_PARAMS,
   parseCatalogPageFromSearchParams,
   parseCatalogPriceRangeFromSearchParams,
   parseCatalogSearchFromSearchParams,
+  parseCatalogProductTypeFromSearchParams,
   MOBILE_CATALOG_COLLECTIONS_INITIAL,
   MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX,
   type SortValue,
@@ -36,10 +38,13 @@ import type { ActiveFilterKind, ActiveFilterTag } from "./types";
 import {
   catalogCategoryFilterValue,
   catalogCollectionFilterValue,
+  catalogProductTypeQueryValue,
+  findCatalogProductType,
   findCategoryInCollections,
   getCatalogSelectionIds,
   getCategoryTitle,
   getCollectionTitle,
+  getUniqueCatalogProductTypes,
 } from "./utils";
 import styles from "./styles.module.css";
 
@@ -85,6 +90,18 @@ const mergeCatalogPageAndPriceIntoParams = (
   return next;
 };
 
+/** Reset to page 1 and set or clear jewelry type (`type`) in the URL. */
+const mergeCatalogPageAndProductTypeIntoParams = (
+  prev: URLSearchParams,
+  productType: string,
+): URLSearchParams => {
+  const next = mergeCatalogPageIntoParams(prev, 1);
+  const trimmed = productType.trim();
+  if (trimmed) next.set(CATALOG_PRODUCT_TYPE_URL_PARAM, trimmed);
+  else next.delete(CATALOG_PRODUCT_TYPE_URL_PARAM);
+  return next;
+};
+
 const CatalogPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
@@ -102,6 +119,10 @@ const CatalogPage: React.FC = () => {
     () => parseCatalogPriceRangeFromSearchParams(searchParams),
     [searchParams],
   );
+  const urlProductType = useMemo(
+    () => parseCatalogProductTypeFromSearchParams(searchParams),
+    [searchParams],
+  );
   const [products, setProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -117,6 +138,7 @@ const CatalogPage: React.FC = () => {
       window.matchMedia(`(max-width: ${MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX}px)`).matches,
   );
   const [mobileCollectionsExpanded, setMobileCollectionsExpanded] = useState(false);
+  const [mobileProductTypesExpanded, setMobileProductTypesExpanded] = useState(false);
   const catalogPageRef = useRef(urlPage);
   const [searchInput, setSearchInput] = useState(urlSearch);
   const [appliedSearch, setAppliedSearch] = useState(urlSearch);
@@ -136,10 +158,7 @@ const CatalogPage: React.FC = () => {
   const scrollToCatalogTitle = useCallback((behavior: ScrollBehavior): void => {
     const titleEl = document.getElementById(CATALOG_TITLE_ANCHOR_ID);
     if (!titleEl) return;
-    const top = Math.max(
-      0,
-      titleEl.getBoundingClientRect().top + window.scrollY - 50,
-    );
+    const top = Math.max(0, titleEl.getBoundingClientRect().top + window.scrollY - 50);
     window.scrollTo({ top, behavior });
   }, []);
 
@@ -167,7 +186,8 @@ const CatalogPage: React.FC = () => {
 
   const [sort, setSort] = useState<SortValue>("price_asc");
   const [priceRange, setPriceRange] = useState<[number, number]>(urlPriceRange);
-  const [appliedPriceRange, setAppliedPriceRange] = useState<[number, number]>(urlPriceRange);
+  const [appliedPriceRange, setAppliedPriceRange] =
+    useState<[number, number]>(urlPriceRange);
 
   useEffect(() => {
     setPriceRange(urlPriceRange);
@@ -186,9 +206,7 @@ const CatalogPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const mq = window.matchMedia(
-      `(max-width: ${MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX}px)`,
-    );
+    const mq = window.matchMedia(`(max-width: ${MOBILE_CATALOG_SIDEBAR_MAX_WIDTH_PX}px)`);
     const sync = (): void => {
       setIsMobileCatalogSidebar(mq.matches);
     };
@@ -198,7 +216,10 @@ const CatalogPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!isMobileCatalogSidebar) setMobileCollectionsExpanded(false);
+    if (!isMobileCatalogSidebar) {
+      setMobileCollectionsExpanded(false);
+      setMobileProductTypesExpanded(false);
+    }
   }, [isMobileCatalogSidebar]);
 
   const collectionsForSidebar = useMemo(() => {
@@ -210,14 +231,39 @@ const CatalogPage: React.FC = () => {
       return collections;
     }
     return collections.slice(0, MOBILE_CATALOG_COLLECTIONS_INITIAL);
-  }, [
-    collections,
-    isMobileCatalogSidebar,
-    mobileCollectionsExpanded,
-  ]);
+  }, [collections, isMobileCatalogSidebar, mobileCollectionsExpanded]);
+
+  const productTypes = useMemo(() => {
+    const types = getUniqueCatalogProductTypes(collections);
+    return [...types].sort((a, b) =>
+      getCategoryTitle(a, i18n.language).localeCompare(
+        getCategoryTitle(b, i18n.language),
+        i18n.language,
+      ),
+    );
+  }, [collections, i18n.language]);
+
+  const selectedProductTypeOption = useMemo(
+    () => findCatalogProductType(productTypes, urlProductType),
+    [productTypes, urlProductType],
+  );
+
+  const productTypesForSidebar = useMemo(() => {
+    if (
+      !isMobileCatalogSidebar ||
+      mobileProductTypesExpanded ||
+      productTypes.length <= MOBILE_CATALOG_COLLECTIONS_INITIAL
+    ) {
+      return productTypes;
+    }
+    return productTypes.slice(0, MOBILE_CATALOG_COLLECTIONS_INITIAL);
+  }, [productTypes, isMobileCatalogSidebar, mobileProductTypesExpanded]);
 
   const showMobileCollectionsToggle =
     isMobileCatalogSidebar && collections.length > MOBILE_CATALOG_COLLECTIONS_INITIAL;
+
+  const showMobileProductTypesToggle =
+    isMobileCatalogSidebar && productTypes.length > MOBILE_CATALOG_COLLECTIONS_INITIAL;
 
   /** Collapse "show more" on mobile when page, section, query filters, or sort change. */
   const mobileCatalogListSignature = useMemo(
@@ -227,6 +273,7 @@ const CatalogPage: React.FC = () => {
 
   useEffect(() => {
     setMobileCollectionsExpanded(false);
+    setMobileProductTypesExpanded(false);
   }, [mobileCatalogListSignature]);
 
   useEffect(() => {
@@ -248,6 +295,7 @@ const CatalogPage: React.FC = () => {
     if (pathCategory) params.Gender = pathCategory;
     if (selectedCategoryId) params.CategoryId = selectedCategoryId;
     if (selectedCollectionId) params.CollectionId = selectedCollectionId;
+    if (urlProductType) params.ProductType = urlProductType;
     if (pathIsNew) params.New = "true";
     if (appliedSearch.trim()) params.Search = appliedSearch.trim();
     params.MinPrice = String(appliedPriceRange[0]);
@@ -267,10 +315,9 @@ const CatalogPage: React.FC = () => {
         const maxPage = Math.max(1, Math.ceil(resolvedTotal / CATALOG_PAGE_SIZE));
         const clampedPage = Math.min(Math.max(1, resolvedPage), maxPage);
         if (clampedPage !== urlPage) {
-          setSearchParams(
-            (prev) => mergeCatalogPageIntoParams(prev, clampedPage),
-            { replace: true },
-          );
+          setSearchParams((prev) => mergeCatalogPageIntoParams(prev, clampedPage), {
+            replace: true,
+          });
         }
       })
       .catch(() => {
@@ -284,6 +331,7 @@ const CatalogPage: React.FC = () => {
     filterValue,
     sort,
     urlPage,
+    urlProductType,
     appliedPriceRange,
     appliedSearch,
     setSearchParams,
@@ -299,7 +347,8 @@ const CatalogPage: React.FC = () => {
       else if (location.pathname === ROUTES.WOMEN) sectionLabel = t("nav.woman");
       else if (location.pathname === ROUTES.MEN) sectionLabel = t("nav.man");
       else if (location.pathname === ROUTES.UNISEX) sectionLabel = t("nav.unisex");
-      if (sectionLabel) tags.push({ key: "section", kind: "section", label: sectionLabel });
+      if (sectionLabel)
+        tags.push({ key: "section", kind: "section", label: sectionLabel });
     }
     if (selectedCollectionId) {
       const col = collections.find((c) => c.id === selectedCollectionId);
@@ -318,6 +367,15 @@ const CatalogPage: React.FC = () => {
         label: cat
           ? getCategoryTitle(cat, i18n.language)
           : t("catalog.activeFilters.categoryFallback"),
+      });
+    }
+    if (urlProductType) {
+      tags.push({
+        key: `type-${urlProductType.toLowerCase()}`,
+        kind: "productType",
+        label: selectedProductTypeOption
+          ? getCategoryTitle(selectedProductTypeOption, i18n.language)
+          : urlProductType || t("catalog.activeFilters.typeFallback"),
       });
     }
     const q = appliedSearch.trim();
@@ -342,7 +400,9 @@ const CatalogPage: React.FC = () => {
     pathIsNew,
     selectedCategoryId,
     selectedCollectionId,
+    selectedProductTypeOption,
     t,
+    urlProductType,
   ]);
 
   const removeActiveFilter = useCallback(
@@ -354,10 +414,9 @@ const CatalogPage: React.FC = () => {
       if (kind === "search") {
         setAppliedSearch("");
         setSearchInput("");
-        setSearchParams(
-          (prev) => mergeCatalogPageAndSearchIntoParams(prev, ""),
-          { replace: true },
-        );
+        setSearchParams((prev) => mergeCatalogPageAndSearchIntoParams(prev, ""), {
+          replace: true,
+        });
         return;
       }
       if (kind === "price") {
@@ -371,6 +430,12 @@ const CatalogPage: React.FC = () => {
             ]),
           { replace: true },
         );
+        return;
+      }
+      if (kind === "productType") {
+        setSearchParams((prev) => mergeCatalogPageAndProductTypeIntoParams(prev, ""), {
+          replace: true,
+        });
         return;
       }
       setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), { replace: true });
@@ -503,6 +568,53 @@ const CatalogPage: React.FC = () => {
             </div>
           </div>
           <div className={styles.collectionsScroll}>
+            {productTypes.length > 0 && (
+              <div className={`${styles.sidebarSection} ${styles.categoriesSection}`}>
+                <span className={styles.sectionTitle}>
+                  {t("catalog.sections.jewelry")}
+                </span>
+                <ul className={styles.categoryList}>
+                  {productTypesForSidebar.map((item) => {
+                    const queryValue = catalogProductTypeQueryValue(item);
+                    const isTypeActive = selectedProductTypeOption?.key === item.key;
+                    return (
+                      <li key={item.key} className={styles.categoryItem}>
+                        <a
+                          href="#"
+                          className={
+                            isTypeActive ? styles.categoryLinkActive : styles.categoryLink
+                          }
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setSearchParams(
+                              (prev) =>
+                                mergeCatalogPageAndProductTypeIntoParams(
+                                  prev,
+                                  isTypeActive ? "" : queryValue,
+                                ),
+                              { replace: true },
+                            );
+                          }}
+                        >
+                          {getCategoryTitle(item, i18n.language)}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+                {showMobileProductTypesToggle && (
+                  <Button
+                    type="link"
+                    className={styles.collectionsMoreToggle}
+                    onClick={() => setMobileProductTypesExpanded((v) => !v)}
+                  >
+                    {mobileProductTypesExpanded
+                      ? t("catalog.showLess")
+                      : t("catalog.showMore")}
+                  </Button>
+                )}
+              </div>
+            )}
             <div className={`${styles.sidebarSection} ${styles.collectionsSection}`}>
               <span className={styles.sectionTitle}>
                 {t("catalog.sections.collections")}
@@ -532,9 +644,12 @@ const CatalogPage: React.FC = () => {
                             e.preventDefault();
                             setFilterValue(isColActive ? undefined : colFilterValue);
                             if (!isOpen && hasChildren) toggleCollapse(col.id);
-                            setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
-                              replace: true,
-                            });
+                            setSearchParams(
+                              (prev) => mergeCatalogPageIntoParams(prev, 1),
+                              {
+                                replace: true,
+                              },
+                            );
                           }}
                         >
                           {getCollectionTitle(col, i18n.language)}
@@ -560,9 +675,12 @@ const CatalogPage: React.FC = () => {
                                         ? undefined
                                         : catFilterValue,
                                     );
-                                    setSearchParams((prev) => mergeCatalogPageIntoParams(prev, 1), {
-                                      replace: true,
-                                    });
+                                    setSearchParams(
+                                      (prev) => mergeCatalogPageIntoParams(prev, 1),
+                                      {
+                                        replace: true,
+                                      },
+                                    );
                                   }}
                                 >
                                   {getCategoryTitle(cat, i18n.language)}

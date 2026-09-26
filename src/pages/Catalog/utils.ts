@@ -1,13 +1,54 @@
 import type { AdminCollectionItem, CategoryItemWithValue } from "src/types/collection";
+import type { CatalogProductTypeOption } from "./types";
 import {
   CATALOG_FILTER_CATEGORY_PREFIX,
   CATALOG_FILTER_COLLECTION_PREFIX,
 } from "./consts";
 
-export const getCategoryTitle = (item: CategoryItemWithValue, lang: string): string => {
+type CatalogTitleFields = Pick<
+  CategoryItemWithValue,
+  "title" | "titleHy" | "titleEn" | "titleRu"
+>;
+
+export const getCategoryTitle = (item: CatalogTitleFields, lang: string): string => {
   if (lang === "hy" && item.titleHy) return item.titleHy;
   if (lang === "ru" && item.titleRu) return item.titleRu;
-  return item.titleEn ?? item.titleHy ?? item.titleRu ?? "";
+  return item.titleEn ?? item.titleHy ?? item.titleRu ?? item.title ?? "";
+};
+
+export const catalogProductTypeKey = (item: CatalogTitleFields): string =>
+  (item.titleEn ?? item.titleHy ?? item.titleRu ?? item.title ?? "").trim().toLowerCase();
+
+export const catalogProductTypeQueryValue = (item: CatalogTitleFields): string =>
+  (item.titleEn ?? item.titleHy ?? item.titleRu ?? item.title ?? "").trim();
+
+export const getUniqueCatalogProductTypes = (
+  cols: AdminCollectionItem[],
+): CatalogProductTypeOption[] => {
+  const byKey = new Map<string, CatalogProductTypeOption>();
+  for (const col of cols) {
+    for (const cat of col.categories ?? []) {
+      const key = catalogProductTypeKey(cat);
+      if (!key || byKey.has(key)) continue;
+      byKey.set(key, {
+        key,
+        title: cat.title,
+        titleHy: cat.titleHy,
+        titleEn: cat.titleEn,
+        titleRu: cat.titleRu,
+      });
+    }
+  }
+  return Array.from(byKey.values());
+};
+
+export const findCatalogProductType = (
+  types: CatalogProductTypeOption[],
+  selected: string,
+): CatalogProductTypeOption | undefined => {
+  const key = selected.trim().toLowerCase();
+  if (!key) return undefined;
+  return types.find((item) => item.key === key);
 };
 
 export const getCollectionTitle = (item: AdminCollectionItem, lang: string): string => {

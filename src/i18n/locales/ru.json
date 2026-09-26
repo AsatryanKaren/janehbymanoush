@@ -112,7 +112,8 @@
       "clearAll": "Сбросить всё",
       "price": "{{min}} – {{max}}",
       "collectionFallback": "Коллекция",
-      "categoryFallback": "Категория"
+      "categoryFallback": "Категория",
+      "typeFallback": "Тип"
     }
   },
   "product": {

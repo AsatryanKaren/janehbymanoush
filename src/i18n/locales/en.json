@@ -112,7 +112,8 @@
       "clearAll": "Clear all",
       "price": "{{min}} – {{max}}",
       "collectionFallback": "Collection",
-      "categoryFallback": "Category"
+      "categoryFallback": "Category",
+      "typeFallback": "Type"
     }
   },
   "product": {
