@@ -31,6 +31,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
   const [ringSizeIsCustom, setRingSizeIsCustom] = useState(false);
 
   const isAvailable = product.isActive !== false;
+  const isInStock = product.inStock !== false;
   const collectionLabel = getProductCollectionName(product, i18n.language);
   const gender =
     product.gender !== undefined && product.gender !== null
@@ -68,10 +69,10 @@ const ProductInfo: React.FC<ProductInfoProps> = ({
         )}
         <Tag
           className={
-            isAvailable ? styles.availabilityTag : styles.availabilityTagOutOfStock
+            isInStock ? styles.availabilityTag : styles.availabilityTagOutOfStock
           }
         >
-          {isAvailable ? t("product.available") : t("product.outOfStock")}
+          {isInStock ? t("product.available") : t("product.outOfStock")}
         </Tag>
       </div>
       {description !== "" && (
